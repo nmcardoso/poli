@@ -1,0 +1,40 @@
+P
+Bruno
+234114312
+Brasil
+P
+casdca
+ascdasd
+sdc
+P
+Natanael
+adcad
+adscasd
+P
+Alan Kay
+17/05/1940
+Estados Unidos da America
+P
+Bjarne Stroustrup
+30/12/1950
+Dinamarca
+P
+Timothy Budd
+01/01/1955
+Estados Unidos da America
+P
+Donald Knuth
+10/01/1938
+Estados Unidos da America
+D
+PCS
+http://www.pcs.usp.br
+#
+3 2 3 4 
+0 
+3 2 7 1 
+1 5 
+2 6 8 
+1 7 
+3 5 6 8 
+2 5 7 6 
