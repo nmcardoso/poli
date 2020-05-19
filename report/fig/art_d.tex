@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{c}{2.5}{0};
+    \point{d}{0}{2.5};
+
+    \beam{2}{c}{d};
+
+    \support{1}{c};
+
+    \hinge{1}{d};
+
+    \dnotation{1}{c}{C}[above right];
+    \dnotation{1}{d}{D}[above right];
+
+    \draw[->,thick] (d) -- (-1,3.5);
+    \draw[->,thick] (d) -- (-1,1.5);
+    \load{2}{d}[135][90][.8]
+
+    \dnotation{1}{d}{$M_D$}[left=9mm];
+  \end{scope}
+\end{tikzpicture}
