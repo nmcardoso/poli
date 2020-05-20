@@ -1,0 +1,77 @@
+\documentclass[11pt]{report}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{stanli}
+\usepackage{siunitx}
+\usepackage{mathtools}
+\usepackage{quotes}
+\usepackage{amsmath}
+\usepackage{empheq}
+% \usetikzlibrary{angles,quotes}
+
+\begin{document}
+
+\textbf{Dúvida sobre o projeto}
+
+\hspace{10cm}
+
+\begin{minipage}{.45\textwidth}
+  \includegraphics[width=\textwidth]{fig/rb-suspension.png}
+\end{minipage}%
+\begin{minipage}{.45\textwidth}
+  \includegraphics[width=\textwidth]{fig/rb.jpg}
+\end{minipage}
+
+\hspace{4cm}
+
+O meu trabalho é sobre o sistema de suspensão rocker-bogie. Eu fiz este diagrama abaixo, mas tem algo errado com as equações.
+
+\hspace{4cm}
+
+\begin{figure}[h!]
+  \input{fig/diagrama1.tex}
+\end{figure}
+
+\begin{align*}
+  \sum F_H = 0 \;&\Rightarrow\; H_A + H_B + H_C = 0\\
+  \sum F_V = 0 \;&\Rightarrow\; V_A + V_B + V_C - P = 0\\
+  \sum M^{(A)} = 0 \;&\Rightarrow\; \frac{L}{2}V_A + LV_C - \frac{LP}{2} = 0\\
+  \sum M^{(B)} = 0 \;&\Rightarrow\; \frac{-L}{2}V_A + \frac{L}{2}V_C = 0\\
+  \sum M^{(C)} = 0 \;&\Rightarrow\; -LV_A - \frac{-L}{2}V_B + \frac{LP}{2} = 0\\
+\end{align*}
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.5\textwidth}
+    \input{fig/art_a.tex}
+    \hfill
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \hfill
+    \input{fig/art_d.tex}
+  \end{minipage}
+\end{figure}
+
+Considerando os pontos D e E como articulações, eu consigo essas novas equações (que eu acho que estão erradas).
+
+\begin{align*}
+  \sum M^{(D)} = 0 \;&\Rightarrow\; \frac{L}{4}V_C + \frac{y}{2}H_C + \underbrace{M_D}_{0} = 0\\
+  \sum M^{(E)} = 0 \;&\Rightarrow\; \frac{-L}{2}V_A + yH_A + \underbrace{M_E}_{0} = 0
+\end{align*}
+
+O sistema formado por essas seis equações não gera o número de equações LI suficientes para 
+determinar os valores das 6 incógnitas, por isso acredito que as equações que escrevi estão erradas.
+Gostaria de saber o que estou fazendo errado ou se existe uma forma melhor de fazer isso. 
+Não sei se é melhor aplicar o método do equilíbrio dos nós.
+
+\begin{empheq}[left=\empheqlbrace]{align}
+  &\sum F_H = 0 \;\;\Rightarrow\;\; H_A + H_B + H_C = 0\\
+  &\sum F_V = 0 \;\;\Rightarrow\;\; V_A + V_B + V_C - P = 0\\
+  &\sum M^{(A)} = 0 \;\;\Rightarrow\;\; \frac{L}{2}V_A + LV_C - \frac{L}{2}P = 0\\
+  &\sum M^{(B)} = 0 \;\;\Rightarrow\;\; -\frac{L}{2}V_A + \frac{L}{2}V_C = 0\\
+  &\sum M^{(C)} = 0 \;\;\Rightarrow\;\; -LV_A - \frac{L}{2}V_B + \frac{L}{2}P = 0
+\end{empheq}
+
+\end{document}
