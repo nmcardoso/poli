@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{6.5}{-1.5};
+    \point{c}{11.5}{-1.5};
+    \point{d1}{7.5}{2.5};
+    \point{d2}{9}{1};
+    \point{e}{5}{5};
+
+    \beam{2}{a}{e};
+    \beam{2}{d1}{e};
+    \beam{2}{b}{d2};
+    \beam{2}{c}{d2};
+
+    \support{2}{a};
+    \support{2}{b};
+    \support{1}{c};
+    \support{1}{d1};
+
+    \dimensioning{1}{a}{e}{-4}[L/2];
+    \dimensioning{1}{b}{d2}{-4}[L/4];
+    \dimensioning{1}{d2}{c}{-4}[L/4];
+    \dimensioning{2}{d1}{e}{13}[h/2];
+    \dimensioning{2}{c}{d2}{13}[h/2];
+
+    \load{1}{e}[90];
+
+    \dnotation{1}{e}{P}[yshift=9mm,right=1mm];
+    \dnotation{1}{a}{A}[above left];
+    \dnotation{1}{b}{B}[above left];
+    \dnotation{1}{c}{C}[above right];
+    \dnotation{1}{d1}{D}[above right];
+    \dnotation{1}{d2}{D}[below=2mm];
+    \dnotation{1}{e}{E}[below=2mm];
+
+    \draw[-{latex[scale=3.0]},very thick] (7.5,0.75) -- (7.5,1.65) node[yshift=-3mm,left=8mm] {H\textsubscript{D}};
+    \draw[-{latex[scale=3.0]},very thick] (6.3,1.55) -- (7.3,1.55) node[yshift=-8mm,left=-3mm] {V\textsubscript{D}};
+    \load{1}{d2}[90];
+    \dnotation{1}{d2}{H\textsubscript{D}}[yshift=2mm,right=8mm];
+    \load{1}{d2}[360];
+    \dnotation{1}{d2}{V\textsubscript{D}}[yshift=11mm,right=-1mm];
+  \end{scope}
+\end{tikzpicture}
