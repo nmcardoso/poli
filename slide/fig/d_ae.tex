@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{6.5}{-1.5};
+    \point{c}{11.5}{-1.5};
+    \point{d1}{7.5}{2.5};
+    \point{d2}{9}{1};
+    \point{e}{5}{5};
+
+    \dnotation{1}{a}{A}[above left];
+    \dnotation{1}{e}{E}[below=2mm];
+
+    \load{1}{a}[270];
+    \dnotation{1}{a}{V\textsubscript{A}}[left=-1mm,yshift=-10mm];
+
+    \draw[-{latex[scale=3.0]},thick] (.8,0) arc (0:45:.8) node[] at (20:1.1) {$\alpha$};
+    \draw[dashed] (0,0) -- (2,0);
+
+    \point{x}{3}{3};
+    \beam{2}{a}{x};
+    \beam{3}{x}{e};
+    \hinge{3}{x}[45];
+  \end{scope}
+
+  \begin{scope}[rotate=45,shift=({1.1,.3})]
+    \draw[->,thick] (0,0) -- (0,1) node[left,rotate=45] {$y_1$};
+    \draw[->,thick] (0,0) -- (1,0) node[right,rotate=45] {$x_1$};
+  \end{scope}
+
+  \begin{scope}[shift=({3.1,3.1}),rotate=-45]
+    \draw[->,very thick] (0,0) -- (0,1) node[above left] {$N_x$};
+    \draw[->,very thick] (0,0) -- (1,0) node[below right] {$V_x$};
+    \path[->,very thick] (1.1,.2)  edge  [bend right=40]  node[right] {$M_x$} (.2,1.1);
+  \end{scope}
+
+\end{tikzpicture}
