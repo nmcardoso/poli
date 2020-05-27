@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{6.5}{-1.5};
+    \point{c}{11.5}{-1.5};
+    \point{d1}{7.5}{2.5};
+    \point{d2}{9}{1};
+    \point{e}{5}{5};
+
+    \beam{2}{d1}{e};
+
+    \support{1}{d1};
+
+    \dnotation{1}{d1}{D}[above right];
+    \dnotation{1}{e}{E}[below=2mm];
+
+    \draw[-{latex[scale=3.0]},very thick] (7.5,0.75) -- (7.5,1.65) node[yshift=-3mm,left=8mm] {H\textsubscript{D}};
+    \draw[-{latex[scale=3.0]},very thick] (6.3,1.55) -- (7.3,1.55) node[yshift=-8mm,left=-3mm] {V\textsubscript{D}};
+
+    \draw[-{latex[scale=3.0]},thick] (6.7,2.5) arc (180:135:.8) node[shift=({7.5,2.5})] at (160:1.1) {$\beta$};
+    \draw[dashed] (7.5,2.5) -- (5.5,2.5);
+
+    \point{x}{6.25}{3.75};
+    \hinge{4}{x}[135];
+  \end{scope}
+
+  \begin{scope}[shift=({7.2,3.5})]
+    \draw[->,thick,rotate=45] (0,0) -- (0,1) node[left] {$x_1$};
+    \draw[->,thick,rotate=45] (0,0) -- (1,0) node[right] {$y_1$};
+  \end{scope}
+\end{tikzpicture}
