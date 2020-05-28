@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{5}{0};
+    \point{c}{10}{0};
+    \point{d}{7.5}{2.5};
+    \point{e}{5}{5};
+
+    \beam{2}{a}{e};
+    \beam{2}{e}{c};
+    \beam{2}{d}{b};
+
+    \support{2}{a};
+    \support{2}{b};
+    \support{1}{c};
+
+    \dimensioning{1}{a}{b}{-2}[L/2];
+    \dimensioning{1}{b}{d}{-2}[L/4];
+    \dimensioning{1}{d}{c}{-2}[L/4];
+    \dimensioning{2}{d}{e}{11.5}[h/2];
+    \dimensioning{2}{c}{d}{11.5}[h/2];
+
+    \load{1}{e}[90];
+
+    \dnotation{1}{e}{P}[yshift=9mm,right=1mm];
+    \dnotation{1}{a}{A}[above left];
+    \dnotation{1}{b}{B}[above left];
+    \dnotation{1}{c}{C}[above right];
+    \dnotation{1}{d}{D}[above right];
+    \dnotation{1}{e}{E}[below=2mm];
+
+    \internalforces{a}{e}{1}{1};
+    \internalforces{d}{e}{1}{1};
+    \internalforces{b}{d}{1}{1};
+    \internalforces{c}{d}{1}{1};
+  \end{scope}
+\end{tikzpicture}
