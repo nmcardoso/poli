@@ -1,31 +1,33 @@
 \begin{tikzpicture}
+  \tikzstyle{arr}=[-{latex[scale=3.0]},very thick];
+
   \begin{scope}
-    \point{a}{0}{0};
-    \point{b}{6.5}{-1.5};
-    \point{c}{11.5}{-1.5};
-    \point{d1}{7.5}{2.5};
-    \point{d2}{9}{1};
-    \point{e}{5}{5};
+    \point{i}{10}{0};
+    \point{f}{5}{5};
+    \point{x}{7.5}{2.5};
 
-    \beam{2}{d1}{e};
+    \dnotation{1}{i}{D}[below right];
+    \dnotation{1}{f}{E}[left];
 
-    \support{1}{d1};
+    \draw[arr] ($(i) - (0,1.2)$) -- ($(i) - (0,.2)$) node[yshift=-2mm,left=8mm] {$H_D$};
+    \draw[arr] ($(i) - (1.2,.2)$) -- ($(i) - (.2,.2)$) node[yshift=-10mm,left=-3mm] {$V_D$};
 
-    \dnotation{1}{d1}{D}[above right];
-    \dnotation{1}{e}{E}[below=2mm];
+    \draw[-{latex[scale=3.0]},thick] ($(i) - (.8,0)$) arc (180:135:.8) node[shift={($(i) + (-1.1,.4)$)}] at (160:1.1) {$\beta$}; %node[shift=({0,0})] at (160:1.1) {$\beta$};
+    \draw[dashed] (i) -- ($(i) - (1.5,0)$);
 
-    \draw[-{latex[scale=3.0]},very thick] (7.5,0.75) -- (7.5,1.65) node[yshift=-3mm,left=8mm] {H\textsubscript{D}};
-    \draw[-{latex[scale=3.0]},very thick] (6.3,1.55) -- (7.3,1.55) node[yshift=-8mm,left=-3mm] {V\textsubscript{D}};
-
-    \draw[-{latex[scale=3.0]},thick] (6.7,2.5) arc (180:135:.8) node[shift=({7.5,2.5})] at (160:1.1) {$\beta$};
-    \draw[dashed] (7.5,2.5) -- (5.5,2.5);
-
-    \point{x}{6.25}{3.75};
-    \hinge{4}{x}[135];
+    \hinge{3}{x}[135];
+    \beam{2}{i}{x};
+    \beam{3}{x}{f};
   \end{scope}
 
-  \begin{scope}[shift=({7.2,3.5})]
-    \draw[->,thick,rotate=45] (0,0) -- (0,1) node[left] {$x_1$};
-    \draw[->,thick,rotate=45] (0,0) -- (1,0) node[right] {$y_1$};
+  \begin{scope}[shift={($(i) + (-.7,1)$)}]
+    \draw[arr,rotate=45] (0,0) -- (0,1) node[right] {$x_1$};
+    \draw[arr,rotate=45] (0,0) -- (1,0) node[below right=-2mm] {$y_1$};
+  \end{scope}
+
+  \begin{scope}[shift={($(x) + (-.1,.1)$)},rotate=-45]
+    \draw[arr] (0,0) -- (0,1) node[right] {$V_x$};
+    \draw[arr] (0,0) -- (-1,0) node[below left] {$N_x$};
+    \path[arr] (-1.1,.2) edge [bend left=40] node[anchor=south] {$M_x$} (-0.2,1.1);
   \end{scope}
 \end{tikzpicture}
