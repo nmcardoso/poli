@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+  \def\vx{0}
+  \def\vy{1.3}
+  \def\ang{35}
+
+  \begin{scope}
+    \footnotesize
+    \draw[->,thick,black!90] (-2.3,0) -- (2.3,0) node[below] {$x'$};
+    \draw[->,thick,black!90] (0,-2.3) -- (0,2.3) node[left] {$y'$};
+    \draw[->,thick,rotate=-35,black!90] (-2.3,0) -- (2.3,0) node[below] {$x$};
+    \draw[->,thick,rotate=-35,black!90] (0,-2.3) -- (0,2.3) node[above] {$y$};
+
+    \draw[->,thick,blue!80,rotate=-35] (0,0) -- (0,1.5) coordinate(Va) node[right] {$V_A$};
+    \draw[-,dashed] (0,{1.5*cos(35)}) -- (Va);
+    \draw[->,thick,blue!80] (0,0) -- (0,{1.5*cos(35)}) node[above left] {$V_A\cos\alpha$};
+    \draw[-,dashed] ({1.5*sin(35)},0) -- (Va);
+    \draw[->,thick,blue!80] (0,0) -- ({1.5*sin(35)},0) node[below,xshift=4mm] {$V_A\sin\alpha$};
+
+    % \draw[->,thick] (.5,0) arc (0:-35:.5) node at (-17:.8) {$\alpha$};
+    \path[->,thick,black!90] (.287,.41) edge [bend right=25] node[above,xshift=1mm] {$\alpha$} (0,.5);
+  \end{scope}
+\end{tikzpicture}
