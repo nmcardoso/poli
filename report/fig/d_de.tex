@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+  \tikzstyle{arr}=[-{latex[scale=3.0]},very thick];
+  \tikzstyle{arr2}=[-{latex[scale=3.0]},thick];
+
+  \begin{scope}
+    \point{i}{10}{0};
+    \point{f}{5}{5};
+    \point{x}{7.5}{2.5};
+
+    \dnotation{1}{i}{D}[right];
+    \dnotation{1}{f}{E}[left];
+
+    \draw[arr] ($(i) - (0,1.2)$) -- ($(i) - (0,.2)$) node[yshift=-2mm,left=8mm] {$H_D$};
+    \draw[arr] ($(i) - (1.2,.2)$) -- ($(i) - (.2,.2)$) node[yshift=-10mm,left=-3mm] {$V_D$};
+
+    \draw[arr2] ($(i) - (.8,0)$) arc (180:135:.8) node[shift={($(i) + (-1.1,.4)$)}] at (160:1.1) {$\beta$};
+    \draw[dashed] (i) -- ($(i) - (1.5,0)$);
+
+    \hinge{3}{x}[135];
+    \beam{2}{i}{x};
+    \beam{3}{x}{f};
+
+    \dimensioning{3}{i}{x}{-1.5}[$x$];
+  \end{scope}
+
+  \begin{scope}[rotate=-45,shift={($(i)+(-.1,.1)$)}] %{1.1,.3}
+    \draw[arr2] (0,0) -- (0,.9) node[right,rotate=-45] {$y'$};
+    \draw[arr2] (0,0) -- (-.9,0) node[anchor=south,rotate=-45] {$x'$};
+  \end{scope}
+
+  \begin{scope}[shift={($(x) + (-.1,.1)$)},rotate=-45]
+    \draw[arr] (0,0) -- (0,1) node[below right] {$V_x$};
+    \draw[arr] (0,0) -- (-1,0) node[below left] {$N_x$};
+    \path[arr] (-1.1,.2) edge [bend left=40] node[anchor=south] {$M_x$} (-0.2,1.1);
+  \end{scope}
+\end{tikzpicture}
