@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{6.5}{-1.5};
+    \point{c}{11.5}{-1.5};
+    \point{d1}{7.5}{2.5};
+    \point{d2}{9}{1};
+    \point{e}{5}{5};
+
+    \beam{2}{b}{d2};
+    \beam{2}{c}{d2};
+
+    \support{2}{b};
+    \support{1}{c};
+
+    \dimensioning{1}{b}{d2}{-4}[L/4];
+    \dimensioning{1}{d2}{c}{-4}[L/4];
+    \dimensioning{2}{c}{d2}{13}[h/2];
+
+    \dnotation{1}{b}{B}[above left];
+    \dnotation{1}{c}{C}[above right];
+    \dnotation{1}{d2}{D}[below=2mm];
+
+    \load{1}{d2}[90];
+    \dnotation{1}{d2}{$H_D$}[yshift=2mm,right=8mm];
+    \load{1}{d2}[360];
+    \dnotation{1}{d2}{$V_D$}[yshift=11mm,right=-1mm];
+    \load{1}{b}[270][.9][1];
+    \dnotation{1}{b}{$V_B$}[left=-1mm,yshift=-19mm];
+    \load{1}{c}[270][.9][1];
+    \dnotation{1}{c}{$V_C$}[right,yshift=-19mm];
+    \draw[-{latex[scale=3.0]},very thick] (10.4,-2.5) -- (11.4,-2.5) node[below,xshift=-9mm] {$H_C$};
+
+    \draw[-{latex[scale=3.0]},thick] (7.3,-1.5) arc (0:45:.8) node[shift=({6.5,-1.5})] at (20:1.1) {$\gamma$};
+    \draw[dashed] (6.5,-1.5) -- (7.9,-1.5);
+    \draw[-{latex[scale=3.0]},thick] (10.7,-1.5) arc (180:135:.8) node[shift=({11.5,-1.5})] at (160:1.1) {$\delta$};
+    \draw[dashed] (11.5,-1.5) -- (10.1,-1.5);
+  \end{scope}
+\end{tikzpicture}
