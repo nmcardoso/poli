@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+  \tikzstyle{arr}=[-{latex[scale=3.0]},very thick];
+  \tikzstyle{arr2}=[-{latex[scale=3.0]},thick];
+  \def\x{6.9282} % 8cos(30)
+  \def\y{4} % 8sin(30)
+  \def\ang{-30}
+
+  \begin{scope}[yshift=5.5cm]
+    \point{i2}{\x}{0};
+    \point{f2}{0}{\y};
+
+    \dnotation{1}{i2}{C}[right];
+    \dnotation{1}{f2}{D}[left];
+
+    \draw[black!70,very thick] (i2) -- (f2);
+
+    \internalforces{i2}{f2}{-1}{-1}[0][blue!75];
+  \end{scope}
+
+  \begin{scope}[yshift=2.75cm]
+    \point{i1}{\x}{0};
+    \point{f1}{0}{\y};
+
+    \dnotation{1}{i1}{C}[right];
+    \dnotation{1}{f1}{D}[left];
+
+    \draw[black!70,very thick] (i1) -- (f1);
+
+    \internalforces{i1}{f1}{-1}{-1}[0][blue!75];
+  \end{scope}
+
+  \begin{scope}
+    \point{i0}{\x}{0};
+    \point{f0}{0}{\y};
+
+    \dnotation{1}{i0}{C}[right];
+    \dnotation{1}{f0}{D}[left];
+
+    \draw[black!70,very thick] (i0) -- (f0);
+
+    \internalforces{i0}{f0}{0}{-1}[0][blue!75];
+  \end{scope}
+
+  \begin{scope}[shift={(i0)}]
+    \draw[arr,rotate=\ang] (0,0) -- (0,-.9) node[right,rotate=\ang] {$M_{(x)}$};
+    \draw[arr,rotate=\ang] (0,0) -- (-.9,0) node[anchor=south,rotate=\ang] {$x$};
+  \end{scope}
+
+  \begin{scope}[shift={(i1)}]
+    \draw[arr,rotate=\ang] (0,0) -- (0,.9) node[right,rotate=\ang] {$V_{(x)}$};
+    \draw[arr,rotate=\ang] (0,0) -- (-.9,0) node[anchor=south,rotate=\ang] {$x$};
+  \end{scope}
+
+  \begin{scope}[shift={(i2)}]
+    \draw[arr,rotate=\ang] (0,0) -- (0,.9) node[right,rotate=\ang] {$N_{(x)}$};
+    \draw[arr,rotate=\ang] (0,0) -- (-.9,0) node[anchor=south,rotate=\ang] {$x$};
+  \end{scope}
+
+  \draw[black!70,thick,dashed] (i0) -- (i2);
+  \draw[black!70,thick,dashed] (f0) -- (f2);
+
+\end{tikzpicture}
