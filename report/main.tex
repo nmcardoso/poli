@@ -243,12 +243,53 @@ Escrevendo o vetor $V_A$ em termos do eixo de coordenadas auxiliar $x'y'$, como 
 
 \pagebreak
 
-\begin{empheq}[left=\empheqlbrace]{align}
-  &\sum F_H = 0 \;\;\Rightarrow\;\; H_A + H_B + H_C = 0\\
-  &\sum F_V = 0 \;\;\Rightarrow\;\; V_A + V_B + V_C - P = 0\\
-  &\sum M^{(A)} = 0 \;\;\Rightarrow\;\; \frac{L}{2}V_A + LV_C - \frac{L}{2}P = 0\\
-  &\sum M^{(B)} = 0 \;\;\Rightarrow\;\; -\frac{L}{2}V_A + \frac{L}{2}V_C = 0\\
-  &\sum M^{(C)} = 0 \;\;\Rightarrow\;\; -LV_A - \frac{L}{2}V_B + \frac{L}{2}P = 0
+\subsection{Esforços solicitantes em DE}
+
+Analogamente ao procedimento anterior, podemos escrever os vetores $V_D$ e $H_D$ em termos do eixo de coordenadas auxiliar $x'y'$, como indicam as figuras \ref{fig:axis-de1} e \ref{fig:axis-de2}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível chegar às expressões dos esforços solicitantes do segmento DE e exibi-las na figura \ref{fig:gr-de}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_de.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento DE.}
+  \label{fig:seg-de}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_D\sin\beta - H_D\cos\beta + N_x = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; V_D\cos\beta + H_D\sin\beta + V_x = 0\\
+    &\sum M_x = 0 \;\Rightarrow\; (V_D\cos\beta + H_D\sin\beta)x - M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{2P}{3}\sin\beta}$ \qquad $\boxed{V_x = -\frac{2P}{3}\cos\beta}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{2P}{3}\cos(\beta)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_de.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra DE.}
+  \label{fig:gr-de}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_de1.tex}
+  \captionof{figure}{Representação do vetor $V_D$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-de1}
+  \vspace{2mm}
+  \input{fig/axis_de2.tex}
+  \captionof{figure}{Representação do vetor $H_D$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-de2}
+\end{minipage}
+
+\pagebreak
+
 \end{empheq}
 
 \end{document}
