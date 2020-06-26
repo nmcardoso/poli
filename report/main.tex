@@ -332,6 +332,52 @@ E, continuando a análise, escrevemos o vetor $V_B$ em termos do eixo de coorden
 \end{minipage}
 
 \pagebreak
+
+\subsection{Esforços solicitantes em CD}
+E, por fim, podemos escrever os vetores $V_C$ e $H_C$ em termos do eixo de coordenadas auxiliar $x'y'$, como indicam as figuras \ref{fig:axis-cd1} e \ref{fig:axis-cd2}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível chegar às expressões dos esforços solicitantes do segmento CD e exibi-las na figura \ref{fig:gr-cd}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_cd.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento CD.}
+  \label{fig:seg-cd}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_C\sin\gamma - H_C\cos\gamma + N_x = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; H_C\sin\gamma + V_C\cos\gamma + V_x = 0\\
+    &\sum M_x = 0 \;\Rightarrow\; (H_C\sin\gamma + V_C\cos\gamma)x - M_x = 0
 \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{P}{3}\sin\gamma}$ \qquad $\boxed{V_x = -\frac{P}{3}\sin\gamma}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{P}{3}\cos(\gamma)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_cd.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra CD.}
+  \label{fig:gr-cd}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_cd1.tex}
+  \captionof{figure}{Representação do vetor $V_C$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-cd1}
+  \vspace{2mm}
+  \input{fig/axis_cd2.tex}
+  \captionof{figure}{Representação do vetor $H_C$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-cd2}
+\end{minipage}
+
+\pagebreak
+
 
 \end{document}
