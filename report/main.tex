@@ -290,6 +290,48 @@ Analogamente ao procedimento anterior, podemos escrever os vetores $V_D$ e $H_D$
 
 \pagebreak
 
+\subsection{Esforços solicitantes em BD}
+
+E, continuando a análise, escrevemos o vetor $V_B$ em termos do eixo de coordenadas auxiliar $x'y'$, como indica a figura \ref{fig:axis-bd}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível calcular as expressões dos esforços solicitantes deste segmento e exibi-las na figura \ref{fig:gr-bd}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_bd.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento BD.}
+  \label{fig:seg-db}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_B\sin\beta + N_x\\
+    &\sum F_V = 0 \;\Rightarrow\; V_B\cos\beta - V_x\\
+    &\sum M_x = 0 \;\Rightarrow\; -V_B\cos\beta x + M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{P}{3}\sin\beta}$ \qquad $\boxed{V_x = \frac{P}{3}\cos\beta}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{P}{3}\cos(\beta)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_bd.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra BD.}
+  \label{fig:gr-bd}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_bd.tex}
+  \captionof{figure}{Representação do vetor $V_B$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-bd}
+\end{minipage}
+
+\pagebreak
 \end{empheq}
 
 \end{document}
