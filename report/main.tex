@@ -52,12 +52,36 @@
   Este projeto consiste na aplicação dos conceitos da disciplina PEF3208 para analisar uma estrutura real. A estrutura escolhida foi o sistema de suspensão rocker-bogie, projetado e usado pela NASA em diversas missões de exploração de Marte.
 \end{abstract}
 
+\section{Introdução}
+
+\newlength{\currentparskip}
+\newlength{\currentparindent}
+\setlength{\currentparskip}{\parskip}
+\setlength{\currentparindent}{\parindent}
+\begin{minipage}{.53\textwidth}
+  \setlength{\parskip}{\currentparskip}
+  \setlength{\parindent}{\currentparindent}
+  O sistema de suspensão rocker-bogie foi projetado em 1988 por Donald B. Bickler para o uso da NASA no veículo espacial Sojourner. E, desde então, tornou-se o sistema de suspensão preferido da companhia para explorações espaciais, tendo sido reutilizado em outras missões como Mars 2003, Mars 2012 e Mars 2020 (figura \ref{fig:int-1}).
+  \medskip
+
+  A parte \emph{rocker} (oscilante) da suspensão vem do aspecto oscilante da articulação maior montada no corpo em cada lado do veículo espacial. Esses balancins são conectados um ao outro e ao chassi do veículo através de um diferencial. Em relação ao chassi, os balancins girarão em direções opostas para manter um contato aproximadamente igual com a roda. O chassi mantém o ângulo de inclinação médio dos dois balancins. Uma extremidade de um balancim é equipada com uma roda motriz e a outra extremidade é articulada ao bogie.
+  \medskip
+
+  A parte \emph{bogie} da suspensão refere-se à ligação menor, que gira para o balancim no meio e que tem uma roda motriz em cada extremidade. Os bogies eram comumente usados como rodas de carga nos trilhos dos tanques do exército como roldanas que distribuíam a carga no terreno e também eram comumente usados em reboques de caminhões semi-reboques. Agora, tanques e semi-reboques preferem suspensões de braço à direita.
 \end{minipage}%
-\begin{minipage}{.45\textwidth}
-  \includegraphics[width=\textwidth]{fig/rb.jpg}
+\hfill%
+\begin{minipage}{.4\textwidth}
+  \includegraphics[width=\linewidth,height=3.4cm]{fig/rb-suspension.png}
+  \includegraphics[width=.49\linewidth,height=3cm]{fig/sojourner.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm,trim={6cm 0 0 0},clip]{fig/spirit.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm]{fig/opportunity.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm,trim={12cm 0 7cm 0},clip]{fig/curiosity.jpg}
+  \includegraphics[width=\linewidth,height=3.5cm,trim={0 2.7cm 0 1.5cm},clip]{fig/perseverance.jpg}
+  \captionof{figure}{Sistema rocker-bogie, Sojourner (1996), Spirit (2003), Opportunity (2003), Curiosity (2011) e Perseverance (2020).}
+  \label{fig:int-1}
 \end{minipage}
 
-\hspace{4cm}
+\pagebreak
 
 O meu trabalho é sobre o sistema de suspensão rocker-bogie. Eu fiz este diagrama abaixo, mas tem algo errado com as equações.
 
