@@ -95,19 +95,17 @@ Uma possível representação do sistema rocker-bogie é pela estrutura da figur
   \label{fig:diagrama-base}
 \end{figure}
 
-\begin{align*}
-  \sum F_H = 0 \;&\Rightarrow\; H_A + H_B + H_C = 0\\
-  \sum F_V = 0 \;&\Rightarrow\; V_A + V_B + V_C - P = 0\\
-  \sum M^{(A)} = 0 \;&\Rightarrow\; \frac{L}{2}V_A + LV_C - \frac{LP}{2} = 0\\
-  \sum M^{(B)} = 0 \;&\Rightarrow\; \frac{-L}{2}V_A + \frac{L}{2}V_C = 0\\
-  \sum M^{(C)} = 0 \;&\Rightarrow\; -LV_A - \frac{-L}{2}V_B + \frac{LP}{2} = 0\\
-\end{align*}
+Mas, para resolver a estrutura, a simplificação da figura \ref{fig:diagrama-simpl} foi adotada. Ela consiste na separação da estrutura em duas mais simples. Para tanto, foi considerado que no ponto D da figura ADE existe um apoio fixo e as reações deste apoio são transferidas como carga para o ponto D da estrutura BCD.
 
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{.5\textwidth}
-    \input{fig/art_a.tex}
-    \hfill
+  \resizebox{.7\textwidth}{!}{\input{fig/d2.tex}}
+  \smallskip
+  \caption{Redução da estrutrua da figura \ref{fig:diagrama-base} em duas estrutras mais simples.}
+  \label{fig:diagrama-simpl}
+\end{figure}
+
+\pagebreak
   \end{minipage}%
   \begin{minipage}{.5\textwidth}
     \hfill
