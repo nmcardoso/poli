@@ -111,7 +111,7 @@ Mas, para resolver a estrutura, a simplificação da figura \ref{fig:diagrama-si
 
 \begin{minipage}{.48\textwidth}
   Para analisar os esforços internos do sistema de suspensão rocker-bogie, primeiro iremos calcular as reações nos apoios de cada estrutura, para, então, gerar as equações dos esforços solicitantes a partir do Teorema do Corte. Para todos os cálculos desta seção, será considerada a convenção da figura \ref{fig:convencoes}(a) para esforços solicitantes e a convenção de Grinter para o equilíbrio, figura \ref{fig:convencoes}(b).
-  \end{minipage}%
+\end{minipage}%
 \hfill%
 \begin{minipage}{.45\textwidth}
   \begin{minipage}{.7\textwidth}
@@ -349,7 +349,7 @@ E, por fim, podemos escrever os vetores $V_C$ e $H_C$ em termos do eixo de coord
     &\sum F_H = 0 \;\Rightarrow\; V_C\sin\gamma - H_C\cos\gamma + N_x = 0\\
     &\sum F_V = 0 \;\Rightarrow\; H_C\sin\gamma + V_C\cos\gamma + V_x = 0\\
     &\sum M_x = 0 \;\Rightarrow\; (H_C\sin\gamma + V_C\cos\gamma)x - M_x = 0
-\end{empheq}
+  \end{empheq}
   \begin{center}
     $\boxed{N_x = -\frac{P}{3}\sin\gamma}$ \qquad $\boxed{V_x = -\frac{P}{3}\sin\gamma}$\\
     \vspace{3mm}
@@ -379,5 +379,31 @@ E, por fim, podemos escrever os vetores $V_C$ e $H_C$ em termos do eixo de coord
 
 \pagebreak
 
+\section{Resultados}
+
+As figuras \ref{fig:gr-normal}, \ref{fig:gr-cortante} e \ref{fig:gr-momento} reúnem os gráficos da força normal, cortante e momento fletor para os esforços solicitantes da estrutura.
+
+\bigskip
+
+\begin{minipage}{.45\textwidth}
+  \resizebox{\textwidth}{!}{\input{fig/normal.tex}}
+  \captionof{figure}{Força normal.}
+  \label{fig:gr-normal}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.45\textwidth}
+  \resizebox{\textwidth}{!}{\input{fig/cortante.tex}}
+  \captionof{figure}{Força cortante.}
+  \label{fig:gr-cortante}
+\end{minipage}
+
+\medskip
+
+\begin{figure}[ht!]
+  \centering
+  \resizebox{.45\textwidth}{!}{\input{fig/momento.tex}}
+  \caption{Momento fletor.}
+  \label{fig:gr-momento}
+\end{figure}
 
 \end{document}
