@@ -175,10 +175,30 @@ Mas, para resolver a estrutura, a simplificação da figura \ref{fig:diagrama-si
   $$\boxed{H_C = 0}$$
 \end{minipage}
 
-\begin{align*}
-  \sum M^{(D)} = 0 \;&\Rightarrow\; \frac{L}{4}V_C + \frac{y}{2}H_C + \underbrace{M_D}_{0} = 0\\
-  \sum M^{(E)} = 0 \;&\Rightarrow\; \frac{-L}{2}V_A + yH_A + \underbrace{M_E}_{0} = 0
-\end{align*}
+\bigskip
+\bigskip
+
+Os valores das reações nos apoios de ambas as estruturas serão dispostos na tabela seguinte para organizar a consulta na próxima etapa da análise.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{cccc}
+    \toprule
+    \multicolumn{2}{c}{ADE} & \multicolumn{2}{c}{BCD}                                     \\
+    Variável                & Valor (N)               & Variável    & Valor (N)           \\
+    \midrule
+    \large$H_D$             & \large 0                & \large$H_C$ & \large 0            \\[4pt]
+    \large$V_A$             & \Large$\frac{P}{3}$     & \large$V_B$ & \Large$\frac{P}{3}$ \\[8pt]
+    \large$V_D$             & \Large$\frac{2P}{3}$    & \large$V_C$ & \Large$\frac{P}{3}$ \\[8pt]
+    \bottomrule
+  \end{tabular}
+  \caption{Valores das reações externas calculadas pelas equações de equilíbrio.}
+  \label{tab:variaveis}
+\end{table}
+
+E, para prosseguir com a resolução da estrutura, os esforços internos serão calculados a seguir usando o Teorema do Corte.
+
+\pagebreak
 
 O sistema formado por essas seis equações não gera o número de equações LI suficientes para 
 determinar os valores das 6 incógnitas, por isso acredito que as equações que escrevi estão erradas.
