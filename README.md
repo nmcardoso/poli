@@ -3,7 +3,9 @@
 ## Pré-Visualização do Relatório
 
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-1.png"></p>
+---
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-2.png"></p>
+===
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-3.png"></p>
 
 <details>
@@ -18,7 +20,7 @@
 
 [https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/report/output/main.pdf](PDF do relatório)
 
-<hr />
+---
 
 ## Pré-Visualização da Apresentação
 
