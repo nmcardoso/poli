@@ -18,7 +18,7 @@
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-9.png"></p>
 </details>
 
-[https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/report/output/main.pdf](PDF do relatório)
+[PDF do relatório](https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/report/output/main.pdf)
 
 ---
 
@@ -48,4 +48,4 @@
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-19.png"></p>
 </details>
 
-[https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/slide/output/main.pdf](PDF da apresentação)
+[PDF da apresentação](https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/slide/output/main.pdf)
