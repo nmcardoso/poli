@@ -7,7 +7,7 @@
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-3.png"></p>
 
 <details>
-  <summary>Ver todas as páginas</summary>
+  <summary><b>Ver todas as páginas</b></summary>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-4.png"></p><hr>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-5.png"></p><hr>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-6.png"></p><hr>
@@ -27,7 +27,7 @@
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-03.png"></p>
 
 <details>
-  <summary>Ver todas as páginas</summary>
+  <summary><b>Ver todas as páginas</b></summary>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-04.png"></p>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-05.png"></p>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-06.png"></p>
