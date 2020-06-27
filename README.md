@@ -1,4 +1,4 @@
-# PEF-3208: Fundamentos em Mecênica das Estruturas
+# PEF-3208: Fundamentos em Mecânica das Estruturas
 
 ## Pré-Visualização do Relatório
 
