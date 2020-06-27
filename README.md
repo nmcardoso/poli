@@ -1,6 +1,6 @@
-## PEF-3208: Fundamentos em Mecênica das Estruturas
+# PEF-3208: Fundamentos em Mecênica das Estruturas
 
-### Pré-Visualização do Relatório
+## Pré-Visualização do Relatório
 
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-1.png"></p>
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-2.png"></p>
@@ -16,7 +16,11 @@
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/report-9.png"></p>
 </details>
 
-### Pré-Visualização da Apresentação
+[https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/report/output/main.pdf](PDF do relatório)
+
+<hr />
+
+## Pré-Visualização da Apresentação
 
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-01.png"></p>
 <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-02.png"></p>
@@ -41,3 +45,5 @@
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-18.png"></p>
   <p align="center"><img width="100%" src="https://raw.githubusercontent.com/nmcardoso/report-pef3208/preview/slides-19.png"></p>
 </details>
+
+[https://raw.githubusercontent.com/nmcardoso/report-pef3208/master/slide/output/main.pdf](PDF da apresentação)
