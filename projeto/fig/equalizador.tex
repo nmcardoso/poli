@@ -1,0 +1,21 @@
+\begin{circuitikz}
+    \draw
+    (6.5,3.75) node[op amp,name=OP,yscale=-1]{}
+    (1,5.5) rectangle (3,6.5) node[midway] {Passa-baixa}
+    (.5,6.25) -- (.5,4) to[short,*-] (1,4)
+    (1,3.5) rectangle (3,4.5) node[midway] {Passa-faixa}
+    (.5,4) -- (.5,2) -- (1,2)
+    (1,1.5) rectangle (3,2.5) node[midway] {Passa-alta}
+    (3,6)++(0,.25) to[short,-o] ++(.2,0) -- ++(.25,0) to[R=R,/tikz/circuitikz/bipoles/length=8mm] ++(1.5,0) -- ++(0,-4)
+    (3,6)++(0,-.25) to[short,-o] ++(.2,0) -- ++(.4,0) -- ++(0,-5)
+    (3,4)++(0,.25) to[short,-o] ++(.2,0) -- ++(.25,0) to[R=R,/tikz/circuitikz/bipoles/length=8mm] ++(1.5,0) to[short,*-] (OP.+)
+    (3,4)++(0,-.25) to[short,-o] ++(.2,0) to[short,-*] ++(.4,0)
+    (3,2)++(0,.25) to[short,-o] ++(.2,0) -- ++(.25,0) to[R=R,/tikz/circuitikz/bipoles/length=8mm] ++(1.5,0)
+    (3,2)++(0,-.25) to[short,-o] ++(.2,0) to[short,-*] ++(.4,0)
+    (OP.-) |- (-.5,.75)
+    (OP.out) to[short,o-] ++(.5,0) 
+    (OP.out)++(.5,-.75) rectangle ++(2.5,1.5) node[midway] {Auto-falante}
+    (-.5,.75) -| ($(OP.out)+(1.75,-.75)$)
+    (-.5,.75) node[ground]{} to[sV] ++(0,5.5) -- ++(1.5,0)
+    ;
+\end{circuitikz}
