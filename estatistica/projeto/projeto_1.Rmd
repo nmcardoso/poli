@@ -1,0 +1,15 @@
+---
+title: "Projeto IMDB"
+author: "Natanael Magalhães Cardoso^[nUSP: 8914122. Usando dados para o segundo grupo (datas entre 2000-2010)]"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+
+```{r lib, include=FALSE}
+library(tidyverse)
+library(readr)
+library(ggplot2)
+```
