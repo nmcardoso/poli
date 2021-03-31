@@ -48,3 +48,14 @@ A Tabela \ref{tab:sum1} mostra o número de filmes, duração média, nota médi
 ```{r sum1, echo=FALSE}
 knitr::kable(sum1, caption='\\label{tab:sum1}Sumário 1')
 ```
+
+
+# Questão 02
+
+Como pode ser visto na Figura \ref{fig:q2}, a duração média dos filmes tende a aumentar com o aumento do orçamento.
+
+```{r q2, fig.cap='Duração média para cada faixa de orçamento', fig.align='center', out.width='80%', echo=FALSE}
+ggplot(sum1, aes(x=`Faixa de orçamento`, y=`Duração média`)) + geom_point()
+```
+
+
