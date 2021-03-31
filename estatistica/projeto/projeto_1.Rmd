@@ -13,3 +13,38 @@ library(tidyverse)
 library(readr)
 library(ggplot2)
 ```
+
+```{r q1, include=FALSE}
+imdb <- read_rds("imdb2.rds")
+imdb$estreia = fct_reorder(
+  imdb$estreia, 
+  imdb$ordem, 
+  min
+)
+imdb$"Faixa de orçamento" = fct_reorder(
+  imdb$"Faixa de orçamento", 
+  imdb$"ordem orçamento", 
+  min
+) 
+
+sum1 <- imdb %>%
+  group_by(`Faixa de orçamento`) %>%
+  summarise(
+    "Número de filmes"=n(), 
+    "Duração média"=mean(duracao), 
+    "Nota média"=mean(nota_imdb), 
+    "Nota máxima"=max(nota_imdb), 
+    "Nota mínima"=min(nota_imdb), 
+    "Desvio padrão da nota"=sd(nota_imdb), 
+    "Soma de likes"=sum(likes_facebook)
+  )
+sum1
+```
+
+# Questão 01
+
+A Tabela \ref{tab:sum1} mostra o número de filmes, duração média, nota média, máxima e mínima, desvio padrão das notas e soma de likes para cada faixa de orçamento.
+
+```{r sum1, echo=FALSE}
+knitr::kable(sum1, caption='\\label{tab:sum1}Sumário 1')
+```
