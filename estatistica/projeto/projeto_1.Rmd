@@ -69,3 +69,7 @@ imdb %>% slice_max(nota_imdb)
 A maior nota média foi obtida para filmes produzidos com orçamento superior a 60mi. Já a maior nota total foi obtida na faixa de orçamento de 20mi-30mi. E, a menor nota total foi obtida para faixa de orçamento de 10mi-20mi. O filme *Justin Bieber: Never Say Never* obteve a menor nota e o filme *The Shawshank Redemption* obteve a maior nota.
 
 
+# Questão 04
+
+As faixas 30mi-40mi e 40mi-50mi apresentam menor variação nas notas, pois têm o menor desvio padrão, como mostra a Tabela \ref{tab:sum1}.
+
