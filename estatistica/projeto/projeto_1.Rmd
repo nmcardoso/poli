@@ -99,3 +99,9 @@ A Tabela \ref{tab:sum2} mostra o número de filmes, duração média, nota médi
 ```{r sum2, echo=FALSE}
 knitr::kable(sum2, caption='\\label{tab:sum2}Sumário 2')
 ```
+
+# Questão 06
+
+Comparando a Tabela \ref{tab:sum1} com a Tabela \ref{tab:sum2}, é possivel notar que a tendência do aumento da duração média com o aumento do orçamento continua presente na amostra de filmes lançados entre 2000 e 2010. Já a duração média dos filmes lançados nesta amostra é menor que a duração média dos filmes lançados em todo intervalo de tempo analisado para todas as faixas de orçamento. Além disso, é notado as faixas de orçamento para os filmes com nota máxima e mínima não são as mesmas. Na amostra de filmes lançados entre 2000 e 2010, a nota máxima é obtida para filmes lançados com orçamento superior a 60mi e a nota mínima é obtida para filmes lançados com orçamento inferior a 10mi. Já a maior nota média continua para filmes lançados com orçamento maior que 60mi. 
+
+
