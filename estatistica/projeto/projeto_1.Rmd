@@ -73,3 +73,28 @@ A maior nota média foi obtida para filmes produzidos com orçamento superior a 
 
 As faixas 30mi-40mi e 40mi-50mi apresentam menor variação nas notas, pois têm o menor desvio padrão, como mostra a Tabela \ref{tab:sum1}.
 
+# Questão 05
+
+```{r q5, include=FALSE}
+df_g2 <- imdb %>% filter(estreia=="2000-2010")
+
+sum2 <- df_g2 %>%
+  group_by(`Faixa de orçamento`) %>%
+  summarise(
+    "Número de filmes"=n(), 
+    "Duração média"=mean(duracao), 
+    "Nota média"=mean(nota_imdb), 
+    "Nota máxima"=max(nota_imdb), 
+    "Nota mínima"=min(nota_imdb), 
+    "Desvio padrão da nota"=sd(nota_imdb), 
+    "Soma de likes"=sum(likes_facebook)
+  )
+sum2
+```
+
+
+A Tabela \ref{tab:sum2} mostra o número de filmes, duração média, nota média, máxima e mínima, desvio padrão das notas e soma de likes para cada faixa de orçamento para filmes lançados entre 2000 e 2010.
+
+```{r sum2, echo=FALSE}
+knitr::kable(sum2, caption='\\label{tab:sum2}Sumário 2')
+```
