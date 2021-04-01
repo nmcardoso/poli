@@ -73,6 +73,7 @@ A maior nota média foi obtida para filmes produzidos com orçamento superior a 
 
 As faixas 30mi-40mi e 40mi-50mi apresentam menor variação nas notas, pois têm o menor desvio padrão, como mostra a Tabela \ref{tab:sum1}.
 
+\newpage
 # Questão 05
 
 ```{r q5, include=FALSE}
