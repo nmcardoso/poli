@@ -130,3 +130,15 @@ ggplot(df_g2, aes(x=nota_imdb)) +
 ```
 
 
+# Questão 08
+
+```{r q8, fig.cap='Boxplot do número de likes para cada faixa de orçamento.', fig.align='center', out.width='80%', echo=FALSE}
+ggplot(df_g2, aes(
+    x=fct_reorder(`Faixa de orçamento`, `ordem orçamento`, min), 
+    y=likes_facebook)
+  ) + 
+  geom_boxplot() +
+  scale_y_log10() +
+  labs(x="Faixa de orçamento", y="Likes no Facebook")
+```
+
