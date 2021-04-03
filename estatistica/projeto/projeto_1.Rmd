@@ -105,3 +105,28 @@ knitr::kable(sum2, caption='\\label{tab:sum2}Sumário 2')
 Comparando a Tabela \ref{tab:sum1} com a Tabela \ref{tab:sum2}, é possivel notar que a tendência do aumento da duração média com o aumento do orçamento continua presente na amostra de filmes lançados entre 2000 e 2010. Já a duração média dos filmes lançados nesta amostra é menor que a duração média dos filmes lançados em todo intervalo de tempo analisado para todas as faixas de orçamento. Além disso, é notado as faixas de orçamento para os filmes com nota máxima e mínima não são as mesmas. Na amostra de filmes lançados entre 2000 e 2010, a nota máxima é obtida para filmes lançados com orçamento superior a 60mi e a nota mínima é obtida para filmes lançados com orçamento inferior a 10mi. Já a maior nota média continua para filmes lançados com orçamento maior que 60mi. 
 
 
+# Questão 07
+
+```{r q7_mode, include=FALSE}
+compute_mode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+compute_asymmetry <- function(d) {
+  (mean(d) - compute_mode(d)) / sd(d)
+}
+
+compute_asymmetry(df_g2$nota_imdb)
+```
+
+O número de classes foi determinado por $K \approx \sqrt{n} \approx \sqrt{632} \approx 25$, onde $n$ é o número de elementos da amostra. A medida de assimetria, $A$, é calculada usando a equação de Assimetria de Pearson $A = \frac{\bar{x} - m_0}{S_x} = 0,1815$, onde $\bar{x}$ é a média amostral, $m_0$ é a moda amostral e $S_x$ é o desvio padrão amostral. Como $0,15 < |A| < 1$, pode-se dizer que esta distribuição é moderadamente assimétrica. Isto pode ser confirmado na Figura \ref{fig:q7_hist}, onde percebe-se que o histograma é ligeiramente assimétrico.
+
+
+```{r q7_hist, fig.cap='Histograma das Notas no IMDB para a amostra.', fig.align='center', out.width='80%', echo=FALSE}
+ggplot(df_g2, aes(x=nota_imdb)) + 
+  geom_histogram(bins=25) +
+  labs(x="Nota IMDB", y="Contagem")
+```
+
+
