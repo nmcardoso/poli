@@ -150,6 +150,7 @@ ggplot(df_g2, aes(
 Pelo gráfico da Figura \ref{fig:q8}, é possível notar que a mediana do número de likes no facebook aumenta com o aumento da faixa de orçamento. Como as caixas representam o intervalo interquartil (IQR) entre o 25$^\circ$ e o 75$^\circ$ percentil, é notável que o IQR também tende a ser maior com o aumento da faixa de orçamento. O aumento do IQR junto com a diminuição do *whisker* mostra que a maioria dos valores da distribuição tende a se concentrar entre os percentis 25 e 75 de acordo com o aumento da faixa de orçamento. Isso também é notado nos *outliers*, que só aparecem nas menores faixas de orçamento.
 
 
+\newpage
 # Questão 10
 
 ```{r q10, fig.cap='Gráfico de dispersão da receita em função do orçamento.', fig.align='center', out.width='80%', echo=FALSE}
@@ -161,3 +162,5 @@ ggplot(df_g2, aes(x=`orcamento`, y=`receita`)) +
 
 Pela análise do gráfico de dispersão da Figura \ref{fig:q10}, é possível notar que os dados estão são mais concentrados para menores valores de orçamento e receita. E, a medida que se aumenta o orçamento, a disperção dos dados também aumenta. A reta azul mostra o limiar *orçamento = receita*, pontos acima dela mostram produções que tiveram lucro (receita > orçamento), enquanto que pontos abaixo mostram produções que não tiveram lucro. 
 
+
+\newpage
