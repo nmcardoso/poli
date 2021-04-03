@@ -164,3 +164,49 @@ Pela análise do gráfico de dispersão da Figura \ref{fig:q10}, é possível no
 
 
 \newpage
+# Códigos
+
+### Bibliotecas
+
+```{r, ref.label=c('lib'), eval=FALSE}
+```
+
+### Questão 01
+
+```{r, ref.label=c('q1'), results='hide', eval=FALSE}
+```
+
+### Questão 02
+
+```{r, ref.label=c('q2'), results='hide', eval=FALSE}
+```
+
+### Questão 03
+
+```{r, ref.label=c('q3'), results='hide', eval=FALSE}
+```
+
+### Questão 05
+
+```{r, ref.label=c('q5'), results='hide', eval=FALSE}
+```
+
+### Questão 07
+```{r, ref.label=c('q7_mode'), eval=FALSE}
+```
+
+```{r, ref.label=c('q7_hist'), eval=FALSE}
+```
+
+### Questão 08
+
+```{r, ref.label=c('q8'), eval=FALSE}
+```
+
+### Questão 10
+
+```{r, ref.label=c('q10'), results='hide', eval=FALSE}
+```
+
+
+
