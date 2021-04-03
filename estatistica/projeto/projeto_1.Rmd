@@ -131,6 +131,7 @@ ggplot(df_g2, aes(x=nota_imdb)) +
 ```
 
 
+\newpage
 # Questão 08
 
 ```{r q8, fig.cap='Boxplot do número de likes para cada faixa de orçamento.', fig.align='center', out.width='80%', echo=FALSE}
