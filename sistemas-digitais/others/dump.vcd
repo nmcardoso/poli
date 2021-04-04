@@ -1,0 +1,94 @@
+$date
+  Sun May 23 21:14:29 2021
+$end
+$version
+  GHDL v0
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module std_logic_arith $end
+$upscope $end
+$scope module std_logic_unsigned $end
+$upscope $end
+$scope module ram_tb $end
+$var reg 8 ! datain[7:0] $end
+$var reg 8 " address[7:0] $end
+$var reg 1 # w_r $end
+$var reg 8 $ dataout[7:0] $end
+$scope module uut $end
+$var reg 8 % datain[7:0] $end
+$var reg 8 & address[7:0] $end
+$var reg 1 ' w_r $end
+$var reg 8 ( dataout[7:0] $end
+$comment memory is not handled $end
+$var integer 32 ) addr $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+b00000000 !
+b00000000 "
+0#
+bUUUUUUUU $
+b00000000 %
+b00000000 &
+0'
+bUUUUUUUU (
+b0 )
+#100000000
+b01111111 !
+b10000000 "
+b01111111 %
+b10000000 &
+b10000000 )
+#200000000
+b10111111 !
+b01000000 "
+b10111111 %
+b01000000 &
+b1000000 )
+#300000000
+b11011111 !
+b00100000 "
+b11011111 %
+b00100000 &
+b100000 )
+#400000000
+b11101111 !
+b00010000 "
+b11101111 %
+b00010000 &
+b10000 )
+#510000000
+b00000000 "
+1#
+b00000000 &
+1'
+b0 )
+#610000000
+b10000000 "
+b01111111 $
+b10000000 &
+b01111111 (
+b10000000 )
+#710000000
+b01000000 "
+b10111111 $
+b01000000 &
+b10111111 (
+b1000000 )
+#810000000
+b00100000 "
+b11011111 $
+b00100000 &
+b11011111 (
+b100000 )
+#910000000
+b00010000 "
+b11101111 $
+b00010000 &
+b11101111 (
+b10000 )
+#1010000000
