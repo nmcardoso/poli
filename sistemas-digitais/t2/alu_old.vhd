@@ -20,3 +20,11 @@ entity alu is
     Co: out bit -- carry out
   );
 end entity alu;
+
+architecture alu_arch of alu is
+  signal zeros: bit_vector(size-1 downto 0) := (others => '0');
+  signal a_signed, b_signed, f_signed: signed(size downto 0) := (others => '0');
+  signal f_expanded: bit_vector(size downto 0) := (others => '0');
+  -- signal result: signed(size downto 0);
+
+end architecture alu_arch;
