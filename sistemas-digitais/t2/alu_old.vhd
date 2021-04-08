@@ -50,4 +50,27 @@ begin
         result := not(a_signed or b_signed);
     end case;
 
+    if result = signed(zeros) then
+      Z <= '1';
+    else
+      Z <= '0';
+    end if;
+
+    if result(size - 1) /= result(size) then
+      Ov <= '1';
+    else 
+      Ov <= '0';
+    end if;
+    
+    if result(size - 1) = '1' then
+      Co <= '1';
+    else
+      Co <= '0';
+    end if;
+
+    -- Ov <= '1' when result(size - 1) /= output(size) else '0';
+    -- Co <= '1' when result(size - 1) = '1' else '0';
+    f_expanded <= bit_vector(result);
+  end process;
+  F <= f_expanded(size) & f_expanded(size - 2 downto 0);
 end architecture alu_arch;
