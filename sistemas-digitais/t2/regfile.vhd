@@ -42,5 +42,22 @@ architecture regfile_arch of regfile is
   signal zeros: bit_vector(wordSize - 1 downto 0) := (others => '0');
   -- signal reg: register_type := (others => zeros);
 begin
-
+  process(clock, reset)
+    variable reg: register_type := (others => zeros);
+  begin
+    if reset = '1' then
+    -- if rising_edge(reset) then
+      reg := (others => zeros);
+    -- elsif clock'event and clock = '1' and clock'last_value = '0' then
+    elsif rising_edge(clock) then
+      if regWrite = '1' then
+        if bv_to_natural(wr) /= (natural(ceil(log2(real(regn)))) - 1) then
+          reg(bv_to_natural(wr)) := d;
+        end if;
+      end if;
+    end if;
+    q1 <= reg(bv_to_natural(rr1));
+    q2 <= reg(bv_to_natural(rr2));
+  end process;
+  
 end architecture;
