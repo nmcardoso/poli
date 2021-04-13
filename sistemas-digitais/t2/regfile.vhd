@@ -30,6 +30,15 @@ end regfile;
 architecture regfile_arch of regfile is
   type register_type is array(0 to regn - 1) of bit_vector(wordSize - 1 downto 0);
 
+  function bv_to_natural(bv: in bit_vector) return natural is
+    variable result : natural := 0;
+  begin
+    for index in bv'range loop
+      result := result * 2 + bit'pos(bv(index));
+    end loop;
+    return result;
+  end bv_to_natural;
+
   signal zeros: bit_vector(wordSize - 1 downto 0) := (others => '0');
   -- signal reg: register_type := (others => zeros);
 begin
