@@ -47,4 +47,6 @@ architecture regfile_tb_arch of regfile_tb is
 begin
   s_clock <= (sim and not(s_clock)) after ct;
 
+  dut: regfile port map(s_clock, s_reset, s_regWrite, s_rr1, s_rr2, s_wr, s_d, s_q1, s_q2);
+
 end regfile_tb_arch;
