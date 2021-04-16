@@ -44,4 +44,7 @@ architecture regfile_tb_arch of regfile_tb is
   signal s_clock, s_reset, s_regWrite, sim: bit;
   signal s_rr1, s_rr2, s_wr: bit_vector(natural(ceil(log2(real(regn)))) - 1 downto 0);
   signal s_d, s_q1, s_q2: bit_vector(wordSize - 1 downto 0);
+begin
+  s_clock <= (sim and not(s_clock)) after ct;
+
 end regfile_tb_arch;
