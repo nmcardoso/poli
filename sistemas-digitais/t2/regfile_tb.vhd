@@ -67,5 +67,14 @@ begin
     s_d <= natural_to_bv(12, wordSize);
     wait until rising_edge(s_clock);
 
+    -- read data
+    s_regWrite <= '0';
+    s_rr1 <= natural_to_bv(3, regl);
+    s_rr2 <= natural_to_bv(9, regl);
+    
+    wait until rising_edge(s_clock);
+    assert s_q1 = natural_to_bv(41, wordSize) report "Falha na leitura q1" severity error;
+    assert s_q2 = natural_to_bv(12, wordSize) report "Falha na leitura q2" severity error;
+
   end process;
 end regfile_tb_arch;
