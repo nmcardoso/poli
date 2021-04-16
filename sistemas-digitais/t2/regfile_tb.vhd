@@ -34,4 +34,11 @@ architecture regfile_tb_arch of regfile_tb is
     end loop;
     return result;
   end natural_to_bv;
+
+  constant ct: time := 10 ns;
+  constant regn: natural := 32;
+  constant regl: natural := natural(ceil(log2(real(regn))));
+  constant wordSize: natural := 64;
+  constant zeros: bit_vector(wordSize - 1 downto 0) := (others => '0');
+  
 end regfile_tb_arch;
