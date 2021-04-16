@@ -84,5 +84,24 @@ begin
     assert s_q1 = zeros report "Falha no reset de r1" severity error;
     assert s_q2 = zeros report "Falha no reset de r2" severity error;
 
+    -- check if last register is writeable
+    wait until rising_edge(s_clock);
+    s_regWrite <= '1';
+    s_wr <= natural_to_bv(regn-1, regl);
+    s_d <= natural_to_bv(16, wordSize);
+    wait until rising_edge(s_clock);
+    s_regWrite <= '0';
+    s_rr1 <= natural_to_bv(regn-1, regl);
+    wait until rising_edge(s_clock);
+    assert s_q1 = zeros report "Falha: dados no último registrador" severity error;
+
+    wait until rising_edge(s_clock);
+    s_regWrite <= '1';
+    s_wr <= natural_to_bv(9, regl);
+    s_d <= natural_to_bv(12, wordSize);
+    wait until rising_edge(s_clock);
+    
+    sim <= '0';
+    wait;
   end process;
 end regfile_tb_arch;
