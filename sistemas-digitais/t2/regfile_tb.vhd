@@ -24,5 +24,14 @@ architecture regfile_tb_arch of regfile_tb is
     );
   end component;
 
-begin
+  function natural_to_bv(n: in natural; length: in natural) return bit_vector is
+    variable temp : natural := n;
+    variable result : bit_vector(0 to length-1);
+  begin
+    for index in result'reverse_range loop
+      result(index) := bit'val(temp rem 2);
+      temp := temp / 2;
+    end loop;
+    return result;
+  end natural_to_bv;
 end regfile_tb_arch;
