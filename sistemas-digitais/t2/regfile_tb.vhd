@@ -55,5 +55,17 @@ begin
 
     s_regWrite <= '0';
     wait until rising_edge(s_clock);
+
+    -- write data
+    s_regWrite <= '1';
+    s_wr <= natural_to_bv(3, regl);
+    s_d <= natural_to_bv(41, wordSize);
+    s_rr1 <= natural_to_bv(3, regl);
+    wait until rising_edge(s_clock);
+    s_regWrite <= '1';
+    s_wr <= natural_to_bv(9, regl);
+    s_d <= natural_to_bv(12, wordSize);
+    wait until rising_edge(s_clock);
+
   end process;
 end regfile_tb_arch;
