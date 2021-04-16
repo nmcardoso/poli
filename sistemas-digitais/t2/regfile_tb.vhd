@@ -76,5 +76,13 @@ begin
     assert s_q1 = natural_to_bv(41, wordSize) report "Falha na leitura q1" severity error;
     assert s_q2 = natural_to_bv(12, wordSize) report "Falha na leitura q2" severity error;
 
+    -- reset data
+    wait until rising_edge(s_clock);
+    wait for 0.2 * ct; -- check asynchronicity
+    s_reset <= '1';
+    wait for 0.2 * ct;
+    assert s_q1 = zeros report "Falha no reset de r1" severity error;
+    assert s_q2 = zeros report "Falha no reset de r2" severity error;
+
   end process;
 end regfile_tb_arch;
