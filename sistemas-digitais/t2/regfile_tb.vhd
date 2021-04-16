@@ -49,4 +49,11 @@ begin
 
   dut: regfile port map(s_clock, s_reset, s_regWrite, s_rr1, s_rr2, s_wr, s_d, s_q1, s_q2);
 
+  test: process
+  begin
+    sim <= '1';
+
+    s_regWrite <= '0';
+    wait until rising_edge(s_clock);
+  end process;
 end regfile_tb_arch;
