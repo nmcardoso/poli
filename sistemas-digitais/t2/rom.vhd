@@ -38,3 +38,6 @@ architecture rom_arch of rom is
   end bv_to_natural;
 
   signal rom_data: RomType := init_rom_from_file("rom.dat");
+begin  
+  data <= rom_data(bv_to_natural(addr));
+end architecture;
