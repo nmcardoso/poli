@@ -27,3 +27,12 @@ architecture rom_arch of rom is
     end loop;
     return rom_data;
   end function;
+
+  function bv_to_natural(bv: in bit_vector) return natural is
+    variable result : natural := 0;
+  begin
+    for index in bv'range loop
+      result := result * 2 + bit'pos(bv(index));
+    end loop;
+    return result;
+  end bv_to_natural;
