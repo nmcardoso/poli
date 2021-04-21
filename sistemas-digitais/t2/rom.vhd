@@ -36,3 +36,5 @@ architecture rom_arch of rom is
     end loop;
     return result;
   end bv_to_natural;
+
+  signal rom_data: RomType := init_rom_from_file("rom.dat");
