@@ -44,3 +44,9 @@ df$height=as.numeric(df$height)
 df <- df %>% filter(!is.na(mass))
 ```
 
+### Sumário
+
+```{r}
+summary(df)
+```
+
