@@ -21,3 +21,12 @@ library('readr')
 df <- read.csv("characters.csv")
 ```
 
+Variáveis aleatórias:
+
+- Quantitativas
+  - Discretas
+  - Contínuas
+- Qualitativas
+  - Nominais
+  - Ordinais
+  
