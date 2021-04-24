@@ -30,3 +30,17 @@ Variáveis aleatórias:
   - Nominais
   - Ordinais
   
+  
+
+## Tratamento de dados
+
+```{r}
+df <- df %>% filter(!is.na(mass))
+df <- df %>% filter(!is.na(height))
+
+df$mass = as.numeric(df$mass)
+df$height=as.numeric(df$height)
+
+df <- df %>% filter(!is.na(mass))
+```
+
