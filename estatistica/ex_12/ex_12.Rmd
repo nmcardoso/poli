@@ -50,3 +50,18 @@ df <- df %>% filter(!is.na(mass))
 summary(df)
 ```
 
+## Implementação da função do Intervalo de Confiança da média com variância conhecida
+
+```{r}
+ic <- function(dados, confianca, dp) {
+  xbarra = mean(dados, na.rm=TRUE)
+  z = qnorm((1 + confianca) / 2)
+  n = length(dados)
+  e = z * (dp / sqrt(n))
+  LS = xbarra + e
+  LI = xbarra - e
+  return(c(LS, LI))
+}
+
+ic(df$height, 0.95, 30)
+```
