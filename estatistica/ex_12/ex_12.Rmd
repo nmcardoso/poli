@@ -65,3 +65,18 @@ ic <- function(dados, confianca, dp) {
 
 ic(df$height, 0.95, 30)
 ```
+
+Eu tenho 95% de chande da média estar dentro do range.
+O intervalo é uma variavel aleatória, quando mudar amostra vou mudar x_barra.
+
+Aumentar o nível de confiança diminui a amplitude do IC.
+
+```{r}
+ic(df$height, 0.99, 30)
+```
+Aumentar o desvio padrão aumenta a amplitude do desvio padrão.
+
+```{r}
+ic(df$height, 0.99, 40)
+```
+
