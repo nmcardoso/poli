@@ -31,7 +31,6 @@ Variáveis aleatórias:
   - Ordinais
   
   
-
 ## Tratamento de dados
 
 ```{r}
@@ -79,4 +78,28 @@ Aumentar o desvio padrão aumenta a amplitude do desvio padrão.
 ```{r}
 ic(df$height, 0.99, 40)
 ```
+
+
+## Implementação da função do Intervalo de Confiança da média sem variância conhecida
+
+```{r}
+ic_t <- function(dados, confianca) {
+  xbarra = mean(dados, na.rm=TRUE)
+  n = length(dados)
+  t = qt((1 + confianca) / 2, (n - 1))
+  e = t * (sd(dados, na.rm=TRUE) / sqrt(n))
+  LS = xbarra + e
+  LI = xbarra - e
+  return(c(LS, LI))
+}
+
+ic_t(df$height, 0.95)
+```
+
+```{r}
+ic(df$height, 0.95, 30)
+```
+
+
+
 
