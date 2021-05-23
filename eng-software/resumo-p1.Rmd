@@ -88,3 +88,23 @@ Conjunto de associações entre entidades sobre as quais deseja-se manter inform
 </center>
 
 
+# Aula 3
+
+SGBD's
+- composto por tabelas; 
+- cada tabela: um conjunto de linhas; 
+- cada linha: relação entre valores de atributos.
+
+## Características do modelo relacional
+
+**Domínio de atributos**: conjunto de valores permitidos para um atributo ou campo.
+
+**Campos obrigatórios ou opcionais**: null ou not null.
+
+**Chave**: usada para identificar tuplas e estabelecer relações entre tuplas. São restrições de integridade.
+
+**Integridade Existencial**: associada ao conceito de chave primária; define que a chave primária não pode ser nula, nem ter valor já existente na tabela.
+
+**Integridade Referencial**: associada a chave estrangeira; a chave estrangeira deve referenciar valores existentes na tabela referenciada. Atualizações podem originar violações das regras de integridade referencial.
+
+
