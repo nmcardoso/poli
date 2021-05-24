@@ -108,3 +108,27 @@ SGBD's
 **Integridade Referencial**: associada a chave estrangeira; a chave estrangeira deve referenciar valores existentes na tabela referenciada. Atualizações podem originar violações das regras de integridade referencial.
 
 
+# Aula 4
+
+<center>
+![transformação de modelo](figs/transformacao.png){width=50%}
+</center>
+
+## Transformação de Entidades
+
+<center>
+![entidade empregado](figs/entidade-empregado.png){width=50%}
+</center>
+
+Empregado(**CPF_emp**, nome_emp, end_emp, dataadm_emp, datanasc_emp)
+
+
+## Transformação de Entidades Fracas
+
+<center>
+![entidade fraca](figs/entidade-fraca.png){width=50%}
+</center>
+
+Dependente(**matric-prof**, **nome-dep**, datanasc_dep)
+
+
