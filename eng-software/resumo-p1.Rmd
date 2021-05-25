@@ -132,3 +132,69 @@ Empregado(**CPF_emp**, nome_emp, end_emp, dataadm_emp, datanasc_emp)
 Dependente(**matric-prof**, **nome-dep**, datanasc_dep)
 
 
+# Aula 5
+
+## Normalização
+
+- Conceito próprio de BDR que objetiva eliminar redundância de dados de arquivos, permitindo a construção de relações que não apresentam anomalias quando são manipuladas.
+- Permite o reagrupamento de informações para a obtenção de um modelo E-R.
+- Formas Normais:
+  - regras que originam tabelas bem projetadas
+  - 1FN, 2FN, 3FN, BCNF, 4NF e 5NF
+
+## Dependência Funcional
+
+Dada uma relação (tabela) R , o atributo Y de R é funcionalmente dependente do Atributo X de R (R.X $\rightarrow$ R.Y) , se e somente se para cada valor de X tem a ele associado apenas um valor de Y.
+
+Neste caso, diz-se que Y é dependente funcional de X ou que X determina o valor de Y.
+
+## Primeira Forma Normal (1FN)
+
+Diz-se que uma relação está na 1FN se e somente se todos os atributos contém somente valores atômicos.
+
+_Banco de Dados Relacionais: as relações devem estar na 1FN_
+
+### Anomalias da 1FN
+
+- Insersão: não é possível incluir um novo item (cod e descr) sem existir um pedido.
+- Eliminação: pode ocorrer a perda de informação sobre um item ao eliminar-se um pedido.
+- Modificação: na alteração do preço unitário de um item, deve-se alterar todos os pedidos em que este aparece.
+
+
+### 2ª opção para geração na 1FN:
+
+Construir uma tabela para cada tabela aninhada
+
+1. cria-se uma tabela na 1FN referente a tabela externa (sem tabelas aninhadas);
+1. para cada tabela aninhada cria-se uma tabela na 1FN com os campos: chave-primária de cada uma das tabelas da qual ela é aninhada + colunas da própria tabela;
+1. defini-se as chaves primárias de cada uma das tabelas criadas.
+
+
+## Segunda Forma Normal (2FN)
+
+Diz-se que uma tabela está na 2FN se e somente se ela estiver na 1FN e cada coluna não chave for dependente funcional completo da chave principal.
+
+
+## Terceira Forma Normal (3FN)
+
+Diz-se que uma tabela está na 3FN se e somente se ela estiver na 2FN e todo atributo não chave não depender de outro atributo não chave.
+
+- eliminação de dependências entre atributos não chave; 
+- eliminação de atributos derivados
+
+
+## Forma Normal de Boyce/Cood (BCNF)
+
+Diz-se que uma tabela está BCNF se e somente se os únicos determinantes são chaves candidatas.
+
+- tabelas que tenham duas ou mais chaves candidatas e
+- cada chave candidata (uma chave composta) apresente superposição em relação a algum atributo
+
+
+## Quarta Forma Normal (4FN)
+
+Diz-se que uma tabela está 4FN se e somente se estiver na 3FN e não apresentar dependências multivaloradas.
+
+- dependência multivalorada: ocorre quando um dado valor da chave principal identifica repetidas vezes um conjunto de valores de atributos dependentes.
+
+
