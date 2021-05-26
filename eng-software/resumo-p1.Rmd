@@ -198,3 +198,98 @@ Diz-se que uma tabela está 4FN se e somente se estiver na 3FN e não apresentar
 - dependência multivalorada: ocorre quando um dado valor da chave principal identifica repetidas vezes um conjunto de valores de atributos dependentes.
 
 
+# Aula 10
+
+## Estados da transação
+
+<center>
+![](figs/transacao.png){width=50%}
+</center>
+
+## Transação Terminada
+
+- Quando uma transação termina com sucesso:
+  1. transação finalizada com sucesso
+  1. atualizações efetivadas (commited)
+  1. muda o estado do banco
+- Quando uma transação termina com sucesso: abortada
+  1. transação abortada
+  1. atualizações desfeitas
+  1. rolled back
+  
+## Propriedade das Transações
+
+ACID: atomicidade, consistência, isolamento, durabilidade.
+
+### Atomicidade
+
+Todas as operações são executadas e refletidas no BD ou nenhuma é.
+
+### Consistência
+
+A execução de uma transação isolada (sem concorrência) preserva a consistência do BD
+
+### Isolamento
+
+- Podem existir diversas transações em execução, atualizações feita por uma transação são "escondidas" da outra, até que a primeira termine.
+- Uma transação deve aparecer ser executada isoladamente, como se só ela existisse, embora hajam diversas sendo executadas de forma simultânea. Em outras palavras, a execução de outras transações simultâneas não deve afetar a execução da outra. O nível de isolamento afeta diretamente a concorrência ao item de dado num ambiente multi-usuário.
+
+### Durabilidade
+
+Os efeitos da transação bem sucedida persistem no BD mesmo se houver falhas. Esta propriedade é assegurada pelo componente de gerenciamento de recuperação.
+
+## Falhas
+
+- Mais simples: que resultem em perda de informação na memória volátil.
+- Há vários mecanismos que fazem o sistema voltar ao último estado consistente antes da ocorrência da falha.
+- Alguns usam o “log” (arquivo que registra as alterações no BD; o log é implementado numa memória estável).
+
+## Log – registro de transações
+
+- As ações (reads e writes) de transação são registrados em meio não volátil
+  - As operações são registradas de forma sequencial no log, na ordem que são executadas e apenas inserções são feitas no log;
+  - Só depois são confirmadas;
+  - Garante que mesmo em caso de falha no processo de atualização da base de dados, este será atualizado.
+- Transações que são abortadas precisam ter seus efeitos desfeitos no banco no dados
+- Os registros de operações no log dependem do uso pretendido (auditoria, recuperação de falhas)
+
+### Exemplo de regstros de log
+1. [start_transaction, T]
+1. [write_item, T, X, valor_antigo, valor_novo]
+1. [read_item, T, X, valor]
+1. [commit, T]
+1. [abort, T]
+
+### Log incremental com atualização imediata
+
+<center>
+![](figs/log.png){width=50%}
+</center>
+
+
+## Pontos de Sincronismo (Checkpoints)
+
+- após a falha, quando o sistema volta, o gerenciador de recuperação examina o log para tomar as providências cabíveis:
+  - refazer (REDO) ou
+  - desfazer (UNDO ou ROLLBACK) transações.
+- é um processo demorado
+- muitas das transações já atualizaram o BD, e acabam sendo refeitas sem necessidade.
+
+- atualização do log (da memória principal) $\rightarrow$ memória estável (registros do log)
+- atualização do BD - blocos de buffer (da memória principal) $\rightarrow$ disco
+- registro <checkpoint> $\rightarrow$ log (em memória estável)
+
+## Controle de Concorrência
+
+- problema: ambientes multiusuário
+  - num ambiente onde transações são executadas de modo concorrente a propriedade do isolamento pode não ser preservada.
+- quando diversas transações concorrentes são executadas, suas operações podem ser intercaladas de modo inconvenientemente.
+
+
+
+
+
+
+
+
+
