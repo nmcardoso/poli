@@ -1,0 +1,9 @@
+\begin{circuitikz}
+    \draw
+    (5,5) node[op amp,name=OP,yscale=-1]{}
+    (OP.-) -| (3,3.5) node[above left]{$V_x$} to[R=$R_2$] ++(0,-2) node[ground]{}
+    (OP.+) to[short,-o] ++(-1,0)
+    (OP.out) -- ++(.5,0) to[short,i=$i$] ++(0,-1.5) |- (6.7,3.5) to[R=$R_1$] (3,3.5)
+    (OP.out) to[short,-o] ++(1.5,0) node[above right]{$V_o$}
+    ;
+\end{circuitikz}

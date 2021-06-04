@@ -1,0 +1,11 @@
+\begin{circuitikz}
+    \draw 
+    (0,0) to[short,o-o] (6,0)
+    (0,2) to[R,l_=R,o-] (4,2)
+    (4,2) to[short,-o] (6,2)
+    (4,0) to[C,l_=C] (4,2)
+    (3,0) node[ground]{};
+    \draw[draw=none] 
+    (0,0) -- (0,2) node[midway] {Entrada}
+    (6,0) -- (6,2) node[midway] {Saída};
+\end{circuitikz}
