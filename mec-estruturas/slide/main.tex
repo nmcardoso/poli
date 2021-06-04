@@ -1,0 +1,263 @@
+\documentclass[11pt]{beamer}
+
+\usetheme[sectionpages,logo={_figures/poli-blue.pdf}]{UniNA}
+\usefonttheme[onlymath]{serif}
+
+\usepackage[brazil]{babel}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{stanli}
+\usepackage{siunitx}
+\usepackage{mathtools}
+\usepackage{quotes}
+\usepackage{amsmath}
+\usepackage{empheq}
+
+\title{Sistema de suspensão rocker-bogie} %shown in title frame
+\subtitle{PEF-3208 - Fundamentos em Mecânica das Estruturas}  % could also be a conference name
+
+\date{\today} %explicitly set date instead of \today
+
+\author[Natanael M. Cardoso]{Natanael Magalhães Cardoso}
+
+\institute{Escola Politécnica - Universidade de São Paulo}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+\begin{frame}{Sobre o sistema rocker-bogie}
+  \begin{columns}
+    \column{.59\textwidth}
+    \begin{itemize}
+      \item Desenvolvido em 1988 para o uso da NASA na exploração de Marte.
+      \item Usado para movimentar robôs de 6 rodas.
+    \end{itemize}
+    \column{.39\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=.9\textwidth]{fig/rb-suspension.png}
+    \end{figure}
+    \vspace{5mm}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=.9\textwidth]{fig/rb.jpg}
+    \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Uso do sistema de suspensão}
+  % \vspace{12mm}
+  \begin{figure}[ht]
+    \begin{minipage}[b]{.32\textwidth}
+      \centering
+      Sojourner (1996)
+      \includegraphics[width=.9\textwidth,height=2.8cm]{fig/sojourner.jpg}
+    \end{minipage}%
+    \begin{minipage}[b]{.32\textwidth}
+      \centering
+      Spirit (2003)
+      \includegraphics[width=.9\textwidth,height=2.8cm]{fig/spirit.jpg}
+    \end{minipage}%
+    \begin{minipage}[b]{.32\textwidth}
+      \centering
+      Opportunity (2003)
+      \includegraphics[width=.9\textwidth,height=2.8cm]{fig/opportunity.jpg}
+    \end{minipage}
+  \end{figure}
+  \vspace{-4mm}
+  \begin{figure}[ht]
+    \begin{minipage}[b]{.32\textwidth}
+      \centering
+      Curiosity (2011)
+      \includegraphics[width=.9\textwidth,height=2.8cm,trim={11cm 0 6.5cm 0},clip]{fig/curiosity.jpg}
+    \end{minipage}%
+    \hspace{5mm}
+    \begin{minipage}[b]{.32\textwidth}
+      \centering
+      Perseverance (2020)
+      \includegraphics[width=.9\textwidth,height=2.8cm]{fig/perseverance.jpg}
+    \end{minipage}%
+  \end{figure}
+\end{frame}
+
+\section{Análise da Estrutura}
+
+\begin{frame}{Diagrama da Estrutura}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.8\textwidth}{!}{\input{fig/d1.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Simplificação}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.8\textwidth}{!}{\input{fig/d2.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Análise da Primeira Estrutura}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.75\textwidth}{!}{\input{fig/d3.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Equações de Equilíbrio}
+  \begin{columns}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; H_D = 0\\
+      &\sum F_V = 0 \;\Rightarrow\; V_A + V_D - P = 0\\
+      &\sum M_A = 0 \;\Rightarrow\; \left(\frac{L}{2} + \frac{L}{4}\right)V_D - \frac{L}{2}P - \frac{h}{2}H_D = 0\\
+      &\sum M_D = 0 \;\Rightarrow\; \left(\frac{L}{2} + \frac{L}{4}\right)V_A + \frac{L}{4}P = 0
+    \end{empheq}
+    $\boxed{H_D = 0}$ \qquad $\boxed{V_A = \frac{P}{3}}$ \qquad $\boxed{V_D = \frac{2P}{3}}$
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d3.tex}}
+    \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Teorema do Corte: A-E}
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d_ae.tex}}
+      \resizebox{.5\textwidth}{!}{\input{fig/axis.tex}}
+    \end{figure}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; V_A\sin\alpha + N_x = 0\\
+      &\sum F_V = 0 \;\Rightarrow\; V_A\cos\alpha + V_x = 0\\
+      &\sum M_x = 0 \;\Rightarrow\; -V_A\cos(\alpha) x + M_x = 0
+    \end{empheq}
+    $\boxed{N_x = -\frac{P}{3}\sin\alpha}$ \qquad $\boxed{V_x = \frac{P}{3}\cos\alpha}$
+    $$\boxed{M_x = \frac{P}{3}\cos(\alpha)\ x}$$
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Teorema do Corte: D-E}
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d_de.tex}}
+    \end{figure}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; V_D\sin\beta - H_D\cos\beta + N_x = 0\\
+      &\sum F_V = 0 \;\Rightarrow\; V_D\cos\beta + H_D\sin\beta + V_x = 0\\
+      &\sum M_x = 0 \;\Rightarrow\; (V_D\cos\beta + H_D\sin\beta)x - M_x = 0
+    \end{empheq}
+    $\boxed{N_x = -\frac{2P}{3}\sin\beta}$ \qquad $\boxed{V_x = -\frac{2P}{3}\cos\beta}$
+    $$\boxed{M_x = \frac{2P}{3}\cos(\beta)\ x}$$
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Análise da Segunda Estrutura}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.75\textwidth}{!}{\input{fig/d4.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Equações de Equilíbrio}
+  \begin{columns}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; -H_D + H_C = 0\\
+      &\sum F_V = 0 \;\Rightarrow\; V_B + V_C - V_D = 0\\
+      &\sum M_B = 0 \;\Rightarrow\; \frac{L}{2}V_C - \frac{L}{4}V_D = 0\\
+      &\sum M_C = 0 \;\Rightarrow\; -\frac{L}{2}V_B + \frac{L}{4}V_D = 0
+    \end{empheq}
+    $\boxed{H_C = 0}$ \qquad $\boxed{V_B = \frac{P}{3}}$ \qquad $\boxed{V_C = \frac{P}{3}}$
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d4.tex}}
+    \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Teorema do Corte: B-D}
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d_bd.tex}}
+    \end{figure}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; V_B\sin\beta + N_x\\
+      &\sum F_V = 0 \;\Rightarrow\; V_B\cos\beta - V_x\\
+      &\sum M_x = 0 \;\Rightarrow\; -V_B\cos(\beta) x + M_x = 0
+    \end{empheq}
+    $\boxed{N_x = -\frac{P}{3}\sin\beta}$ \qquad $\boxed{V_x = \frac{P}{3}\cos\beta}$
+    $$\boxed{M_x = \frac{P}{3}\cos(\beta)\ x}$$
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Teorema do Corte: C-D}
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \resizebox{\textwidth}{!}{\input{fig/d_cd.tex}}
+    \end{figure}
+    \column{.65\textwidth}
+    \scriptsize
+    \centering
+    \begin{empheq}[left=\empheqlbrace]{align*}
+      &\sum F_H = 0 \;\Rightarrow\; V_C\sin\gamma - H_C\cos\gamma + N_x = 0\\
+      &\sum F_V = 0 \;\Rightarrow\; H_C\sin\gamma + V_C\cos\gamma + V_x = 0\\
+      &\sum M_x = 0 \;\Rightarrow\; (H_C\sin\gamma + V_C\cos\gamma)x - M_x = 0
+    \end{empheq}
+    $\boxed{N_x = -\frac{P}{3}\sin\gamma}$ \qquad $\boxed{V_x = -\frac{P}{3}\sin\gamma}$
+    $$\boxed{M_x = \frac{P}{3}\cos(\gamma)\ x}$$
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Diagrama da Força Normal}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.75\textwidth}{!}{\input{fig/normal.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Diagrama da Força Cortante}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.75\textwidth}{!}{\input{fig/cortante.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Diagrama do Momento Fletor}
+  \begin{figure}[ht]
+    \centering
+    \resizebox{.75\textwidth}{!}{\input{fig/momento.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]
+  \standoutpage{\bfseries\huge Fim}
+\end{frame}
+\end{document}

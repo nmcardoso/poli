@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+  \draw[fill=blue!60,color=blue!60] (0,0) rectangle (.6,1);
+  \draw[->] (.7,.8) -- (1.4,.8) node[above] {\tiny $N$};
+  \draw[->] (.7,.8) -- (.7,.1) node[below] {\tiny $V$};
+  \path[->] (.8,.1) edge[bend right=45] (1.4,.7) node[below right,yshift=1mm] {\tiny $M$};
+  \draw (1,.5) node{+};
+
+  \draw[->] (2.3,.2) -- (1.6,.2) node[below] {\tiny $N$};
+  \draw[->] (2.3,.2) -- (2.3,.9) node[above] {\tiny $V$};
+  \path[->] (1.6,.3) edge[bend left=45] (2.2,.9);
+  \draw[fill=blue!60,color=blue!60] (2.4,0) rectangle (3,1);
+  \draw (2,.5) node{+};
+\end{tikzpicture}

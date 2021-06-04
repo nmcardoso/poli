@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \point{a}{0}{0};
+    \point{b}{6.5}{-1.5};
+    \point{c}{11.5}{-1.5};
+    \point{d1}{7.5}{2.5};
+    \point{d2}{9}{1};
+    \point{e}{5}{5};
+
+    \beam{2}{a}{e};
+    \beam{2}{d1}{e};
+
+    \support{2}{a};
+    \support{1}{d1};
+
+    \dimensioning{1}{a}{e}{-2.5}[L/2];
+    \dimensioning{1}{e}{d1}{-2.5}[L/4];
+    \dimensioning{2}{a}{d1}{9}[h/2];
+    \dimensioning{2}{d1}{e}{9}[h/2];
+
+    \load{1}{e}[90];
+
+    \dnotation{1}{e}{P}[yshift=9mm,right=1mm];
+    \dnotation{1}{a}{A}[above left];
+    \dnotation{1}{d1}{D}[above right];
+    \dnotation{1}{e}{E}[below=2mm];
+
+    \draw[-{latex[scale=3.0]},very thick] (7.5,0.75) -- (7.5,1.65) node[yshift=-3mm,left=8mm] {$H_D$};
+    \draw[-{latex[scale=3.0]},very thick] (6.3,1.55) -- (7.3,1.55) node[yshift=-8mm,left=-3mm] {$V_D$};
+    \load{1}{a}[270][.9][1];
+    \dnotation{1}{a}{$V_A$}[left=-1mm,yshift=-18mm];
+
+    \draw[-{latex[scale=3.0]},thick] (.8,0) arc (0:45:.8) node[] at (20:1.1) {$\alpha$};
+    \draw[dashed] (0,0) -- (2,0);
+    \draw[-{latex[scale=3.0]},thick] (6.7,2.5) arc (180:135:.8) node[shift=({7.5,2.5})] at (160:1.1) {$\beta$};
+    \draw[dashed] (7.5,2.5) -- (5.5,2.5);
+  \end{scope}
+\end{tikzpicture}

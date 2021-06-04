@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+  \begin{scope}
+    \footnotesize
+    \draw[->,thick,black!90] (2.8,0) -- (-1.8,0)  node[below] {$x'$};
+    \draw[->,thick,black!90] (0,-1.4) -- (0,2.4) node[left] {$y'$};
+    \draw[->,thick,rotate=35,black!90] (-1.4,0) -- (2.8,0) node[above] {$x$};
+    \draw[->,thick,rotate=35,black!90] (0,-1.2) -- (0,2.3) node[above] {$y$};
+
+    \draw[->,thick,blue!80,rotate=35] (0,0) -- (2,0) coordinate(Va) node[below right] {$H_D$};
+    \draw[-,dashed] (0,{2*sin(35)}) -- (Va);
+    \draw[->,thick,blue!80] (0,0) -- (0,{2*sin(35)}) node[above right] {$H_D\sin\gamma$};
+    \draw[-,dashed] ({2*cos(35)},0) -- (Va);
+    \draw[->,thick,blue!80] (0,0) -- ({2*cos(35)},0) node[below,xshift=2mm] {$H_D\cos\gamma$};
+
+    \path[->,thick,black!90] (.5,0) edge [bend right=25] node[right] {$\gamma$} ({.5*cos(35)},{.5*sin(35)});
+  \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,409 @@
+\documentclass[12pt]{article}
+\usepackage{extsizes}
+\usepackage[brazil]{babel}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{stanli}
+\usepackage{siunitx}
+\usepackage{mathtools}
+\usepackage{quotes}
+\usepackage{amsmath}
+\usepackage{empheq}
+\usepackage{fancyhdr}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage[a4paper,lmargin=1.75cm,rmargin=1.75cm,tmargin=2.5cm,bmargin=2.5cm]{geometry}
+
+\begin{document}
+\fancyhead[L]{PEF3208: Fundamentos em Mecânica das Estruturas}
+\fancyhead[R]{Escola Politécnica - USP}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+\begin{center}
+  {\LARGE\bfseries Sistema de suspensão rocker-bogie}\\
+
+  \bigskip
+
+  {\large Natanael Magalhães Cardoso}\\
+  nUSP: 8914122
+
+  \medbreak
+
+  Relatório Final - Turma 03\\
+  PEF3208: Fundamentos em Mecânica das Estruturas\\
+  Prof. Osvaldo Shigueru Nakao\\
+  \bigskip
+  \today
+\end{center}
+
+\renewenvironment{abstract}
+{\quotation\small\noindent\rule{\linewidth}{.5pt}\par\smallskip
+  {\centering\bfseries\abstractname\par}\medskip}
+{\par\noindent\rule{\linewidth}{.5pt}\endquotation}
+
+\begin{abstract}
+  Este projeto consiste na aplicação dos conceitos da disciplina PEF3208 para analisar uma estrutura real. A estrutura escolhida foi o sistema de suspensão rocker-bogie, projetado e usado pela NASA em diversas missões de exploração de Marte.
+\end{abstract}
+
+\section{Introdução}
+
+\newlength{\currentparskip}
+\newlength{\currentparindent}
+\setlength{\currentparskip}{\parskip}
+\setlength{\currentparindent}{\parindent}
+\begin{minipage}{.53\textwidth}
+  \setlength{\parskip}{\currentparskip}
+  \setlength{\parindent}{\currentparindent}
+  O sistema de suspensão rocker-bogie foi projetado em 1988 por Donald B. Bickler para o uso da NASA no veículo espacial Sojourner. E, desde então, tornou-se o sistema de suspensão preferido da companhia para explorações espaciais, tendo sido reutilizado em outras missões como Mars 2003, Mars 2012 e Mars 2020 (figura \ref{fig:int-1}).
+  \medskip
+
+  A parte \emph{rocker} (oscilante) da suspensão vem do aspecto oscilante da articulação maior montada no corpo em cada lado do veículo espacial. Esses balancins são conectados um ao outro e ao chassi do veículo através de um diferencial. Em relação ao chassi, os balancins girarão em direções opostas para manter um contato aproximadamente igual com a roda. O chassi mantém o ângulo de inclinação médio dos dois balancins. Uma extremidade de um balancim é equipada com uma roda motriz e a outra extremidade é articulada ao bogie.
+  \medskip
+
+  A parte \emph{bogie} da suspensão refere-se à ligação menor, que gira para o balancim no meio e que tem uma roda motriz em cada extremidade. Os bogies eram comumente usados como rodas de carga nos trilhos dos tanques do exército como roldanas que distribuíam a carga no terreno e também eram comumente usados em reboques de caminhões semi-reboques. Agora, tanques e semi-reboques preferem suspensões de braço à direita.
+\end{minipage}%
+\hfill%
+\begin{minipage}{.4\textwidth}
+  \includegraphics[width=\linewidth,height=3.4cm]{fig/rb-suspension.png}
+  \includegraphics[width=.49\linewidth,height=3cm]{fig/sojourner.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm,trim={6cm 0 0 0},clip]{fig/spirit.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm]{fig/opportunity.jpg}
+  \includegraphics[width=.49\linewidth,height=3cm,trim={12cm 0 7cm 0},clip]{fig/curiosity.jpg}
+  \includegraphics[width=\linewidth,height=3.5cm,trim={0 2.7cm 0 1.5cm},clip]{fig/perseverance.jpg}
+  \captionof{figure}{Sistema rocker-bogie, Sojourner (1996), Spirit (2003), Opportunity (2003), Curiosity (2011) e Perseverance (2020).}
+  \label{fig:int-1}
+\end{minipage}
+
+\pagebreak
+
+\section{Definição da Estrutura}
+
+Uma possível representação do sistema rocker-bogie é pela estrutura da figura \ref{fig:diagrama-base}. Comparando-a com a figura \ref{fig:int-1}, podemos identificar alguns componentes: o ponto E representa a junta diferencial é ele que recebe a carga do veículo; o ponto de refere-se ao pivot; o segmento AE representa a rocker e o segmento BD representa o bogie.
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{.6\textwidth}{!}{\input{fig/d1.tex}}
+  \smallskip
+  \caption{Estrutura representando uma suspensão rocker-bogie.}
+  \label{fig:diagrama-base}
+\end{figure}
+
+Mas, para resolver a estrutura, a simplificação da figura \ref{fig:diagrama-simpl} foi adotada. Ela consiste na separação da estrutura em duas mais simples. Para tanto, foi considerado que no ponto D da figura ADE existe um apoio fixo e as reações deste apoio são transferidas como carga para o ponto D da estrutura BCD.
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{.7\textwidth}{!}{\input{fig/d2.tex}}
+  \smallskip
+  \caption{Redução da estrutrua da figura \ref{fig:diagrama-base} em duas estrutras mais simples.}
+  \label{fig:diagrama-simpl}
+\end{figure}
+
+\pagebreak
+
+\section{Resolução da Estrutura}
+
+\begin{minipage}{.48\textwidth}
+  Para analisar os esforços internos do sistema de suspensão rocker-bogie, primeiro iremos calcular as reações nos apoios de cada estrutura, para, então, gerar as equações dos esforços solicitantes a partir do Teorema do Corte. Para todos os cálculos desta seção, será considerada a convenção da figura \ref{fig:convencoes}(a) para esforços solicitantes e a convenção de Grinter para o equilíbrio, figura \ref{fig:convencoes}(b).
+\end{minipage}%
+\hfill%
+\begin{minipage}{.45\textwidth}
+  \begin{minipage}{.7\textwidth}
+    \centering
+    \resizebox{\linewidth}{!}{\input{fig/conv_solicitantes.tex}}
+    (a)
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}{.25\textwidth}
+    \centering
+    \resizebox{\linewidth}{!}{\input{fig/conv_grinter.tex}}
+    (b)
+  \end{minipage}
+  \captionof{figure}{Convenções adotadas.}
+  \label{fig:convencoes}
+\end{minipage}
+
+
+\subsection{Reações nos apoios em ADE}
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{.5\linewidth}{!}{\input{fig/d3.tex}}
+  \caption{Estrutura AED.}
+  \label{fig:aed}
+\end{figure}
+
+\begin{empheq}[left=\empheqlbrace]{align*}
+  &\sum F_H = 0 \;\Rightarrow\; H_D = 0\\
+  &\sum F_V = 0 \;\Rightarrow\; V_A + V_D - P = 0\\
+  &\sum M_A = 0 \;\Rightarrow\; \left(\frac{L}{2} + \frac{L}{4}\right)V_D - \frac{L}{2}P - \frac{h}{2}H_D = 0\\
+  &\sum M_D = 0 \;\Rightarrow\; \left(\frac{L}{2} + \frac{L}{4}\right)V_A + \frac{L}{4}P = 0
+\end{empheq}
+\begin{center}
+  $\boxed{H_D = 0}$ \qquad $\boxed{V_A = \frac{P}{3}}$ \qquad $\boxed{V_D = \frac{2P}{3}}$
+\end{center}
+
+\pagebreak
+
+\subsection{Reações nos apoios em BCD}
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{.5\textwidth}{!}{\input{fig/d4.tex}}
+  \captionof{figure}{Estrutura BCD.}
+  \label{fig:bcd}
+\end{figure}
+
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; -H_D + H_C = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; V_B + V_C - V_D = 0\\
+    &\sum M_B = 0 \;\Rightarrow\; \frac{L}{2}V_C - \frac{L}{4}V_D = 0\\
+    &\sum M_C = 0 \;\Rightarrow\; -\frac{L}{2}V_B + \frac{L}{4}V_D = 0
+  \end{empheq}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.4\textwidth}
+  \centering
+  $\boxed{V_B = \frac{P}{3}}$ \qquad $\boxed{V_C = \frac{P}{3}}$\\
+  $$\boxed{H_C = 0}$$
+\end{minipage}
+
+\bigskip
+\bigskip
+
+Os valores das reações nos apoios de ambas as estruturas serão dispostos na tabela seguinte para organizar a consulta na próxima etapa da análise.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{cccc}
+    \toprule
+    \multicolumn{2}{c}{ADE} & \multicolumn{2}{c}{BCD}                                     \\
+    Variável                & Valor (N)               & Variável    & Valor (N)           \\
+    \midrule
+    \large$H_D$             & \large 0                & \large$H_C$ & \large 0            \\[4pt]
+    \large$V_A$             & \Large$\frac{P}{3}$     & \large$V_B$ & \Large$\frac{P}{3}$ \\[8pt]
+    \large$V_D$             & \Large$\frac{2P}{3}$    & \large$V_C$ & \Large$\frac{P}{3}$ \\[8pt]
+    \bottomrule
+  \end{tabular}
+  \caption{Valores das reações externas calculadas pelas equações de equilíbrio.}
+  \label{tab:variaveis}
+\end{table}
+
+E, para prosseguir com a resolução da estrutura, os esforços internos serão calculados a seguir usando o Teorema do Corte.
+
+\pagebreak
+
+\subsection{Esforços solicitantes em AE}
+
+Escrevendo o vetor $V_A$ em termos do eixo de coordenadas auxiliar $x'y'$, como indica a figura \ref{fig:axis-ae}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível calcular as expressões dos esforços solicitantes deste segmento e exibi-las na figura \ref{fig:gr-ae}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_ae.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento AE.}
+  \label{fig:seg-ae}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_A\sin\alpha + N_x = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; V_A\cos\alpha + V_x = 0\\
+    &\sum M_x = 0 \;\Rightarrow\; -V_A\cos\alpha x + M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{P}{3}\sin\alpha}$ \qquad $\boxed{V_x = \frac{P}{3}\cos\alpha}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{P}{3}\cos(\alpha)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_ae.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra AE.}
+  \label{fig:gr-ae}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_ae.tex}
+  \captionof{figure}{Representação do vetor $V_A$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-ae}
+\end{minipage}
+
+\pagebreak
+
+\subsection{Esforços solicitantes em DE}
+
+Analogamente ao procedimento anterior, podemos escrever os vetores $V_D$ e $H_D$ em termos do eixo de coordenadas auxiliar $x'y'$, como indicam as figuras \ref{fig:axis-de1} e \ref{fig:axis-de2}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível chegar às expressões dos esforços solicitantes do segmento DE e exibi-las na figura \ref{fig:gr-de}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_de.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento DE.}
+  \label{fig:seg-de}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_D\sin\beta - H_D\cos\beta + N_x = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; V_D\cos\beta + H_D\sin\beta + V_x = 0\\
+    &\sum M_x = 0 \;\Rightarrow\; (V_D\cos\beta + H_D\sin\beta)x - M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{2P}{3}\sin\beta}$ \qquad $\boxed{V_x = -\frac{2P}{3}\cos\beta}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{2P}{3}\cos(\beta)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_de.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra DE.}
+  \label{fig:gr-de}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_de1.tex}
+  \captionof{figure}{Representação do vetor $V_D$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-de1}
+  \vspace{2mm}
+  \input{fig/axis_de2.tex}
+  \captionof{figure}{Representação do vetor $H_D$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-de2}
+\end{minipage}
+
+\pagebreak
+
+\subsection{Esforços solicitantes em BD}
+
+E, continuando a análise, escrevemos o vetor $V_B$ em termos do eixo de coordenadas auxiliar $x'y'$, como indica a figura \ref{fig:axis-bd}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível calcular as expressões dos esforços solicitantes deste segmento e exibi-las na figura \ref{fig:gr-bd}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_bd.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento BD.}
+  \label{fig:seg-db}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_B\sin\beta + N_x\\
+    &\sum F_V = 0 \;\Rightarrow\; V_B\cos\beta - V_x\\
+    &\sum M_x = 0 \;\Rightarrow\; -V_B\cos\beta x + M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{P}{3}\sin\beta}$ \qquad $\boxed{V_x = \frac{P}{3}\cos\beta}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{P}{3}\cos(\beta)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_bd.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra BD.}
+  \label{fig:gr-bd}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_bd.tex}
+  \captionof{figure}{Representação do vetor $V_B$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-bd}
+\end{minipage}
+
+\pagebreak
+
+\subsection{Esforços solicitantes em CD}
+E, por fim, podemos escrever os vetores $V_C$ e $H_C$ em termos do eixo de coordenadas auxiliar $x'y'$, como indicam as figuras \ref{fig:axis-cd1} e \ref{fig:axis-cd2}, e substituindo os valores das reações pelos valores da tabela \ref{tab:variaveis}, é possível chegar às expressões dos esforços solicitantes do segmento CD e exibi-las na figura \ref{fig:gr-cd}.
+
+\bigskip
+
+\begin{minipage}{.35\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/d_cd.tex}}
+  \captionof{figure}{Diagrama de corpo livre do segmento CD.}
+  \label{fig:seg-cd}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+  \begin{empheq}[left=\empheqlbrace]{align*}
+    &\sum F_H = 0 \;\Rightarrow\; V_C\sin\gamma - H_C\cos\gamma + N_x = 0\\
+    &\sum F_V = 0 \;\Rightarrow\; H_C\sin\gamma + V_C\cos\gamma + V_x = 0\\
+    &\sum M_x = 0 \;\Rightarrow\; (H_C\sin\gamma + V_C\cos\gamma)x - M_x = 0
+  \end{empheq}
+  \begin{center}
+    $\boxed{N_x = -\frac{P}{3}\sin\gamma}$ \qquad $\boxed{V_x = -\frac{P}{3}\sin\gamma}$\\
+    \vspace{3mm}
+    $\boxed{M_x = \frac{P}{3}\cos(\gamma)\ x}$
+  \end{center}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{.52\textwidth}
+  \centering
+  \resizebox{\linewidth}{!}{\input{fig/r_cd.tex}}
+  \captionof{figure}{Gráficos da força normal, cortante e momento fletor na barra CD.}
+  \label{fig:gr-cd}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.35\textwidth}
+  \centering
+  \input{fig/axis_cd1.tex}
+  \captionof{figure}{Representação do vetor $V_C$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-cd1}
+  \vspace{2mm}
+  \input{fig/axis_cd2.tex}
+  \captionof{figure}{Representação do vetor $H_C$ no sistema de coordenadas auxiliar.}
+  \label{fig:axis-cd2}
+\end{minipage}
+
+\pagebreak
+
+\section{Resultados}
+
+As figuras \ref{fig:gr-normal}, \ref{fig:gr-cortante} e \ref{fig:gr-momento} reúnem os gráficos da força normal, cortante e momento fletor para os esforços solicitantes da estrutura.
+
+\bigskip
+
+\begin{minipage}{.45\textwidth}
+  \resizebox{\textwidth}{!}{\input{fig/normal.tex}}
+  \captionof{figure}{Força normal.}
+  \label{fig:gr-normal}
+\end{minipage}%
+\hfill%
+\begin{minipage}{.45\textwidth}
+  \resizebox{\textwidth}{!}{\input{fig/cortante.tex}}
+  \captionof{figure}{Força cortante.}
+  \label{fig:gr-cortante}
+\end{minipage}
+
+\medskip
+
+\begin{figure}[ht!]
+  \centering
+  \resizebox{.45\textwidth}{!}{\input{fig/momento.tex}}
+  \caption{Momento fletor.}
+  \label{fig:gr-momento}
+\end{figure}
+
+\end{document}
