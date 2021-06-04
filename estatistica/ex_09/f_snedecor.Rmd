@@ -1,0 +1,80 @@
+---
+title: "F-Snedecor"
+author: "Natanael Magalhães Cardoso, nUSP: 8914122"
+date: "13/05/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+a) $F_{0.05, 5, 8}$
+
+```{r}
+qf(0.05, 5, 8, lower.tail=FALSE)
+```
+
+\bigskip
+
+b) $F_{0.05, 8, 5}$
+
+```{r}
+qf(0.05, 8, 5, lower.tail=FALSE)
+```
+
+\bigskip
+
+c) $F_{0.95, 5, 8}$
+
+```{r}
+qf(0.95, 5, 8, lower.tail=FALSE)
+1 / qf(0.05, 8, 5, lower.tail=FALSE)
+```
+
+\bigskip
+
+d) $F_{0.95, 8, 5}$
+
+```{r}
+qf(0.95, 8, 5, lower.tail=FALSE)
+1 / qf(0.05, 5, 8, lower.tail=FALSE)
+```
+
+\bigskip
+
+e) $F_{0.99, 10, 12}$
+
+```{r}
+qf(0.99, 10, 12, lower.tail=FALSE)
+1 / qf(0.01, 12, 10, lower.tail=FALSE)
+```
+
+\newpage
+
+
+f) $F_{0.01, 10, 12}$
+
+```{r}
+qf(0.01, 10, 12, lower.tail=FALSE)
+1 / qf(0.99, 12, 10, lower.tail=FALSE)
+```
+
+
+\bigskip
+
+
+g) $P(F \le 6,16)$
+
+```{r}
+pf(6.16, 6, 4, lower.tail=TRUE)
+```
+
+\bigskip
+
+
+h) $P(0.177 \le F \le 4.74)$
+
+```{r}
+pf(4.74, 10, 5, lower.tail=TRUE) - pf(0.177, 10, 5, lower.tail=TRUE)
+```
