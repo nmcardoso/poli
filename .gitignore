@@ -1,2 +1,9 @@
 */output/*
 !*/output/*.pdf
+
+# R / RStudio
+.Rproj.user
+.Rhistory
+.RData
+*_cache
+*_files
