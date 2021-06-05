@@ -22,7 +22,7 @@ imdb2 <- imdb2 %>% mutate(Lucro=receita-orcamento)
 df_g2 <- df_g2 %>% mutate(Lucro=receita-orcamento)
 ```
 
-# Pergunta 01
+# Pergunta 01 (ok)
 
 ```{r q1}
 IC_media_Z <- function(dados, confianca, dp) {
@@ -34,9 +34,14 @@ IC_media_Z <- function(dados, confianca, dp) {
   LI = xbarra - e
   return(c(LI, LS))
 }
+IC_media_Z(imdb2$Lucro, 0.95, 55e6)
 ```
 
-# Pergunta 02
+\bigskip
+
+O intervalo de confiança da média considerando variância populacional conhecida é $IC = [14.853.397; 20.182.038]$.
+
+# Pergunta 02 (ok)
 
 ```{r q2}
 IC_media_t <- function(dados, confianca) {
@@ -48,10 +53,14 @@ IC_media_t <- function(dados, confianca) {
   LI = xbarra - e
   return(c(LI, LS))
 }
+IC_media_t(imdb2$Lucro, 0.95)
 ```
 
+\bigskip
 
-# Pergunta 03
+O intervalo de confiança da média considerando variância populacional desconhecida é $IC = [14.467.782; 20.567.653]$.
+
+# Pergunta 03 (ok)
 
 ```{r q3}
 imdb2 <- imdb2 %>% mutate(
