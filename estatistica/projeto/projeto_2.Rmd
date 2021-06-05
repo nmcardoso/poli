@@ -62,7 +62,27 @@ df_g2 <- imdb2 %>% mutate(
 )
 ```
 
-# Pergunta 04
+# Pergunta 04 (ok)
+
+```{r q4}
+IC_prop <- function(dados, confianca) {
+  n = length(dados)
+  z = qnorm((1 + confianca) / 2)
+  p_chapeu = table(dados) / n
+  e = z * sqrt((p_chapeu * (1 - p_chapeu)) / n)
+  LS = p_chapeu + e
+  LI = p_chapeu - e
+  return(c(LI, LS))
+}
+IC_prop(imdb2$Aprovado, 0.80)
+IC_prop(imdb2$Aprovado, 0.95)
+IC_prop(imdb2$Aprovado, 0.99)
+```
+
+\bigskip
+
+Para \texttt{Aprovado = TRUE}, os intervalos de confiança para proporção são $IC_{80\%} = [0,499; 0,531]$, $IC_{95\%} = [0,491; 0,539]$ e $IC_{99\%} = [0,483; 0,547]$ para os níveis de confiança de 80, 95 e 95%, respectivamente. Foi notado que o intervalo **diminuiu** com o aumento do nível de confiança. Consequentemente, para \texttt{Aprovado = FALSE}, o intervalo  **aumentou** com o aumento do nível de confiança.
+
 
 
 
