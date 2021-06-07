@@ -1,0 +1,71 @@
+---
+title: "Exercício 16"
+author: "Natanael Magalhães Cardoso^[nUSP: 8914122]"
+date: "09/06/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(ggplot2)
+```
+
+# Papel de Probabilidade Normal
+
+Gráfico q-q representando os dados amostrais no Papel de Probabilidade Normal e a respectiva reta ajustada. Quanto mais perto da reta, mais os pontos se aproximam de uma distribuição normal.
+
+\medskip
+
+
+```{r}
+dados <- c(25.4, 27.0, 27.3, 27.8, 28.0, 29.2, 29.5, 30.2, 30.6, 33.5)
+ggplot() + aes(sample=dados) + stat_qq(distribution=qnorm) +
+  stat_qq_line(line.p=c(0.25, 0.75), col="blue") + 
+  labs(x="Quantil Normal", y="Quantil Amostral") +
+  ggtitle("Gráfico Quantil-Quantil da amostra")
+```
+
+
+# Estimativa da média
+
+## Estimativa da média pelo estimador $\bar{X}$
+
+$$
+\bar{X} = \frac{\Sigma_i^{n} x_i}{n} = 28,85
+$$
+
+```{r}
+mean(dados)
+```
+
+
+## Estimativa da média pelo gráfico q-q
+
+```{r, echo=FALSE}
+ggplot() + aes(sample=dados) + stat_qq(distribution=qnorm) +
+  stat_qq_line(line.p=c(0.25, 0.75), col="blue") +
+  geom_hline(yintercept=28.73, linetype="dashed", colour="red", alpha=0.7) +
+  geom_vline(xintercept=0, linetype="dashed", colour="red", alpha=0.7) +
+  annotate("point", x=0, y=28.73, colour="red", size=1.5, shape=8, alpha=0.7) +
+  annotate("text", x=0.2, y=28.43, label="(0, 28.73)") +
+  labs(x="Quantil Normal", y="Quantil Amostral") +
+  ggtitle("Gráfico Quantil-Quantil da amostra")
+```
+
+É possível obter a média amostral visualmente a partir do papel de probabilidade normal (gráfico q-q) fazendo a interceção do quantil 0 da distribuição normalizada com a reta ajustada. O valor da média obtido por este método foi de 28,73, que é bem próximo do valor calculado pelo estimador $\bar{X}$.
+
+# Estimativa do desvio padrão
+
+## Estimativa do desvio padrão com média populacional desconhecida
+
+$$
+S = \sqrt{\frac{\Sigma_i^n (x_i - \bar{X})^2}{n - 1}} \approx 2,28
+$$
+
+```{r}
+sd(dados)
+```
+
