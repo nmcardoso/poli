@@ -65,9 +65,27 @@ IC_media_Z(imdb2$Lucro, 0.95, 55e6)
 
 \bigskip
 
-O intervalo de confiança da média considerando variância populacional conhecida é $IC = [14.853.397; 20.182.038]$.
-
 # Pergunta 02 (ok)
+
+É possível estimar o parâmetro $\mu$ de uma distribuição com variância populacional desconhecida a partir da estimação da variância pelo estimador variância amostral, $s$, que é definido na Equação \eqref{eq:s}, para $n \ge 30$.
+
+\begin{equation}
+\label{eq:s}
+s = \sqrt{\frac{\sum_i^n (x_i - \bar{x})^2}{n-1}}
+\end{equation}
+
+Esta estimativa segue uma distribuição t-Student e o intervalo de confiança para média com variância populacional desconhecida é mostrado na Equação \eqref{eq:mean-ic2}.
+
+\begin{equation}
+\label{eq:mean-ic2}
+IC = \bar{x} \pm t_{n-1; \alpha / 2} \times \frac{s}{\sqrt{n}}
+\end{equation}
+
+A Listagem a seguir mostra a implementação da função `IC_media_t`, que calcula o intervalo de confiança da média para variância populacional desconhecida.
+Aplicando a função nos valores da coluna _Lucro_, para um nível de confiança de 95%, temos que o intervalo de confiança calculado é $IC = [14.467.782; 20.567.653]$.
+
+
+\bigskip
 
 ```{r q2}
 IC_media_t <- function(dados, confianca) {
