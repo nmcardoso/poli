@@ -102,9 +102,11 @@ IC_media_t(imdb2$Lucro, 0.95)
 
 \bigskip
 
-O intervalo de confiança da média considerando variância populacional desconhecida é $IC = [14.467.782; 20.567.653]$.
-
 # Pergunta 03 (ok)
+
+A Listagem a seguir mostra a inclusão de uma nova coluna com valores booleanos no conjunto de dados principal e no subconjunto com filmes lançados entre 2000 e 2010. O campo recebe valor `verdadeiro` se a nota for maior que 6,5 e `falso` caso contrário.
+
+\bigskip
 
 ```{r q3}
 imdb2 <- imdb2 %>% mutate(
