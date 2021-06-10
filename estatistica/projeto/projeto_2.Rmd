@@ -24,6 +24,32 @@ df_g2 <- df_g2 %>% mutate(Lucro=receita-orcamento)
 
 # Pergunta 01 (ok)
 
+O parâmetro $\mu$ será estimado pelo estimador $\bar{x}$, que é definido pela Equação \eqref{eq:mean}.
+
+\begin{equation}
+\label{eq:mean}
+\bar{x} = \frac{1}{n}\sum_i^n x_i
+\end{equation}
+
+Para um valor de $n$ suficientemente grande, a distribuição de $\bar{x}$ é normal. E, o intervalo que tem a probalidade $1 - \alpha$ de conter o verdadeiro valor do parâmetro $\mu$ da população é dado pela Equação \eqref{eq:mean-prob}. 
+
+\begin{equation}
+\label{eq:mean-prob}
+P(\bar{x} - e_0 \le \mu \le \bar{x} + e_0) = 1 - \alpha
+\end{equation}
+
+Sendo assim, o intervalo de confiança da média considerando variância populacional $\sigma$ conhecida é expresso pela Equação \eqref{eq:mean-ic}.
+
+\begin{equation}
+\label{eq:mean-ic}
+IC = \bar{x} \pm z_{\alpha / 2} \times \frac{\sigma}{\sqrt{n}}
+\end{equation}
+
+A Listagem a seguir mostra a implementação da função `IC_media_Z`, que calcula o intervalo de confiança da média para variância populacional conhecida.
+Aplicando a função nos valores da coluna _Lucro_, para um nível de confiança de 95% e considerando a média populacional $\mu = 55\textrm{M}$, temos que $IC = [14.853.397; 20.182.038]$.
+
+\bigskip
+
 ```{r q1}
 IC_media_Z <- function(dados, confianca, dp) {
   xbarra = mean(dados, na.rm=TRUE)
