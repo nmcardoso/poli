@@ -119,6 +119,26 @@ df_g2 <- imdb2 %>% mutate(
 
 # Pergunta 04 (ok)
 
+O estimador $p'$, definido na Equação \eqref{eq:p}, será usado para calcular a proporção.
+
+\begin{equation}
+\label{eq:p}
+p' = \frac{f}{n}
+\end{equation}
+
+A distribuição de $p'$ é Binomial, mas, se $np \ge 5$ e $n(1-p) \ge 5$, ela pode ser aproximanda por uma Normal. 
+Desta forma, o intervalo de confiança pode ser descrito pela Equação \eqref{eq:p-ic}.
+
+\begin{equation}
+\label{eq:p-ic}
+IC = p' \pm z_{\alpha / 2}\sqrt{\frac{p'(1-p')}{n}}
+\end{equation}`
+
+A Listagem a seguir mostra a implementação da função `IC_prop`, que calcula o intervalo de confiança da proporção amostral.
+Para \texttt{Aprovado = TRUE}, os intervalos de confiança para proporção são $IC_{80\%} = [0,499; 0,531]$, $IC_{95\%} = [0,491; 0,539]$ e $IC_{99\%} = [0,483; 0,547]$ para os níveis de confiança de 80, 95 e 95%, respectivamente. Foi notado que o intervalo **diminuiu** com o aumento do nível de confiança. Consequentemente, para \texttt{Aprovado = FALSE}, o intervalo  **aumentou** com o aumento do nível de confiança.
+
+\bigskip
+
 ```{r q4}
 IC_prop <- function(dados, confianca) {
   n = length(dados)
