@@ -103,10 +103,10 @@ df_g2 <- imdb2 %>% mutate(
 IC_prop <- function(dados, confianca) {
   n = length(dados)
   z = qnorm((1 + confianca) / 2)
-  p_chapeu = table(dados) / n
-  e = z * sqrt((p_chapeu * (1 - p_chapeu)) / n)
-  LS = p_chapeu + e
-  LI = p_chapeu - e
+  p_linha = table(dados) / n
+  e = z * sqrt((p_linha * (1 - p_linha)) / n)
+  LS = p_linha + e
+  LI = p_linha - e
   return(c(LI, LS))
 }
 IC_prop(imdb2$Aprovado, 0.80)
