@@ -156,10 +156,13 @@ IC_prop(imdb2$Aprovado, 0.99)
 
 \bigskip
 
-Para \texttt{Aprovado = TRUE}, os intervalos de confiança para proporção são $IC_{80\%} = [0,499; 0,531]$, $IC_{95\%} = [0,491; 0,539]$ e $IC_{99\%} = [0,483; 0,547]$ para os níveis de confiança de 80, 95 e 95%, respectivamente. Foi notado que o intervalo **diminuiu** com o aumento do nível de confiança. Consequentemente, para \texttt{Aprovado = FALSE}, o intervalo  **aumentou** com o aumento do nível de confiança.
-
-
 # Pergunta 05 (ok)
+
+
+
+O intervalo de confiança da variância considerando um nível de confiança de 95\% é $IC = [60.830.134; 65.146.228]$.
+
+\bigskip
 
 ```{r q5}
 IC_var <- function(dados, confianca) {
@@ -175,9 +178,6 @@ IC_var(imdb2$Lucro, 0.95)
 ```
 
 \bigskip
-
-O intervalo de confiança da variância considerando um nível de confiança de 95\% é $IC = [60.830.134; 65.146.228]$.
-
 
 # Pergunta 06
 
