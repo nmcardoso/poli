@@ -1,0 +1,66 @@
+---
+title: "Entrega 17"
+author: "Natanael Magalhães Cardoso"
+date: "14/06/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Importação das bibliotecas
+
+```{r lib, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(readr)
+```
+
+# Carregamento dos dados
+
+```{r}
+imdb2 <- read_rds("../projeto/imdb2.rds")
+```
+
+# Visualização da distribuição dos dados
+
+```{r}
+imdb2 %>%
+  ggplot(aes(x=nota_imdb)) +
+  geom_histogram(
+    aes(y=..density..), 
+    bins=10, 
+    fill="darkolivegreen1", 
+    colour="black", 
+    size=1
+  ) +
+  labs(
+    x="Nota imdb", 
+    y="Densidade de frequência", 
+    title="Histograma da Nota imdb", 
+    subtitle="Entrega 17 - Parte 1"
+  ) +
+  theme_bw() +
+  stat_function(
+    fun=dnorm, 
+    args=list(mean=mean(imdb2$nota_imdb), sd=sd(imdb2$nota_imdb)), 
+    size=1.5, 
+    col="darkolivegreen4", 
+    linetype=1
+  )
+
+pdf("ex_17_plot.pdf")
+imdb2 %>%
+  ggplot(aes(sample=nota_imdb)) +
+  geom_qq_line(size=1.5, linetype=1, colour="darkolivegreen") +
+  geom_qq(shape=21, size=2, fill="darkolivegreen1", colour="darkolivegreen4") +
+  labs(
+    x="Quantil teórico", 
+    y="Quantil amostral", 
+    title="Papel de Probabilidade Normal da Nota imdb", 
+    subtitle="Entrega 17"
+  ) +
+  theme_bw()
+dev.off()
+```
