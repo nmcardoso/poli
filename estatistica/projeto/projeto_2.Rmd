@@ -158,7 +158,7 @@ IC_prop(imdb2$Aprovado, 0.99)
 
 # Pergunta 05 (ok)
 
-
+Para estimar a variância amostral, 
 
 O intervalo de confiança da variância considerando um nível de confiança de 95\% é $IC = [60.830.134; 65.146.228]$.
 
