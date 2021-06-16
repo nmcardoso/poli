@@ -8,3 +8,6 @@
 .RData
 *_cache
 *_files
+
+# JupyterLab
+.ipynb_checkpoints
