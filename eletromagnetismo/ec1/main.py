@@ -119,3 +119,20 @@ class FDM:
     plt.show()
 
 
+  def compute_resistence(self, V, l, sigma):
+    h = self.k * 1e-3
+    l *= self.k
+    R = np.empty((self.Ey.shape[0]))
+    for j in range(self.Ey.shape[0]):
+      R[j] = V / (l * sigma * h * np.sum(self._remove_nan(self.Ey[j])))
+
+    plt.plot(R)
+    plt.title(f'Iterações: {self.epochs}')
+    plt.show()
+    
+    return R
+  
+
+# class Visualization:
+#   def plot_field(Ex, Ey, p):
+
