@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import progressbar
+from statistics import mode
 
 
 def template1(k, initial_value):
@@ -117,38 +118,50 @@ def compute_resistence(V, l, h, sigma, E, axis):
       R[i] = V / (l * sigma * h * np.sum(np.abs(remove_nan(E[:, i]))))
   return R
 
+
+def plot_field(Ex, Ey, potential, title='', show=True, filename=None):
+  p = remove_nan(potential)
+  x, y = potential.shape[1] - 1, potential.shape[0] - 1
+  
   lvl = np.linspace(np.amin(p), np.amax(p), int((np.amax(p) - np.amin(p)) / 10))
-  X, Y = np.meshgrid(np.linspace(0,x,x),np.linspace(0,y,y))
-  X1, Y1 = np.meshgrid(np.linspace(0,x + 1,x + 1),np.linspace(0,y +1,y+1))
-  # print(X.shape, Y.shape, Ex.shape, Ey.shape)
-  cs = plt.contour(X1, Y1, m, colors='red', levels=lvl)
-  plt.clabel(cs, lvl, fontsize=8, inline_spacing=2, rightside_up=True, use_clabeltext=True)
-  # cb = plt.colorbar(cp)
-  # plt.show()
+  X1, Y1 = np.meshgrid(np.linspace(0, x+1, x+1), np.linspace(0, y+1, y+1))
+  cs = plt.contour(X1, Y1, potential, colors='red', levels=lvl)
+  plt.clabel(cs, lvl, fontsize=8, inline_spacing=1, rightside_up=True, use_clabeltext=True)
+
+  X, Y = np.meshgrid(np.linspace(0, x, x), np.linspace(0, y, y))
   plt.streamplot(X, Y, Ex, Ey)
   plt.gca().invert_yaxis()
-  # plt.title(f'Iterações: {self.epochs}')
-  plt.show()
-
-  return Ex, Ey
-
-
-def compute_resistence(V, l, h, sigma, Ey):
-  R = np.empty(Ey.shape[0])
-  for j in range(Ey.shape[0]):
-    R[j] = V / (l * sigma * h * np.sum(remove_nan(Ey[j])))
-
-  plt.plot(R)
-  # plt.title(f'Iterações: {self.epochs}')
-  plt.show()
-  
-  return R
-
+  plt.title(title)
+  if filename is not None:
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.05)
+  if show:
+    plt.show()
+  plt.close()
 
 
 if __name__ == '__main__':
-  template2(1, 50)
-  # k = 1
-  # p, h = compute_potential(template1(k), epochs=300)
-  # Ex, Ey = compute_ef(p, k * 1e-3)
-  # print(compute_resistence(100, k * 40e-3, k * 1e-3, 5, Ey))
+  k = 2
+  t = template1(k, 50)
+
+  def plot_callback(opts):
+    if opts['epoch'] % 100 != 0:
+      return
+    Ex, Ey = compute_ef(opts['potential'], k*1e-3)
+    plot_field(Ex, Ey, opts['potential'], title=f'Epoch {opts["epoch"]}', show=False, filename=f'field_{opts["epoch"]}.png')
+    resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=0)
+    plt.plot(resistences)
+    plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
+    plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
+    plt.title(f'Epoch {opts["epoch"]}')
+    plt.savefig(f'resistencia_{opts["epoch"]}.png', bbox_inches='tight', pad_inches=0.05)
+    plt.close()
+  
+  potential, history = compute_potential(t, axis=0, epochs=4001, callbacks=[plot_callback])
+  # Ex, Ey = compute_ef(potential, k*1e-3)
+  # resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=1)
+
+  # plot_field(Ex, Ey, potential)
+  # plt.plot(resistences)
+  # plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
+  # plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
+  # plt.show()
