@@ -13,6 +13,21 @@ def template1(k, init_value):
   return m
 
 
+def template2(k, initial_value):
+  a, b, c, d, e = 40, 120, 20, 14, 6
+  f, g = d+e, int(c/2)
+  x, y = int((a/2)*k), b*k
+  t = np.empty((y, x), dtype=float)
+  t[:] = initial_value
+  t[:, 0] = 0
+  t[:, -1] = 100
+  t[-f:-e, -g:] = np.nan
+  t[-f, -g:] = 100
+  t[-e, -g:] = 100
+  t[-f:-e, -g] = 100
+  plt.imshow(t)
+  plt.show()
+
 def remove_nan(array):
   return array[~np.isnan(array)]
 
@@ -109,7 +124,8 @@ def compute_resistence(V, l, h, sigma, Ey):
 
 
 if __name__ == '__main__':
-  k = 1
-  p, h = compute_potential(template1(k), epochs=300)
-  Ex, Ey = compute_ef(p, k * 1e-3)
-  print(compute_resistence(100, k * 40e-3, k * 1e-3, 5, Ey))
+  template2(1, 50)
+  # k = 1
+  # p, h = compute_potential(template1(k), epochs=300)
+  # Ex, Ey = compute_ef(p, k * 1e-3)
+  # print(compute_resistence(100, k * 40e-3, k * 1e-3, 5, Ey))
