@@ -36,49 +36,46 @@ def remove_nan(array):
   return array[~np.isnan(array)]
 
 
-def compute_potential(m, epochs=50):
-  # self.epochs = epochs
+def compute_potential(template, epochs=50):
   history = []
-
-  # Define initial state.
-  x, y = m.shape[1], m.shape[0]
-  prev_m = np.copy(m)
+  p = np.copy(template)
+  prev = np.copy(template)
+  x, y = p.shape[1], p.shape[0]
   
   for epoch in progressbar.progressbar(range(epochs)):
     for j in range(1, y - 1):
       for i in range(x):
-        if np.isnan(m[j, i]):
+        if np.isnan(p[j, i]):
           continue
 
-        # Define neighbor points
-        if j - 1 < 0 or np.isnan(m[j - 1, i]):
-          t = m[j + 1, i]
+        if j - 1 < 0 or np.isnan(p[j - 1, i]):
+          t = p[j + 1, i]
         else:
-          t = m[j - 1, i]
+          t = p[j - 1, i]
 
-        if j + 1 >= y or np.isnan(m[j + 1, i]):
-          b = m[j - 1, i]
+        if j + 1 >= y or np.isnan(p[j + 1, i]):
+          b = p[j - 1, i]
         else:
-          b = m[j + 1, i]
+          b = p[j + 1, i]
 
-        if i - 1 < 0 or np.isnan(m[j, i - 1]):
-          l = m[j, i + 1]
+        if i - 1 < 0 or np.isnan(p[j, i - 1]):
+          l = p[j, i + 1]
         else:
-          l = m[j, i - 1]
+          l = p[j, i - 1]
 
-        if i + 1 >= x or np.isnan(m[j, i + 1]):
-          r = m[j, i - 1]
+        if i + 1 >= x or np.isnan(p[j, i + 1]):
+          r = p[j, i - 1]
         else:
-          r = m[j, i + 1]
+          r = p[j, i + 1]
 
-        m[j, i] = (t + b + l + r) / 4
+        p[j, i] = (t + b + l + r) / 4
 
-    f_m = m[~np.isnan(m)]
-    f_prev_m = prev_m[~np.isnan(prev_m)]
-    history.append(np.sum((f_m - f_prev_m) ** 2) / f_m.shape[0])
-    prev_m = np.copy(m)
+    f_p = p[~np.isnan(p)]
+    f_prev = prev[~np.isnan(prev)]
+    history.append(np.sum((f_p - f_prev) ** 2) / f_p.shape[0])
+    prev = np.copy(p)
   
-  return m, history
+  return p, history
 
 
 def compute_ef(m, h):
