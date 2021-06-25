@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import progressbar
 
 
-def template1(k):
+def template1(k, init_value):
   x, y = 40 * k, 80 * k
   m = np.empty((y, x), dtype=np.float)
-  m[:] = 50
+  m[:] = init_value
   m[0, :] = 100
   m[y - 1, :] = 0
   m[60*k : 74*k, 10*k : 30*k] = np.nan
