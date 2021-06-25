@@ -3,20 +3,24 @@ import matplotlib.pyplot as plt
 import progressbar
 
 
-def template1(k, init_value):
-  x, y = 40 * k, 80 * k
-  m = np.empty((y, x), dtype=np.float)
-  m[:] = init_value
-  m[0, :] = 100
-  m[y - 1, :] = 0
-  m[60*k : 74*k, 10*k : 30*k] = np.nan
-  return m
+def template1(k, initial_value):
+  a, b, c, d, e = 40*k, 120*k, 20*k, 14*k, 6*k
+  f = int((a-c)/2)
+
+  x, y = a, b
+  t = np.empty((y, x), dtype=np.float)
+  t[:] = initial_value
+  t[0, :] = 100
+  t[-1, :] = 0
+  t[-(d+e):-e, f:f+c] = np.nan
+  return t
 
 
 def template2(k, initial_value):
-  a, b, c, d, e = 40, 120, 20, 14, 6
+  a, b, c, d, e = 40*k, 120*k, 20*k, 14*k, 6*k
   f, g = d+e, int(c/2)
-  x, y = int((a/2)*k), b*k
+
+  x, y = int((a/2)), b
   t = np.empty((y, x), dtype=float)
   t[:] = initial_value
   t[:, 0] = 0
@@ -25,8 +29,8 @@ def template2(k, initial_value):
   t[-f, -g:] = 100
   t[-e, -g:] = 100
   t[-f:-e, -g] = 100
-  plt.imshow(t)
-  plt.show()
+  return t
+
 
 def remove_nan(array):
   return array[~np.isnan(array)]
