@@ -106,7 +106,16 @@ def compute_ef(p, h):
   return Ex, Ey
 
 
-  p = m[~np.isnan(m)]
+def compute_resistence(V, l, h, sigma, E, axis):
+  if axis == 0:
+    R = np.empty(E.shape[0])
+    for j in range(E.shape[0]):
+      R[j] = V / (l * sigma * h * np.sum(np.abs(remove_nan(E[j, :]))))
+  else:
+    R = np.empty(E.shape[1])
+    for i in range(E.shape[1]):
+      R[i] = V / (l * sigma * h * np.sum(np.abs(remove_nan(E[:, i]))))
+  return R
 
   lvl = np.linspace(np.amin(p), np.amax(p), int((np.amax(p) - np.amin(p)) / 10))
   X, Y = np.meshgrid(np.linspace(0,x,x),np.linspace(0,y,y))
