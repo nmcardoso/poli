@@ -36,45 +36,57 @@ def remove_nan(array):
   return array[~np.isnan(array)]
 
 
-def compute_potential(template, epochs=50):
+def compute_potential(template, axis, epochs=50, callbacks=[]):
   history = []
   p = np.copy(template)
   prev = np.copy(template)
   x, y = p.shape[1], p.shape[0]
+
+  def get_neighbors(i, j, p):
+    if (j - 1) < 0 or np.isnan(p[j - 1, i]):
+      t = p[j + 1, i]
+    else:
+      t = p[j - 1, i]
+
+    if (j + 1) >= y or np.isnan(p[j + 1, i]):
+      b = p[j - 1, i]
+    else:
+      b = p[j + 1, i]
+
+    if (i - 1) < 0 or np.isnan(p[j, i - 1]):
+      l = p[j, i + 1]
+    else:
+      l = p[j, i - 1]
+
+    if (i + 1) >= x or np.isnan(p[j, i + 1]):
+      r = p[j, i - 1]
+    else:
+      r = p[j, i + 1]
+    return t, b, l, r
   
   for epoch in progressbar.progressbar(range(epochs)):
-    for j in range(1, y - 1):
-      for i in range(x):
-        if np.isnan(p[j, i]):
-          continue
+    if axis == 0:
+      for j in range(1, y - 1):
+        for i in range(x):
+          if np.isnan(p[j, i]):
+            continue
+          t, b, l, r = get_neighbors(i, j, p)
+          p[j, i] = (t + b + l + r) / 4.
+    else:
+      for i in range(1, x - 1):
+        for j in range(y):
+          if np.isnan(p[j, i]):
+            continue
+          t, b, l, r = get_neighbors(i, j, p)
+          p[j, i] = (t + b + l + r) / 4.
 
-        if j - 1 < 0 or np.isnan(p[j - 1, i]):
-          t = p[j + 1, i]
-        else:
-          t = p[j - 1, i]
-
-        if j + 1 >= y or np.isnan(p[j + 1, i]):
-          b = p[j - 1, i]
-        else:
-          b = p[j + 1, i]
-
-        if i - 1 < 0 or np.isnan(p[j, i - 1]):
-          l = p[j, i + 1]
-        else:
-          l = p[j, i - 1]
-
-        if i + 1 >= x or np.isnan(p[j, i + 1]):
-          r = p[j, i - 1]
-        else:
-          r = p[j, i + 1]
-
-        p[j, i] = (t + b + l + r) / 4
-
-    f_p = p[~np.isnan(p)]
-    f_prev = prev[~np.isnan(prev)]
+    f_p = remove_nan(p)
+    f_prev = remove_nan(prev)
     history.append(np.sum((f_p - f_prev) ** 2) / f_p.shape[0])
     prev = np.copy(p)
-  
+
+    for callback in callbacks:
+      callback({ 'history': history, 'potential': p, 'epoch': epoch })
   return p, history
 
 
