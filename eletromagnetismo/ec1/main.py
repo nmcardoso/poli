@@ -109,11 +109,7 @@ def compute_resistence(V, l, h, sigma, Ey):
 
 
 if __name__ == '__main__':
-  p, h = compute_potential(template1(1), epochs=50)
-  Ex, Ey = compute_ef(p, 1e-3)
-  print(compute_resistence(100, 40e-3, 1e-3, 5, Ey))
-  
-  # fdm = FDM()
-  # fdm.compute_potential(300)
-  # fdm.compute_ef()
-  # print(fdm.compute_resistence(100, 40e-3, 5))
+  k = 1
+  p, h = compute_potential(template1(k), epochs=300)
+  Ex, Ey = compute_ef(p, k * 1e-3)
+  print(compute_resistence(100, k * 40e-3, k * 1e-3, 5, Ey))
