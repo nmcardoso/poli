@@ -90,8 +90,8 @@ def compute_potential(template, axis, epochs=50, callbacks=[]):
   return p, history
 
 
-def compute_ef(m, h):
-  x, y = m.shape[1] - 1, m.shape[0] - 1
+def compute_ef(p, h):
+  x, y = p.shape[1] - 1, p.shape[0] - 1
   Ex = np.empty((y, x), dtype=float)
   Ey = np.empty((y, x), dtype=float)
   Ex[:] = np.nan
@@ -99,11 +99,12 @@ def compute_ef(m, h):
 
   for j in range(y):
     for i in range(x):
-      if np.isnan(m[j, i]):
+      if np.isnan(p[j, i]):
         continue
+      Ex[j, i] = (p[j, i] + p[j+1, i] - p[j, i+1] - p[j+1, i+1]) / (2 * h)
+      Ey[j, i] = (p[j, i] + p[j, i+1] - p[j+1, i] - p[j+1, i+1]) / (2 * h)
+  return Ex, Ey
 
-      Ex[j, i] = (m[j, i] + m[j+1, i] - m[j, i+1] - m[j+1, i+1]) / (2 * h)
-      Ey[j, i] = (m[j, i] + m[j, i+1] - m[j+1, i] - m[j+1, i+1]) / (2 * h)
 
   p = m[~np.isnan(m)]
 
