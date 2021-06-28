@@ -5,7 +5,7 @@ from statistics import mode
 
 
 def template1(k, initial_value):
-  a, b, c, d, e = 40*k, 120*k, 20*k, 14*k, 6*k
+  a, b, c, d, e = int(40*k), int(120*k), int(20*k), int(14*k), int(6*k)
   f = int((a-c)/2)
 
   x, y = a, b
@@ -18,7 +18,7 @@ def template1(k, initial_value):
 
 
 def template2(k, initial_value):
-  a, b, c, d, e = 40*k, 120*k, 20*k, 14*k, 6*k
+  a, b, c, d, e = int(40*k), int(120*k), int(20*k), int(14*k), int(6*k)
   f, g = d+e, int(c/2)
 
   x, y = int((a/2)), b
