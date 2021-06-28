@@ -11,3 +11,6 @@
 
 # JupyterLab
 .ipynb_checkpoints
+
+#Python
+__pycache__
