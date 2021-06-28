@@ -107,15 +107,17 @@ def compute_ef(p, h):
   return Ex, Ey
 
 
-def compute_resistence(V, l, h, sigma, E, axis):
+def compute_resistence(V, l, h, sigma, Ex, Ey, axis):
   if axis == 0:
-    R = np.empty(E.shape[0])
-    for j in range(E.shape[0]):
-      R[j] = V / (l * sigma * h * np.sum(np.abs(remove_nan(E[j, :]))))
+    R = np.empty(Ey.shape[0])
+    for j in range(Ey.shape[0]):
+      flux = h * np.sum(np.abs(remove_nan(Ey[j, :])))
+      R[j] = V / (l * sigma * flux + 1e-12) # 1e-12: avoid division by 0
   else:
-    R = np.empty(E.shape[1])
-    for i in range(E.shape[1]):
-      R[i] = V / (l * sigma * h * np.sum(np.abs(remove_nan(E[:, i]))))
+    R = np.empty(Ex.shape[1])
+    for i in range(Ex.shape[1]):
+      flux = h * np.sum(np.abs(remove_nan(Ex[:, i])))
+      R[i] = V / (l * sigma * flux)
   return R
 
 
