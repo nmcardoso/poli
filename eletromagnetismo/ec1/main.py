@@ -142,23 +142,25 @@ def plot_field(Ex, Ey, potential, title='', show=True, filename=None):
 
 
 if __name__ == '__main__':
-  k = 2
+  k = 0.5
+  h = (1/k)*1e-3
   t = template1(k, 50)
 
   def plot_callback(opts):
     if opts['epoch'] % 100 != 0:
       return
-    Ex, Ey = compute_ef(opts['potential'], k*1e-3)
+    Ex, Ey = compute_ef(opts['potential'], h)
     plot_field(Ex, Ey, opts['potential'], title=f'Epoch {opts["epoch"]}', show=False, filename=f'field_{opts["epoch"]}.png')
-    resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=0)
+    resistences = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
     plt.plot(resistences)
     plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
     plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
     plt.title(f'Epoch {opts["epoch"]}')
+    plt.ylim((0, 25))
     plt.savefig(f'resistencia_{opts["epoch"]}.png', bbox_inches='tight', pad_inches=0.05)
     plt.close()
   
-  potential, history = compute_potential(t, axis=0, epochs=4001, callbacks=[plot_callback])
+  potential, history = compute_potential(t, axis=0, epochs=8001, callbacks=[plot_callback])
   # Ex, Ey = compute_ef(potential, k*1e-3)
   # resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=1)
 
