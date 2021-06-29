@@ -167,9 +167,27 @@ IC_prop(imdb2$Aprovado, 0.99)
 # Intervalo de confiança da variância
 \label{p5}
 
-Para estimar a variância amostral, 
+O estimador $s$, definido na Equação \eqref{eq:p5-s}, será usado para estimar o parâmetro populacional $\mu$. Da Equação \eqref{eq:s}, temos
 
-O intervalo de confiança da variância considerando um nível de confiança de 95\% é $IC = [60.830.134; 65.146.228]$.
+\begin{equation}
+\label{eq:p5-s}
+s^2 = \frac{\sum_i^n (x_i - \bar{x})^2}{n-1}
+\end{equation}
+
+Mas, se $X \sim \mathcal{N}(\mu; \sigma) \quad \Rightarrow \quad s^2 \sim \chi^2_{n-1}$. Então
+
+\begin{equation}
+s^2 = \frac{\sigma^2}{n-1} \chi^2_{n-1}
+\end{equation}
+
+Assim, o intervalo de confiança $IC$ da variância é dado por
+
+\begin{equation}
+IC = \left[\sqrt{\frac{(n-1)s^2}{\chi^2_{n-1;\alpha/2}}} ; \sqrt{\frac{(n-1)s^2}{\chi^2_{n-1;1-\alpha/2}}} \right]
+\end{equation}
+
+A Listagem a seguir mostra a implementação da função `IC_var`, que calcula o intervalo de confiança da variância.
+O intervalo de confiança da variância do lucro, considerando um nível de confiança de 95\%, é $IC = [60.830.134; 65.146.228]$.
 
 \bigskip
 
