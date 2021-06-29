@@ -234,6 +234,12 @@ p2 <- df_g2 %>% ggplot(aes(x=Aprovado, y=Lucro)) +
 ggarrange(p1, p2, ncol=2)
 ```
 
+
+
+Pelos gráficos da Figura \ref{fig:q6}, é possível observar diferenças de lucro em função da aprovação de um filme, visto que a dispersão vertical dos dados em função da aprovação é diferente, mais visível no _Stripchart_. Nota-se, a partir do _Boxplot_, que a tendência central (mediana) de cada conjunto é parecida e fica em torno de 0, com uma pequena vantagem para os filmes com aprovação. Além disso, é possível notar que a distribuição de filmes reprovados está mais concentrada em torno da mediana do que a distribuição de filmes aprovados. Isso é notado pelo tamanho da caixa, que é o IIQ (intervalo interquartil) entre o primeiro e o terceiro quartil, representando 50\% de uma distribuição normal, e pelo tamanho dos _whiskers_, que são os limites superiores ($Q3 + 1.5 \times IIQ$) e inferiores ($Q1 - 1.5 \times IIQ$) e representam $\approx 99,3$\% de uma distribuição normal. Estes valores de porcentagem não são exatos para este conjunto, mas a aproximação pelos valores da distribuição normal é rasoável dada a análise da Seção 9. Os espaços entre as diferentes partes da caixa indicam o grau de dispersão, a obliquidade nos dados. Observando isso e os _outliers_, é possível notar visualmente que as distribuições possuem variâncias diferentes.
+
+
+
 # Teste de igualdade de variâncias: Teste-F
 \label{p7}
 
