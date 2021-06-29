@@ -234,6 +234,7 @@ p2 <- df_g2 %>% ggplot(aes(x=Aprovado, y=Lucro)) +
 ggarrange(p1, p2, ncol=2)
 ```
 
+# Teste de igualdade de variâncias: Teste-F
 \label{p7}
 
 # Teste de igualdade de médias: Teste-t
