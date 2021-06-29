@@ -208,7 +208,7 @@ IC_var(imdb2$Lucro, 0.95)
 
 # Análise visual da distribuição `Aprovado`
 
-```{r q6}
+```{r q6, fig.cap="Boxplot e Stripchart para o lucro dos filmes em função da aprovação.", out.width="85%", fig.align='center'}
 p1 <- df_g2 %>% ggplot(aes(x=Aprovado, y=Lucro)) +
   geom_boxplot(aes(fill=Aprovado)) +
   theme(legend.position="none") +
