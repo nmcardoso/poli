@@ -5,5 +5,5 @@
 
 
 all:
-	dot -Tps materias.gv -o materias.pdf
+	dot -Tpdf materias.gv -o materias.pdf
 
