@@ -291,7 +291,37 @@ F_crit
 # Teste de igualdade de médias: Teste-t
 \label{p8}
 
-# Pergunta 09
+```{r q8}
+t.test(
+  x=df_g2[df_g2$Aprovado==TRUE,]$Lucro,
+  y=df_g2[df_g2$Aprovado==FALSE,]$Lucro,
+  var.equal=FALSE
+)
+
+mean(df_g2[df_g2$Aprovado==TRUE,]$Lucro) - mean(df_g2[df_g2$Aprovado==FALSE,]$Lucro)
+```
+
+\bigskip
+
+Descrição dos campos retornados pela função:
+
+\begin{description}
+\item[data] são os dados amostrais utilizados para o teste-t.
+
+\item[t] é o resultado principal do teste-t e representa o valor de $t_{CALC}$.
+
+\item[df] é o grau de liberdade da estatística para variâncias diferentes.
+
+\item[p-value] é descrito na Seção 7.
+
+\item[alternative hypothesis] é a hipótese alternativa ($H_1$). Neste caso, $H_0$ é a hipótese do verdadeiro valor das médias serem iguais (diferença = 0) e $H_1$ é a hipótese do valor verdadeiro das médias serem diferentes.
+
+\item[95 percent confidence interval] é o intervalo de confidência da estatística a um nível de confiança de 95\%. Mostrando que o valor de $t_{CALC}$, para um nível de confiança de 95\%, está no intervalo IC = [28423190, 39967902].
+
+\item[sample estimates] são as estimativas para a amostra.
+\end{description}
+
+
 
 # Inspeção visual da normalidade: Papel de probabilidade normal
 fit <- fitdistr(df_g2$nota_imdb, "normal")
