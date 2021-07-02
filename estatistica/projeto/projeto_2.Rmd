@@ -324,12 +324,19 @@ Descrição dos campos retornados pela função:
 
 
 # Inspeção visual da normalidade: Papel de probabilidade normal
+
+```{r, fig.show='hide'}
 fit <- fitdistr(df_g2$nota_imdb, "normal")
 MI <- fit$estimate[1]
 SIGMA <- fit$estimate[2]
 
 plot3 <- df_g2 %>% ggplot(aes(x=nota_imdb)) +
-  geom_histogram(aes(y=..density..), bins=10, colour="black", fill="tan1") +
+  geom_histogram(
+    aes(y=..density..), 
+    bins=10, 
+    colour="black", 
+    fill="tan1"
+  ) +
   labs(
     x="Nota imdb",
     y="Densidade de frequência",
@@ -356,6 +363,19 @@ plot4 <- df_g2 %>% ggplot(aes(sample=nota_imdb)) +
 
 ggarrange(plot3, plot4, ncol=2)
 ```
+
+\bigskip
+
+Os gráficos da Figura \ref{fig:q9} ajudam na análise visual sobre a aderência do conjunto à distribuição normal. No primeiro painel, é mostrado o histograma de densidade de frequência juntamente com a sobreposição da PDF  $\varphi \sim \mathcal{N}(\mu, \sigma^2)$, onde $\mu$ e $\sigma$ são, respectivamente, a média e o desvio padrão do conjunto formado pelas notas do IMDB. No segundo painel, é mostrado o papel de probalidade normal, onde os dados do conjunto são representados pelos círculos e a distribuição normal pela reta. No eixo horizontal, é mostrado os quantis normais teóricos, sendo que cada quantil é equivalente à um desvio padrão da média.
+
+Como pode ser observado no papel de distribuição normal, os dados são bem próximos da distribuição normal para quantis normais entre -2 e 2. E, considerando que, em uma distribuição normal, aproximadamente 95\% das ocorrências estão entre $-2\sigma$ a $2\sigma$, é possivel identificar que, na região central, a distribuição do conjunto tende à normal. 
+
+Em relação aos extremos, para os quantis normais maiores que 2 (ou seja, dois desvios padrão acima da média), as notas no IMDB estão abaixo da linha, o que indica que a cauda direita possui uma frequência muito baixa quando comparada com a distribuição normal. Isso pode ser identificado na última classe do histograma. Para quantis normais que estão abaixo de -2 (ou seja, 2 desvios padrão abaixo da média), as notas no IMDB também estão abaixo da linha, o que indica que a cauda esquerda possui maior frequência frequência quando comparada com a distribuição normal. Isso poder ser identificado nas primeiras classes do histograma. 
+
+```{r q9, echo=FALSE, out.width='85%', fig.align='center', fig.cap="Da esquerda para direita, o primeiro painel mostra o histograma de densidade de frequência e o segundo painel mostra o papel de probabilidade normal."}
+ggarrange(plot3, plot4, ncol=2)
+```
+
 
 # Teste de normalidade: Teste Kolmogorov-Smirnov
 
