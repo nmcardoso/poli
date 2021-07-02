@@ -1,6 +1,5 @@
 ---
-title: "Projeto IMDB - Enunciado 2"
-author: "Natanael Magalhães Cardoso^[nUSP: 8914122. Usando dados para o segundo grupo (datas entre 2000-2010)]"
+title: "Projeto IMDB - Enunciado 2^[os números das seções são equivalentes aos números das perguntas.]"
 date: "31/05/2021"
 output: pdf_document
 ---
