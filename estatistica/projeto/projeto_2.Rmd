@@ -26,7 +26,8 @@ imdb2 <- imdb2 %>% mutate(Lucro=receita-orcamento)
 df_g2 <- df_g2 %>% mutate(Lucro=receita-orcamento)
 ```
 
-# Pergunta 01 (ok)
+# Intervalo de confiança da média para variância populacional conhecida
+\label{p1}
 
 O parâmetro $\mu$ será estimado pelo estimador $\bar{x}$, que é definido pela Equação \eqref{eq:mean}.
 
@@ -69,7 +70,8 @@ IC_media_Z(imdb2$Lucro, 0.95, 55e6)
 
 \bigskip
 
-# Pergunta 02 (ok)
+# Intervalo de confiança da média para variância populacional desconhecida
+\label{p2}
 
 É possível estimar o parâmetro $\mu$ de uma distribuição com variância populacional desconhecida a partir da estimação da variância pelo estimador variância amostral, $s$, que é definido na Equação \eqref{eq:s}, para $n \ge 30$.
 
@@ -106,7 +108,8 @@ IC_media_t(imdb2$Lucro, 0.95)
 
 \bigskip
 
-# Pergunta 03 (ok)
+# Criação da variável \texttt{Aprovado}
+\label{p3}
 
 A Listagem a seguir mostra a inclusão de uma nova coluna com valores booleanos no conjunto de dados principal e no subconjunto com filmes lançados entre 2000 e 2010. O campo recebe valor `verdadeiro` se a nota for maior que 6,5 e `falso` caso contrário.
 
@@ -121,7 +124,8 @@ df_g2 <- imdb2 %>% mutate(
 )
 ```
 
-# Pergunta 04 (ok)
+# Intervalo de confiança da proporção
+\label{p4}
 
 O estimador $p'$, definido na Equação \eqref{eq:p}, será usado para calcular a proporção.
 
@@ -160,7 +164,8 @@ IC_prop(imdb2$Aprovado, 0.99)
 
 \bigskip
 
-# Pergunta 05 (ok)
+# Intervalo de confiança da variância
+\label{p5}
 
 Para estimar a variância amostral, 
 
@@ -183,7 +188,7 @@ IC_var(imdb2$Lucro, 0.95)
 
 \bigskip
 
-# Pergunta 06
+# Análise visual da distribuição `Aprovado`
 
 ```{r q6}
 p1 <- df_g2 %>% ggplot(aes(x=Aprovado, y=Lucro)) +
@@ -211,13 +216,14 @@ p2 <- df_g2 %>% ggplot(aes(x=Aprovado, y=Lucro)) +
 ggarrange(p1, p2, ncol=2)
 ```
 
-# Pergunta 07
+\label{p7}
 
-# Pergunta 08
+# Teste de igualdade de médias: Teste-t
+\label{p8}
 
 # Pergunta 09
 
-```{r q9, fig.align='center', out.width='85%'}
+# Inspeção visual da normalidade: Papel de probabilidade normal
 fit <- fitdistr(df_g2$nota_imdb, "normal")
 MI <- fit$estimate[1]
 SIGMA <- fit$estimate[2]
@@ -251,6 +257,7 @@ plot4 <- df_g2 %>% ggplot(aes(sample=nota_imdb)) +
 ggarrange(plot3, plot4, ncol=2)
 ```
 
+# Teste de normalidade: Teste Kolmogorov-Smirnov
 
 # Pergunta 10
 
