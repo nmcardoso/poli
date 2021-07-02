@@ -1,0 +1,143 @@
+---
+title: "Exercício 18"
+author: "Natanael Magalhães Cardoso"
+date: "16/06/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(reshape)
+```
+
+
+```{r, include=FALSE}
+df <- data.frame(
+  LocA = c(6, 9, 9, 6, 5),
+  LocB = c(12, 11, 10, 8, 9),
+  LocC = c(11, 8, 12, 9, 10),
+  LocD = c(9, 7, 10, 10, 9)
+)
+```
+
+
+```{r, echo=FALSE}
+knitr::kable(df, caption='\\label{tab:df}Dados do Exercício.')
+```
+
+Teste de Variância de Fisher - Hipóteses:
+
+\begin{equation*}
+  \begin{cases}
+    H_0: & \text{Médias iguais}\\
+    H_1: & \text{Pelo menos uma média diferente}\\
+  \end{cases}
+\end{equation*}
+
+As equações \eqref{eq:sr} e \eqref{eq:se} mostram, as formulas para a variância residual e variancia entre amostras, respectivamente.
+
+\begin{equation}
+\label{eq:sr}
+S_R^2 = \frac{1}{k(n-1)} \sum_i^k \sum_j^n (x_{ij} - \bar{x}_i)^2 = \frac{1}{k} \sum_i^k S_i^2
+\end{equation}
+
+\begin{equation}
+\label{eq:se}
+S_E^2 = \frac{n}{k-1} \sum_i^k (\bar{x}_i - \bar{\bar{x}})^2 
+\end{equation}
+
+Identificação dos limites $n$ e $k$:
+
+\begin{equation}
+n = 5 \qquad \quad k = 4
+\end{equation}
+
+
+Valores calculados para os membros das equações \eqref{eq:sr} e \eqref{eq:se}:
+
+
+```{r, include=FALSE}
+df2 <- data.frame(
+  LocA = c(7, 3.5),
+  LocB = c(10, 2.5),
+  LocC = c(10, 2.5),
+  LocD = c(9, 1.5),
+  row.names = c("$\\bar{x}_i$", "$S_i^2$")
+)
+```
+
+```{r, echo=FALSE}
+knitr::kable(df2, caption='\\label{tab:df2}Valores calculados de $\\bar{x}_i$ e $S_i^2$.')
+```
+
+Calculando $\bar{\bar{x}}$ a partir dos valores da Tabela \ref{tab:df2}:
+
+\begin{equation}
+\label{eq:media_total}
+\bar{\bar{x}} = \frac{7+10+10+9}{4} = 9
+\end{equation}
+
+
+Calculando $S_R^2$, $SQE$ e $S_E^2$ a partir dos valores da Tabela \ref{tab:df2} e da Equação \eqref{eq:media_total}:
+
+\begin{equation}
+\label{eq:srv}
+S_R^2 = \frac{1}{k} \sum_i^k S_i^2 = \frac{3.5 + 2.5 + 2.5 + 1.5}{4} = 2.5
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+SQE {}={} & n \sum_i^k (x_i - \bar{\bar{x}})^2 =\\
+    {}={} & 5 [(7-9)^2 + (10-9)^2 + (10-9)^2 + (9-9)^2] =\\
+    {}={} & 5 \times 6 = 30
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\label{eq:sev}
+S_E^2 = \frac{SQE}{k-1} = \frac{30}{4-1} = 10
+\end{equation}
+
+
+Calculando os graus de liberdade ($GL$) de $S_E$ e $S_R$:
+
+\begin{equation}
+\label{eq:glse}
+GL(S_E) = k-1 = 3
+\end{equation}
+
+\begin{equation}
+\label{eq:glsr}
+GL(S_R) = k(n-1) = 16
+\end{equation}
+
+
+Calculando $F_{CALC}$ a partir dos valores das Equações \eqref{eq:srv} e \eqref{eq:sev} 
+e $F_{CRIT}$ a partir dos valores das Equações \eqref{eq:glse} \eqref{eq:glsr} para um nível de significância de 5\% na tabela da distribuição F-Snedecor:
+
+\begin{equation}
+F_{CALC} = \frac{S_E^2}{S_R^2} = \frac{10}{2.5} = 4
+\end{equation}
+
+\begin{equation}
+F_{CRIT} = F_{5\%; 3; 16} = 3.2389
+\end{equation}
+
+Como $F_{CALC} > F_{CRIT}$, não existem evidências amostrais, ao nível de significância de 5%, para aceitar a hipótese nula ($H_0$). Isto é, por este teste, as médias não podem ser consideradas iguais. Isto pode ser visto na Figura \ref{fig:boxplot}.
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, fig.cap="\\label{fig:boxplot}Boxplot dos dados. Os pontos vermelhos representam as médias amostrais."}
+ggplot(melt(as.data.frame(df)), aes(x=variable, y=value)) + 
+  geom_boxplot() +
+  stat_summary(fun=mean, geom="point", shape=18, size=3, color="red", fill="red") +
+  labs(x="Grupos", y="Valores")
+```
+
+
+
+
