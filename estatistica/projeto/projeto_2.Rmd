@@ -243,6 +243,51 @@ Pelos gráficos da Figura \ref{fig:q6}, é possível observar diferenças de luc
 # Teste de igualdade de variâncias: Teste-F
 \label{p7}
 
+
+```{r q7}
+var.test(
+  x=df_g2[df_g2$Aprovado==TRUE,]$Lucro,
+  y=df_g2[df_g2$Aprovado==FALSE,]$Lucro
+)
+```
+
+\bigskip
+
+Descrição dos campos retornados pela função:
+
+\begin{description}
+\item[data] são os dados amostrais utilizados para o teste de variância, o primeiro valor apresentado representa o valor de $x$ e o segundo o valor de $y$.
+
+\item[F] é a o resultado principal do teste-F e representa a razão entre as variâncias, usada para distingir se as variâncias são iguais ou não. Representa $F_{CALC} = s_x^2 / s_y^2 \approx 3.93$.
+
+\item[num df] são os graus de liberdade do numerador (dado pelo conjunto $x$). Onde $df = n_1 - 1 = 842$.
+
+\item[denom df] são os graus de liberdade do denominador (dado pelo conjunto $y$). Onde $df = n_2 - 1 = 793$.
+
+\item[p-valor] é a probabilidade de entrar os resultados observados quando a hipótese nula ($H_0$) é verdadeira. Enquanto que o p-valor é uma probabilidade calcualda, $\alpha$ é uma probabilidade pré-determinada. Comparando o p-valor com $\alpha$, que é o erro de tipo I (ou seja, a probabilidade de rejeitar $H_0$ dado $H_0$ verdadeira), é possível aceitar ou rejeitar a hipótese nula.
+
+\item[alternative hypothesis] é a hipótese alternativa ($H_1$). Neste caso, $H_0$ é a hipótese das variâncias serem iguais (razão verdadeira = 1) e $H_1$ é a hipótese das variâncias serem diferentes (razão verdadeira $\neq$ 1).
+
+\item[95 percent confidence interval] é o intervalo de confidência a um nível de confiança de 95\%. Mostrando que o valor de $F_{CALC}$, para um nível de confiança de 95\%, está no intervalo IC = [3.428333, 4.511308].
+
+\item[sample estimates] são as estimativas para a amostra. Neste teste, a única estimativa retornada é a \textbf{F}.
+\end{description}
+
+A partir do resultado deste teste, é possível conclcuir que a variância conjunto dos filmes aprovados é de 3.43 a 4.51 vezes maior que a variância do conjunto formado pelos filmes não aprovados, a um nível de significância de 95\%. Como p-valor < $\alpha$ ($\alpha = 0.05$), a hipótese nula, $H_0$, deve ser rejeitada. Alternativamente, é possível rejeitar $H_0$ comparando $F_{CALC}$ do teste-F contra $F_{CRIT}$ da distribuição F-Snedecor, visto que $F_{CALC} > F_{CRIT}$. $F_{CRIT}$ é calculado pela Listagem a seguir.
+
+\medskip
+
+```{r}
+F_crit <- qf(
+  p=0.05, 
+  df1=length(df_g2[df_g2$Aprovado==TRUE,]$Lucro) - 1, 
+  df2=length(df_g2[df_g2$Aprovado==FALSE,]$Lucro) - 1, 
+  lower.tail=FALSE
+)
+F_crit
+```
+
+
 # Teste de igualdade de médias: Teste-t
 \label{p8}
 
