@@ -124,6 +124,7 @@ df_g2 <- imdb2 %>% mutate(
 )
 ```
 
+\newpage
 # Intervalo de confiança da proporção
 \label{p4}
 
@@ -164,6 +165,7 @@ IC_prop(imdb2$Aprovado, 0.99)
 
 \bigskip
 
+\newpage
 # Intervalo de confiança da variância
 \label{p5}
 
@@ -205,6 +207,7 @@ IC_var(imdb2$Lucro, 0.95)
 ```
 
 \bigskip
+\newpage
 
 # Análise visual da distribuição `Aprovado`
 
