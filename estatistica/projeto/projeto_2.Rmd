@@ -379,7 +379,9 @@ ggarrange(plot3, plot4, ncol=2)
 
 # Teste de normalidade: Teste Kolmogorov-Smirnov
 
-# Pergunta 10
+Kolmogorov-Smirnov é um teste de aderência de distribuições de probabilidade contínuas e unidimensionais que pode ser usado para comparar uma amostra com uma distribuição de probabilidade de referência (teste K–S uniamostral) ou duas amostras uma com a outra (teste K–S biamostral). Neste caso, será feito um teste uniamostral entre a amostra de notas do IMDB e uma distribuição normal $\Phi \sim \mathcal{N}(\mu, \sigma^2)$, onde $\mu$ e $\sigma$ são, respectivamente, a média e o desvio padrão da amostra de notas do IMDB.
+
+\bigskip
 
 ```{r q10, warning=FALSE}
 x = df_g2$nota_imdb
@@ -387,6 +389,25 @@ KS_teste <- ks.test(x, "pnorm", mean=mean(x), sd=sd(x))
 KS_teste
 ```
 
+\bigskip
 
+Descrição dos campos retornados pela função
+
+\begin{description}
+\item[data] é o conjunto de dados de entrada
+
+\item[D] é a variável de teste e representa $D_{CALC} := \textrm{max}|\Phi_A(x) - \Phi_B(x)|$, onde $\Phi_A$ e $\Phi_B$ são duas CDF's.
+
+\item[p-value] já foi definido na Seção 7.
+\end{description}
+
+$H_0$ é a hipótese dos dados aderirem ao modelo e $H_1$ é a hipótese de não aderirem ao modelo. Para um nível de confiança de 95\%, o valor de $\alpha$ vale 0.025. Sendo assim, evidências amostrais para rejeitar $H_0$, visto que p-valor < $\alpha$. Isto é, o teste K-S nesta amostra indica que os dados aderem à distribuição normal, a um nível de significância de $\approx$ 99\% (p-valor). Alternativamente, é possível obter o mesmo resultado, à um nível de significância de 95\%, por exemplo, comparando o valor de $D_{CALC}$ e $D_{CRIT}$, como mostra a Listagem a seguir. Já que $D_{CRIT} > D_{CALC}$
+
+\bigskip
+
+```{r}
+D_crit <- 1.63 / sqrt(length(x))
+D_crit
+```
 
 
