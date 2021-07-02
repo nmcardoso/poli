@@ -1,6 +1,5 @@
 # Latex
-*/output/*
-!*/output/*.pdf
+indent.log
 
 # R / RStudio
 .Rproj.user
