@@ -1,4 +1,6 @@
 # Latex
+**/*/output/*
+!**/*/output/*.pdf
 indent.log
 
 # R / RStudio
