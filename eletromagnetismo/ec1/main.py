@@ -132,14 +132,6 @@ def plot_equipotential(potential, k=1, title='', show=True, filename=None):
   fig = plt.figure()
   ax = fig.add_subplot(111)
   cs = ax.contour(X1, Y1, potential, levels=lvl, cmap='viridis')
-  # ax.clabel(
-  #   cs, 
-  #   lvl, 
-  #   fontsize=8, 
-  #   inline_spacing=1, 
-  #   rightside_up=True, 
-  #   use_clabeltext=True
-  # )
   
   norm= mpl.colors.Normalize(vmin=cs.cvalues.min(), vmax=cs.cvalues.max())
   sm = plt.cm.ScalarMappable(norm=norm, cmap = cs.cmap)
