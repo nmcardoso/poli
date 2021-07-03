@@ -6,6 +6,20 @@ import progressbar
 from statistics import mode
 
 
+
+###########################
+##   Utility functions   ##
+###########################
+
+def remove_nan(array):
+  return array[~np.isnan(array)]
+
+
+
+############################
+##   Template functions   ##
+############################
+
 def template1(k, initial_value):
   a, b, c, d, e = int(40*k), int(120*k), int(20*k), int(14*k), int(6*k)
   f = int((a-c)/2)
@@ -35,9 +49,10 @@ def template2(k, initial_value):
   return t
 
 
-def remove_nan(array):
-  return array[~np.isnan(array)]
 
+###############################
+##   Computation functions   ##
+###############################
 
 def compute_potential(template, axis, epochs=50, callbacks=[]):
   history = []
@@ -123,6 +138,11 @@ def compute_resistence(V, l, h, sigma, Ex, Ey, axis):
   return R
 
 
+
+#################################
+##   Vizualization functions   ##
+#################################
+
 def plot_equipotential(potential, k=1, title='', show=True, filename=None):
   p = remove_nan(potential)
   x, y = potential.shape[1] - 1, potential.shape[0] - 1
@@ -175,6 +195,7 @@ def plot_field(Ex, Ey, title='', show=True, filename=None):
   if show:
     plt.show()
   plt.close()
+
 
 
 if __name__ == '__main__':
