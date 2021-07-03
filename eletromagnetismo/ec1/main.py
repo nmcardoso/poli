@@ -158,7 +158,15 @@ def plot_field(Ex, Ey, title='', show=True, filename=None):
   S = 0.1 / (1 + np.log(np.max(N) / N)) # matriz de escalonamento logarítmico
   fig = plt.figure()
   ax = fig.add_subplot(111)
-  ax.quiver(X, Y, S*(Ex/N), S*(-Ey/N), np.flip(Y), scale=9, scale_units='xy', width=0.005, minshaft=1, minlength=1.2, cmap='viridis')
+  ax.quiver(
+    X, Y, S*(Ex/N), S*(-Ey/N), np.flip(Y), 
+    scale=9, 
+    scale_units='xy', 
+    width=0.005, 
+    minshaft=1, 
+    minlength=1.2, 
+    cmap='viridis'
+  )
   ax.invert_yaxis()
   ax.set_aspect('equal')
   ax.set_title(title)
