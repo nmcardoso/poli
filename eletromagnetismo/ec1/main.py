@@ -121,14 +121,41 @@ def compute_resistence(V, l, h, sigma, Ex, Ey, axis):
   return R
 
 
-def plot_field(Ex, Ey, potential, title='', show=True, filename=None):
+def plot_equipotential(potential, k=1, title='', show=True, filename=None):
   p = remove_nan(potential)
   x, y = potential.shape[1] - 1, potential.shape[0] - 1
   
   lvl = np.arange(np.amin(p), np.amax(p) + 1, 2) # Delta Phi = 2V
   X1, Y1 = np.meshgrid(np.linspace(0, x+1, x+1), np.linspace(0, y+1, y+1))
-  cs = plt.contour(X1, Y1, potential, colors='red', levels=lvl)
-  plt.clabel(cs, lvl, fontsize=8, inline_spacing=1, rightside_up=True, use_clabeltext=True)
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  cs = ax.contour(X1, Y1, potential, levels=lvl, cmap='viridis')
+  # ax.clabel(
+  #   cs, 
+  #   lvl, 
+  #   fontsize=8, 
+  #   inline_spacing=1, 
+  #   rightside_up=True, 
+  #   use_clabeltext=True
+  # )
+  
+  norm= mpl.colors.Normalize(vmin=cs.cvalues.min(), vmax=cs.cvalues.max())
+  sm = plt.cm.ScalarMappable(norm=norm, cmap = cs.cmap)
+  sm.set_array([])
+  fig.colorbar(sm, ticks=np.arange(np.amin(p), np.amax(p) + 1, 10))
+
+  ax.invert_yaxis()
+  ax.set_aspect('equal')
+  ax.set_title(title)
+  ax.set_xlabel('Largura')
+  ax.set_ylabel('Altura')
+
+  if filename is not None:
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.05)
+  if show:
+    plt.show()
+  plt.close()
+
 
   X, Y = np.meshgrid(np.linspace(0, x, x), np.linspace(0, y, y))
   plt.streamplot(X, Y, Ex, Ey)
