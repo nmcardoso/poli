@@ -125,7 +125,7 @@ def plot_field(Ex, Ey, potential, title='', show=True, filename=None):
   p = remove_nan(potential)
   x, y = potential.shape[1] - 1, potential.shape[0] - 1
   
-  lvl = np.linspace(np.amin(p), np.amax(p), int((np.amax(p) - np.amin(p)) / 10))
+  lvl = np.arange(np.amin(p), np.amax(p) + 1, 2) # Delta Phi = 2V
   X1, Y1 = np.meshgrid(np.linspace(0, x+1, x+1), np.linspace(0, y+1, y+1))
   cs = plt.contour(X1, Y1, potential, colors='red', levels=lvl)
   plt.clabel(cs, lvl, fontsize=8, inline_spacing=1, rightside_up=True, use_clabeltext=True)
