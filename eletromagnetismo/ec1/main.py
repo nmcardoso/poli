@@ -157,10 +157,17 @@ def plot_equipotential(potential, k=1, title='', show=True, filename=None):
   plt.close()
 
 
+def plot_field(Ex, Ey, title='', show=True, filename=None):
+  x, y = Ex.shape[1], Ex.shape[0]
   X, Y = np.meshgrid(np.linspace(0, x, x), np.linspace(0, y, y))
-  plt.streamplot(X, Y, Ex, Ey)
-  plt.gca().invert_yaxis()
-  plt.title(title)
+  N = np.sqrt(X**2 + Y**2)
+  S = 0.1 / (1 + np.log(np.max(N) / N)) # matriz de escalonamento logarítmico
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.quiver(X, Y, S*(Ex/N), S*(-Ey/N), np.flip(Y), scale=9, scale_units='xy', width=0.005, minshaft=1, minlength=1.2, cmap='viridis')
+  ax.invert_yaxis()
+  ax.set_aspect('equal')
+  ax.set_title(title)
   if filename is not None:
     plt.savefig(filename, bbox_inches='tight', pad_inches=0.05)
   if show:
@@ -187,11 +194,12 @@ if __name__ == '__main__':
     plt.savefig(f'resistencia_{opts["epoch"]}.png', bbox_inches='tight', pad_inches=0.05)
     plt.close()
   
-  potential, history = compute_potential(t, axis=0, epochs=8001, callbacks=[plot_callback])
+  potential, history = compute_potential(t, axis=0, epochs=300)
   # Ex, Ey = compute_ef(potential, k*1e-3)
   # resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=1)
 
-  # plot_field(Ex, Ey, potential)
+  # plot_field(Ex, Ey, title='Field')
+  plot_equipotential(potential, k=2, title='Equipotenciais')
   # plt.plot(resistences)
   # plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
   # plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
