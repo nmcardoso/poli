@@ -252,32 +252,61 @@ def plot_templates(template1, template2, show=True, filename=None):
   plt.close()
 
 
-if __name__ == '__main__':
-  k = 0.5
+
+########################
+##   Main Functions   ##
+########################
+
+def problem_1():
+  k = 2
   h = (1/k)*1e-3
+  min_error = 1e3
   t = template1(k, 50)
 
-  def plot_callback(opts):
-    if opts['epoch'] % 100 != 0:
+  def plot_callback(params):
+    if params['epoch'] % 1000 != 0:
       return
-    Ex, Ey = compute_ef(opts['potential'], h)
-    plot_field(Ex, Ey, opts['potential'], title=f'Epoch {opts["epoch"]}', show=False, filename=f'field_{opts["epoch"]}.png')
-    resistences = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
-    plt.plot(resistences)
-    plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
-    plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
-    plt.title(f'Epoch {opts["epoch"]}')
-    plt.ylim((0, 25))
-    plt.savefig(f'resistencia_{opts["epoch"]}.png', bbox_inches='tight', pad_inches=0.05)
-    plt.close()
-  
-  potential, history = compute_potential(t, axis=0, epochs=300)
-  # Ex, Ey = compute_ef(potential, k*1e-3)
-  # resistences = compute_resistence(100, k*40e-3, k*1e-3, 5, Ey, axis=1)
 
-  # plot_field(Ex, Ey, title='Field')
-  plot_equipotential(potential, k=2, title='Equipotenciais')
-  # plt.plot(resistences)
-  # plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color="red")
-  # plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color="green")
-  # plt.show()
+    Ex, Ey = compute_ef(params['potential'], h)
+    resistences = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
+    plot_reistences(
+      resistences, 
+      title=f'Epoch {params["epoch"]}', 
+      filename=f'p1/res_{params["epoch"]}.pdf',
+      show=False
+    )
+
+  potential, history = compute_potential(
+    template=t,
+    axis=0,
+    min_error=min_error,
+    callbacks=[plot_callback]
+  )
+  np.save('p1_history.npy', np.array(history))
+  np.save('p1_potential.npy', potential)
+  
+  plot_equipotential(
+    potential, 
+    k=k, 
+    title='Equipotenciais', 
+    filename='p1_equipotenciais.pdf'
+  )
+
+  Ex, Ey = compute_ef(potential, h=h)
+  plot_field(
+    Ex, Ey, 
+    title='Campo Elétrico', 
+    filename='p1_campo_eletrico.pdf'
+  )
+
+  resistence = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
+  print(f'Resistencia: {resistence} Ohms')
+
+
+def problem_2():
+  pass
+
+
+if __name__ == '__main__':
+  problem_1()
+  problem_2()
