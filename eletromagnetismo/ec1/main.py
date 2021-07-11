@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from mpl_toolkits.axes_grid1 import make_axes_locatable
+import matplotlib.patches as mpatches
 import progressbar
 from statistics import mode
 
@@ -195,6 +195,31 @@ def plot_field(Ex, Ey, title='', show=True, filename=None):
     plt.show()
   plt.close()
 
+
+
+def plot_templates(template1, template2, show=True, filename=None):
+  fig, ax = plt.subplots(1, 2, figsize=(6, 10))
+  color_100 = mpl.cm.get_cmap('viridis')(100/100)
+  color_50 = mpl.cm.get_cmap('viridis')(50/100)
+  color_0 = mpl.cm.get_cmap('viridis')(0/100)
+  color_nan = mpl.cm.get_cmap('viridis')(np.nan)
+  plt.legend(
+    handles=[
+      mpatches.Patch(color=color_100, label='V=100'),
+      mpatches.Patch(color=color_50, label='V=50'),
+      mpatches.Patch(color=color_0, label='V=0'),
+      mpatches.Patch(color=color_nan, label='Indet.'),
+    ], 
+    bbox_to_anchor=(1.03, 0.5), 
+    loc='center left'
+  )
+  ax[0].imshow(template1, aspect='auto')
+  ax[1].imshow(template2, aspect='auto')
+  if filename is not None:
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.05)
+  if show:
+    plt.show()
+  plt.close()
 
 
 if __name__ == '__main__':
