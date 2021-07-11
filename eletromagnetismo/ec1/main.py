@@ -196,6 +196,18 @@ def plot_field(Ex, Ey, title='', show=True, filename=None):
   plt.close()
 
 
+def plot_reistences(resistences, title='', show=True, filename=None):
+  plt.plot(resistences, color='tab:blue')
+  plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color='tab:red')
+  plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color='tab:green')
+  plt.ylim((0, 25))
+  plt.title(title)
+  if filename is not None:
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.05)
+  if show:
+    plt.show()
+  plt.close()
+
 
 def plot_templates(template1, template2, show=True, filename=None):
   fig, ax = plt.subplots(1, 2, figsize=(6, 10))
