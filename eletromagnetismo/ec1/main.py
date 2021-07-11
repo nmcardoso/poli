@@ -49,20 +49,6 @@ def template2(k, initial_value):
   return t
 
 
-def template3(k, initial_value):
-  a, b, c, d, D = int(32*k), int(50*k), int(10*k), int(6*k), int(7*k)
-  f, g, h = int(a/2 - c/2), int(b/2 - D/2), int(a/2 - D/2)
-  x, y = a, b
-  t = np.empty((y, x), dtype=float)
-  t[:] = initial_value
-  t[:, 0] = 50
-  t[:, -1] = 0
-  t[0:d, f:f+c] = np.nan
-  t[-d:, f:f+c] = np.nan
-  t[g:g+D, h:h+D] = np.nan
-  return t
-
-
 ###############################
 ##   Computation functions   ##
 ###############################
