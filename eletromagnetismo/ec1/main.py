@@ -319,7 +319,44 @@ def problem_1():
 
 
 def problem_2():
-  pass
+  k = 2
+  h = (1/k)*1e-3
+  min_error = 1e-10
+  axis = 1
+  t = template2(k, 50)
+
+  potential, history = compute_potential(
+    template=t,
+    axis=axis,
+    min_error=min_error
+  )
+  np.save('p2_history.npy', np.array(history))
+  np.save('p2_potential.npy', potential)
+  
+  plot_equipotential(
+    potential, 
+    k=k, 
+    title='Equipotenciais', 
+    filename='p2_equipotenciais.pdf'
+  )
+
+  Ex, Ey = compute_ef(potential, h=h)
+  plot_field(
+    Ex, Ey, 
+    title='Campo Elétrico', 
+    filename='p2_campo_eletrico.pdf'
+  )
+
+  resistence = compute_resistence(
+    V=100, 
+    l=100e-3, 
+    h=h, 
+    condutivity=5, 
+    Ex=Ex,
+    Ey=Ey, 
+    axis=axis
+  )
+  print(f'Resistencia: {resistence} Ohms')
 
 
 if __name__ == '__main__':
