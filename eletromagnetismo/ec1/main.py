@@ -141,17 +141,17 @@ def compute_ef(p, h):
   return Ex, Ey
 
 
-def compute_resistence(V, l, h, sigma, Ex, Ey, axis):
+def compute_resistence(V, l, h, condutivity, Ex, Ey, axis):
   if axis == 0:
     R = np.empty(Ey.shape[0])
     for j in range(Ey.shape[0]):
       flux = h * np.sum(np.abs(remove_nan(Ey[j, :])))
-      R[j] = V / (l * sigma * flux + 1e-12) # 1e-12: avoid division by 0
+      R[j] = V / (l * condutivity * flux + 1e-12) # 1e-12: avoid division by 0
   else:
     R = np.empty(Ex.shape[1])
     for i in range(Ex.shape[1]):
       flux = h * np.sum(np.abs(remove_nan(Ex[:, i])))
-      R[i] = V / (l * sigma * flux)
+      R[i] = V / (l * condutivity * flux)
   return R
 
 
@@ -267,7 +267,15 @@ def problem_1():
       return
 
     Ex, Ey = compute_ef(params['potential'], h)
-    resistences = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
+    resistences = compute_resistence(
+      V=100, 
+      l=100e-3, 
+      h=h, 
+      condutivity=5, 
+      Ex=Ex, 
+      Ey=Ey, 
+      axis=0
+    )
     plot_reistences(
       resistences, 
       title=f'Epoch {params["epoch"]}', 
@@ -298,7 +306,15 @@ def problem_1():
     filename='p1_campo_eletrico.pdf'
   )
 
-  resistence = compute_resistence(V=100, l=100e-3, h=h, sigma=5, Ex=Ex, Ey=Ey, axis=0)
+  resistence = compute_resistence(
+    V=100, 
+    l=100e-3, 
+    h=h, 
+    condutivity=5, 
+    Ex=Ex,
+    Ey=Ey, 
+    axis=0
+  )
   print(f'Resistencia: {resistence} Ohms')
 
 
