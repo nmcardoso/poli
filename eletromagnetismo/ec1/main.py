@@ -80,13 +80,12 @@ def compute_potential(template, axis, epochs=50, min_error=None, callbacks=[]):
       r = p[j, i + 1]
     return t, b, l, r
 
-  curr_epoch = 0
-  curr_error = 1e12
   if min_error is None:
     bar = progressbar.ProgressBar(max_value=epochs)
   else:
     bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
-  
+  curr_epoch = 0
+  curr_error = 1e12
   while True:
     if axis == 0:
       for j in range(1, y - 1):
