@@ -53,7 +53,7 @@ def template2(k, initial_value):
 ##   Computation functions   ##
 ###############################
 
-def compute_potential(template, axis, epochs=50, callbacks=[]):
+def compute_potential(template, axis, epochs=50, min_error=None, callbacks=[]):
   history = []
   p = np.copy(template)
   prev = np.copy(template)
@@ -80,8 +80,15 @@ def compute_potential(template, axis, epochs=50, callbacks=[]):
     else:
       r = p[j, i + 1]
     return t, b, l, r
+
+  curr_epoch = 0
+  curr_error = 1e12
+  if min_error is None:
+    bar = progressbar.ProgressBar(max_value=epochs)
+  else:
+    bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
   
-  for epoch in progressbar.progressbar(range(epochs)):
+  while True:
     if axis == 0:
       for j in range(1, y - 1):
         for i in range(x):
@@ -99,11 +106,24 @@ def compute_potential(template, axis, epochs=50, callbacks=[]):
 
     f_p = remove_nan(p)
     f_prev = remove_nan(prev)
-    history.append(np.sum((f_p - f_prev) ** 2) / f_p.shape[0])
+    curr_error = np.sum((f_p - f_prev) ** 2) / f_p.shape[0]
+    curr_epoch += 1
+    history.append(curr_error)
     prev = np.copy(p)
 
+    stop_signal = False
     for callback in callbacks:
-      callback({ 'history': history, 'potential': p, 'epoch': epoch })
+      r = callback({ 'history': history, 'potential': p, 'epoch': curr_epoch })
+      if isinstance(r, dict) and 'stop' in r.keys() and r['stop'] == True:
+        stop_signal = stop_signal or True
+
+    bar.update(curr_epoch)
+
+    if stop_signal or \
+      (min_error is None and curr_epoch > epochs) or \
+      (min_error is not None and curr_error < min_error):
+      break
+
   return p, history
 
 
