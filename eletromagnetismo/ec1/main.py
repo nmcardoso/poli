@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.patches as mpatches
 import progressbar
-from statistics import mode
 
 
 
@@ -219,7 +218,6 @@ def plot_field(Ex, Ey, title='', show=True, filename=None):
 def plot_reistences(resistences, title='', show=True, filename=None):
   plt.plot(resistences, color='tab:blue')
   plt.hlines(np.median(resistences), xmin=0, xmax=len(resistences)-1, color='tab:red')
-  plt.hlines(mode(resistences), xmin=0, xmax=len(resistences)-1, color='tab:green')
   plt.ylim((0, 25))
   plt.title(title)
   if filename is not None:
