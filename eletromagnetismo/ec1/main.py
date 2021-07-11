@@ -259,7 +259,7 @@ def plot_templates(template1, template2, show=True, filename=None):
 def problem_1():
   k = 2
   h = (1/k)*1e-3
-  min_error = 1e3
+  min_error = 1e-3
   t = template1(k, 50)
 
   def plot_callback(params):
