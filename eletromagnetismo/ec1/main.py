@@ -52,7 +52,7 @@ def template2(k, initial_value):
 ##   Computation functions   ##
 ###############################
 
-def compute_potential(template, axis, epochs=50, min_error=None, callbacks=[]):
+def compute_potential(template, axis, epochs=50, max_error=None, callbacks=[]):
   history = []
   p = np.copy(template)
   prev = np.copy(template)
@@ -80,7 +80,7 @@ def compute_potential(template, axis, epochs=50, min_error=None, callbacks=[]):
       r = p[j, i + 1]
     return t, b, l, r
 
-  if min_error is None:
+  if max_error is None:
     bar = progressbar.ProgressBar(max_value=epochs)
   else:
     bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
@@ -118,8 +118,8 @@ def compute_potential(template, axis, epochs=50, min_error=None, callbacks=[]):
     bar.update(curr_epoch)
 
     if stop_signal or \
-      (min_error is None and curr_epoch > epochs) or \
-      (min_error is not None and curr_error < min_error):
+      (max_error is None and curr_epoch > epochs) or \
+      (max_error is not None and curr_error < max_error):
       break
 
   return p, history
@@ -254,7 +254,7 @@ def plot_templates(template1, template2, show=True, filename=None):
 def problem_1():
   k = 2
   h = (1/k)*1e-3
-  min_error = 1e-10
+  max_error = 1e-10
   t = template1(k, 50)
 
   def plot_callback(params):
@@ -281,7 +281,7 @@ def problem_1():
   potential, history = compute_potential(
     template=t,
     axis=0,
-    min_error=min_error,
+    max_error=max_error,
     callbacks=[plot_callback]
   )
   np.save('p1_history.npy', np.array(history))
@@ -316,14 +316,14 @@ def problem_1():
 def problem_2():
   k = 2
   h = (1/k)*1e-3
-  min_error = 1e-10
+  max_error = 1e-10
   axis = 1
   t = template2(k, 50)
 
   potential, history = compute_potential(
     template=t,
     axis=axis,
-    min_error=min_error
+    max_error=max_error
   )
   np.save('p2_history.npy', np.array(history))
   np.save('p2_potential.npy', potential)
