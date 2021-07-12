@@ -353,26 +353,6 @@ def problem_2():
   )
   print(f'Resistencia: {resistence} Ohms')
 
-
-def test():
-  k = 1
-  h = (1/k)*1e-3
-  axis = 1
-  p = np.load('data/p2_potential.npy')
-  Ex, Ey = compute_ef(p, h)
-  r = compute_resistence(V=100, l=100e-3, h=h, condutivity=5, Ex=Ex, Ey=Ey, axis=axis)
-
-  plt.plot(r, color='tab:blue', label='Resistências')
-  plt.hlines(y=np.median(r), xmin=0, xmax=len(r)-1, color='tab:red', label=f'Mediana = {np.median(r):.5f}')
-  plt.hlines(y=np.median(r[:19]), xmin=0, xmax=len(r)-1, color='tab:green', label=f'Mediana = {np.median(r[:19]):.5f}')
-  plt.title('Resistências')
-  plt.xlabel('Altura')
-  plt.ylabel('Resistência ($\Omega$)')
-  plt.legend()
-  plt.savefig('p2_resistencias.pdf', bbox_inches='tight', pad_inches=0.05)
-  plt.show()
-
 if __name__ == '__main__':
-  # problem_1()
-  # problem_2()
-  test()
+  problem_1()
+  problem_2()
