@@ -133,7 +133,9 @@ As Figuras \ref{fig:erro_p1} e \ref{fig:erro_p2} mostram os valores dos erros qu
 
 \subsubsection{Resistências parciais}
 
-Esta análise foi feita para associar o valor de resistência calculada a partir de linhas em diferentes alturas na placa do Problema 1 (\texttt{template1}). Isso é mostrado na Figura \ref{fig:resist_table}, onde a linha azul indica o valor da resistência e a linha vermelha indica a mediana (considerando todas as alturas). O eixo das abscissas indica a altura da placa considerada para o cálculo da resistência. Estes gráficos foram gerados a partir de um \texttt{template} com $k=2$, ou seja, uma malha de discretização de lado $h=1/k=0.5 mm$. Isto é, cada ponto deste eixo no gráfico representa 0.5mm da objeto real.
+Esta análise foi feita para associar o valor de resistência calculada a partir de linhas em diferentes alturas na placa do Problema 1 (\texttt{template1}). Isso é mostrado na Figura \ref{fig:resist_table}, onde a linha azul indica o valor da resistência e a linha vermelha indica a mediana (considerando as resistências em todas as alturas). O eixo das abscissas indica a altura da placa considerada para o cálculo da resistência e o eixo das ordenadas indica o valor da resistência. Estes gráficos foram gerados a partir de um \texttt{template} com $k=2$, que representa uma malha de discretização de lado $h=1/k=0.5 mm$. Isto é, cada ponto do eixo das abscissas representa 0.5mm da altura real.
+
+\bigskip
 
 \begin{figure}[!ht]
   \begin{tabular}{cccc}
