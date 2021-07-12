@@ -26,7 +26,7 @@
 \fecha{12 de julho de 2021}
 
 \abstract{
-  Neste relatório é mostrado os principais resultados do primeiro exercício programa
+  Este relatório mostra uma solução computacional de um problema do eletromagnetismo com um algorítmo de diferenciação numérica, o Método das Diferenças Finitas. Aqui são expostos dois problemas onde as equipotenciais, as linhas de campo elétrico e o valor da resistência são calculados.
 }
 
 \begin{document}
@@ -59,14 +59,15 @@ Para calcular a resistência do problema, as funções são chamadas na ordem mo
 
 \subsection{Inspeção da matriz inicial de potencial}
 
-O passo preliminar é a criação da matriz de potencial com os valores iniciais.  A Figura \ref{fig:template} mostra dois gráficos criados para vizualizar a matriz gerada pelas funções \texttt{tamplete1} e \texttt{template2}. Este gráfico mapeia cada valor da matriz para uma cor específica. Esta análise foi feita para verificar se a matriz com os valores iniciais de potencial representa a geometria do problema corretamente. Por motivo de vizualização, foi usado um valor de $k=0.5$ e $k=1$ para os gráficos da esquerda e da direita, respectivamente. Ou seja, cada unidade do gráfico da esquerda representa 2mm da geometria real, enquanto que cada unidade do gráfico da direita representa 1mm da geometria do problema.
-
 \begin{figure}[!h]
   \centering
   \includegraphics[width=0.6\textwidth]{template}
   \caption{Mapa de cor das matrizes geradas pelas funções \texttt{template1} (esquerda) e \texttt{template2} (direita).}
   \label{fig:template}
 \end{figure}
+
+O passo preliminar é a criação da matriz de potencial com os valores iniciais.  A Figura \ref{fig:template} mostra dois gráficos criados para vizualizar a matriz gerada pelas funções \texttt{tamplete1} e \texttt{template2}. Este gráfico mapeia cada valor da matriz para uma cor específica. Esta análise foi feita para verificar se a matriz com os valores iniciais de potencial representa a geometria do problema corretamente. Por motivo de vizualização, foi usado um valor de $k=0.5$ e $k=1$ para os gráficos da esquerda e da direita, respectivamente. Ou seja, cada unidade do gráfico da esquerda representa 2mm da geometria real, enquanto que cada unidade do gráfico da direita representa 1mm da geometria do problema.
+
 
 Notamos que existem quatro valores (representados pelas cores) distintos nas matrizes, representando os potenciais iniciais em volts, são eles 100, 50, 0 e indeterminado. Os valores 100V e 0V representam os potenciais dos eletrodos e o potenicial 50V, que é o valor médio da DDP entre os eletrodos, é usado como valor inicial. Já o vácuo é representado por uma indeterminação e é mostrado na parte branca do gráfico.
 
@@ -81,8 +82,8 @@ A Figura \ref{fig:pot} mostra as equipotenciais para ambos os problemas, com $\D
 \begin{figure}[!ht]
   \centering
   \begin{tabular}{cc}
-    \includegraphics[height=140mm]{p1_equipotenciais} &
-    \includegraphics[height=140mm]{p2_equipotenciais}
+    \includegraphics[height=125mm]{p1_equipotenciais} &
+    \includegraphics[height=125mm]{p2_equipotenciais}
   \end{tabular}
   \caption{Equipotenciais para o Problema 1 (esquerda) e Problema 2 (direita).}
   \label{fig:pot}
@@ -128,6 +129,7 @@ As Figuras \ref{fig:erro_p1} e \ref{fig:erro_p2} mostram os valores dos erros qu
   \caption{Gráfico log-log do valor do erro quadrático em função da época para o Problema 2.}
   \label{fig:erro_p2}
 \end{figure}
+
 
 \subsubsection{Resistências parciais}
 
