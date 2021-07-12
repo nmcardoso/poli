@@ -191,18 +191,13 @@ def plot_equipotential(potential, k=1, title='', show=True, filename=None):
 def plot_field(Ex, Ey, title='', show=True, filename=None):
   x, y = Ex.shape[1], Ex.shape[0]
   X, Y = np.meshgrid(np.linspace(0, x, x), np.linspace(0, y, y))
-  N = np.sqrt(X**2 + Y**2)
-  S = 0.1 / (1 + np.log(np.max(N) / N)) # matriz de escalonamento logarítmico
-  fig = plt.figure()
+  fig = plt.figure(figsize=(5, 12))
   ax = fig.add_subplot(111)
   ax.quiver(
-    X, Y, S*(Ex/N), S*(-Ey/N), np.flip(Y), 
-    scale=9, 
-    scale_units='xy', 
-    width=0.005, 
-    minshaft=1, 
-    minlength=1.2, 
-    cmap='viridis'
+    X, Y, Ex, -Ey,
+    scale=1e4, 
+    scale_units='xy',
+    color='tab:blue'
   )
   ax.invert_yaxis()
   ax.set_aspect('equal')
