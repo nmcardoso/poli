@@ -448,4 +448,51 @@ Finalmente, atribuindo os valores numéricos da matriz de capacitância $[C']$, 
   W_e = 6.897 W
 \end{equation}
 
+\newpage
+\section{Apêndice}
+Alguns cálculos, como o da inversão da matriz $[S]$ e o cálculo de $W_e$, não foram mostrados no texto por terem sido feitos através do Código \ref{lst:1}, mostrado a seguir.
+
+\begin{lstlisting}[language=Python, caption=Código usado para cálculo da matriz de capacitâncias e energia, label=lst:1]
+import numpy as np
+h = 11
+a = 3.125e-3
+d = 0.3
+D = 1.5
+l = 1e3
+e = 8.854e-12
+
+# Calculo da matriz de capacitancia pela matriz de elastancia
+X11 = 2*(h+d)/a
+X12 = (2*h+d)/d
+X13 = np.sqrt((2*h+2*d)**2+D**2)/D
+X14 = np.sqrt(((2*h+d)**2)/(d**2+D**2))
+X22 = 2*h/a
+X23 = np.sqrt(((2*h+d)**2+D**2)/(d**2+D**2))
+X24 = np.sqrt((2*h)**2+D**2)/D
+X33 = 2*(h+d)/a
+X34 = (2*h+d)/d
+X44 = (2*h)/a
+k = 1./(2*np.pi*e*l)
+
+S_alpha = np.array([
+  [X11, X12, X13, X14], 
+  [X12, X22, X23, X24],
+  [X13, X23, X33, X34],
+  [X14, X24, X34, X44]
+])
+S = k*np.log(S_alpha)
+print('Matriz de Elastancias', S)
+C = np.linalg.inv(S)
+print('Matriz de Capacitancias', C)
+
+# Cálculo da energia
+We = 0
+V = [40e3, 0, 10e3, 0]
+for k in range(4):
+  for i in range(4):
+    We += C[k,i]*V[k]*V[i]
+We *= 0.5
+print('We', We)
+\end{lstlisting}
+
 \end{document}
