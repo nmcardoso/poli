@@ -417,4 +417,35 @@ Substituindo os valores da matriz $[C']$,  na equação \eqref{eq:17}, temos
 \end{gather}
 
 
+\section{Energia Eletrostática}
+
+Considerando a inexistência de fontes no infinito, a equação \eqref{eq:20} mostra a forma geral para o cálculo da energia armazenada pelo campo eletrostático.
+
+\begin{equation}\label{eq:20}
+  W_e = \frac{1}{2}\iiint_\tau \varphi \rho_V\, dv + \frac{1}{2}\iint_\zeta \varphi \rho_S\, ds + \frac{1}{2}\int_\xi \varphi \rho_L\, dl
+\end{equation}
+
+Considerando as densidades volumétricas e superficiais iguais a zero, pois os eletrodos do sistema foram definidos como linhas de carga uniforme. Logo, apenas a densidade linear de carga será usada. Assim, a equação geral \eqref{eq:20} pode ser simplificada para
+
+\begin{equation}\label{eq:21}
+  W_e = \frac{1}{2}\int_\xi \varphi \rho_L\, dl = \frac{1}{2}\varphi \int_\xi \rho_L\, dl = \frac{1}{2}\varphi Q
+\end{equation}
+
+E, considerando $N$ linhas condutoras, cada uma com carga $Q_n$ e um potencial $V_n$, temos
+\begin{equation}\label{eq:22}
+  W_e = \frac{1}{2} \sum_{n=1}^N V_nQ_n
+\end{equation}
+
+Substituindo $\displaystyle Q_k=\sum_{i=1}^N C_{ki}'V_i$ na equação \eqref{eq:22}, temos
+
+\begin{equation}\label{eq:23}
+  W_e = \frac{1}{2} \sum_{k=1}^N V_k \sum_{i=1}^N C_{ki}'V_i \; = \; \frac{1}{2} \sum_{k=1}^N \sum_{i=1}^N C_{ki}'V_kV_i
+\end{equation}
+
+Finalmente, atribuindo os valores numéricos da matriz de capacitância $[C']$, da equação \eqref{eq:15}, e os valores de tensão, dados no problema, na equação \eqref{eq:23}, chega-se ao valor da energia armazenada pelo campo eletrostático $W_e$.
+
+\begin{equation}\label{eq:24}
+  W_e = 6.897 W
+\end{equation}
+
 \end{document}
