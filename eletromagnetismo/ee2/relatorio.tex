@@ -291,4 +291,57 @@ Dos valores obtidos na equação \eqref{eq:9}, \eqref{eq:10}, \eqref{eq:11} e \e
 \end{figure}
 
 
+\subsection{Matriz de capacitâncias}
+\newcommand{\cln}[2]{\ln\left(\frac{#1}{#2}\right)}
+
+A equação \eqref{eq:13} mostra a martiz de elastâncias do sistema. Ela é calculada a partir dos valores das equações \eqref{eq:5}, \eqref{eq:6}, \eqref{eq:9}, \eqref{eq:10}, \eqref{eq:11} e \eqref{eq:12}.
+\begin{equation*}
+  [S_\alpha] =
+  \begin{bmatrix}
+    \cln{2(h+d)}{a}                           & \cln{2h+d}{d}                             & \cln{\sqrt{(2h+2d)^2+D^2}}{D}             & \cln{\sqrt{(2h+d)^2+D^2}}{\sqrt{d^2+D^2}} \\
+    \cln{2h+d}{d}                             & \cln{2h}{a}                               & \cln{\sqrt{(2h+d)^2+D^2}}{\sqrt{d^2+D^2}} & \cln{\sqrt{(2h)^2+D^2}}{D}                \\
+    \cln{\sqrt{(2h+2d)^2+D^2}}{D}             & \cln{\sqrt{(2h+d)^2+D^2}}{\sqrt{d^2+D^2}} & \cln{2(h+d)}{a}                           & \cln{2h+d}{d}                             \\
+    \cln{\sqrt{(2h+d)^2+D^2}}{\sqrt{d^2+D^2}} & \cln{\sqrt{(2h)^2+D^2}}{D}                & \cln{2h+d}{d}                             & \cln{2h}{a}                               \\
+  \end{bmatrix}
+\end{equation*}
+
+\begin{equation}\label{eq:13}
+  [S] = \frac{1}{2\pi\varepsilon l}[S_\alpha]
+\end{equation}
+
+Substituindo os valores da Tabela \ref{tab:dados} na equação \ref{eq:13}, chega-se aos valores numéricos da matriz de elastâncias do sistema, que é mostrado na equação \eqref{eq:15}.
+
+\begin{equation}\label{eq:14-1}
+  [S] =
+  \begin{bmatrix}
+    159.74 & 77.45  & 48.80  & 48.17  \\
+    77.45  & 159.25 & 48.21  & 48.32  \\
+    48.80  & 48.21  & 159.74 & 77.45  \\
+    48.17  & 48.32  & 77.45  & 159.25
+  \end{bmatrix}
+  \textrm{MF}^{-1}
+\end{equation}
+
+A matriz de capacitâncias do sistema será calculada a partir da matriz de elastâncias. A relação entre elas é dada pela equação \eqref{eq:14}.
+
+\begin{equation}\label{eq:14}
+  [C'] = [S]^{-1}
+\end{equation}
+
+Invertendo a matriz de elastâncias, na equação \eqref{eq:14-1}, chega-se aos valores numéricos da matriz de capacitâncias, na equação \eqref{eq:15}.
+
+\begin{equation}\label{eq:15}
+  [C'] =
+  \begin{bmatrix}
+    8.62  & -3.56 & -1.07 & -1.01 \\
+    -3.56 & 8.64  & -1.01 & -1.05 \\
+    -1.07 & -1.01 & 8.62  & -3.56 \\
+    -1.01 & -1.05 & -3.56 & 8.64
+  \end{bmatrix}
+  \textrm{nF}
+\end{equation}
+
+\bigskip
+\medskip
+
 \end{document}
