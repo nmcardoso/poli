@@ -107,4 +107,72 @@ Como a equação \eqref{eq:1} apresenta uma relação de $\varphi$ e $Q$. As ela
   S_{ki}=\left.\frac{V_k}{Q_i}\right|_{Q_n=0, n\neq i}
 \end{equation}
 
+
+\subsection{Caso 1: Cálculo de $S_{ki}$ para $k=i$}
+
+
+Calculando $S_{ki}$ com o eletrodo $k$ sejuito a um potencial $V_k$ para $i=k$ e considerando nula a carga dos demais eletrodos. Fazendo $r_- = 2\mathcal{H}_k - a_i$ e $r_+ = a_i$ e substituindo na equação \eqref{eq:1}, temos
+\begin{equation}\label{eq:3}
+  V_k = \frac{Q_i}{2\pi\varepsilon l}\ln\left(\frac{2\mathcal{H}_k - a_k}{a_k}\right) \text{,} \;\;\; \text{com} \; Q_i =
+  \begin{cases}
+    Q_i, & \text{se } i \neq k \\
+    0,   & \text{se } i = k
+  \end{cases}
+\end{equation}
+onde $H_k$ é a distância entre o eletrodo $k$ e o solo e $a_k$ é o raio do eletrodo $k$.
+
+Aplicando a relação $2\mathcal{H}_k-a_k \approx 2\mathcal{H}_k$ da Hipótese 1 na equação \eqref{eq:3}, temos
+
+\begin{equation}\label{eq:4}
+  \left. S_{ki} \right|_{k=i} = \frac{V_k}{Q_i} = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{2\mathcal{H}_k}{a_k}\right)
+\end{equation}
+
+Logo, substituindo os valores da Tabela \ref{tab:dados} com $\mathcal{H}_1 = \mathcal{H}_3 = d+h$ e $\mathcal{H}_2 = \mathcal{H}_4 = h$, temos
+\begin{align}
+  S_{11} = S_{22} & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{2(h+d)}{a}\right)\label{eq:5} \\[1em]
+  S_{33} = S_{44} & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{2h}{a}\right)\label{eq:6}
+\end{align}
+
+A relação de igualdade das elastâncias entre alguns eletrodos, como $S_{11} = S_{22}$ e $S_{33} = S_{44}$, se deu por conta da geometria do sistema. Isso é mostrado na Figura \ref{fig:d1}, onde as distâncias $\mathcal{H}_1$, $\mathcal{H}_2$, $\mathcal{H}_3$ e $\mathcal{H}_4$ são identificadas para cada eletrodo e sua respectiva imagem.
+
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[scale=1.8, >=Stealth]
+    \coordinate[label={[blue]right:1}] (P1) at (0,3);
+    \coordinate[label={[blue]right:2}] (P2) at (0,1);
+    \coordinate[label={[blue]left:3}] (P3) at (3,3);
+    \coordinate[label={[blue]left:4}] (P4) at (3,1);
+
+    \coordinate[label={[red]right:1}] (I1) at (0,-3);
+    \coordinate[label={[red]right:2}] (I2) at (0,-1);
+    \coordinate[label={[red]left:3}] (I3) at (3,-3);
+    \coordinate[label={[red]left:4}] (I4) at (3,-1);
+
+    \draw[dashed] (-1.3,0) -- (4.5,0);
+
+    \node at (P1) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P2) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P3) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P4) [circle,fill,inner sep=2pt, blue]{};
+
+    \node at (I1) [circle,fill,inner sep=2pt, red]{};
+    \node at (I2) [circle,fill,inner sep=2pt, red]{};
+    \node at (I3) [circle,fill,inner sep=2pt, red]{};
+    \node at (I4) [circle,fill,inner sep=2pt, red]{};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P2) - (.4,0)$) -- ($(0,0) - (.4,0)$) node[midway, right] {$\mathcal{H}_2 = \mathcal{H}_4$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P1) - (.7,0)$) -- ($(0,0) - (.7,0)$) node[midway, left] {$\mathcal{H}_1 = \mathcal{H}_3$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P4) + (.4,0)$) -- ($(I4) + (.4,0)$) node[midway, left, yshift=3mm] {$2\mathcal{H}_4 = 2\mathcal{H}_2$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P3) + (.7,0)$) -- ($(I3) + (.7,0)$) node[midway, right, yshift=-3mm] {$2\mathcal{H}_1 = 2\mathcal{H}_3$};
+
+  \end{tikzpicture}
+  \caption{Diagrama do sistema, já considerando as simplificações e fora de escala, indicando a distância $\mathcal{H}_i$ entre o eletrodo $i$ (em azul) e sua respectiva imagem (em vermelho).}
+  \label{fig:d1}
+\end{figure}
+
+
 \end{document}
