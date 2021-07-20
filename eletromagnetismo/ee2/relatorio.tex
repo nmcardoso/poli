@@ -390,4 +390,31 @@ A partir dos valores acima, podemos montar o diagrama do circuito elétrico corr
 \end{figure}
 
 \newpage
+\section{Cargas nos Eletrodos}
+
+Com os valores das capacitâncias parciais conhecidos (equação \eqref{eq:15}), a carga $Q_k$ de um eletrodo $k$ pode ser calculada de acordo com a equação \eqref{eq:17}.
+
+\begin{equation}\label{eq:17}
+  \displaystyle Q_k = \sum_{i=1}^N C_{ki}'V_i
+\end{equation}
+
+Substituindo os valores da matriz $[C']$,  na equação \eqref{eq:17}, temos
+
+\begin{gather}\label{eq:18}
+  \begin{aligned}
+    Q_3 & = C_{31}'V_1 + C_{32}'V_2 + C_{33}'V_3 + C_{34}'V_4 =                                                                              \\
+        & = (-1.07 \text{nF})(40 \text{kV}) + (-1.01 \text{nF})(0 \text{V}) + (8.62 \text{nF})(0 \text{V}) + (-3.56 \text{nF})(0 \text{V}) = \\
+        & = 42.8 \mu \text{C}
+  \end{aligned}
+\end{gather}
+
+\begin{gather}\label{eq:19}
+  \begin{aligned}
+    Q_4 & = C_{41}'V_1 + C_{42}'V_2 + C_{43}'V_3 + C_{44}'V_4 =                                                                              \\
+        & = (-1.01 \text{nF})(40 \text{kV}) + (-1.05 \text{nF})(0 \text{V}) + (-3.56 \text{nF})(0 \text{V}) + (8.64 \text{nF})(0 \text{V}) = \\
+        & = 40.4 \mu \text{C}
+  \end{aligned}
+\end{gather}
+
+
 \end{document}
