@@ -344,4 +344,50 @@ Invertendo a matriz de elastâncias, na equação \eqref{eq:14-1}, chega-se aos 
 \bigskip
 \medskip
 
+\section{Diagrama do Circuito Elétrico}
+
+O modelo de circuito elétrico com parâmetros concentrados é obtido de [C'], da equação \eqref{eq:15}, onde a capacitância é calculada pela relação a seguir.
+
+\begin{equation}\label{eq:16}
+  C_{ki} =
+  \begin{cases}
+    \displaystyle \sum_{j=1}^N C_{kj}', & \text{se } i=0      \\
+    \displaystyle -C_{ki}',             & \text{se } k \neq i
+  \end{cases}
+\end{equation}
+
+Das equações \eqref{eq:15} e \eqref{eq:16}, temos
+\begin{align*}
+  C_{10} & = 2.98 \textrm{nF} & C_{12} & = 3.56 \textrm{nF} \\
+  C_{20} & = 3.01 \textrm{nF} & C_{13} & = 1.07 \textrm{nF} \\
+  C_{30} & = 2.98 \textrm{nF} & C_{14} & = 1.01 \textrm{nF} \\
+  C_{40} & = 3.02 \textrm{nF} & C_{23} & = 1.01 \textrm{nF} \\
+  C_{34} & = 3.56 \textrm{nF} & C_{24} & = 1.05 \textrm{nF}
+\end{align*}
+
+A partir dos valores acima, podemos montar o diagrama do circuito elétrico correspondente ao sistema, como mostrado na Figura \ref{fig:circuito}.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.3]
+    \draw (0,0) node[below left](N1){1}
+    to[C=3.56 nF, *-] (3,0) node[below left](N2){2}
+    to[C=1.01 nF, *-] (6,0) node[below left](N3){3}
+    to[C=3.56 nF, *-*] (9,0) node[below left](N4){4}
+
+    (N1.north east) -- ++(0,1.5) to[C=1.07 nF] ++(3,0) -| (N3.north east)
+    (N2.north east) -- ++(0,3) to[C=1.05 nF] ++(6,0) -- (N4.north east)
+    (N1.north east) -- ++(0,4.5) to[C=1.01 nF] ++(9,0) -- (N4.north east)
+
+    (N1.north east) to[C=2.98 nF] ++(0,-2.5) node[ground]{}
+    (N2.north east) to[C=3.01 nF] ++(0,-2.5) node[ground]{}
+    (N3.north east) to[C=2.98 nF] ++(0,-2.5) node[ground]{}
+    (N4.north east) to[C=3.02 nF] ++(0,-2.5) node[ground]{}
+    ;
+  \end{circuitikz}
+  \caption{Circuito elétrico do sistema.}
+  \label{fig:circuito}
+\end{figure}
+
+\newpage
 \end{document}
