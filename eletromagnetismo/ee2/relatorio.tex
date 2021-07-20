@@ -175,4 +175,120 @@ A relação de igualdade das elastâncias entre alguns eletrodos, como $S_{11} =
 \end{figure}
 
 
+\newpage
+\subsection{Caso 2: Cálculo de $S_{ki}$ para $k \neq i$}
+
+Como no Caso 1, podemos calcular $S_{ki}$ com o eletrodo $k$ sejuito a um potencial $V_k$ para $i \neq k$ e considerando nula a carga dos demais eletrodos. Fazendo $r_- = H_{ki} - a_{k}$ e $r_+ = \Delta_{ki} - a_{k}$ e substituindo na equação \eqref{eq:1}, temos
+\begin{equation}\label{eq:7}
+  V_k = \frac{Q_i}{2\pi\varepsilon l}\ln\left(\frac{H_{ki} - a_{k}}{\Delta_{ki} - a_{k}}\right) \text{,} \;\;\; \text{com} \; Q_i =
+  \begin{cases}
+    Q_i, & \text{se } i \neq k \\
+    0,   & \text{se } i = k
+  \end{cases}
+\end{equation}
+onde $H_{ki}$ é a distância entre o eletrodo $k$ e a imagem do eletrodo $i$, $\Delta_{ki}$ é a distância entre o eletrodo $k$ e o eletrodo $i$ e $a_{k}$ é o raio do eletrodo $k$.
+
+Considerando a Hipótese 1, é possível fazer as seguintes simplificações: $H_{ki} - a_k \approx H_{ki}$ e $\Delta_{ki} - a_k \approx \Delta_{ki}$, então
+
+\begin{equation}\label{eq:8}
+  \left. S_{ki} \right|_{k \neq i} = \frac{V_k}{Q_i} = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{H_{ki}}{\Delta_{ki}}\right)
+\end{equation}
+
+Os valores de $H_{ki}$ e $\Delta_{ki}$ são dados pela relção a seguir
+\begin{align*}
+  H_{12} & = 2h + d                   & \Delta_{12} & = d                \\
+  H_{13} & = \sqrt{(2h + 2d)^2 + D^2} & \Delta_{13} & = D                \\
+  H_{14} & =  \sqrt{(2h + d)^2 + D^2} & \Delta_{14} & = \sqrt{d^2 + D^2} \\
+  H_{23} & =  \sqrt{(2h + d)^2 + D^2} & \Delta_{23} & = \sqrt{d^2 + D^2} \\
+  H_{24} & =  \sqrt{(2h)^2 + D^2}     & \Delta_{24} & = D                \\
+  H_{34} & = 2h + d                   & \Delta_{34} & = d
+\end{align*}
+
+E os valores de elastâncias estão dispostos nas equações a seguir
+\begin{align}
+  S_{12} = S_{21} = S_{34} = S_{43} & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{2h+d}{d}\right) \label{eq:9}                                    \\
+  S_{13} = S_{31}                   & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{\sqrt{(2h + 2d)^2 + D^2}}{D}\right) \label{eq:10}               \\
+  S_{14} = S_{41} = S_{23} = S_{32} & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{\sqrt{(2h + d)^2 + D^2}}{\sqrt{d^2 + D^2}}\right) \label{eq:11} \\
+  S_{24} = S_{42}                   & = \frac{1}{2\pi\varepsilon l}\ln\left(\frac{\sqrt{(2h)^2 + D^2}}{D}\right) \label{eq:12}
+\end{align}
+
+Dos valores obtidos na equação \eqref{eq:9}, \eqref{eq:10}, \eqref{eq:11} e \eqref{eq:12}, é notado que $S_{ki} = S_{ik}$. Isso ocorre pelo Teorema da Reciprocidade, o que implica numa matriz de elastâncias $[S]$ simétrica. Como a matriz de capacitâncias $[C']$ é calculada invertendo-se $[S]$, a relação $C_{ki}' = C_{ik}'$ também é válida. A relação de igualdade das elastâncias entre outros eletrodos, como $S_{12} = S_{34}$, se deu por conta da geometria do sistema.
+
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[scale=1.8, >=Stealth]
+    \coordinate[label={[blue]right:1}] (P1) at (0,3);
+    \coordinate[label={[blue]right:2}] (P2) at (0,1);
+    \coordinate[label={[blue]left:3}] (P3) at (3,3);
+    \coordinate[label={[blue]left:4}] (P4) at (3,1);
+
+    \coordinate[label={[red]right:1}] (I1) at (0,-3);
+    \coordinate[label={[red]right:2}] (I2) at (0,-1);
+    \coordinate[label={[red]left:3}] (I3) at (3,-3);
+    \coordinate[label={[red]left:4}] (I4) at (3,-1);
+
+    \draw[dashed] (-1.3,0) -- (4.5,0);
+
+    \node at (P1) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P2) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P3) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P4) [circle,fill,inner sep=2pt, blue]{};
+
+    \node at (I1) [circle,fill,inner sep=2pt, red]{};
+    \node at (I2) [circle,fill,inner sep=2pt, red]{};
+    \node at (I3) [circle,fill,inner sep=2pt, red]{};
+    \node at (I4) [circle,fill,inner sep=2pt, red]{};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P2) - (0,.3)$) -- ($(P4) - (0,.3)$) node[midway, below] {$\Delta_{24} = \Delta_{13}$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P1) - (.4,0)$) -- ($(P2) - (.4,0)$) node[midway, left] {$\Delta_{12} = \Delta_{34}$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P1) + (.2,.2)$) -- ($(P4) + (.2,.2)$) node[midway, sloped, yshift=3mm] {$\Delta_{14} = \Delta_{23}$};
+
+  \end{tikzpicture}
+  \caption{Diagrama do sistema, já considerando as simplificações e fora de escala, indicando a distância $\Delta_{ki}$ entre o eletrodo $k$ e o eletrodo $i$.}
+  \label{fig:d2}
+\end{figure}
+
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[scale=1.8, >=Stealth]
+    \coordinate[label={[blue]right:1}] (P1) at (0,3);
+    \coordinate[label={[blue]right:2}] (P2) at (0,1);
+    \coordinate[label={[blue]right:3}] (P3) at (3,3);
+    \coordinate[label={[blue]left:4}] (P4) at (3,1);
+
+    \coordinate[label={[red]right:1}] (I1) at (0,-3);
+    \coordinate[label={[red]left:2}] (I2) at (0,-1);
+    \coordinate[label={[red]right:3}] (I3) at (3,-3);
+    \coordinate[label={[red]left:4}] (I4) at (3,-1);
+
+    \draw[dashed] (-1.3,0) -- (4.5,0);
+
+    \node at (P1) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P2) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P3) [circle,fill,inner sep=2pt, blue]{};
+    \node at (P4) [circle,fill,inner sep=2pt, blue]{};
+
+    \node at (I1) [circle,fill,inner sep=2pt, red]{};
+    \node at (I2) [circle,fill,inner sep=2pt, red]{};
+    \node at (I3) [circle,fill,inner sep=2pt, red]{};
+    \node at (I4) [circle,fill,inner sep=2pt, red]{};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(I2) + (.1,-.2)$) -- ($(P4) + (.1,-.2)$) node[midway, sloped, above, xshift=12mm] {$H_{24}$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P1) - (.4,0)$) -- ($(I2) - (.4,0)$) node[midway, left, yshift=10mm] {$H_{12} = H_{34}$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(I1) + (-.2,.15)$) -- ($(P3) + (-.2,.15)$) node[midway, sloped, above, xshift=20mm] {$H_{13}$};
+
+    \draw [{Bar[scale=1.2]Stealth[scale=1.2]}-{Stealth[scale=1.2]Bar[scale=1.2]}, line width=1] ($(P2) - (.2,.15)$) -- ($(I3) - (.2,.15)$) node[midway, sloped, above, xshift=17mm] {$H_{23} = H_{14}$};
+
+  \end{tikzpicture}
+  \caption{Diagrama do sistema, já considerando as simplificações e fora de escala, indicando a distância $H_{ki}$ entre o eletrodo $k$ (em azul) e a imagem do eletrodo $i$ (em vermelho).}
+  \label{fig:d3}
+\end{figure}
+
+
 \end{document}
