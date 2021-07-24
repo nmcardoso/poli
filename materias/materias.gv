@@ -1,0 +1,101 @@
+digraph g {
+	# 2021/02
+	MAT2456 [label="Cálculo IV"];
+	PSI3213 [label="Circuitos Elétricos II"];
+	PSI3214 [label="Laboratório de \n Instrumentação Elétrica"];
+	4323102 [label="Física II"];
+	PTC3313 [label="Sistemas de Controle"];
+	PCS3438 [label="Inteligência Artificial"];
+	PME3100 [label="Macânica"];
+	
+	
+	# 2022/01
+	MAP3121 [label="Métodos Numéricos\n Aplicados"];
+
+
+	# 2021/01
+	PRO3200 [label="Estatística", color="blue"];
+	MAT2455 [label="Cálculo III", color="blue"];
+	PSI3211 [label="Circuitos Elétricos I", color="blue"];
+	PTC3213 [label="Eletromagnetismo", color="blue"];
+	4323301 [label="Física Experimental C", color="blue"];
+	PCS3225 [label="Sistemas Digitais II", color="blue"];
+	PCS3413 [label="Engenharia de Software", color="blue"];
+	PCS3443 [label="Laboratório de\n Engenharia Software", color="blue"];
+	
+	
+	# 2022/01
+	PEA3301 [label="Introdução aos\n Sistemas de Potência"];
+	PCS3412 [label="Organização e Arquitetura\n de Computadores I"];
+	PCS3335 [label="Laboratório Digital A"];
+	PSI3321 [label="Eletrônica I"];
+	PTC3307 [label="Sistemas e Sinais"];
+	PEA3306 [label="Converção Eletromecânica\n de Energia"];
+	PEA3311 [label="Laboratório de Converção\n Eletromecânica de Energia"];
+	
+	
+	# 2022/02
+	PSI3322 [label="Eletrônica II"];
+	PSI3323 [label="Laboratório de\n Eletrônica I"];
+	PTC3312 [label="Laboratório de Controle"];
+	PTC3314 [label="Ondas e Linhas"];
+	PTC3361 [label="Introdução ao Processamento\n Digital de Sinais"];
+	PTC3360 [label="Introdução a\n Redes e Comunicações"];
+	PCS3422 [label="Organização e Arquitetura\n de Computadores II"];
+	PCS3446 [label="Sistemas Operacionais"];
+	
+	
+	# 2023/01
+	PCS3216 [label="Sistemas de Programação"];
+	PCS3432 [label="Laboratório de\n Processadores"];
+	PCS3414 [label="Redes de Computadores I"];
+	PCS3434 [label="Laboratório de Redes\n de Computadores"];
+	PCS3550 [label="Projeto de\n Formatura I"];
+	#M1 [label="Módulo I"];
+	#M2 [label="Módulo II"];
+	#M3 [label="Módulo III"];
+	#PCS3567 [label="Estágio Supervisionado"];
+	
+	
+	# 2023/02
+	PCS3424 [label="Redes Computadores II"];
+	PCS3560 [label="Projeto de\n Formatura II"];
+	#M4 [label="Módulo IV"];
+	#M5 [label="Módulo V"];
+	#M6 [label="Módulo VI"];
+	#PCS3577 [label="Estágio Supervisionado II"];
+	
+	
+	
+	PSI3211 -> {PSI3213};
+	PSI3213 -> PSI3214 [style="dashed"];
+	PCS3413 -> PCS3443 [style="dashed"];
+	
+	PCS3225 -> PCS3412;
+	PCS3225 -> PCS3335;
+	PSI3211 -> PSI3321;
+	PTC3213 -> PEA3306;
+	PEA3311 -> PEA3306 [style="dashed"];
+	PEA3306 -> PEA3311 [style="dashed"];
+	
+	PSI3211 -> PEA3301;
+	PSI3321 -> PSI3322;
+	PSI3322 -> PSI3323[style="dashed"];
+	PTC3313 -> PTC3312;
+	{PSI3213, PTC3213} -> PTC3314;
+	PTC3307 -> PTC3361;
+	PTC3307 -> PTC3360;
+	PCS3412 -> PCS3422;
+	PCS3412 -> PCS3446;
+	
+	PCS3225 -> PCS3216;
+	PCS3335 -> PCS3432;
+	PCS3412 -> PCS3432 [style="dashed"];
+	PTC3360 -> PCS3414;
+	PCS3414 -> PCS3434;
+	{PCS3414, PCS3413, PCS3412} -> PCS3550;
+	
+	PCS3414 -> PCS3424;
+	PCS3550 -> PCS3560;
+	
+}
