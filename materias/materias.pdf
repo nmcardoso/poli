@@ -1,0 +1,1173 @@
+%!PS-Adobe-3.0
+%%Creator: graphviz version 2.43.0 (0)
+%%Title: g
+%%Pages: (atend)
+%%BoundingBox: (atend)
+%%EndComments
+save
+%%BeginProlog
+/DotDict 200 dict def
+DotDict begin
+
+/setupLatin1 {
+mark
+/EncodingVector 256 array def
+ EncodingVector 0
+
+ISOLatin1Encoding 0 255 getinterval putinterval
+EncodingVector 45 /hyphen put
+
+% Set up ISO Latin 1 character encoding
+/starnetISO {
+        dup dup findfont dup length dict begin
+        { 1 index /FID ne { def }{ pop pop } ifelse
+        } forall
+        /Encoding EncodingVector def
+        currentdict end definefont
+} def
+/Times-Roman starnetISO def
+/Times-Italic starnetISO def
+/Times-Bold starnetISO def
+/Times-BoldItalic starnetISO def
+/Helvetica starnetISO def
+/Helvetica-Oblique starnetISO def
+/Helvetica-Bold starnetISO def
+/Helvetica-BoldOblique starnetISO def
+/Courier starnetISO def
+/Courier-Oblique starnetISO def
+/Courier-Bold starnetISO def
+/Courier-BoldOblique starnetISO def
+cleartomark
+} bind def
+
+%%BeginResource: procset graphviz 0 0
+/coord-font-family /Times-Roman def
+/default-font-family /Times-Roman def
+/coordfont coord-font-family findfont 8 scalefont def
+
+/InvScaleFactor 1.0 def
+/set_scale {
+       dup 1 exch div /InvScaleFactor exch def
+       scale
+} bind def
+
+% styles
+/solid { [] 0 setdash } bind def
+/dashed { [9 InvScaleFactor mul dup ] 0 setdash } bind def
+/dotted { [1 InvScaleFactor mul 6 InvScaleFactor mul] 0 setdash } bind def
+/invis {/fill {newpath} def /stroke {newpath} def /show {pop newpath} def} bind def
+/bold { 2 setlinewidth } bind def
+/filled { } bind def
+/unfilled { } bind def
+/rounded { } bind def
+/diagonals { } bind def
+/tapered { } bind def
+
+% hooks for setting color 
+/nodecolor { sethsbcolor } bind def
+/edgecolor { sethsbcolor } bind def
+/graphcolor { sethsbcolor } bind def
+/nopcolor {pop pop pop} bind def
+
+/beginpage {	% i j npages
+	/npages exch def
+	/j exch def
+	/i exch def
+	/str 10 string def
+	npages 1 gt {
+		gsave
+			coordfont setfont
+			0 0 moveto
+			(\() show i str cvs show (,) show j str cvs show (\)) show
+		grestore
+	} if
+} bind def
+
+/set_font {
+	findfont exch
+	scalefont setfont
+} def
+
+% draw text fitted to its expected width
+/alignedtext {			% width text
+	/text exch def
+	/width exch def
+	gsave
+		width 0 gt {
+			[] 0 setdash
+			text stringwidth pop width exch sub text length div 0 text ashow
+		} if
+	grestore
+} def
+
+/boxprim {				% xcorner ycorner xsize ysize
+		4 2 roll
+		moveto
+		2 copy
+		exch 0 rlineto
+		0 exch rlineto
+		pop neg 0 rlineto
+		closepath
+} bind def
+
+/ellipse_path {
+	/ry exch def
+	/rx exch def
+	/y exch def
+	/x exch def
+	matrix currentmatrix
+	newpath
+	x y translate
+	rx ry scale
+	0 0 1 0 360 arc
+	setmatrix
+} bind def
+
+/endpage { showpage } bind def
+/showpage { } def
+
+/layercolorseq
+	[	% layer color sequence - darkest to lightest
+		[0 0 0]
+		[.2 .8 .8]
+		[.4 .8 .8]
+		[.6 .8 .8]
+		[.8 .8 .8]
+	]
+def
+
+/layerlen layercolorseq length def
+
+/setlayer {/maxlayer exch def /curlayer exch def
+	layercolorseq curlayer 1 sub layerlen mod get
+	aload pop sethsbcolor
+	/nodecolor {nopcolor} def
+	/edgecolor {nopcolor} def
+	/graphcolor {nopcolor} def
+} bind def
+
+/onlayer { curlayer ne {invis} if } def
+
+/onlayers {
+	/myupper exch def
+	/mylower exch def
+	curlayer mylower lt
+	curlayer myupper gt
+	or
+	{invis} if
+} def
+
+/curlayer 0 def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+14 default-font-family set_font
+% /arrowlength 10 def
+% /arrowwidth 5 def
+
+% make sure pdfmark is harmless for PS-interpreters other than Distiller
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+% make '<<' and '>>' safe on PS Level 1 devices
+/languagelevel where {pop languagelevel}{1} ifelse
+2 lt {
+    userdict (<<) cvn ([) cvn load put
+    userdict (>>) cvn ([) cvn load put
+} if
+
+%%EndSetup
+setupLatin1
+%%Page: 1 1
+%%PageBoundingBox: 36 36 2350 457
+%%PageOrientation: Portrait
+0 0 1 beginpage
+gsave
+36 36 2314 421 boxprim clip newpath
+1 1 set_scale 0 rotate 40 40 translate
+% MAT2456
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+464.0868 385.8305 50.0912 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+433.5868 382.1305 moveto 61 (Cálculo IV) alignedtext
+grestore
+% PSI3213
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+415.0868 296.0904 85.2851 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+357.5868 292.3904 moveto 115 (Circuitos Elétricos II) alignedtext
+grestore
+% PSI3214
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+508.0868 206.3503 106.1321 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+465.5868 210.1503 moveto 85 (Laboratório de ) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+441.0868 195.1503 moveto 134 ( Instrumentação Elétrica) alignedtext
+grestore
+% PSI3213->PSI3214
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 433.0182 278.1732 moveto
+444.5974 267.2489 460.0353 252.6841 473.8996 239.6039 curveto
+stroke
+0 0 0 edgecolor
+newpath 476.5337 241.9307 moveto
+481.4056 232.5225 lineto
+471.73 236.839 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 476.5337 241.9307 moveto
+481.4056 232.5225 lineto
+471.73 236.839 lineto
+closepath stroke
+grestore
+% PTC3314
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+318.0868 206.3503 65.7887 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+275.5868 202.6503 moveto 85 (Ondas e Linhas) alignedtext
+grestore
+% PSI3213->PTC3314
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 396.3843 278.1732 moveto
+381.5286 264.7357 360.5833 245.7899 344.0938 230.8745 curveto
+stroke
+0 0 0 edgecolor
+newpath 346.1671 228.0306 moveto
+336.403 223.918 lineto
+341.4714 233.2219 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 346.1671 228.0306 moveto
+336.403 223.918 lineto
+341.4714 233.2219 lineto
+closepath stroke
+grestore
+% 4323102
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+780.0868 385.8305 40.0939 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+757.0868 382.1305 moveto 46 (Física II) alignedtext
+grestore
+% PTC3313
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+950.0868 385.8305 86.3847 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+891.5868 382.1305 moveto 117 (Sistemas de Controle) alignedtext
+grestore
+% PTC3312
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+950.0868 296.0904 96.3833 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+884.0868 292.3904 moveto 132 (Laboratório de Controle) alignedtext
+grestore
+% PTC3313->PTC3312
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 950.0868 367.4959 moveto
+950.0868 355.1587 950.0868 338.3368 950.0868 324.2298 curveto
+stroke
+0 0 0 edgecolor
+newpath 953.5869 324.0904 moveto
+950.0868 314.0905 lineto
+946.5869 324.0905 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 953.5869 324.0904 moveto
+950.0868 314.0905 lineto
+946.5869 324.0905 lineto
+closepath stroke
+grestore
+% PCS3438
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1142.0868 385.8305 86.3847 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1083.5868 382.1305 moveto 117 (Inteligência Artificial) alignedtext
+grestore
+% PME3100
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1356.0868 385.8305 45.4919 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1329.0868 382.1305 moveto 54 (Macânica) alignedtext
+grestore
+% MAP3121
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1542.0868 385.8305 90.5193 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1486.0868 389.6305 moveto 112 (Métodos Numéricos) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1513.0868 374.6305 moveto 58 ( Aplicados) alignedtext
+grestore
+% PRO3200
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1713.0868 385.8305 46.5926 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1685.0868 382.1305 moveto 56 (Estatística) alignedtext
+grestore
+% MAT2455
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1835.0868 385.8305 49.2915 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1805.0868 382.1305 moveto 60 (Cálculo III) alignedtext
+grestore
+% PSI3211
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+614.0868 385.8305 81.7856 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+559.0868 382.1305 moveto 110 (Circuitos Elétricos I) alignedtext
+grestore
+% PSI3211->PSI3213
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 578.9677 369.3463 moveto
+545.679 354.6691 495.5415 332.5633 459.4934 316.6695 curveto
+stroke
+0 0 0 edgecolor
+newpath 460.7511 313.399 moveto
+450.189 312.5671 lineto
+457.9271 319.804 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 460.7511 313.399 moveto
+450.189 312.5671 lineto
+457.9271 319.804 lineto
+closepath stroke
+grestore
+% PEA3301
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+614.0868 296.0904 96.3333 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+573.5868 299.8904 moveto 81 (Introdução aos) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+554.0868 284.8904 moveto 120 ( Sistemas de Potência) alignedtext
+grestore
+% PSI3211->PEA3301
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 614.0868 367.4959 moveto
+614.0868 357.6847 614.0868 345.0372 614.0868 333.1744 curveto
+stroke
+0 0 0 edgecolor
+newpath 617.5869 333.0425 moveto
+614.0868 323.0425 lineto
+610.5869 333.0426 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 617.5869 333.0425 moveto
+614.0868 323.0425 lineto
+610.5869 333.0426 lineto
+closepath stroke
+grestore
+% PSI3321
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+780.0868 296.0904 51.9908 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+748.0868 292.3904 moveto 64 (Eletrônica I) alignedtext
+grestore
+% PSI3211->PSI3321
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 644.1482 368.9414 moveto
+672.1745 354.128 714.022 332.0093 743.8756 316.23 curveto
+stroke
+0 0 0 edgecolor
+newpath 745.5214 319.319 moveto
+752.7269 311.5516 lineto
+742.2503 313.1303 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 745.5214 319.319 moveto
+752.7269 311.5516 lineto
+742.2503 313.1303 lineto
+closepath stroke
+grestore
+% PTC3213
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+224.0868 296.0904 76.0865 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+173.5868 292.3904 moveto 101 (Eletromagnetismo) alignedtext
+grestore
+% PEA3306
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+118.0868 206.3503 115.931 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+44.0868 210.1503 moveto 148 (Converção Eletromecânica) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+86.5868 195.1503 moveto 63 ( de Energia) alignedtext
+grestore
+% PTC3213->PEA3306
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 204.149 278.5872 moveto
+190.646 267.4102 172.3758 252.2872 156.1425 238.8503 curveto
+stroke
+0 0 0 edgecolor
+newpath 158.302 236.0944 moveto
+148.3668 232.4142 lineto
+153.8385 241.4868 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 158.302 236.0944 moveto
+148.3668 232.4142 lineto
+153.8385 241.4868 lineto
+closepath stroke
+grestore
+% PTC3213->PTC3314
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 242.211 278.1732 moveto
+256.6072 264.7357 276.9047 245.7899 292.8842 230.8745 curveto
+stroke
+0 0 0 edgecolor
+newpath 295.415 233.3001 moveto
+300.3371 223.918 lineto
+290.6386 228.1829 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 295.415 233.3001 moveto
+300.3371 223.918 lineto
+290.6386 228.1829 lineto
+closepath stroke
+grestore
+% 4323301
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1997.0868 385.8305 90.1842 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1935.5868 382.1305 moveto 123 (Física Experimental C) alignedtext
+grestore
+% PCS3225
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1148.0868 296.0904 81.4863 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1093.5868 292.3904 moveto 109 (Sistemas Digitais II) alignedtext
+grestore
+% PCS3412
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1382.0868 206.3503 113.2743 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1310.0868 210.1503 moveto 144 (Organização e Arquitetura) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1327.5868 195.1503 moveto 109 ( de Computadores I) alignedtext
+grestore
+% PCS3225->PCS3412
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1187.5171 280.3057 moveto
+1221.9559 267.3926 1272.7139 248.3605 1313.752 232.973 curveto
+stroke
+0 0 0 edgecolor
+newpath 1315.0181 236.2363 moveto
+1323.1527 229.4481 lineto
+1312.5604 229.6819 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1315.0181 236.2363 moveto
+1323.1527 229.4481 lineto
+1312.5604 229.6819 lineto
+closepath stroke
+grestore
+% PCS3335
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+940.0868 206.3503 87.1846 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+881.0868 202.6503 moveto 118 (Laboratório Digital A) alignedtext
+grestore
+% PCS3225->PCS3335
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1111.856 279.8072 moveto
+1076.8762 265.0518 1023.7796 242.6542 985.8864 226.6698 curveto
+stroke
+0 0 0 edgecolor
+newpath 987.1745 223.4146 moveto
+976.6004 222.7527 lineto
+984.4538 229.8642 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 987.1745 223.4146 moveto
+976.6004 222.7527 lineto
+984.4538 229.8642 lineto
+closepath stroke
+grestore
+% PCS3216
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1148.0868 206.3503 102.8821 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1077.0868 202.6503 moveto 142 (Sistemas de Programação) alignedtext
+grestore
+% PCS3225->PCS3216
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1148.0868 277.7558 moveto
+1148.0868 265.4186 1148.0868 248.5967 1148.0868 234.4897 curveto
+stroke
+0 0 0 edgecolor
+newpath 1151.5869 234.3503 moveto
+1148.0868 224.3504 lineto
+1144.5869 234.3504 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1151.5869 234.3503 moveto
+1148.0868 224.3504 lineto
+1144.5869 234.3504 lineto
+closepath stroke
+grestore
+% PCS3413
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1664.0868 206.3503 95.5831 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1598.5868 202.6503 moveto 131 (Engenharia de Software) alignedtext
+grestore
+% PCS3443
+gsave
+1 setlinewidth
+0.66667 1 1 nodecolor
+1586.0868 116.6102 94.5053 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1545.5868 120.4102 moveto 81 (Laboratório de) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1527.0868 105.4102 moveto 118 ( Engenharia Software) alignedtext
+grestore
+% PCS3413->PCS3443
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 1649.0476 188.4331 moveto
+1639.5159 177.7111 1626.8665 163.4822 1615.4073 150.592 curveto
+stroke
+0 0 0 edgecolor
+newpath 1617.7245 147.9307 moveto
+1608.4646 142.7823 lineto
+1612.4929 152.5815 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1617.7245 147.9307 moveto
+1608.4646 142.7823 lineto
+1612.4929 152.5815 lineto
+closepath stroke
+grestore
+% PCS3550
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1760.0868 116.6102 60.623 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1732.0868 120.4102 moveto 56 (Projeto de) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1725.0868 105.4102 moveto 70 ( Formatura I) alignedtext
+grestore
+% PCS3413->PCS3550
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1682.5966 188.4331 moveto
+1695.124 176.9836 1712.0268 161.5351 1726.8491 147.9881 curveto
+stroke
+0 0 0 edgecolor
+newpath 1729.3561 150.4384 moveto
+1734.3764 141.1085 lineto
+1724.6336 145.2714 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1729.3561 150.4384 moveto
+1734.3764 141.1085 lineto
+1724.6336 145.2714 lineto
+closepath stroke
+grestore
+% PCS3422
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1160.0868 116.6102 113.2743 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1088.0868 120.4102 moveto 144 (Organização e Arquitetura) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1103.5868 105.4102 moveto 113 ( de Computadores II) alignedtext
+grestore
+% PCS3412->PCS3422
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1325.4925 182.9827 moveto
+1295.2234 171.0196 1257.7832 156.2223 1226.183 143.7331 curveto
+stroke
+0 0 0 edgecolor
+newpath 1227.1644 140.3575 moveto
+1216.5779 139.9369 lineto
+1224.5914 146.8675 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1227.1644 140.3575 moveto
+1216.5779 139.9369 lineto
+1224.5914 146.8675 lineto
+closepath stroke
+grestore
+% PCS3446
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1382.0868 116.6102 90.9839 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1320.0868 112.9102 moveto 124 (Sistemas Operacionais) alignedtext
+grestore
+% PCS3412->PCS3446
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1382.0868 179.0254 moveto
+1382.0868 168.2737 1382.0868 155.8387 1382.0868 144.9817 curveto
+stroke
+0 0 0 edgecolor
+newpath 1385.5869 144.7715 moveto
+1382.0868 134.7715 lineto
+1378.5869 144.7716 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1385.5869 144.7715 moveto
+1382.0868 134.7715 lineto
+1378.5869 144.7716 lineto
+closepath stroke
+grestore
+% PCS3432
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+950.0868 116.6102 68.6788 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+909.5868 120.4102 moveto 81 (Laboratório de) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+909.5868 105.4102 moveto 81 ( Processadores) alignedtext
+grestore
+% PCS3412->PCS3432
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 1300.8216 187.5484 moveto
+1287.2417 184.7373 1273.2821 181.9477 1260.0868 179.4802 curveto
+1161.8343 161.1076 1135.5597 165.6194 1038.0868 143.4802 curveto
+1029.6249 141.5582 1020.7781 139.2823 1012.0938 136.8903 curveto
+stroke
+0 0 0 edgecolor
+newpath 1012.9617 133.4986 moveto
+1002.3871 134.1528 lineto
+1011.0616 140.2358 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1012.9617 133.4986 moveto
+1002.3871 134.1528 lineto
+1011.0616 140.2358 lineto
+closepath stroke
+grestore
+% PCS3412->PCS3550
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1474.286 190.7008 moveto
+1535.953 179.9593 1618.5904 163.7394 1690.0868 143.4802 curveto
+1695.3067 142.0011 1700.6919 140.3137 1706.0486 138.5257 curveto
+stroke
+0 0 0 edgecolor
+newpath 1707.3077 141.7938 moveto
+1715.6181 135.222 lineto
+1705.0233 135.177 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1707.3077 141.7938 moveto
+1715.6181 135.222 lineto
+1705.0233 135.177 lineto
+closepath stroke
+grestore
+% PCS3335->PCS3432
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 942.0625 188.0157 moveto
+943.1807 178.2045 944.6222 165.557 945.9742 153.6942 curveto
+stroke
+0 0 0 edgecolor
+newpath 949.474 153.8944 moveto
+947.129 143.5623 lineto
+942.519 153.1016 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 949.474 153.8944 moveto
+947.129 143.5623 lineto
+942.519 153.1016 lineto
+closepath stroke
+grestore
+% PSI3322
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+780.0868 206.3503 55.4913 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+745.5868 202.6503 moveto 69 (Eletrônica II) alignedtext
+grestore
+% PSI3321->PSI3322
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 780.0868 277.7558 moveto
+780.0868 265.4186 780.0868 248.5967 780.0868 234.4897 curveto
+stroke
+0 0 0 edgecolor
+newpath 783.5869 234.3503 moveto
+780.0868 224.3504 lineto
+776.5869 234.3504 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 783.5869 234.3503 moveto
+780.0868 224.3504 lineto
+776.5869 234.3504 lineto
+closepath stroke
+grestore
+% PTC3307
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+2180.0868 385.8305 72.5877 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+2132.0868 382.1305 moveto 96 (Sistemas e Sinais) alignedtext
+grestore
+% PTC3361
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+2181.0868 296.0904 125.316 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+2100.5868 299.8904 moveto 161 (Introdução ao Processamento) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+2133.5868 284.8904 moveto 95 ( Digital de Sinais) alignedtext
+grestore
+% PTC3307->PTC3361
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 2180.2844 367.4959 moveto
+2180.3962 357.6847 2180.5404 345.0372 2180.6756 333.1744 curveto
+stroke
+0 0 0 edgecolor
+newpath 2184.1768 333.0818 moveto
+2180.791 323.0425 lineto
+2177.1772 333.002 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 2184.1768 333.0818 moveto
+2180.791 323.0425 lineto
+2177.1772 333.002 lineto
+closepath stroke
+grestore
+% PTC3360
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1934.0868 296.0904 103.8894 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1899.5868 299.8904 moveto 69 (Introdução a) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1868.5868 284.8904 moveto 131 ( Redes e Comunicações) alignedtext
+grestore
+% PTC3307->PTC3360
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 2140.2893 370.636 moveto
+2103.2966 357.442 2047.4017 337.5061 2003.1345 321.7174 curveto
+stroke
+0 0 0 edgecolor
+newpath 2004.1846 318.3761 moveto
+1993.59 318.3132 lineto
+2001.833 324.9693 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 2004.1846 318.3761 moveto
+1993.59 318.3132 lineto
+2001.833 324.9693 lineto
+closepath stroke
+grestore
+% PEA3311
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+118.0868 116.6102 118.1737 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+46.5868 120.4102 moveto 143 (Laboratório de Converção) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+42.5868 105.4102 moveto 151 ( Eletromecânica de Energia) alignedtext
+grestore
+% PEA3306->PEA3311
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 111.8708 179.4999 moveto
+111.3664 171.45 111.2194 162.4203 111.4297 153.799 curveto
+stroke
+0 0 0 edgecolor
+newpath 114.9361 153.7184 moveto
+111.8634 143.579 lineto
+107.9424 153.4215 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 114.9361 153.7184 moveto
+111.8634 143.579 lineto
+107.9424 153.4215 lineto
+closepath stroke
+grestore
+% PEA3311->PEA3306
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 124.3103 143.579 moveto
+124.8112 151.6385 124.9547 160.671 124.7409 169.2881 curveto
+stroke
+0 0 0 edgecolor
+newpath 121.2347 169.3591 moveto
+124.3029 179.4999 lineto
+128.2283 169.6591 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 121.2347 169.3591 moveto
+124.3029 179.4999 lineto
+128.2283 169.6591 lineto
+closepath stroke
+grestore
+% PSI3323
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+780.0868 116.6102 68.6788 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+739.5868 120.4102 moveto 81 (Laboratório de) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+746.0868 105.4102 moveto 68 ( Eletrônica I) alignedtext
+grestore
+% PSI3322->PSI3323
+gsave
+1 setlinewidth
+dashed
+0 0 0 edgecolor
+newpath 780.0868 188.0157 moveto
+780.0868 178.2045 780.0868 165.557 780.0868 153.6942 curveto
+stroke
+0 0 0 edgecolor
+newpath 783.5869 153.5623 moveto
+780.0868 143.5623 lineto
+776.5869 153.5623 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 783.5869 153.5623 moveto
+780.0868 143.5623 lineto
+776.5869 153.5623 lineto
+closepath stroke
+grestore
+% PCS3414
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1934.0868 206.3503 102.8821 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1863.0868 202.6503 moveto 142 (Redes de Computadores I) alignedtext
+grestore
+% PTC3360->PCS3414
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1934.0868 268.7655 moveto
+1934.0868 258.0138 1934.0868 245.5788 1934.0868 234.7218 curveto
+stroke
+0 0 0 edgecolor
+newpath 1937.5869 234.5116 moveto
+1934.0868 224.5116 lineto
+1930.5869 234.5117 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1937.5869 234.5116 moveto
+1934.0868 224.5116 lineto
+1930.5869 234.5117 lineto
+closepath stroke
+grestore
+% PCS3434
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1934.0868 116.6102 94.5053 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1875.0868 120.4102 moveto 118 (Laboratório de Redes) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1884.0868 105.4102 moveto 100 ( de Computadores) alignedtext
+grestore
+% PCS3414->PCS3434
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1934.0868 188.0157 moveto
+1934.0868 178.2045 1934.0868 165.557 1934.0868 153.6942 curveto
+stroke
+0 0 0 edgecolor
+newpath 1937.5869 153.5623 moveto
+1934.0868 143.5623 lineto
+1930.5869 153.5623 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1937.5869 153.5623 moveto
+1934.0868 143.5623 lineto
+1930.5869 153.5623 lineto
+closepath stroke
+grestore
+% PCS3414->PCS3550
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1901.7666 189.0527 moveto
+1875.4919 175.8036 1838.0277 156.9121 1808.223 141.883 curveto
+stroke
+0 0 0 edgecolor
+newpath 1809.745 138.7307 moveto
+1799.24 137.3533 lineto
+1806.5932 144.981 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1809.745 138.7307 moveto
+1799.24 137.3533 lineto
+1806.5932 144.981 lineto
+closepath stroke
+grestore
+% PCS3424
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+2142.0868 116.6102 94.7833 18 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+2077.0868 112.9102 moveto 130 (Redes Computadores II) alignedtext
+grestore
+% PCS3414->PCS3424
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1971.7541 189.4612 moveto
+2006.4658 174.8189 2058.0978 153.039 2095.4116 137.2991 curveto
+stroke
+0 0 0 edgecolor
+newpath 2097.1961 140.345 moveto
+2105.0495 133.2335 lineto
+2094.4754 133.8954 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 2097.1961 140.345 moveto
+2105.0495 133.2335 lineto
+2094.4754 133.8954 lineto
+closepath stroke
+grestore
+% PCS3560
+gsave
+1 setlinewidth
+0 0 0 nodecolor
+1760.0868 26.8701 63.7795 26.7407 ellipse_path stroke
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1732.0868 30.6701 moveto 56 (Projeto de) alignedtext
+0 0 0 nodecolor
+14 /Times-Roman set_font
+1723.0868 15.6701 moveto 74 ( Formatura II) alignedtext
+grestore
+% PCS3550->PCS3560
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1760.0868 89.2852 moveto
+1760.0868 81.3185 1760.0868 72.4275 1760.0868 63.9391 curveto
+stroke
+0 0 0 edgecolor
+newpath 1763.5869 63.874 moveto
+1760.0868 53.874 lineto
+1756.5869 63.8741 lineto
+closepath fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1763.5869 63.874 moveto
+1760.0868 53.874 lineto
+1756.5869 63.8741 lineto
+closepath stroke
+grestore
+endpage
+showpage
+grestore
+%%PageTrailer
+%%EndPage: 1
+%%Trailer
+%%Pages: 1
+%%BoundingBox: 36 36 2350 457
+end
+restore
+%%EOF
