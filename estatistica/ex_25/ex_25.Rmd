@@ -1,0 +1,56 @@
+---
+title: "Exercício 25"
+author: "Natanael Magalhães Cardoso"
+date: "12/07/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Item (a)
+
+$$
+\hat{y}' = \beta_0 + \beta_1 x' = -0.311 + (0.00143)(500) = 0.4
+$$
+
+
+$$
+\bar{x} = \frac{\sum x_i}{n} = \frac{6130}{13} = 471.54
+$$
+
+
+$$
+S_{xx} = \sum x_i^2 - \frac{(\sum x_i)^2}{n} = 3022050 - \frac{(6130)^2}{13} = 131519.23
+$$
+
+
+$$
+S_{yy} = \sum y_i^2 - \frac{(\sum y_i)^2}{n} = 2.1785 - \frac{(4.73)^2}{13} = 0.4575
+$$
+
+$$
+S_{xy} = \sum x_i y_i - \frac{\sum x_i \cdot \sum y_i}{n} = 2418.74 - \frac{6130 \times 4.73}{13} = 188.363
+$$
+
+
+$$
+S_R = \sqrt{\frac{S_{yy} - \beta_1 S_{xy}}{n-2}} = \sqrt{\frac{0.4575-(0.00143)(188.363)}{13-2}} = 0.131
+$$
+
+
+$$
+S_{\hat{y}'} = S_R \sqrt{\frac{1}{n} + \frac{(x' - \bar{x})^2}{S_{xx}}} = 0.131 \sqrt{\frac{1}{13} + \frac{(500 - 471.54)^2}{131519.23}} = 0.0378
+$$
+
+
+$$
+IC = \hat{y}' \pm t_{0.025,11} \cdot S_{\hat{y}'} = 0.4 \pm 2.21 \times 0.0378 = 0.4 \pm 0.08 \Rightarrow \boxed{IC = [0.32; 0.48]}
+$$
+
+
+# Item (b)
+
+A amplitude do intervalo de confiança em $x=400$ será maior do que em $x=500$, pois $x=400$ está ainda mais longe da média ($\bar{x}=471.54$) do que $x=500$.
+
