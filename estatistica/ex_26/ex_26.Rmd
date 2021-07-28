@@ -1,0 +1,91 @@
+---
+title: "Exercício 26"
+author: "Natanael Magalhães Cardoso"
+date: "22/07/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Bibliotecas
+```{r}
+library(ggplot2)
+```
+
+
+# Item (a)
+O código abaixo mostra a definição do conjunto de dados e o ajuste da curva
+\bigskip
+
+```{r}
+data <- data.frame(
+  x=seq(1, 8, 1),
+  y=c(74, 54, 52, 51, 52, 53, 58, 71)
+)
+
+formula <- y ~ x + I(x^2)
+
+quadModel <- lm(formula, data=data)
+
+summary(quadModel)
+```
+\bigskip
+
+Pelo sumário da curva ajustada, a equação obtida para o ajuste foi 
+
+$$y = 84.4821 - 15.8750x + 1.7679x^2$$
+
+\bigskip
+
+```{r f1, fig.cap="Gráfico de dispersão e curva ajustada da concentração de glucose em função do tempo.\\label{fig:f1}"}
+ggplot(data, aes(x=x)) +
+  geom_point(aes(y=y), shape=16, size=2) +
+  stat_smooth(aes(y=y), method='lm', formula=formula, size=1, level=0.95, se=TRUE) +
+  labs(
+    title='Gráfico de dispersão',
+    subtitle='Concentração de glucose em função do tempo',
+    x='Tempo (dias)',
+    y='Concentração de glucose (g/L)'
+  )
+```
+
+\bigskip
+Pela anáslise do gráfico da Figura \ref{fig:f1}, é notado que o modelo quadrático é um bom ajuste para os dados observados. A maioria das observações estão dentro do intervalo de confiança, ao nível de 95\%.
+
+\newpage
+# Item (b)
+
+O código abaixo mostra os valores de \(\hat{y}\) e $\epsilon$ para os dados observados.
+\bigskip
+
+```{r}
+predict(quadModel)
+residuals(quadModel)
+```
+
+\bigskip
+Logo, \(\hat{y}_6 = y(6) = 52.875 \text{ g/L}\) e \(\epsilon_{6} = 0.125 \text{ g/L}\).
+
+
+# Item (c)
+
+O valor do coeficiente de determinação \(R^2\) será usado para determinar a proporção da variância na variável dependente que pode ser explicada pela variável independente. O código abaixo implementa o cálculo de \(R^2\), onde 
+
+$$\displaystyle R^2 \;=\; 1 - \frac{SQE}{SQT} \;=\; 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y}_i)^2}$$
+
+\bigskip
+
+```{r}
+sqe <- sum(residuals(quadModel)^2)
+sqt <- sum((data$y - mean(data$y))^2)
+r2 <- 1-(sqe/sqt)
+r2
+```
+
+\bigskip
+Como \(R^2 \approx 0.895\), aproximadamente 89.5\% dos dados se ajustam ao modelo quadrático.
+
+
