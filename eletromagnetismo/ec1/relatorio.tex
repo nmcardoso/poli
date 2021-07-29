@@ -133,7 +133,7 @@ As Figuras \ref{fig:erro_p1} e \ref{fig:erro_p2} mostram os valores dos erros qu
 
 \subsubsection{Resistências parciais}
 
-Esta análise foi feita para associar o valor de resistência calculada a partir de linhas em diferentes alturas na placa do Problema 1 (\texttt{template1}). Isso é mostrado na Figura \ref{fig:resist_table}, onde a linha azul indica o valor da resistência e a linha vermelha indica a mediana (considerando as resistências em todas as alturas). O eixo das abscissas indica a altura da placa considerada para o cálculo da resistência e o eixo das ordenadas indica o valor da resistência. Estes gráficos foram gerados a partir de um \texttt{template} com $k=2$, que representa uma malha de discretização de lado $h=1/k=0.5 mm$. Isto é, cada ponto do eixo das abscissas representa 0.5mm da altura real.
+Este experimento foi feita para analisar dois comportamentos do algorítmo: (1) a influência da altura escolhida no valor do cálculo da resistência e (2) a tendência da distribuição dos valores de resistência no decorrer das épocas. Ambos os comportamentos são analisados pela inspesão dos gráficos da Figura \ref{fig:resist_table}. A curva azul de cada painel mostra o valor da resistência em função da altura da placa e a reta vermelha mostra a mediana da distribuição de resistências. Cada painel mostra a mesma medição em ordem crescente de época, da esquerda para direita, de cima para baixo. Assim, o primeiro comportamento é analisado pela inspeção da curva azul e o segundo pela comparação da curva azul com a reta vermelha em diferentes épocas.
 
 \bigskip
 
