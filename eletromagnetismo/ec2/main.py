@@ -209,4 +209,48 @@ def plot_system():
   plt.show()
 
 
+def plot_calibration():
+  radius = [
+    7e-2, 5e-2, 3e-2, 1e-2, 
+    9e-3, 7e-3, 5e-3, 3e-3, 1e-3, 
+    9e-4, 7e-4, 5e-4, 3e-4, 1e-4, 
+    9e-5, 7e-5, 5e-5
+  ]
+  errors = []
+  for b in radius:
+    k1 = int(np.round((2*np.pi*a1)/(2*b)))
+    i = np.arange(0, k1, 1)
+    theta = i*(2*np.pi/k1)
+    x1 = a1*np.cos(theta)
+    y1 = a1*np.sin(theta) + h1
+
+    i = np.arange(0, k1, 1)
+    j = np.arange(0, k1, 1)
+    [i, j] = np.meshgrid(i, j)
+    r1 = np.sqrt((x1[i]-x1[j])**2 + (y1[i]-y1[j])**2)
+    r1[i==j] = b
+    r2 = np.sqrt((x1[i]-x1[j])**2 + (y1[i]+y1[j])**2)
+
+    s = np.log(r2/r1)/2/np.pi/eps/l
+    phi = np.ones((k1,))
+    rhoL = np.linalg.solve(s, phi)
+    Q11 = np.sum(rhoL)
+    C11 = Q11/1
+    Cteo = 2*np.pi*eps/np.log(h1/a1+np.sqrt(h1**2/a1**2-1))
+    error = np.abs(1 - C11/Cteo)*100
+    errors.append(error)
+  
+  print(radius[-1], '=', errors[-1])
+
+  plt.plot(radius, errors, '.-')
+  plt.xlabel('Raio do cilindro de discretização')
+  plt.ylabel('Erro percentual')
+  plt.gca().invert_xaxis()
+  plt.yscale('log')
+  plt.xscale('log')
+  plt.grid(True, 'both', 'both', linewidth=0.8, alpha=0.35, linestyle='-')
+  plt.savefig('figures/calibration.pdf', bbox_inches='tight', pad_inches=0.01)
+  plt.show()
+
+
 
