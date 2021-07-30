@@ -254,3 +254,7 @@ def plot_calibration():
 
 
 
+if __name__ == '__main__':
+  parte_ab()
+  parte_c()
+  parte_e()
