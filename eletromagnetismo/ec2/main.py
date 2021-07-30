@@ -162,4 +162,51 @@ def parte_e():
   plt.show()
   
 
+#################
+## PLOTS
+#################
+
+
+def plot_system():
+  '''Gera o plot da Figura 1 do relatório'''
+  x = np.concatenate([x1, x2, x3])
+  y = np.concatenate([y1, y2, y3])
+  pad = 0.002
+  zoom_range = [
+    [-a3, a3, h3-a3, h3+a3],
+    [-l2/2, l2/2, h2-b, h2+b],
+    [-a1, a1, h1-a1, h1+a1]
+  ]
+  zoom_pos = [
+    [1.7, 0.55, 3, 0.45],
+    [1.7, 0.3, 3, 0.2],
+    [1.7, 0.01, 1.6, 0.23]
+  ]
+  ticks = [
+    ([zoom_range[0][0], zoom_range[0][1]], [zoom_range[0][2], zoom_range[0][3]]),
+    ([zoom_range[1][0], zoom_range[1][1]], [h2]),
+    ([zoom_range[2][0], zoom_range[2][1]], [zoom_range[2][2], zoom_range[2][3]])
+  ]
+
+  _, ax = plt.subplots(figsize=(8,8))
+  ax.plot(x, y, '.', markersize=1)
+  ax.set_aspect('equal')
+  ax.tick_params(labelsize=8)
+  for i, (r, p) in enumerate(zip(zoom_range, zoom_pos)):
+    axins = ax.inset_axes(p, transform=ax.transAxes)
+    axins.plot(x, y, '.', markersize=0.5)
+    axins.set_xticks(ticks[i][0])
+    axins.set_yticks(ticks[i][1])
+    axins.xaxis.set_minor_locator(mpl.ticker.AutoMinorLocator())
+    axins.yaxis.set_minor_locator(mpl.ticker.AutoMinorLocator())
+    axins.set_xlim(r[0]-pad, r[1]+pad)
+    axins.set_ylim(r[2]-pad, r[3]+pad)
+    axins.tick_params(axis='both', which='major', labelsize=8)
+    axins.set_aspect('auto')
+    axins.grid(True, 'both', 'both', linewidth=0.8, alpha=0.6, linestyle='--')
+    ax.indicate_inset_zoom(axins, label=None)
+  plt.savefig('figures/matrix_plot.pdf', bbox_inches='tight', pad_inches=0.01)
+  plt.show()
+
+
 
