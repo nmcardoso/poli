@@ -37,3 +37,52 @@ x3 = a3*np.cos(theta)
 y3 = a3*np.sin(theta) + h3
 
 
+def parte_ab():
+  x = np.concatenate([x1, x2, x3])
+  y = np.concatenate([y1, y2, y3])
+
+  K = K1 + K2 + K3
+  i = np.arange(0, K, 1)
+  j = np.arange(0, K, 1)
+  [i, j] = np.meshgrid(i, j)
+
+  r1 = np.sqrt((x[i]-x[j])**2 + (y[i]-y[j])**2)
+  r1[i==j] = b
+  r2 = np.sqrt((x[i]-x[j])**2 + (y[i]+y[j])**2)
+
+  s = np.log(r2/r1)/2/np.pi/eps/l
+
+  V = [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+  ]
+  C = []
+  for Vi in V:
+    phi = np.concatenate([
+      np.ones(K1)*Vi[0], 
+      np.ones(K2)*Vi[1], 
+      np.ones(K3)*Vi[2]
+    ])
+    rhoL = np.linalg.solve(s, phi)
+    Qi1 = np.sum(rhoL[:K1])
+    Qi2 = np.sum(rhoL[K1:(K1+K2)])
+    Qi3 = np.sum(rhoL[(K1+K2):])
+    Ci1 = Qi1 / 1
+    Ci2 = Qi2 / 1
+    Ci3 = Qi3 / 1
+    C += [[Ci1, Ci2, Ci3]]
+  C = np.array(C)
+  
+  print(C)
+  print('C10', np.sum(C[0]))
+  print('C20', np.sum(C[1]))
+  print('C30', np.sum(C[2]))
+  print('C12', -C[0,1])
+  print('C13', -C[0,2])
+  print('C21', -C[1,0])
+  print('C23', -C[1,2])
+  print('C31', -C[2,0])
+  print('C32', -C[2,1])
+
+
