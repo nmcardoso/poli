@@ -126,3 +126,40 @@ def parte_c():
   print('C31', -C[1,0])
 
 
+def parte_e():
+  x = x1
+  y = y1
+
+  K = K1
+  i = np.arange(0, K, 1)
+  j = np.arange(0, K, 1)
+  [i, j] = np.meshgrid(i, j)
+
+  r1 = np.sqrt((x[i]-x[j])**2 + (y[i]-y[j])**2)
+  r1[i==j] = b # correção: i=j => r1=b
+  r2 = np.sqrt((x[i]-x[j])**2 + (y[i]+y[j])**2)
+  
+  s = np.log(r2/r1)/2/np.pi/eps/l
+  
+  V1 = 1e3
+  phi = np.ones((K1,))*V1
+
+  rhoL = np.linalg.solve(s, phi)
+
+  Q = np.sum(rhoL)
+
+  print('Q', Q)
+
+  rx_versor = (x[j]-x[i]) / r1
+  ry_versor = (y[j]-y[i]) / r1
+
+  Fx = rhoL**2*rx_versor / (2*np.pi*eps*r1)
+  Fy = rhoL**2*ry_versor / (2*np.pi*eps*r1)
+
+  print(Fx.shape)
+
+  plt.plot(x,y)
+  plt.show()
+  
+
+
