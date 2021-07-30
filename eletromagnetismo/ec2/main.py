@@ -86,3 +86,43 @@ def parte_ab():
   print('C32', -C[2,1])
 
 
+def parte_c():
+  x = np.concatenate([x1, x3])
+  y = np.concatenate([y1, y3])
+
+  K = K1 + K3
+  i = np.arange(0, K, 1)
+  j = np.arange(0, K, 1)
+  [i, j] = np.meshgrid(i, j)
+
+  r1 = np.sqrt((x[i]-x[j])**2 + (y[i]-y[j])**2)
+  r1[i==j] = b
+  r2 = np.sqrt((x[i]-x[j])**2 + (y[i]+y[j])**2)
+
+  s = np.log(r2/r1)/2/np.pi/eps/l
+
+  V = [
+    [1, 0],
+    [0, 1],
+  ]
+  C = []
+  for Vi in V:
+    phi = np.concatenate([
+      np.ones(K1)*Vi[0],
+      np.ones(K3)*Vi[1]
+    ])
+    rhoL = np.linalg.solve(s, phi)
+    Qi1 = np.sum(rhoL[:K1])
+    Qi3 = np.sum(rhoL[K1:])
+    Ci1 = Qi1 / 1
+    Ci3 = Qi3 / 1
+    C += [[Ci1, Ci3]]
+  C = np.array(C)
+  
+  print(C)
+  print('C10', np.sum(C[0]))
+  print('C30', np.sum(C[1]))
+  print('C13', -C[0,1])
+  print('C31', -C[1,0])
+
+
