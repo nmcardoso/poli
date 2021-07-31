@@ -163,3 +163,41 @@ A partir dos valores acima, pode-se montar o diagrama do circuito elétrico corr
 
 
 \section{Matriz de Capacitâncias $[C']_2$}
+\label{section:c}
+
+A matriz de capacitâncias $[C']_2$, calculada removendo o corpo 2 do sistema definido anteriormente, está representada na equação \eqref{eq:cap-c}.
+
+\begin{equation}\label{eq:cap-c}
+  [C']_2 =
+  \begin{bmatrix}
+    8.747  & -3.389 \\
+    -3.389 & 9.218  \\
+  \end{bmatrix}
+  \text{nF}
+\end{equation}
+
+Usando a equação \eqref{eq:Cki} para o cálculo da capacitância com parâmetros concentrados e a equação \eqref{eq:cap-c}, calcula-se
+\begin{align*}
+  C_{10}          & = 5.358 \textrm{ nF} \\
+  C_{30}          & = 5.829 \textrm{ nF} \\
+  C_{13} = C_{31} & = 3.389 \textrm{ nF} \\
+\end{align*}
+
+Assim, o diagrama elétrico do circuito é mostrado na Figura \ref{fig:circ-c}.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.6]
+    \draw (0,0) node[below left](N1){1}
+    to[C=3.389 nF, *-*] (3,0) node[below left](N2){3}
+
+    (N1.north east) to[C=5.358 nF] ++(0,-2.5) node[ground]{}
+    (N2.north east) to[C=5.829 nF] ++(0,-2.5) node[ground]{}
+    ;
+  \end{circuitikz}
+  \caption{Diagrama elétrico do sistema.}
+  \label{fig:circ-c}
+\end{figure}
+
+Os valores das capacitâncias entre os corpos 1 e 3 e entre os corpos 1 e 3 e a terra são alterados com a remoção do corpo 2. Ambas as capacitâncias aumentam, mas a capacitância do corpo 1, que estava mais perto do corpo 2, aumenta muito mais.
+
