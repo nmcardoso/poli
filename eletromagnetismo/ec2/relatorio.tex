@@ -91,3 +91,20 @@ A implementação deste algorítmo representa a geometria do problema por uma ma
 \newpage
 
 
+\subsection{Calibração do raio dos cilindros de discretização}
+Nesta implementação do algorítmo do Métodos dos Momentos, os corpos são discretizados por pequenos cilindros. A acurácia do resultado numérico calculado (da aproximação calculada) pelo algorítmo é tão melhor quanto menor for o tamanho deste raio. Sendo assim, uma calibração do raio foi feita para validar que a aproximação calculada seja suficientemente próxima ao valor real. Nesta calibração, é ajustado um valor para o raio tal que o erro percentual, calculado a partir da equação \eqref{eq:erro}, entre o valor estimado e o teórico seja menor que 0.5\%. A Figura \ref{fig:calibration} mostra este erro percentual em função do raio dos cilindros de discretização. O menor erro percentual obtido foi de 0.0205\% para o raio de discretização $b=5\cdot 10^{-5}$.
+
+\begin{equation}\label{eq:erro}
+  \text{Erro percentual} = \left|\frac{C_{teo} - C_{calc}}{C_{teo}}\right|
+\end{equation}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figures/calibration}
+  \caption{Gráfico log-log (com o eixo $x$ invertido) do erro percentual entre o valor da capacitância no corpo 1 calculado pelo algorítmo e o valor teórico em função do raio do cilindro de discretização.}
+  \label{fig:calibration}
+\end{figure}
+
+
+
+
