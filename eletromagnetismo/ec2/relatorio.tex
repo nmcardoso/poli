@@ -201,3 +201,104 @@ Assim, o diagrama elétrico do circuito é mostrado na Figura \ref{fig:circ-c}.
 
 Os valores das capacitâncias entre os corpos 1 e 3 e entre os corpos 1 e 3 e a terra são alterados com a remoção do corpo 2. Ambas as capacitâncias aumentam, mas a capacitância do corpo 1, que estava mais perto do corpo 2, aumenta muito mais.
 
+\newpage
+\section{Gerador Thévenin}
+
+\subsection{Caso 1: Corpo 2 aterrado}
+O gerador de Thévenin para este caso pode ser calculado a partir do diagrama elétrico da Figura \ref{fig:circ-b}. Na Figura \ref{fig:circ-b1}, os ramos em vermelho serão desconsiderador por conta do curto circuito, em azul.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.3]
+    \draw (0,0) node[above left](N1){1};
+    \draw[color=tabred] (0,0) to[C=20.812 nF, o-] (3,0) node[below left, color=black](N2){2};
+    \draw (3,0) to[C=3.703 nF, *-*] (6,0) node[below left](N3){3};
+
+    \draw[color=tabred] (0,0) -- ++(0,1.5) to[C=0.869 nF] ++(6,0) -- (N3.north east);
+
+    \draw[color=tabblue] (N2.north east) to[short] ++(0,-3);
+    \draw (N3.north east) to[C=5.128 nF] ++(0,-1.5) to[sV, v=$V_s$, american, voltage dir=noold] ++(0,-1.5) node[ground](G){};
+    \draw (G) to[short, -o] ++(-6,0) node[](A){};
+    % \draw (0,0) to[C=1.714 nF] (A) node[]{};
+    \path (A) edge[->, >=Stealth, bend left] node[left]{$V_{th}$} (0,0);
+  \end{circuitikz}
+  \caption{Diagrama elétrico do sistema.}
+  \label{fig:circ-b1}
+\end{figure}
+
+O diagrama elétrico após as simplificações é mostrado na Figura \ref{fig:circ-b2}.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.3]
+    \draw (3,0) node[above left, color=black](N2){2};
+    \draw (3,0) to[C=3.703 nF, o-*] (6,0) node[below left](N3){3};
+
+    \draw (N3.north east) to[C=5.128 nF] ++(0,-1.5) to[sV, v=$V_s$, american, voltage dir=noold] ++(0,-1.5) node[ground](G){};
+    \draw (G) to[short, -o] ++(-3,0) node[](A){};
+    \path (A) edge[->, >=Stealth, bend left] node[left]{$V_{th}$} (3,0);
+  \end{circuitikz}
+
+  \caption{Diagrama elétrico simplificado.}
+  \label{fig:circ-b2}
+\end{figure}
+
+
+% \begin{figure}[!h]
+%   \centering
+%   \begin{circuitikz}[scale=1.3]
+%     \draw (3,0) node[above left, color=black](N2){2};
+%     \draw (3,0) to[C=3.703 nF, o-*] (6,0) node[below left](N3){3};
+
+%     \draw (N3.north east) to[C=5.128 nF] ++(0,-2) node[ground](G){};
+%     \draw (G) to[short, -o] ++(-3,0) node[](A){};
+%     \path (A) edge[->, >=Stealth, bend left] node[left]{$V_{th}$} (3,0);
+%   \end{circuitikz}
+
+%   \caption{Diagrama elétrico do sistema.}
+%   \label{fig:circ-b3}
+% \end{figure}
+
+Calculando a impedância de cada bipolo e a impedância equivalente
+\begin{equation}
+  Z_{23} = \frac{1}{j\omega C_{23}} = -j716.33 = 716.33\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+\begin{equation}
+  Z_{30} = \frac{1}{j\omega C_{30}} = -j 517.27 = 517.27\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+\begin{equation}
+  Z_{eq} = Z_{23} + Z_{30} = -j1233.6 \text{ k}\Omega = 1233.6\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+
+Calculando a corrente do circuito e a tensão de Thévenin, considerando que o potencial $a$ é a tensão de saída do bipolo $C_{23}$
+\begin{equation}
+  I = \frac{V_s}{Z} = \frac{14\text{k}\phase{0^{\circ}}}{Z_{eq}} = \frac{14\phase{0^{\circ}}}{1233.6\phase{-90^{\circ}}} = 11.31\phase{90^{\circ}}\ \text{mA}
+\end{equation}
+\begin{equation}
+  V_{ab} = V_{th} = I \cdot Z = (11.31\phase{90^{\circ}}\ \text{mA})(716.33\phase{-90^{\circ}}\text{ k}\Omega) = 8101.69\phase{0^{\circ}} \text{ V}
+\end{equation}
+
+Calculando a corrente de curto circuito e a impedância de Thévenin, considerando que o tensão medida entre os terminais $a$ e $b$ de Thévenin já está em curto circuito e não possui queda de tensão
+\begin{equation}
+  I_{sc} = I = 11.31\phase{90^{\circ}}\ \text{mA}
+\end{equation}
+\begin{equation}
+  Z_{th} = \frac{V_{th}}{I_{sc}} = 716.33\phase{-90^{\circ}} = -j716.33\ \text{k}\Omega
+\end{equation}
+
+O Diagrama do Equivalente de Thévenin para o circuito é mostrado na Figura \ref{fig:th-1}. Como a impedância de Thévenin $Z_{th} = -j716.33\ \text{k}\Omega$ possui comportamento capacitivo, ela foi representada por um capacitor.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.3]
+    \draw (3,0) node[above left, color=black](N2){};
+    \draw (3,0) node[above]{$b$} to[C=$-j716.33\ \Omega$, o-] (6,0) node[below left](N3){};
+
+    \draw (N3.north east) to[sV, v=$8.1\phase{0^{\circ}}\text{ kV}$, american, voltage dir=noold] ++(0,-2) node[ground](G){};
+    \draw (G) to[short, -o] ++(-3,0) node[label=$a$](A){};
+  \end{circuitikz}
+  \caption{Equivalente Thévenin}
+  \label{fig:th-1}
+\end{figure}
+
+
