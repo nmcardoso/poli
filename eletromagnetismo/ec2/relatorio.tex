@@ -302,3 +302,70 @@ O Diagrama do Equivalente de Thévenin para o circuito é mostrado na Figura \re
 \end{figure}
 
 
+\subsection{Casos 2 e 3: Corpo 2 isolado/ausente}
+
+O circuito usado para calcular o equivalente Thévenin para o corpo 2 ausente será baseado no diagrama gerado na Seção \ref{section:c} e está ilustrado na Figura \ref{fig:circ-c1}.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.6]
+    \draw (0,0) node[above left](N1){1}
+    to[C=3.389 nF, o-*] (3,0) node[below left](N2){3}
+
+    % (N1.north east) to[C=5.358 nF] ++(0,-2.5) node[ground]{}
+    (N2.north east) to[C=5.829 nF] ++(0,-2.5) node[ground](G){}
+    ;
+    \draw (G) to[short, -o] ++(-3,0) node[](A){};
+    \path (A) edge[->, >=Stealth, bend left] node[left]{$V_{th}$} (0,0);
+  \end{circuitikz}
+  \caption{Diagrama elétrico do sistema.}
+  \label{fig:circ-c1}
+\end{figure}
+
+Calculando a impedância de cada bipolo e a impedância equivalente
+\begin{equation}
+  Z_{13} = \frac{1}{j\omega C_{13}} = -j782.7 = 782.7\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+\begin{equation}
+  Z_{30} = \frac{1}{j\omega C_{30}} = -j 455.07 = 455.07\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+\begin{equation}
+  Z_{eq} = Z_{13} + Z_{30} = -j1237.77 \text{ k}\Omega = 1237.77\phase{-90^{\circ}}\text{ k}\Omega
+\end{equation}
+
+% Calculando a corrente do circuito e a tensão de Thévenin, considerando que o potencial $a$ é a tensão de saída do bipolo $C_{13}$
+% \begin{equation}
+%   I = \frac{V_s}{Z} = \frac{14\text{k}\phase{0^{\circ}}}{Z_{eq}} = \frac{14\phase{0^{\circ}}}{1233.6\phase{-90^{\circ}}} = 11.35\phase{90^{\circ}}\ \mu\text{A}
+% \end{equation}
+% \begin{equation}
+%   V_{ab} = V_{th} = I \cdot Z = (11.35\phase{90^{\circ}}\ \mu\text{A})(782.7\phase{-90^{\circ}}\text{ k}\Omega) = 8.609\phase{0^{\circ}} \text{ V}
+% \end{equation}
+
+% Calculando a corrente de curto circuito e a impedância de Thévenin, considerando que o tensão medida entre os terminais $a$ e $b$ de Thévenin já está em curto circuito e não possui queda de tensão
+% \begin{equation}
+%   I_{sc} = I = 11.35\phase{90^{\circ}}\ \mu\text{A}
+% \end{equation}
+% \begin{equation}
+%   Z_{th} = \frac{V_{th}}{I_{sc}} = 716.33\phase{-90^{\circ}} = -j716.33\ \text{k}\Omega
+% \end{equation}
+
+% O Diagrama do Equivalente de Thévenin para o circuito é mostrado na Figura \ref{fig:th-1}. Como a impedância de Thévenin $Z_{th} = -j716.33\ \text{k}\Omega$ possui comportamento capacitivo, ela foi representada por um capacitor.
+
+% \begin{figure}[!h]
+%   \centering
+%   \begin{circuitikz}[scale=1.3]
+%     \draw (3,0) node[above left, color=black](N2){};
+%     \draw (3,0) node[above]{$b$} to[C=$-j716.33\ \text{k}\Omega$, o-] (6,0) node[below left](N3){};
+
+%     \draw (N3.north east) to[sV, v=$7.88\phase{0^{\circ}}\text{ V}$, american, voltage dir=noold] ++(0,-2) node[ground](G){};
+%     \draw (G) to[short, -o] ++(-3,0) node[label=$a$](A){};
+%   \end{circuitikz}
+%   \caption{Equivalente Thévenin}
+%   \label{fig:th-1}
+% \end{figure}
+
+
+
+
+
+\end{document}
