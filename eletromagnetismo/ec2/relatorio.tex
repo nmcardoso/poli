@@ -122,3 +122,44 @@ A matriz de capacitâncias, calculada pelo algorítmo com um raio de discretiza�
   \text{nF}
 \end{equation}
 
+\section{Diagrama Elétrico de $[C']_3$}
+
+O modelo de circuito elétrico com parâmetros concentrados é obtido de $[C']_3$, da equação \eqref{eq:cap-a}, onde a capacitância $C_{ki}$ é calculada pela relação \eqref{eq:Cki}.
+
+\begin{equation}\label{eq:Cki}
+  C_{ki} =
+  \begin{cases}
+    \displaystyle \sum_{j=1}^N C_{kj}', & \text{se } i=0      \\
+    \displaystyle -C_{ki}',             & \text{se } i \neq k
+  \end{cases}
+\end{equation}
+
+Das equações \eqref{eq:cap-a} e \eqref{eq:Cki}, calcula-se
+\begin{align*}
+  C_{10} & = 1.714 \textrm{ nF} & C_{12} = C_{21} & = 20.812 \textrm{ nF} \\
+  C_{20} & = 5.367 \textrm{ nF} & C_{13} = C_{31} & = 0.869 \textrm{ nF}  \\
+  C_{30} & = 5.128 \textrm{ nF} & C_{23} = C_{32} & = 3.703 \textrm{ nF}
+\end{align*}
+
+A partir dos valores acima, pode-se montar o diagrama do circuito elétrico correspondente ao sistema, como mostrado na Figura \ref{fig:circ-b}.
+
+\begin{figure}[!h]
+  \centering
+  \begin{circuitikz}[scale=1.6]
+    \draw (0,0) node[below left](N1){1}
+    to[C=20.812 nF, *-] (3,0) node[below left](N2){2}
+    to[C=3.703 nF, *-*] (6,0) node[below left](N3){3}
+
+    (N1.north east) -- ++(0,1.5) to[C=0.869 nF] ++(6,0) -- (N3.north east)
+
+    (N1.north east) to[C=1.714 nF] ++(0,-2.5) node[ground]{}
+    (N2.north east) to[C=5.367 nF] ++(0,-2.5) node[ground]{}
+    (N3.north east) to[C=5.128 nF] ++(0,-2.5) node[ground]{}
+    ;
+  \end{circuitikz}
+  \caption{Diagrama elétrico do sistema.}
+  \label{fig:circ-b}
+\end{figure}
+
+
+\section{Matriz de Capacitâncias $[C']_2$}
