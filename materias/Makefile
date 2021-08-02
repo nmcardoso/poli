@@ -6,4 +6,5 @@
 
 all:
 	dot -Tpdf materias.gv -o materias.pdf
+	dot -Tsvg materias.gv -o materias.svg
 
