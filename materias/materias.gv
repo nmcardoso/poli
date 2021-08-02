@@ -1,12 +1,12 @@
 digraph g {
 	# 2021/02
-	MAT2456 [label="Cálculo IV", color="blue"];
-	PSI3213 [label="Circuitos Elétricos II", color="blue"];
-	PSI3214 [label="Laboratório de \n Instrumentação Elétrica", color="blue"];
-	4323102 [label="Física II", color="blue"];
+	MAT2456 [label="Cálculo IV", color="blue", fontcolor="blue"];
+	PSI3213 [label="Circuitos Elétricos II", color="blue", fontcolor="blue"];
+	PSI3214 [label="Laboratório de \n Instrumentação Elétrica", color="blue", fontcolor="blue"];
+	4323102 [label="Física II", color="blue", fontcolor="blue"];
 	PTC3313 [label="Sistemas de Controle"];
 	PCS3438 [label="Inteligência Artificial"];
-	PME3100 [label="Macânica", color="blue"];
+	PME3100 [label="Macânica", color="blue", fontcolor="blue"];
 	
 	
 	# 2022/01
@@ -15,15 +15,15 @@ digraph g {
 
 	# 2021/01
 	PSI3211 [label="Circuitos Elétricos I"];
-	PTC3213 [label="Eletromagnetismo", color="orange"];
-	PCS3225 [label="Sistemas Digitais II", color="blue"];
+	PTC3213 [label="Eletromagnetismo", color="orange", fontcolor="orange"];
+	PCS3225 [label="Sistemas Digitais II", color="blue", fontcolor="blue"];
 	
 	
 	# 2022/01
 	PEA3301 [label="Introdução aos\n Sistemas de Potência"];
 	PCS3412 [label="Organização e Arquitetura\n de Computadores I"];
 	PCS3335 [label="Laboratório Digital A"];
-	PSI3321 [label="Eletrônica I", color="blue"];
+	PSI3321 [label="Eletrônica I", color="blue", fontcolor="blue"];
 	PTC3307 [label="Sistemas e Sinais"];
 	PEA3306 [label="Converção Eletromecânica\n de Energia"];
 	PEA3311 [label="Laboratório de Converção\n Eletromecânica de Energia"];

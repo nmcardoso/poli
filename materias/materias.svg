@@ -13,20 +13,20 @@
 <g id="node1" class="node">
 <title>MAT2456</title>
 <ellipse fill="none" stroke="blue" cx="464.09" cy="-385.83" rx="50.09" ry="18"/>
-<text text-anchor="middle" x="464.09" y="-382.13" font-family="Times,serif" font-size="14.00">Cálculo IV</text>
+<text text-anchor="middle" x="464.09" y="-382.13" font-family="Times,serif" font-size="14.00" fill="blue">Cálculo IV</text>
 </g>
 <!-- PSI3213 -->
 <g id="node2" class="node">
 <title>PSI3213</title>
 <ellipse fill="none" stroke="blue" cx="415.09" cy="-296.09" rx="85.29" ry="18"/>
-<text text-anchor="middle" x="415.09" y="-292.39" font-family="Times,serif" font-size="14.00">Circuitos Elétricos II</text>
+<text text-anchor="middle" x="415.09" y="-292.39" font-family="Times,serif" font-size="14.00" fill="blue">Circuitos Elétricos II</text>
 </g>
 <!-- PSI3214 -->
 <g id="node3" class="node">
 <title>PSI3214</title>
 <ellipse fill="none" stroke="blue" cx="508.09" cy="-206.35" rx="106.13" ry="26.74"/>
-<text text-anchor="middle" x="508.09" y="-210.15" font-family="Times,serif" font-size="14.00">Laboratório de </text>
-<text text-anchor="middle" x="508.09" y="-195.15" font-family="Times,serif" font-size="14.00"> Instrumentação Elétrica</text>
+<text text-anchor="middle" x="508.09" y="-210.15" font-family="Times,serif" font-size="14.00" fill="blue">Laboratório de </text>
+<text text-anchor="middle" x="508.09" y="-195.15" font-family="Times,serif" font-size="14.00" fill="blue"> Instrumentação Elétrica</text>
 </g>
 <!-- PSI3213&#45;&gt;PSI3214 -->
 <g id="edge2" class="edge">
@@ -50,7 +50,7 @@
 <g id="node4" class="node">
 <title>4323102</title>
 <ellipse fill="none" stroke="blue" cx="780.09" cy="-385.83" rx="40.09" ry="18"/>
-<text text-anchor="middle" x="780.09" y="-382.13" font-family="Times,serif" font-size="14.00">Física II</text>
+<text text-anchor="middle" x="780.09" y="-382.13" font-family="Times,serif" font-size="14.00" fill="blue">Física II</text>
 </g>
 <!-- PTC3313 -->
 <g id="node5" class="node">
@@ -80,7 +80,7 @@
 <g id="node7" class="node">
 <title>PME3100</title>
 <ellipse fill="none" stroke="blue" cx="1477.09" cy="-385.83" rx="45.49" ry="18"/>
-<text text-anchor="middle" x="1477.09" y="-382.13" font-family="Times,serif" font-size="14.00">Macânica</text>
+<text text-anchor="middle" x="1477.09" y="-382.13" font-family="Times,serif" font-size="14.00" fill="blue">Macânica</text>
 </g>
 <!-- MAP3121 -->
 <g id="node8" class="node">
@@ -118,7 +118,7 @@
 <g id="node15" class="node">
 <title>PSI3321</title>
 <ellipse fill="none" stroke="blue" cx="780.09" cy="-296.09" rx="51.99" ry="18"/>
-<text text-anchor="middle" x="780.09" y="-292.39" font-family="Times,serif" font-size="14.00">Eletrônica I</text>
+<text text-anchor="middle" x="780.09" y="-292.39" font-family="Times,serif" font-size="14.00" fill="blue">Eletrônica I</text>
 </g>
 <!-- PSI3211&#45;&gt;PSI3321 -->
 <g id="edge5" class="edge">
@@ -130,7 +130,7 @@
 <g id="node10" class="node">
 <title>PTC3213</title>
 <ellipse fill="none" stroke="orange" cx="224.09" cy="-296.09" rx="76.09" ry="18"/>
-<text text-anchor="middle" x="224.09" y="-292.39" font-family="Times,serif" font-size="14.00">Eletromagnetismo</text>
+<text text-anchor="middle" x="224.09" y="-292.39" font-family="Times,serif" font-size="14.00" fill="orange">Eletromagnetismo</text>
 </g>
 <!-- PEA3306 -->
 <g id="node17" class="node">
@@ -155,7 +155,7 @@
 <g id="node11" class="node">
 <title>PCS3225</title>
 <ellipse fill="none" stroke="blue" cx="1148.09" cy="-296.09" rx="81.49" ry="18"/>
-<text text-anchor="middle" x="1148.09" y="-292.39" font-family="Times,serif" font-size="14.00">Sistemas Digitais II</text>
+<text text-anchor="middle" x="1148.09" y="-292.39" font-family="Times,serif" font-size="14.00" fill="blue">Sistemas Digitais II</text>
 </g>
 <!-- PCS3412 -->
 <g id="node13" class="node">
