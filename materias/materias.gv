@@ -1,14 +1,12 @@
 digraph g {
-  PME3344 [label="Termodinâmica Aplicada", color="green", fontcolor="green"];
-  PME3332 [label="Mecânica dos Flúidos", color="blue", fontcolor="blue"];
-
-
 	# 2021/02
+  PME3344 [label="Termodinâmica Aplicada", color="green", fontcolor="green"];
 	MAT2456 [label="Cálculo IV", color="blue", fontcolor="blue"];
 	PSI3213 [label="Circuitos Elétricos II", color="blue", fontcolor="blue"];
 	PSI3214 [label="Laboratório de \n Instrumentação Elétrica", color="blue", fontcolor="blue"];
 	4323102 [label="Física II", color="blue", fontcolor="blue"];
 	PTC3313 [label="Sistemas de Controle", color="blue", fontcolor="blue"];
+  PME3332 [label="Mecânica dos Flúidos", color="blue", fontcolor="blue"];
 	PCS3438 [label="Inteligência Artificial"];
 	PME3100 [label="Macânica", color="green", fontcolor="green"];
 	
