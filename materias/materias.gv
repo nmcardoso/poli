@@ -70,7 +70,7 @@ digraph g {
 	PEA3306 -> PEA3311 [style="dashed"];
 	
 	PSI3321 -> PSI3322;
-	PSI3322 -> PSI3323[style="dashed"];
+	PSI3322 -> PSI3323 [style="dashed"];
 	PTC3313 -> PTC3312;
 	PSI3213 -> PTC3314;
 	PTC3307 -> PTC3361;
@@ -82,7 +82,7 @@ digraph g {
 	PCS3335 -> PCS3432;
 	PCS3412 -> PCS3432 [style="dashed"];
 	PTC3360 -> PCS3414;
-	PCS3414 -> PCS3434;
+	PCS3414 -> PCS3434 [style="dashed"];
 	{PCS3414, PCS3412} -> PCS3550;
 	
 	PCS3414 -> PCS3424;
