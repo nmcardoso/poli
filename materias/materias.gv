@@ -1,4 +1,8 @@
 digraph g {
+  # defaults
+  node [shape=box];
+
+
 	# 2021/02
   PME3344 [label="Termodinâmica Aplicada", color="purple", fontcolor="purple"];
 	MAT2456 [label="Cálculo IV", color="blue", fontcolor="blue"];
@@ -81,7 +85,6 @@ digraph g {
 	PCS3225 -> PCS3216;
 	PCS3335 -> PCS3432;
 	PCS3412 -> PCS3432 [style="dashed"];
-	PTC3360 -> PCS3414;
 	PCS3414 -> PCS3434 [style="dashed"];
 	{PCS3414, PCS3412} -> PCS3550;
 	
