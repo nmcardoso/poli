@@ -12,8 +12,8 @@
 <!-- PME3344 -->
 <g id="node1" class="node">
 <title>PME3344</title>
-<polygon fill="none" stroke="purple" points="191,-259 0,-259 0,-223 191,-223 191,-259"/>
-<text text-anchor="middle" x="95.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="purple">Termodinâmica Aplicada</text>
+<polygon fill="none" stroke="blue" points="191,-259 0,-259 0,-223 191,-223 191,-259"/>
+<text text-anchor="middle" x="95.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="blue">Termodinâmica Aplicada</text>
 </g>
 <!-- MAT2456 -->
 <g id="node2" class="node">
@@ -91,8 +91,8 @@
 <!-- PME3100 -->
 <g id="node9" class="node">
 <title>PME3100</title>
-<polygon fill="none" stroke="purple" points="1234.5,-259 1150.5,-259 1150.5,-223 1234.5,-223 1234.5,-259"/>
-<text text-anchor="middle" x="1192.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="purple">Macânica</text>
+<polygon fill="none" stroke="blue" points="1234.5,-259 1150.5,-259 1150.5,-223 1234.5,-223 1234.5,-259"/>
+<text text-anchor="middle" x="1192.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="blue">Mecânica</text>
 </g>
 <!-- MAP3121 -->
 <g id="node10" class="node">

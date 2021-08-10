@@ -4,7 +4,7 @@ digraph g {
 
 
 	# 2021/02
-  PME3344 [label="Termodinâmica Aplicada", color="purple", fontcolor="purple"];
+  PME3344 [label="Termodinâmica Aplicada", color="blue", fontcolor="blue"];
 	MAT2456 [label="Cálculo IV", color="blue", fontcolor="blue"];
 	PSI3213 [label="Circuitos Elétricos II", color="blue", fontcolor="blue"];
 	PSI3214 [label="Laboratório de \n Instrumentação Elétrica", color="blue", fontcolor="blue"];
@@ -12,7 +12,7 @@ digraph g {
 	PTC3313 [label="Sistemas de Controle", color="blue", fontcolor="blue"];
   PME3332 [label="Mecânica dos Flúidos", color="blue", fontcolor="blue"];
 	PCS3438 [label="Inteligência Artificial"];
-	PME3100 [label="Macânica", color="purple", fontcolor="purple"];
+	PME3100 [label="Mecânica", color="blue", fontcolor="blue"];
 	
 	
 	# 2022/01
