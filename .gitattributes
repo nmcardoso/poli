@@ -3,3 +3,7 @@
 
 # HTML
 *.html linguist-vendored
+
+# VHDL
+*.ghw linguist-language=vhdl
+*.vcd linguist-language=vhdl
