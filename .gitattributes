@@ -1,3 +1,5 @@
 # R / RStudio
 *.Rmd linguist-language=R
+
+# HTML
 *.html linguist-vendored
