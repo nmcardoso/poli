@@ -13,7 +13,7 @@ indent.log
 # JupyterLab
 .ipynb_checkpoints
 
-#Python
+# Python
 __pycache__
 
 # VHDL
