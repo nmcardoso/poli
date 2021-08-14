@@ -15,3 +15,6 @@ indent.log
 
 #Python
 __pycache__
+
+# VHDL
+.cf
