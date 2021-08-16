@@ -15,3 +15,22 @@ entity epmmc is
     MMC: out bit_vector(15 downto 0)
   );
 end epmmc;
+
+
+architecture mmc_arch of epmmc is
+  type state_type is (idle, op, lastop);
+  signal state_reg, state_next: state_type;
+begin
+
+
+
+process(clock, reset)
+begin
+  if (reset='1') then
+    state_reg <= idle;
+  elsif (clock'event and clock='1') then
+    state_reg <= state_next;
+  end if;
+end process;
+
+end architecture;
