@@ -20,6 +20,10 @@ end epmmc;
 architecture mmc_arch of epmmc is
   type state_type is (idle, op, lastop);
   signal state_reg, state_next: state_type;
+  signal a_reg, b_reg: bit_vector(15 downto 0);
+  signal a_next, b_next: bit_vector(15 downto 0);
+  signal nSomas_reg: bit_vector(8 downto 0);
+  signal nSomas_next: bit_vector(8 downto 0);
   signal add_a, add_b: bit_vector(15 downto 0);
 begin
 
@@ -60,6 +64,20 @@ begin
   end case;
 end process;
 
+
+
+process(clock, reset)
+begin
+  if (reset='1') then
+    a_reg <= (others => '0');
+    b_reg <= (others => '0');
+    nSomas_reg <= (others => '0');
+  elsif (clock'event and clock='1') then
+    a_reg <= a_next;
+    b_reg <= b_next;
+    nSomas_reg <= nSomas_next;
+  end if;
+end process;
 
 
 end architecture;
