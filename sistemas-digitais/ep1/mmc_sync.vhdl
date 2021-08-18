@@ -58,6 +58,14 @@ begin
       else
         state_next <= op_b;
       end if;
+    when op_b =>
+      if (add_a = add_b) then -- old: add_a = add_b
+        state_next <= idle;
+      elsif (add_b < add_a) then
+        state_next <= op_b;
+      else
+        state_next <= op_a;
+      end if;
   end case;
 end process;
 
