@@ -121,4 +121,7 @@ acc_nSomas <= bit_vector(unsigned(nSomas_reg) + unsigned(acc_step));
 
 fim <= '1' when state_reg = idle else '0';
 
+
+
+MMC <= bit_vector(a_reg);
 end architecture;
