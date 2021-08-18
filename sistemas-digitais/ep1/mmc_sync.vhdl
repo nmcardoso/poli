@@ -34,4 +34,26 @@ begin
 end process;
 
 
+
+process(state_reg, inicia, A, B, add_a, add_b)
+begin
+  case state_reg is
+    when idle =>
+      if (inicia='1') then
+        if (A = B or unsigned(A) = 0 or unsigned(B) = 0) then
+          state_next <= idle;
+        elsif (A < B) then
+          state_next <= op_a;
+        else
+          state_next <= op_b;
+        end if;
+      else
+        state_next <= idle;
+      end if;
+  end case;
+end process;
+
+
+  end case;
+end process;
 end architecture;
