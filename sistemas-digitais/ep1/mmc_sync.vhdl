@@ -70,6 +70,21 @@ begin
 end process;
 
 
+
+process(clock, reset)
+begin
+  if (reset='1') then
+    a_reg <= (others => '0');
+    b_reg <= (others => '0');
+    nSomas_reg <= (others => '0');
+  elsif (clock'event and clock='1') then
+    a_reg <= a_next;
+    b_reg <= b_next;
+    nSomas_reg <= nSomas_next;
+  end if;
+end process;
+
+
   end case;
 end process;
 end architecture;
