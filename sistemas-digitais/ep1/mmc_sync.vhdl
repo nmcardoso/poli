@@ -97,6 +97,20 @@ begin
       a_next <= bit_vector("00000000" & A);
       b_next <= bit_vector("00000000" & B);
       -- nSomas_next <= (others => '0');
+    when op_a =>
+      if (unsigned(a_reg) = 0 or unsigned(b_reg) = 0) then
+        a_next <= (others => '0');
+        b_next <= (others => '0');
+        nSomas_next <= (others => '0');
+      elsif (add_a = add_b) then
+        a_next <= add_a;
+        b_next <= add_b;
+        nSomas_next <= acc_nSomas;
+      else
+        a_next <= add_a;
+        b_next <= b_reg;
+        nSomas_next <= acc_nSomas;
+      end if;
   end case;
 end process;
 
