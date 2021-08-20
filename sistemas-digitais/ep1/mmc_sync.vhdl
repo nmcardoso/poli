@@ -89,6 +89,16 @@ begin
 end process;
 
 
+
+process(state_reg, A, B, a_reg, b_reg, add_a, add_b)
+begin
+  case state_reg is
+    when idle =>
+      a_next <= bit_vector("00000000" & A);
+      b_next <= bit_vector("00000000" & B);
+      -- nSomas_next <= (others => '0');
   end case;
 end process;
+
+
 end architecture;
