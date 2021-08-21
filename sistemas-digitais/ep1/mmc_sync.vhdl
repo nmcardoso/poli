@@ -131,4 +131,5 @@ end process;
 
 
 add_a <= bit_vector(unsigned(bit_vector("00000000" & A)) + unsigned(a_reg));
+add_b <= bit_vector(unsigned(bit_vector("00000000" & B)) + unsigned(b_reg));
 end architecture;
