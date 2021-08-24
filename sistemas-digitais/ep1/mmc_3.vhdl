@@ -16,3 +16,16 @@ entity epmmc is
   );
 end epmmc;
 
+
+architecture mmc_arch of epmmc is
+  type state_type is (idle, op, lastop);
+  signal state_reg, state_next: state_type;
+
+
+
+
+
+
+begin
+
+end architecture;
