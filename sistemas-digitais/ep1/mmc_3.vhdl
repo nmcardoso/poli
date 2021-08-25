@@ -22,6 +22,7 @@ architecture mmc_arch of epmmc is
   signal state_reg, state_next: state_type;
   signal a_reg, b_reg: bit_vector(15 downto 0);
   signal nSomas_reg: bit_vector(8 downto 0);
+  signal acc_a_reg, acc_b_reg: bit_vector(8 downto 0);
 
 
 
