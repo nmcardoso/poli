@@ -30,6 +30,7 @@ architecture mmc_arch of epmmc is
   signal acc_a_next, acc_b_next: bit_vector(8 downto 0);
   signal acc_a, acc_b: bit_vector(8 downto 0);
   constant acc_step: bit_vector(8 downto 0) := "000000001";
+begin
 
 
 
@@ -44,6 +45,20 @@ end process;
 
 
 
+process(state_reg, inicia, A, B, add_a, add_b)
 begin
+  case state_reg is
+    when idle =>
+      if (inicia='1') then
+        if (A = B or unsigned(A) = 0 or unsigned(B) = 0) then
+          state_next <= idle;
+        else
+          state_next <= op;
+        end if;
+      else
+        state_next <= idle;
+      end if;
+  end case;
+end process;
 
 end architecture;
