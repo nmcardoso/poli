@@ -21,6 +21,7 @@ architecture mmc_arch of epmmc is
   type state_type is (idle, op, lastop);
   signal state_reg, state_next: state_type;
   signal a_reg, b_reg: bit_vector(15 downto 0);
+  signal nSomas_reg: bit_vector(8 downto 0);
 
 
 
