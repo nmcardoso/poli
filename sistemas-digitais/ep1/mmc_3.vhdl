@@ -64,6 +64,8 @@ begin
       else
         state_next <= op;
       end if;
+    when lastop =>
+      state_next <= idle;
   end case;
 end process;
 
