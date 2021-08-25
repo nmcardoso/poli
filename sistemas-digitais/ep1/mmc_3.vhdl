@@ -58,6 +58,12 @@ begin
       else
         state_next <= idle;
       end if;
+    when op =>
+      if (add_a = add_b) then -- add_a = add_b
+        state_next <= lastop;
+      else
+        state_next <= op;
+      end if;
   end case;
 end process;
 
