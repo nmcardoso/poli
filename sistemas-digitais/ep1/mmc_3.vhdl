@@ -33,6 +33,14 @@ architecture mmc_arch of epmmc is
 
 
 
+process(clock, reset)
+begin
+  if (reset='1') then
+    state_reg <= idle;
+  elsif (clock'event and clock='1') then
+    state_reg <= state_next;
+  end if;
+end process;
 
 
 
