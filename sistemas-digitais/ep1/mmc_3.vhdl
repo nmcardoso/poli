@@ -24,6 +24,7 @@ architecture mmc_arch of epmmc is
   signal a_next, b_next: bit_vector(15 downto 0);
   signal nSomas_reg: bit_vector(8 downto 0);
   signal nSomas_next: bit_vector(8 downto 0);
+  signal add_a, add_b: bit_vector(15 downto 0);
   signal acc_a_reg, acc_b_reg: bit_vector(8 downto 0);
 
 
