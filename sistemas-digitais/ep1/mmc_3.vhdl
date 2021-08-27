@@ -99,6 +99,26 @@ begin
       -- nSomas_next <= (others => '0');
       acc_a_next <= acc_step;
       acc_b_next <= acc_step;
+    when op =>
+      if (unsigned(a_reg) = 0 or unsigned(b_reg) = 0) then
+        a_next <= (others => '0');
+        b_next <= (others => '0');
+        nSomas_next <= (others => '0');
+        acc_a_next <= (others => '0');
+        acc_b_next <= (others => '0');
+      elsif (unsigned(a_reg) < unsigned(b_reg)) then
+        a_next <= add_a;
+        b_next <= b_reg;
+        nSomas_next <= acc_nSomas;
+        acc_a_next <= acc_a;
+        acc_b_next <= acc_b_reg;
+      else
+        a_next <= a_reg;
+        b_next <= add_b;
+        nSomas_next <= acc_nSomas;
+        acc_a_next <= acc_a_reg;
+        acc_b_next <= acc_b;
+      end if;
   end case;
 end process;
 
