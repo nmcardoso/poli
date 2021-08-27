@@ -149,4 +149,6 @@ fim <= '1' when state_reg = idle else '0';
 
 
 MMC <= bit_vector(a_reg);
+nSomas <= bit_vector(nSomas_reg);
+
 end architecture;
