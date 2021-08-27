@@ -141,4 +141,9 @@ acc_nSomas <= bit_vector(unsigned(acc_a_reg) + unsigned(acc_b_reg));
 -- acc_nSomas <= bit_vector(unsigned(nSomas_reg) + unsigned(acc_step));
 acc_a <= bit_vector(unsigned(acc_a_reg) + unsigned(acc_step));
 acc_b <= bit_vector(unsigned(acc_b_reg) + unsigned(acc_step));
+
+
+
+fim <= '1' when state_reg = idle else '0';
+
 end architecture;
