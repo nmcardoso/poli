@@ -137,4 +137,5 @@ end process;
 
 add_a <= bit_vector(unsigned(bit_vector("00000000" & A)) + unsigned(a_reg));
 add_b <= bit_vector(unsigned(bit_vector("00000000" & B)) + unsigned(b_reg));
+acc_nSomas <= bit_vector(unsigned(acc_a_reg) + unsigned(acc_b_reg));
 end architecture;
