@@ -133,4 +133,7 @@ begin
   end case;
 end process;
 
+
+
+add_a <= bit_vector(unsigned(bit_vector("00000000" & A)) + unsigned(a_reg));
 end architecture;
