@@ -119,6 +119,17 @@ begin
         acc_a_next <= acc_a_reg;
         acc_b_next <= acc_b;
       end if;
+    when lastop =>
+      -- a_next <= a_reg;
+      -- b_next <= add_b;
+      -- nSomas_next <= acc_nSomas;
+      -- acc_a_next <= acc_a_reg;
+      -- acc_b_next <= acc_b_reg;
+      a_next <= a_reg;
+      b_next <= b_reg;
+      nSomas_next <= nSomas_reg;
+      acc_a_next <= acc_a_reg;
+      acc_b_next <= acc_b_reg;
   end case;
 end process;
 
