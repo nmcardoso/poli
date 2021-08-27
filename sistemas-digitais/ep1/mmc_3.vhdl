@@ -146,4 +146,7 @@ acc_b <= bit_vector(unsigned(acc_b_reg) + unsigned(acc_step));
 
 fim <= '1' when state_reg = idle else '0';
 
+
+
+MMC <= bit_vector(a_reg);
 end architecture;
