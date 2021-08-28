@@ -14,3 +14,9 @@ entity mmc is
   );
 end mmc;
 
+architecture mmc_arch of mmc is
+  type state_type is (idle, compare, a_gt_b, a_lt_b, finished);
+  signal curr_state, next_state: state_type;
+begin
+
+end architecture;
