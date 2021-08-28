@@ -19,6 +19,7 @@ architecture mmc_arch of mmc is
   signal curr_state, next_state: state_type;
   signal a_reg, b_reg, a_next, b_next: bit_vector(15 downto 0);
   signal nSomas_reg, nSomas_next: bit_vector(8 downto 0);
+  constant acc_step: bit_vector(8 downto 0) := "000000001";
 begin
 
 end architecture;
