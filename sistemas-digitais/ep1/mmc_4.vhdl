@@ -17,6 +17,7 @@ end mmc;
 architecture mmc_arch of mmc is
   type state_type is (idle, compare, a_gt_b, a_lt_b, finished);
   signal curr_state, next_state: state_type;
+  signal a_reg, b_reg, a_next, b_next: bit_vector(15 downto 0);
 begin
 
 end architecture;
