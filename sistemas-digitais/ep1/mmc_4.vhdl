@@ -22,4 +22,15 @@ architecture mmc_arch of mmc is
   constant acc_step: bit_vector(8 downto 0) := "000000001";
 begin
 
+  -- Async reset
+  process(clock, reset)
+  begin
+    if (reset='1') then
+      curr_state <= idle;
+    elsif (clock'event and clock='1') then
+      curr_state <= next_state;
+    end if;
+  end process;
+
+
 end architecture;
