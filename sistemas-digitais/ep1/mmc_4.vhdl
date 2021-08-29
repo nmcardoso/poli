@@ -55,4 +55,8 @@ begin
         next_state <= compare;
       when a_gt_b =>
         next_state <= compare;
+      when finished =>
+        next_state <= idle;
+    end case;
+  end process;
 end architecture;
