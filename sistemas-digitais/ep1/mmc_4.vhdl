@@ -53,4 +53,6 @@ begin
         end if;
       when a_lt_b =>
         next_state <= compare;
+      when a_gt_b =>
+        next_state <= compare;
 end architecture;
