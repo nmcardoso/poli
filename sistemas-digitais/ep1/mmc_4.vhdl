@@ -43,4 +43,12 @@ begin
         else
           next_state <= idle;
         end if;
+      when compare =>
+        if (a_reg < b_reg) then
+          next_state <= a_lt_b;
+        elsif (a_reg > b_reg) then
+          next_state <= a_gt_b;
+        else
+          next_state <= finished;
+        end if;
 end architecture;
