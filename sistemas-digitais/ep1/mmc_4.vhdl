@@ -33,4 +33,14 @@ begin
   end process;
 
 
+  -- Finite State Machine
+  process(curr_state, inicia, A, B, a_reg, b_reg)
+  begin
+    case curr_state is
+      when idle =>
+        if (inicia = '1') then
+          next_state <= compare;
+        else
+          next_state <= idle;
+        end if;
 end architecture;
