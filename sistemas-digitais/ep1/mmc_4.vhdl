@@ -51,4 +51,6 @@ begin
         else
           next_state <= finished;
         end if;
+      when a_lt_b =>
+        next_state <= compare;
 end architecture;
