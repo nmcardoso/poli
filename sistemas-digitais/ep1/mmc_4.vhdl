@@ -76,4 +76,16 @@ begin
   end process;
 
 
+  -- Data
+  process(curr_state, inicia, A, B, a_reg, b_reg)
+  begin
+    case curr_state is
+      when idle =>
+        if (inicia = '1') then
+          a_next <= bit_vector("00000000" & A);
+          b_next <= bit_vector("00000000" & B);
+          nSomas_next <= (others => '0');
+        end if;
+    end case;
+  end process;
 end architecture;
