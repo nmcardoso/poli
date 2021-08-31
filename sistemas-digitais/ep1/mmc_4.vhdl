@@ -100,6 +100,10 @@ begin
         a_next <= a_reg;
         b_next <= bit_vector(unsigned(b_reg) + unsigned(bit_vector("00000000" & B)));
         nSomas_next <= bit_vector(unsigned(nSomas_reg) + unsigned(acc_step));
+      when a_lt_b =>
+        a_next <= bit_vector(unsigned(a_reg) + unsigned(bit_vector("00000000" & A)));
+        b_next <= b_reg;
+        nSomas_next <= bit_vector(unsigned(nSomas_reg) + unsigned(acc_step));
     end case;
   end process;
 end architecture;
