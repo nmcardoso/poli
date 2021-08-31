@@ -104,6 +104,8 @@ begin
         a_next <= bit_vector(unsigned(a_reg) + unsigned(bit_vector("00000000" & A)));
         b_next <= b_reg;
         nSomas_next <= bit_vector(unsigned(nSomas_reg) + unsigned(acc_step));
+      when finished =>
+        nSomas_next <= (others => '0');
     end case;
   end process;
 end architecture;
