@@ -86,6 +86,16 @@ begin
           b_next <= bit_vector("00000000" & B);
           nSomas_next <= (others => '0');
         end if;
+      when compare =>
+        if (unsigned(a_reg) = 0 or unsigned(b_reg) = 0) then
+          a_next <= (others => '0');
+          b_next <= (others => '0');
+          nSomas_next <= (others => '0');
+        else
+          a_next <= a_reg;
+          b_next <= b_reg;
+          nSomas_next <= nSomas_reg;
+        end if;
     end case;
   end process;
 end architecture;
