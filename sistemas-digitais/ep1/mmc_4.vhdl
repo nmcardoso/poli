@@ -112,4 +112,7 @@ begin
 
   fim <= '1' when curr_state = finished else '0';
   MMC <= bit_vector(a_reg);
+  nSomas <= bit_vector(nSomas_reg);
+
+
 end architecture;
