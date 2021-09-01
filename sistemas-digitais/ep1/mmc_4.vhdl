@@ -108,4 +108,7 @@ begin
         nSomas_next <= (others => '0');
     end case;
   end process;
+  
+
+  fim <= '1' when curr_state = finished else '0';
 end architecture;
