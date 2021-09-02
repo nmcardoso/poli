@@ -5,6 +5,7 @@ use IEEE.numeric_bit.all;
 -- tentativa 02: 18087 (5.7)
 -- tentativa 03: 18135 (8.1)
 -- tentativa 04: 18155 (8.1)
+-- tentativa 05: ..... ()
 
 
 entity mmc is
