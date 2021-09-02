@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.numeric_bit.all;
 
+-- tentativa 01: 18085 (Elaboration Error)
 
 
 entity mmc is
