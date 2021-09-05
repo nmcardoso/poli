@@ -15,3 +15,7 @@ rom_arquivo_generica:
 	ghdl -a --std=08 rom_arquivo_generica_tb.vhd
 	ghdl -r --std=08 rom_arquivo_generica_tb --vcd=rom_arquivo_generica.vcd
 
+ram:
+	ghdl -a --std=08 ram.vhd
+	ghdl -a --std=08 ram_tb.vhd
+	ghdl -r --std=08 ram_tb --wave=ram.ghw
