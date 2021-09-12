@@ -1,6 +1,9 @@
 library IEEE;
 use IEEE.numeric_bit.all;
 
+-- Tentativas:
+-- 01: #20648 (10)
+
 entity reg is
   generic(
     wordSize: natural := 4
