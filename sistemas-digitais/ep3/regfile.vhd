@@ -22,6 +22,10 @@ begin
     a_out(to_integer(unsigned(sel))) <= a_in;
   end process;
 end architecture;
+
+
+-- REGISTER
+
 library IEEE;
 use IEEE.numeric_bit.all;
 
@@ -53,6 +57,10 @@ begin
   end process;
   q <= data;
 end reg_arch;
+
+
+-- REGFILE
+
 library IEEE;
 use IEEE.numeric_bit.all;
 use IEEE.math_real.ceil;
