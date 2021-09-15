@@ -80,3 +80,64 @@ entity regfile is
     q1, q2: out bit_vector(wordSize-1 downto 0)
   );
 end entity;
+
+architecture regfile_arch of regfile is
+  component reg is
+    generic (
+      wordSize : natural := 4
+    );
+    port (
+      clock: in bit;
+      reset: in bit;
+      load: in bit;
+      d: in bit_vector(wordSize-1 downto 0);
+      q: out bit_vector(wordSize-1 downto 0)
+    );
+  end component;
+
+  component demux is
+    generic (
+      selSize : natural := 4
+    );
+    port (
+      a_in : in bit;
+      sel : in bit_vector(selSize-1 downto 0);
+      a_out : out bit_vector(2**selSize - 1 downto 0)
+    );
+  end component;
+
+  type regfile_type is array(0 to regn-1) of bit_vector(wordSize-1 downto 0);
+
+  constant regn_bits : natural := natural(ceil(log2(real(regn))));
+  signal load_addr: bit_vector((2**regn_bits)-1 downto 0);
+  signal q_addr: regfile_type;
+begin
+  gen_regfile: for i in 0 to regn-2 generate
+    regf: reg 
+      generic map(
+        wordSize => wordSize
+      )
+      port map(
+        clock => clock,
+        reset => reset,
+        load => load_addr(i),
+        d => d, 
+        q => q_addr(i)
+      );
+  end generate gen_regfile;
+
+  d1: demux
+    generic map(
+      selSize => regn_bits
+    )
+    port map(
+      a_in => regWrite, 
+      sel => wr, 
+      a_out => load_addr
+    );
+
+  q_addr(regn-1) <= (others => '0');
+
+  q1 <= q_addr(to_integer(unsigned(rr1)));
+  q2 <= q_addr(to_integer(unsigned(rr2)));
+end regfile_arch;
