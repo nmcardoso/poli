@@ -1,5 +1,8 @@
 -- DEMUX
 
+-- Tentativas:
+-- 01: #20672 (10)
+
 library IEEE;
 use IEEE.numeric_bit.all;
 
