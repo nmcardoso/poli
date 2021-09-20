@@ -9,3 +9,7 @@ regfile:
 	ghdl -a -g --std=08 regfile_tb.vhd
 	ghdl -r --std=08 --ieee=synopsys regfile_tb --wave=regfile.ghw
 
+calc:
+	ghdl -a -g --std=08 calc.vhd
+	ghdl -a -g --std=08 calc_tb.vhd
+	ghdl -r --std=08 calc_tb --wave=calc.ghw
