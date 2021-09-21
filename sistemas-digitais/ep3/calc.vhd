@@ -1,3 +1,27 @@
+-- DEMUX
+
+library IEEE;
+use IEEE.numeric_bit.all;
+
+entity demux is
+  generic (
+    selSize : natural := 4
+  );
+  port (
+    a_in : in bit;
+    sel : in bit_vector(selSize-1 downto 0);
+    a_out : out bit_vector(2**selSize - 1 downto 0)
+  );
+end entity;
+
+architecture demux_arch of demux is
+begin
+  process(sel, a_in)
+  begin
+    a_out <= (others => '0');
+    a_out(to_integer(unsigned(sel))) <= a_in;
+  end process;
+end architecture;
 -- REGFILE
 
 library IEEE;
