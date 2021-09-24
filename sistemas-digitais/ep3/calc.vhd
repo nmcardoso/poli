@@ -142,3 +142,66 @@ begin
   q2 <= q_addr(to_integer(unsigned(rr2)));
 end regfile_arch;
 
+
+-- FULL ADDER 1 BIT
+
+entity fa1 is
+  port (
+    a, b: in bit;
+    c_in: in bit;
+    sum: out bit;
+    c_out: out bit
+  );
+end entity fa1;
+
+architecture fa1_arch of fa1 is
+begin
+  sum <= (a xor b) xor c_in;
+  c_out <= (a and b) or (c_in and a) or (c_in and b);
+end architecture fa1_arch;
+
+
+-- FULL ADDDER
+
+entity fa is
+  generic(
+    size: natural := 16
+  );
+  port(
+    a, b: in bit_vector(size-1 downto 0);
+    c_in: in bit;
+    sum: out bit_vector(size-1 downto 0);
+    c_out: out bit;
+    ov: out bit
+  );
+end entity;
+
+architecture fa_arch of fa is
+  component fa1 is
+    port (
+      a, b: in bit;
+      c_in: in bit;
+      sum: out bit;
+      c_out: out bit
+    );
+  end component;
+
+  signal carry: bit_vector(size downto 0);
+  signal result: bit_vector(size-1 downto 0);
+begin
+  gen_adder: for i in 0 to size-1 generate
+    full_adder: fa1 
+      port map(
+        a => a(i), 
+        b => b(i), 
+        c_in => carry(i), 
+        sum => result(i), 
+        c_out => carry(i+1)
+      );
+  end generate;
+
+  ov <= carry(size-1) xor carry(size);
+  c_out <= carry(size);
+  sum <= result;
+end architecture;
+
