@@ -1,3 +1,7 @@
+-- Tentativas:
+-- 01: 
+
+
 -- DEMUX
 
 library IEEE;
