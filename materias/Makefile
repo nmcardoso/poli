@@ -11,6 +11,9 @@ all:
 svg:
 	dot -Tsvg materias.gv -o materias.svg
 
-
 pdf:
 	dot -Tpdf materias.gv -o materias.pdf
+
+py:
+	python3 main.py
+	dot -Tsvg generated_materias_full.gv -o materias_full.svg

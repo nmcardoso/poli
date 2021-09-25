@@ -10,7 +10,7 @@ digraph g {
 	PSI3214 [label="Laboratório de \n Instrumentação Elétrica", color="blue", fontcolor="blue"];
 	4323102 [label="Física II", color="blue", fontcolor="blue"];
 	PTC3313 [label="Sistemas de Controle", color="blue", fontcolor="blue"];
-  PME3332 [label="Mecânica dos Flúidos", color="blue", fontcolor="blue"];
+  PME3332 [label="Mecânica dos Flúidos"];
 	PCS3438 [label="Inteligência Artificial"];
 	PME3100 [label="Mecânica", color="blue", fontcolor="blue"];
 	
