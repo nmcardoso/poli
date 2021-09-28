@@ -147,69 +147,6 @@ begin
 end regfile_arch;
 
 
--- FULL ADDER 1 BIT
-
-entity fa1 is
-  port (
-    a, b: in bit;
-    c_in: in bit;
-    sum: out bit;
-    c_out: out bit
-  );
-end entity fa1;
-
-architecture fa1_arch of fa1 is
-begin
-  sum <= (a xor b) xor c_in;
-  c_out <= (a and b) or (c_in and a) or (c_in and b);
-end architecture fa1_arch;
-
-
--- FULL ADDDER
-
-entity fa is
-  generic(
-    size: natural := 16
-  );
-  port(
-    a, b: in bit_vector(size-1 downto 0);
-    c_in: in bit;
-    sum: out bit_vector(size-1 downto 0);
-    c_out: out bit;
-    ov: out bit
-  );
-end entity;
-
-architecture fa_arch of fa is
-  component fa1 is
-    port (
-      a, b: in bit;
-      c_in: in bit;
-      sum: out bit;
-      c_out: out bit
-    );
-  end component;
-
-  signal carry: bit_vector(size downto 0);
-  signal result: bit_vector(size-1 downto 0);
-begin
-  gen_adder: for i in 0 to size-1 generate
-    full_adder: fa1 
-      port map(
-        a => a(i), 
-        b => b(i), 
-        c_in => carry(i), 
-        sum => result(i), 
-        c_out => carry(i+1)
-      );
-  end generate;
-
-  ov <= carry(size-1) xor carry(size);
-  c_out <= carry(size);
-  sum <= result;
-end architecture;
-
-
 -- CALCULATOR
 
 library IEEE;
@@ -242,24 +179,9 @@ architecture calc_arch of calc is
     );
   end component;
 
-  component fa is
-    generic(
-      size: natural := 16
-    );
-    port(
-      a, b: in bit_vector(size-1 downto 0);
-      c_in: in bit;
-      sum: out bit_vector(size-1 downto 0);
-      c_out: out bit;
-      ov: out bit
-    );
-  end component;
-
-    signal ov_flag : bit;
-    signal opcode: bit_vector(1 downto 0);
-    signal oper1, oper2, dest: bit_vector(4 downto 0);
-    signal result, oper1_reg, oper2_reg: bit_vector(15 downto 0);
-    signal imediate_or_reg2: bit_vector(15 downto 0);
+  signal opcode: bit_vector(1 downto 0);
+  signal oper1, oper2, dest: bit_vector(4 downto 0);
+  signal result, oper1_reg, oper2_reg: bit_vector(15 downto 0);
 begin
     reg_bank: regfile   
       generic map(
@@ -278,39 +200,16 @@ begin
         q2 => oper2_reg
       );
 
-    -- adder: fa 
-    --   generic map(
-    --     size => 16
-    --   )
-    --   port map(
-    --     a => oper1_reg, 
-    --     b => imediate_or_reg2, 
-    --     c_in => '0', 
-    --     sum => result, 
-    --     c_out => open, 
-    --     ov => ov_flag
-    --   );
-
     opcode <= instruction(16 downto 15);
     oper2 <= instruction(14 downto 10);
     oper1 <= instruction(9 downto 5);
     dest <= instruction(4 downto 0);
 
     with opcode select result <= 
-      -- bit_vector(to_signed(to_integer(signed(oper1_reg), 16) + to_integer(signed(oper2_reg), 16), 16)) when "00",
       bit_vector(resize(signed(oper1_reg), 16) + resize(signed(oper2_reg), 16)) when "00",
       bit_vector(resize(signed(oper1_reg), 16) + resize(signed(oper2), 16)) when "01",
       bit_vector(resize(signed(oper1_reg), 16) - resize(signed(oper2_reg), 16)) when "10",
       bit_vector(resize(signed(oper1_reg), 16) - resize(signed(oper2), 16)) when "11";
-
-    -- imediate_or_reg2 <=
-    --   bit_vector(to_unsigned(to_integer(unsigned(oper2)), 16)) when (opcode = "00" and oper2(4) = '0') or (opcode = "11" and oper2(4) = '1') else
-    --   bit_vector(resize(signed(oper2), 16)) when (opcode = "01" and oper2(4) = '0') or (opcode = "")
-
-    -- with opcode select imediate_or_reg2 <=  
-    --   bit_vector(to_unsigned(to_integer(unsigned(oper2)), 16)) when "00",
-    --   bit_vector(resize(signed(oper2), 16)) when "01",
-    --   bit_vector(-signed(resize(signed(oper2), 16))) when others;
 
     q1 <= oper1_reg;
 end calc_arch;
