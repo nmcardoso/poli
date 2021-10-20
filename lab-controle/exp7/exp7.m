@@ -12,13 +12,17 @@ n = 1 / 3;
 phi = 1.9; % atrito de Coulomb
 tr = [0.3 0.5 1]; % tempos de subida (exp. 7)
 Kcs = [0.5 1 1.5]; % Kcs (exp. 7)
+KpNL = 0;
+KpL = 0;
 Kc = Kcs(2);
 KKt = K*Kt;
 KtL = KKt / K; % Kt linear
 KtNL = KKt / KNL; % Kt não-linear
-Kpi = 0.661 ./ tr;
+Kpi = 0.661 / tr(1);
 U = Kp * pi / 2; % amplitude do degrau, equivalente a 90deg em volts
 
+item_e = false;
+item_f = true;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,38 +30,52 @@ U = Kp * pi / 2; % amplitude do degrau, equivalente a 90deg em volts
 %%% Plot do lugar geométrico das raízes para os três casos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Ti = T - 0.08;
-Gma = tf([Kpi(1)*KKt*Ti Kpi(1)*KKt], [T*Ti Ti 0]);
-figure;
-rlocus(Gma)
-title('LGR (T > Ti)');
-xlim([-12 1]);
+if item_e
+  Ti = T - 0.08;
+  Gma = tf([Kpi*KKt*Ti Kpi*KKt], [T*Ti Ti 0]);
+  figure;
+  rlocus(Gma)
+  title('LGR (T > Ti)');
+  xlim([-12 1]);
 
-Ti = T + 0.08;
-Gma = tf([Kpi(1)*KKt*Ti Kpi(1)*KKt], [T*Ti Ti 0]);
-figure;
-rlocus(Gma)
-title('LGR (T < Ti)');
-xlim([-12 1]);
+  Ti = T + 0.08;
+  Gma = tf([Kpi*KKt*Ti Kpi*KKt], [T*Ti Ti 0]);
+  figure;
+  rlocus(Gma)
+  title('LGR (T < Ti)');
+  xlim([-12 1]);
 
-Ti = T;
-Gma = tf([Kpi(1)*KKt], [T 0]);
-figure;
-rlocus(Gma)
-title('LGR (T = Ti)');
-xlim([-12 1]);
+  Ti = T;
+  Gma = tf([Kpi*KKt], [T 0]);
+  figure;
+  rlocus(Gma)
+  title('LGR (T = Ti)');
+  xlim([-12 1]);
+end
 
 
-% Resposta ao degrau
-% opt = stepDataOptions('StepAmplitude', U);
-% Wn = sqrt((Kc * K * Kp * n^2) / T);
-% xi = 1 / (2 * Wn * T);
-% Mp = exp((-pi * xi) / sqrt(1 - xi^2));
-% tp = pi / (Wn * sqrt(1 - xi^2));
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Item (f)
+%%% Resposta ao degrau e Vm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% % Gma = tf(Kc * K * Kp * n^2, [T 1 0]);
-% Gmf = tf(Wn^2, [1 2*xi*Wn Wn^2]);
-% step(Gmf, opt);
+if item_f
+  sim('modelo', 10);
+  figure;
+  hold on;
+  plot(VmNL)
+  plot(VmL)
+  hold off;
+  % opt = stepDataOptions('StepAmplitude', U);
+  % Wn = sqrt((Kc * K * Kp * n^2) / T);
+  % xi = 1 / (2 * Wn * T);
+  % Mp = exp((-pi * xi) / sqrt(1 - xi^2));
+  % tp = pi / (Wn * sqrt(1 - xi^2));
+
+  % Gma = tf(Kc * K * Kp * n^2, [T 1 0]);
+  % Gmf = tf(Wn^2, [1 2*xi*Wn Wn^2]);
+  % step(Gma, opt);
+end
 
 % data = ['CtrlPos_P_Kc05.mat' 'CtrlPos_P_Kc10.mat' 'CtrlPos_P_Kc15.mat'];
 % Controle de posição: resposta ao degrau de 90deg
