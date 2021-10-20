@@ -1,26 +1,7 @@
-% KNL = 59.92;
-% KKt = 0.96;
-% KtL = KKt / K;
-% KtNL = KKt / KNL;
-% Kp = 1.61;
-% T = 0.2;
-% U = Kp * pi / 2;
-% phi = 1.9;
-% n = 1/3;
-% opt = stepDataOptions('StepAmplitude', U);
-% Kcs = [0.5, 1, 1.5];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Parâmetros de entrada do simulink
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Kc = 1;
-% Wn = sqrt((Kc * K * Kp * n^2) / T);
-% xi = 1 / (2 * Wn * T);
-% Mp = exp((-pi * xi) / sqrt(1 - xi^2));
-% tp = pi / (Wn * sqrt(1 - xi^2));
-
-% Gma = tf(Kc * K * Kp * n^2, [T 1 0]);
-% Gmf = tf(Wn^2, [1 2*xi*Wn Wn^2]);
-
-
-% Parâmetros de entrada do simulink
 K = 54.93; % K (exp. 2)
 Kt = 0.0169; % Kt (exp. 2)
 T = 0.28; % T (exp. 2)
@@ -39,7 +20,12 @@ Kpi = 0.661 ./ tr;
 U = Kp * pi / 2; % amplitude do degrau, equivalente a 90deg em volts
 
 
-% Plot do lugar geométrico das raízes para os três casos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Item (e)
+%%% Plot do lugar geométrico das raízes para os três casos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Ti = T - 0.08;
 Gma = tf([Kpi(1)*KKt*Ti Kpi(1)*KKt], [T*Ti Ti 0]);
 figure;
