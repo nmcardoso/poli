@@ -12,8 +12,8 @@
 <!-- PME3344 -->
 <g id="node1" class="node">
 <title>PME3344</title>
-<polygon fill="none" stroke="blue" points="191,-259 0,-259 0,-223 191,-223 191,-259"/>
-<text text-anchor="middle" x="95.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="blue">Termodinâmica Aplicada</text>
+<polygon fill="none" stroke="black" points="191,-259 0,-259 0,-223 191,-223 191,-259"/>
+<text text-anchor="middle" x="95.5" y="-237.3" font-family="Times,serif" font-size="14.00">Termodinâmica Aplicada</text>
 </g>
 <!-- MAT2456 -->
 <g id="node2" class="node">
@@ -73,14 +73,14 @@
 <!-- PTC3313&#45;&gt;PTC3312 -->
 <g id="edge8" class="edge">
 <title>PTC3313&#45;&gt;PTC3312</title>
-<path fill="none" stroke="black" d="M675.5,-222.94C675.5,-214.81 675.5,-204.88 675.5,-195.7"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M675.5,-222.94C675.5,-214.81 675.5,-204.88 675.5,-195.7"/>
 <polygon fill="black" stroke="black" points="679,-195.44 675.5,-185.44 672,-195.44 679,-195.44"/>
 </g>
 <!-- PME3332 -->
 <g id="node7" class="node">
 <title>PME3332</title>
-<polygon fill="none" stroke="blue" points="948.5,-259 778.5,-259 778.5,-223 948.5,-223 948.5,-259"/>
-<text text-anchor="middle" x="863.5" y="-237.3" font-family="Times,serif" font-size="14.00" fill="blue">Mecânica dos Flúidos</text>
+<polygon fill="none" stroke="black" points="948.5,-259 778.5,-259 778.5,-223 948.5,-223 948.5,-259"/>
+<text text-anchor="middle" x="863.5" y="-237.3" font-family="Times,serif" font-size="14.00">Mecânica dos Flúidos</text>
 </g>
 <!-- PCS3438 -->
 <g id="node8" class="node">
