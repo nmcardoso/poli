@@ -2,18 +2,16 @@
 
 ## Relatório do Projeto
 
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-01.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-02.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-03.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-04.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-05.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-06.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-07.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-08.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-09.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-10.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-11.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-12.png" width="100%" /></p><hr />
-<p align="center"><img src="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/preview/projeto-13.png" width="100%" /></p><hr />
-
-<a href="https://raw.githubusercontent.com/nmcardoso/psi3212-reports/master/projeto/output/main.pdf">Arquivo PDF</a>
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-01.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-02.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-03.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-04.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-05.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-06.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-07.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-08.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-09.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-10.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-11.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-12.png" width="100%" /><br />
+<img src="https://nmcardoso.github.io/pdf-preview/poli/main/lab-circuitos-eletricos/projeto/output/main-13.png" width="100%" /><br />
