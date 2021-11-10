@@ -12,3 +12,8 @@ alucontrol:
 	ghdl -a --std=08 alucontrol.vhd
 	ghdl -a --std=08 alucontrol_tb.vhd
 	ghdl -r --std=08 alucontrol_tb --wave=alucontrol.ghw
+
+controlunit:
+	ghdl -a --std=08 controlunit.vhd
+	ghdl -a --std=08 controlunit_tb.vhd
+	ghdl -r --std=08 controlunit_tb --wave=controlunit.ghw
