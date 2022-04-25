@@ -32,3 +32,25 @@ def decomp_lu(
     l[i] = a[i] / u[i-1]
     u[i] = b[i] - l[i] * c[i-1]
   return l, u
+
+
+def solve_tridiagonal(
+  l: np.ndarray, 
+  u: np.ndarray, 
+  c: np.ndarray, 
+  d: np.ndarray
+) -> np.ndarray:
+  n = len(l)
+  y = np.zeros(shape=(n,))
+  x = np.zeros(shape=(n,))
+  # Ly = d
+  y[0] = d[0]
+  for i in range(1, n):
+    y[i] = d[i] - l[i]*y[i-1]
+  
+  # Ux = y
+  x[-1] = y[-1]/u[-1]
+  for i in range(n-2, -1, -1):
+    x[i] = (y[i] - c[i] * x[i+1]) / u[i]
+
+  return x
