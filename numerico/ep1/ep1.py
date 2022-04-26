@@ -54,3 +54,35 @@ def solve_tridiagonal(
     x[i] = (y[i] - c[i] * x[i+1]) / u[i]
 
   return x
+
+
+def solve_cyclic(
+  a: np.ndarray, 
+  b: np.ndarray, 
+  c: np.ndarray, 
+  d: np.ndarray
+) -> np.ndarray:
+  n = len(a)
+
+  T_a = np.copy(a[:-1])
+  T_b = np.copy(b[:-1])
+  T_c = np.copy(c[:-1])
+  T_d = np.copy(d[:-1])
+  T_a[0] = 0
+  T_c[-1] = 0
+
+  l, u = decomp_lu(T_a, T_b, T_c)
+  y = solve_tridiagonal(l, u, T_c, T_d)
+
+  v = np.zeros(shape=(n-1,))
+  v[0] = a[0]
+  v[-1] = c[-2]
+
+  z = solve_tridiagonal(l, u, T_c, v)
+
+  x = np.zeros(shape=(n,))
+
+  x[-1] = (d[-1] - c[-1]*y[0] - a[-1]*y[-1]) / (b[-1] - c[-1]*z[0] - a[-1]*z[-1])
+  x[:-1] = y - x[-1]*z
+  return x
+
