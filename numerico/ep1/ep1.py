@@ -86,3 +86,42 @@ def solve_cyclic(
   x[:-1] = y - x[-1]*z
   return x
 
+
+def print_table(
+  a: np.ndarray, 
+  b: np.ndarray, 
+  c: np.ndarray, 
+  d: np.ndarray, 
+  x: np.ndarray, 
+  width: int, 
+  csv: bool = False
+):
+  n = len(a)
+  if csv:
+    print('i,a,b,c,d,x')
+    for i in range(n):
+      print(
+        '{i},{a:.{w}f},{b:.{w}f},{c:.{w}f},{d:.{w}f},{x:.{w}f}'.format(
+          i=i+1,
+          a=a[i],
+          b=b[i],
+          c=c[i],
+          d=d[i],
+          x=x[i],
+          w=width,
+        )
+      )
+  else:
+    for i in range(n):
+      print(
+        'i={i}\ta={a:.{w}f}\tb={b:.{w}f}\tc={c:.{w}f}\td={d:.{w}f}\tx={x:.{w}f}'.format(
+          i=i+1,
+          a=a[i],
+          b=b[i],
+          c=c[i],
+          d=d[i],
+          x=x[i],
+          w=width,
+        )
+      )
+
