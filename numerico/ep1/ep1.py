@@ -125,3 +125,76 @@ def print_table(
         )
       )
 
+
+def cli():
+  """
+  Interface de linha de comando do programa
+  """
+  parser = argparse.ArgumentParser(
+    description='EP01: Decomposição LU para Matrizes Tridiagonais Cíclicas'
+  )
+
+  parser.add_argument(
+    '-a', 
+    action='store_true', 
+    help='Testa a solução tridiagonal acíclica (não cíclica).'
+  )
+  parser.add_argument(
+    '-c', 
+    action='store_true', 
+    help='Testa a solução tridiagonal cíclica.'
+  )
+  parser.add_argument(
+    '-n', 
+    action='store', 
+    help='Define a dimensão `n` da matriz quadrada `A` do sistema `Ax = d`. Padrão: 20.', 
+    type=int,  
+    default=20
+  )
+  parser.add_argument(
+    '-d', 
+    action='store', 
+    help='Define a quantidade de dígitos decimais da saída do programa. Padrão: 4.', 
+    type=int, 
+    default=4
+  )
+  parser.add_argument(
+    '--csv', 
+    action='store_true', 
+    help='Exibe o resultado no formato csv'
+  )
+
+  def print_legend():
+    print('\nLegenda:')
+    print('i: índice')
+    print('a: subdiagonal (abaixo da diagonal principal)')
+    print('b: diagonal principal') 
+    print('c: supradiagonal (acima da diagonal principal)') 
+    print('d: termos independentes')
+    print('x: solução')
+
+  args = parser.parse_args()
+
+  if not args.a and not args.c:
+    print('Escolha um tipo de sistema -a (não cíclico) ou -c (cíclico)\n')
+    parser.print_help()
+  if args.a and args.c:
+    print('Os argumentos -a e -c não podem ser usados simultaneamente.\nFaça cada teste separadamente.\n')
+  elif args.a:  
+    print(f'Sistema tridiagonal acíclico com n={args.n} e {args.d} dígitos decimais:\n')
+    a, b, c, d = get_values(args.n, cyclic=False)
+    l, u = decomp_lu(a, b, c)
+    x = solve_tridiagonal(l, u, c, d)
+    print_table(a, b, c, d, x, args.d, csv=args.csv)
+    print_legend()
+  elif args.c:
+    print(f'Sistema tridiagonal cíclico com n={args.n} e {args.d} dígitos decimais:\n')
+    a, b, c, d = get_values(args.n, cyclic=True)
+    x = solve_cyclic(a, b, c, d)
+    print_table(a, b, c, d, x, args.d, csv=args.csv)
+    print_legend()
+
+
+
+if __name__ == '__main__':
+  cli()
