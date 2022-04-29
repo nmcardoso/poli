@@ -1,3 +1,25 @@
+# -*- coding: utf-8 -*-
+"""
+EP1: Exercício Programa 01.
+
+
+Authors
+-------
+Natanael Magalhães Cardoso
+Valber Marcelino Filho
+
+
+Warning
+-------
+Este arquivo está codificado em UTF-8 (codificação padrão do Linux). Caso tenha
+problemas de vizualização de alguns caracteres (especialmente acentuações),
+reabra este arquivo indicando a codificação correta ao editor. Embora alguns
+editores modernos, como VSCode, identifiquem automaticamente a codigficação do
+arquivo, este problema pode ocorrer no Windows, já que ele usa, por padrão, 
+a codificação Windows-125x.
+"""
+
+
 from typing import Tuple
 import numpy as np
 import argparse
@@ -7,6 +29,25 @@ def get_values(
   n: int, 
   cyclic: bool = False
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+  """
+  Gera os valores de teste do programa a partir da expressão de sequências
+  pré-definidas. Esses valores são os elementos da matriz A tridiagonal 
+  cíclica ou acíclica do sistema Ax = d.
+
+  Parameters
+  ----------
+  n: int
+    dimensão da matriz quadrada A, e, consequentemente, dimensão dos 
+    vetores a, b, c e d
+  cyclic: bool
+    parâmetro que indica se a função deve retornar uma matriz cíclia ou não
+
+  Returns
+  -------
+  Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+    vetores a, b e c que definem a matriz A e o vetor d que define a matriz
+    coluna de termos independentes
+  """
   a = np.array([(2*i - 1) / (4*i) for i in range(1, n)] + [(2*n - 1)/(2*n)])
   b = np.array([2]*n)
   c = 1. - a
@@ -23,6 +64,23 @@ def decomp_lu(
   b: np.ndarray, 
   c: np.ndarray
 ) -> Tuple[np.ndarray, np.ndarray]:
+  """
+  Decomposição LU da matriz tridiagonal A nxn definida pelos vetores a, b e c
+
+  Parameters
+  ----------
+  a: numpy.ndarray
+    vetor de dimensão n com os elementos da subdiagonal de A
+  b: numpy.ndarray
+    vetor de dimensão n com os elementos da diagonal primária de A
+  c: numpy.ndarray
+    vetor de dimensão n com os elementos da supradiagonal de A
+
+  Returns
+  -------
+  Tuple[numpy.ndarray, numpy.ndarray]
+    tupla com os vetores resultantes da decomposição LU.
+  """
   n = len(a)
   u = np.zeros(shape=(n,))
   l = np.zeros(shape=(n,))
@@ -40,6 +98,26 @@ def solve_tridiagonal(
   c: np.ndarray, 
   d: np.ndarray
 ) -> np.ndarray:
+  """
+  Algorítmo de solução de um sistema Ax = d, onde A é uma matriz tridiagonal nxn,
+  a partir da decomposição LU de A.
+
+  Parameters
+  ----------
+  l: numpy.ndarray
+    vetor de dimensão n com os elementos de L da decomposição LU
+  u: numpy.ndarray
+    vetor de dimensão n com os elementos de U da decomposição LU
+  c: numpy.ndarray
+    vetor de dimensão n com os elementos da supradiagonal de A
+  d: numpy.ndarray
+    vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
+
+  Returns
+  -------
+  numpy.ndarray
+    vetor de dimensão n com os valores das incógnitas do sistema
+  """
   n = len(l)
   y = np.zeros(shape=(n,))
   x = np.zeros(shape=(n,))
@@ -62,6 +140,26 @@ def solve_cyclic(
   c: np.ndarray, 
   d: np.ndarray
 ) -> np.ndarray:
+  """
+  Algorítmo de solução de um sistema Ax = d, onde A é uma matriz tridiagonal
+  nxn cíclica com a[0] != 0 e c[-1] != 0.
+
+  Parameters
+  ----------
+  a: numpy.ndarray
+    vetor de dimensão n com os elementos da subdiagonal de A
+  b: numpy.ndarray
+    vetor de dimensão n com os elementos da diagonal primária de A
+  c: numpy.ndarray
+    vetor de dimensão n com os elementos da supradiagonal de A
+  d: numpy.ndarray
+    vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
+
+  Returns
+  -------
+  numpy.ndarray
+    vetor de dimensão n com os valores das incógnitas do sistema
+  """
   n = len(a)
 
   T_a = np.copy(a[:-1])
@@ -96,6 +194,26 @@ def print_table(
   width: int, 
   csv: bool = False
 ):
+  """
+  Exibe os vetores do sistema de forma tabular
+
+  Parameters
+  ----------
+  a: numpy.ndarray
+    vetor de dimensão n com os elementos da subdiagonal inferior de A
+  b: numpy.ndarray
+    vetor de dimensão n com os elementos da diagonal primária de A
+  c: numpy.ndarray
+    vetor de dimensão n com os elementos da supradiagonal superior de A
+  d: numpy.ndarray
+    vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
+  x: numpy.ndarray
+    vetor de dimensão n com os valores das incógnitas do sistema
+  width: int
+    número de dígitos decimais a serem impressos
+  csv: bool
+    True, se a tabela deve ser impressa no formato csv; False, caso contrário.
+  """
   n = len(a)
   if csv:
     print('i,a,b,c,d,x')
