@@ -1,0 +1,54 @@
+Exercício Programa 01
+=====================
+
+
+Este programa implementa uma inferface de linha de comando (CLI) e executa de
+modo não interativo, isso significa que o programa não pede a inserção de
+nenhuma entrada durante sua execução. Todas as entradas devem ser colocadas
+como argumentos na sua chamada.
+
+
+Descrição dos argumentos
+------------------------
+
+-h [Opcional]: Exibe uma mensagem de ajuda com breve descrição dos argumentos do programa
+
+-a [Obrigatório*]: Configura o programa para resolver um sistema tridiagonal não-cíclico 
+                   (ou acíclico). Isto é, a matriz dos coeficientes carregada possui 
+                   a1 = 0 e cn = 0 e o algorítmo usado para resolver este sistema é 
+                   o de matrizes tridiagonais não cíclicas.
+
+-c [Obrigatório*]: Configura o programa para resolver um sistema tridiagonal cíclico. 
+                   A matriz dos coeficientes gerada possui a1 != 0 e cn != 0 e o 
+                   algorítmo usado é o que considera matrizes cíclicas. 
+
+-n <N> [Opcional]: Este argumento possui um parâmetro N que deve ser um número inteiro
+                   que representa a dimensão N x N da matriz dos coeficientes. 
+                   Valor padrão: 20
+
+-d <D> [Opcional]: Este argumento possui um parâmetro D que configura o número de 
+                   dígitos decimais a serem mostrados na resposta do programa. 
+                   Valor padrão: 4
+
+--csv [Opcional]: Configura a saída do programa para ser impressa no formato CSV. 
+                  Este parâmetro foi criado por propósito de desenvolvimento, 
+                  mas pode ser usado pelo usuário final. 
+                  Valor padrão: False
+                  
+*: Os argumentos -a e -c são obrigatórios, mas não podem ser usado em conjunto. 
+   Uma chamada do programa deve ter o parâmetro -a ou o parâmetro -c, 
+   mas não ambos e nem a ausência de ambos.
+
+
+Exemplos de chamadas
+--------------------
+
+(1) para resolver um sistema não cíclico, com 40 incógnitas e mostrando 3 casas 
+decimais na resposta, execute:
+python3 ep1.py -a -n 40 -d 3
+
+(2) para resolver um sistema cíclico, com 80 incógnitas e mostrando 4 casas 
+decimais na resposta, execute:
+python3 ep1.py -c -n 80 -d 4
+
+Mais exemplos no relatório.
