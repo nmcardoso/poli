@@ -1,0 +1,68 @@
+\documentclass[a4, 12pt]{lab-report}
+
+\usepackage{mathpazo} % MathPazo
+% \usepackage{times} % Times New Roman
+% \usepackage{helvet} % Helvetica
+% \renewcommand{\familydefault}{\sfdefault}
+\usepackage{lipsum}
+\usepackage{karnaugh-map}
+
+\newcommand{\n}[1]{\overline{#1}}
+
+
+% Informações da capa
+% ~~> Mudar a cada experimento <~~
+\setExpNumber{2}
+\setExpTitle{Mapas de Carnô}
+\setDate{10/03/2022}
+
+% Não precisa mudar
+\setTeacher{Glauber de Bona}
+\setBancada{B3}
+\setTurma{10}
+\setMemberOne{Natanael Magalhães Cardoso}{8914122}
+\setMemberTwo{Renato Naves Fleury}{11805269}
+
+
+% Início do texto
+\begin{document}
+\frontpage
+
+\section{Introdução}
+$$
+  \overline{\overline{X} + \overline{Y}}
+$$
+\lipsum{1}
+
+\section{Objetivo}
+\lipsum{1}
+
+\section{Planejamento}
+\lipsum{1}
+
+
+
+\begin{figure}
+\centering
+\begin{karnaugh-map}[4][4][1][$B_1B_0$][$A_1A_0$]
+\minterms{0,2,3,6,7,10,12,13,15}
+\autoterms[0]
+\implicant{3}{6}
+\implicant{12}{13}
+\implicant{7}{15}
+\implicantedge{0}{0}{2}{2}
+\implicantedge{2}{2}{10}{10}
+\end{karnaugh-map}
+\caption{Mapa de Karnaugh}
+\end{figure}
+
+\begin{equation}
+  Z = \n{A_1} \cdot \n{A_0} \cdot \n{B_0} \;+\;
+  \n{A_1} \cdot B_1 \;+\;
+  A_0 \cdot B_1 \cdot B_0 \;+\;
+  A_1 \cdot A_0 \cdot B_1 \;+\;
+  \n{A_0} \cdot B_1 \cdot \n{B_0}
+\end{equation}
+
+
+\end{document}
