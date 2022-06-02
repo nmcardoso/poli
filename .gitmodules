@@ -1,0 +1,3 @@
+[submodule "lab-instrumentacao"]
+	path = lab-instrumentacao
+	url = git@github.com:nmcardoso/lab-instrumentacao.git
