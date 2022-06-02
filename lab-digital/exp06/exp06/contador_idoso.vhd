@@ -20,16 +20,10 @@ begin
     if zera='1' then
       IQ <= 0;
     elsif clock'event and clock='1' then
-      conta_out <= '0';
-      direcao_out <= '0';
       if conta='1' then
         if (direcao='1' and IQ<15) then
-          conta_out <= conta;
-          direcao_out <= direcao;
           IQ <= IQ + 1;
         elsif (direcao='0' and IQ>0) then
-          conta_out <= conta;
-          direcao_out <= direcao;
           IQ <= IQ - 1;
         end if;
       else
@@ -37,6 +31,13 @@ begin
       end if;
     end if;
   end process;
+
+  conta_out <= 
+    conta when conta='1' and ((direcao='1' and IQ<15) or (direcao='0' and IQ>0)) else
+    '0';
+  direcao_out <= 
+    direcao when conta='1' and ((direcao='1' and IQ<15) or (direcao='0' and IQ>0)) else
+    '0';
 
   contagem <= std_logic_vector(to_unsigned(IQ, contagem'length));
 end contador_idoso_arch;

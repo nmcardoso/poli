@@ -24,6 +24,7 @@ quit -f
 
 
 
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -42,6 +43,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 
 
 
@@ -77,7 +79,7 @@ HEADER
 	VERSION = 1;
 	TIME_UNIT = ns;
 	DATA_OFFSET = 0.0;
-	DATA_DURATION = 500.0;
+	DATA_DURATION = 300.0;
 	SIMULATION_TIME = 0.0;
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 10.0;
@@ -349,7 +351,7 @@ TRANSITION_LIST("cheio")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -361,7 +363,7 @@ TRANSITION_LIST("clock")
 		LEVEL 1 FOR 5.0;
 		NODE
 		{
-			REPEAT = 49;
+			REPEAT = 29;
 			LEVEL 0 FOR 5.0;
 			LEVEL 1 FOR 5.0;
 		}
@@ -382,7 +384,7 @@ TRANSITION_LIST("conta")
 		LEVEL 1 FOR 10.0;
 		LEVEL 0 FOR 60.0;
 		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 220.0;
+		LEVEL 0 FOR 20.0;
 	}
 }
 
@@ -397,7 +399,7 @@ TRANSITION_LIST("conta_idoso")
 		LEVEL 1 FOR 20.0;
 		LEVEL 0 FOR 20.0;
 		LEVEL 1 FOR 70.0;
-		LEVEL 0 FOR 300.0;
+		LEVEL 0 FOR 100.0;
 	}
 }
 
@@ -406,7 +408,7 @@ TRANSITION_LIST("contagem[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -415,7 +417,7 @@ TRANSITION_LIST("contagem[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -424,7 +426,7 @@ TRANSITION_LIST("contagem[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -433,7 +435,7 @@ TRANSITION_LIST("contagem[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -442,7 +444,7 @@ TRANSITION_LIST("contagem_idoso[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -451,7 +453,7 @@ TRANSITION_LIST("contagem_idoso[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -460,7 +462,7 @@ TRANSITION_LIST("contagem_idoso[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -469,7 +471,7 @@ TRANSITION_LIST("contagem_idoso[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -483,7 +485,7 @@ TRANSITION_LIST("dir")
 		LEVEL 1 FOR 20.0;
 		LEVEL 0 FOR 10.0;
 		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 400.0;
+		LEVEL 0 FOR 200.0;
 	}
 }
 
@@ -498,7 +500,7 @@ TRANSITION_LIST("dir_idoso")
 		LEVEL 1 FOR 30.0;
 		LEVEL 0 FOR 30.0;
 		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 390.0;
+		LEVEL 0 FOR 190.0;
 	}
 }
 
@@ -507,7 +509,7 @@ TRANSITION_LIST("vagas[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 500.0;
+		LEVEL 0 FOR 300.0;
 	}
 }
 
@@ -516,7 +518,7 @@ TRANSITION_LIST("vagas[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 500.0;
+		LEVEL 1 FOR 300.0;
 	}
 }
 
@@ -525,7 +527,7 @@ TRANSITION_LIST("vagas[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 500.0;
+		LEVEL 0 FOR 300.0;
 	}
 }
 
@@ -534,7 +536,7 @@ TRANSITION_LIST("vagas[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 500.0;
+		LEVEL 1 FOR 300.0;
 	}
 }
 
@@ -543,7 +545,7 @@ TRANSITION_LIST("zera")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 500.0;
+		LEVEL 0 FOR 300.0;
 	}
 }
 
@@ -552,7 +554,7 @@ TRANSITION_LIST("uc_dir_idoso")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -561,7 +563,7 @@ TRANSITION_LIST("uc_dir")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -570,7 +572,7 @@ TRANSITION_LIST("uc_conta_idoso")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
@@ -579,7 +581,7 @@ TRANSITION_LIST("uc_conta")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 500.0;
+		LEVEL X FOR 300.0;
 	}
 }
 
