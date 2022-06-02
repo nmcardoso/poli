@@ -1,3 +1,23 @@
+# -*- coding: utf-8 -*-
+"""
+EP2: Exercício Programa 02.
+
+
+Authors
+-------
+Natanael Magalhães Cardoso
+Valber Marcelino Filho
+
+
+Warning
+-------
+Este arquivo está codificado em UTF-8 (codificação padrão do Linux). Caso tenha
+problemas de vizualização de alguns caracteres (especialmente acentuações),
+reabra este arquivo indicando a codificação correta ao editor. Embora alguns
+editores modernos, como VSCode, identifiquem automaticamente a codigficação do
+arquivo, este problema pode ocorrer no Windows, já que ele usa, por padrão, 
+a codificação Windows-125x.
+"""
 
 
 from typing import Callable, Tuple, Union
@@ -49,8 +69,29 @@ DATA = {
     ]
   }
 }
+"""
+Dicionário de dados contendo valores positivos das raízes e 
+os respectivos coeficientes do polinômio de Legendre.
+"""
+
 
 def get_pairs(n: int) -> Tuple[np.ndarray, np.ndarray]:
+  """
+  Acessa o dicionário de dados, calcula os valores negativos e retorna
+  uma quantidade n de raízes e coeficientes do polinômio de Legendre
+
+  Parameters
+  ----------
+  n: int
+    quantidades de pares (raiz, coeficiente) do polinômio de Legendre 
+    a serem retornados
+
+  Returns
+  -------
+  Tuple[np.ndarray, np.ndarray]
+    Uma tupla contendo um array de raízes e outro de coeficientes do
+    polinômio de Legendre, nesta ordem.
+  """
   x = np.array(DATA[n]['x'])
   w = np.array(DATA[n]['w'])
   x = np.concatenate((-x[::-1], x))
@@ -66,6 +107,39 @@ def double_gauss_quadrature(
   d: Union[Callable, float],
   n: int = 10, 
 ) -> float:
+  """
+  Calcula a aproximação da integral dupla em uma região qualquer
+  da função f, sendo a e b os limites da integral mais externa e 
+  c e d os limites da integral mais interna. O cálculo é feito 
+  usando quadratura gaussiana com n nós.
+
+  Parameters
+  ----------
+  f: Callable
+    uma função de duas variáveis a ser integrada
+
+  a: float
+    limite inferior da integral mais externa
+
+  b: float
+    limite superior da integral mais externa
+
+  c: Callable or float
+    limite inferior da integral mais interna
+
+  d: Callable or float
+    limite superior da integral mais interna
+
+  n: int
+    número de nós e pesos a serem usados (raízes e coeficinetes do
+    polinômio de Legendre)
+
+  Returns
+  -------
+  float
+    aproximação da integral da função f nos limites a, b, c, d usando
+    quadratura gaussiana com n nós.
+  """
   nodes, weights = get_pairs(n)
   g1 = (b - a) / 2
   g2 = (b + a) / 2
