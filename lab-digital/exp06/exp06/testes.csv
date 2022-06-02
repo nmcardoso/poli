@@ -1,5 +1,5 @@
-clock,zera,vagas,conta\_vagas,direcao\_vagas,conta\_idoso,direcao\_idoso,contagem\_vagas,contagem\_idoso,cheio
-$\times$,1,$\times$,$\times$,$\times$,000,0
+clock,zera,vagas,conta-vagas,direcao-vagas,conta-idoso,direcao-idoso,contagem-vagas,contagem-idoso,cheio
+$\times$,1,$\times$,$\times$,$\times$,$\times$,$\times$,000,000,0
 $\uparrow$,0,110,1,1,0,0,001,000,0
 $\uparrow$,0,110,1,1,0,0,010,000,0
 $\uparrow$,0,110,1,1,0,0,011,000,0
