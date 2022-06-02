@@ -1,0 +1,15 @@
+clock,zera,vagas,conta\_vagas,direcao\_vagas,conta\_idoso,direcao\_idoso,contagem\_vagas,contagem\_idoso,cheio
+$\times$,1,$\times$,$\times$,$\times$,000,0
+$\uparrow$,0,110,1,1,0,0,001,000,0
+$\uparrow$,0,110,1,1,0,0,010,000,0
+$\uparrow$,0,110,1,1,0,0,011,000,0
+$\uparrow$,0,110,0,0,1,1,100,001,0
+$\uparrow$,0,110,0,0,1,1,101,010,0
+$\uparrow$,0,110,1,1,0,0,110,010,1
+$\uparrow$,0,110,1,0,0,0,110,010,1
+$\uparrow$,0,110,1,0,0,0,101,000,0
+$\uparrow$,0,110,1,0,0,0,100,000,0
+$\uparrow$,0,110,1,0,0,0,011,000,0
+$\uparrow$,0,110,1,0,0,0,010,000,0
+$\uparrow$,0,110,0,0,1,0,001,001,0
+$\uparrow$,0,110,0,0,1,0,000,000,0
