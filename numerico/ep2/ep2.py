@@ -141,25 +141,20 @@ def double_gauss_quadrature(
     quadratura gaussiana com n nós.
   """
   nodes, weights = get_pairs(n)
-  g1 = (b - a) / 2
-  g2 = (b + a) / 2
+  g1: float = (b - a) / 2
+  g2: float = (b + a) / 2
   I = 0
 
   for i in range(n):
-    I_partial = 0
-    x = g1 * nodes[i] + g2
-    di = d(x) if callable(d) else d
-    ci = c(x) if callable(c) else c
-    h1 = (di - ci) / 2
-    h2 = (di + ci) / 2
-    
-    for j in range(n):
-      y = h1 * nodes[j] + h2
-      I_partial += weights[j] * f(x, y)
-    
-    I += weights[i] * h1 * I_partial
-
+    x: float = g1 * nodes[i] + g2
+    di: float = d(x) if callable(d) else d
+    ci: float = c(x) if callable(c) else c
+    h1: float = (di - ci) / 2
+    h2: float = (di + ci) / 2
+    y: np.ndarray = h1 * nodes + h2
+    I += weights[i] * h1 * np.sum(weights * f(x, y))
   I *= g1
+
   return I
 
 
