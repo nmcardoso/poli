@@ -90,3 +90,34 @@ def double_gauss_quadrature(
 
 
 
+def test(t):
+  z_tetrahedron = lambda x, y: 1 - x - y
+  z_cube = lambda x, y: 1
+  z_ex2 = lambda x, y: 1
+  z_ex3 = lambda x, y: np.sqrt(((-y*np.exp(y/x))/(x**2))**2 + (np.exp(y/x)/x)**2 + 1)
+  z_4 = lambda x, y: 1
+  to_sp = lambda z: lambda y, x: z(x, y)
+
+  if t == 0:
+    i = double_gauss_quadrature(z_tetrahedron, 0, 1, 0, lambda x: 1-x, n=6)
+    ii = dblquad(to_sp(z_tetrahedron), 0, 1, 0, lambda x: 1-x)
+  elif t == 1:
+    i = double_gauss_quadrature(z_cube, 0, 1, 0, 1, n=6)
+    ii = dblquad(z_cube, 0, 1, 0, 1)
+  elif t == 2:
+    i = double_gauss_quadrature(z_ex2, 0, 1, 0, lambda x: 1 - x**2, n=6)
+    ii = dblquad(to_sp(z_ex2), 0, 1, 0, lambda x: 1 - x**2)
+  elif t == 3:
+    i = double_gauss_quadrature(z_ex3, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n=6)
+    ii = dblquad(to_sp(z_ex3), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
+  elif t == 4:
+    i = double_gauss_quadrature(z_4, 0, 1, 0, lambda x: x, n=6)
+    ii = dblquad(z_4, 0, 1, 0, lambda x: x)
+  
+  print('Calc:', i, '\tExact:', ii[0], '\n')
+
+test(0)
+test(1)
+test(2)
+test(3)
+test(4)
