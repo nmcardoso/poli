@@ -34,7 +34,6 @@ timing
 *.pin
 *.pof
 *.ptf.*
-*.qar
 *.qarlog
 *.qws
 *.rpt
