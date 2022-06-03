@@ -358,7 +358,7 @@ def print_test(title: str, description: str, test_func: Callable):
   print()
 
 
-def cli():
+def main():
   """
   Interface de Linha de Comando (CLI) do programa
   """
@@ -381,4 +381,4 @@ def cli():
 
 
 if __name__ == '__main__':
-  cli()
+  main()
