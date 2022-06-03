@@ -20,9 +20,9 @@ a codificação Windows-125x.
 """
 
 
-from typing import Callable, Tuple, Union
+from typing import Callable, Iterable, Tuple, Union
 import numpy as np
-from scipy.integrate import dblquad, quad
+from scipy.integrate import dblquad
 
 
 DATA = {
@@ -358,26 +358,27 @@ def print_test(title: str, description: str, test_func: Callable):
   print()
 
 
-  if t == 0:
-    i = double_gauss_quadrature(z_tetrahedron, 0, 1, 0, lambda x: 1-x, n=6)
-    ii = dblquad(to_sp(z_tetrahedron), 0, 1, 0, lambda x: 1-x)
-  elif t == 1:
-    i = double_gauss_quadrature(z_cube, 0, 1, 0, 1, n=6)
-    ii = dblquad(z_cube, 0, 1, 0, 1)
-  elif t == 2:
-    i = double_gauss_quadrature(z_ex2, 0, 1, 0, lambda x: 1 - x**2, n=6)
-    ii = dblquad(to_sp(z_ex2), 0, 1, 0, lambda x: 1 - x**2)
-  elif t == 3:
-    i = double_gauss_quadrature(z_ex3, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n=6)
-    ii = dblquad(to_sp(z_ex3), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
-  elif t == 4:
-    i = double_gauss_quadrature(z_4, 0, 1, 0, lambda x: x, n=6)
-    ii = dblquad(z_4, 0, 1, 0, lambda x: x)
-  
-  print('Calc:', i, '\tExact:', ii[0], '\n')
+def cli():
+  """
+  Interface de Linha de Comando (CLI) do programa
+  """
+  heading('Exercício Programa 02: Integração Numérica', '=')
+  print()
+  heading('Sumário dos testes', ':')
+  print()
+  print_test('Teste 1.a', 'Volume do cubo com arestas de comprimento 1', test_1a)
+  print_test('Teste 1.b', 'Volume do tetraedro', test_1b)
+  print_test('Teste 2.a', 'Área da região limitada pela curva y=1-x^2 (dydx)', test_2a)
+  print_test('Teste 2.b', 'Área da região limitada pela curva y=1-x^2 (dxdy)', test_2b)
+  print_test('Teste 3.a', 'Área da superfície descrita por z=exp(y/x)', test_3a)
+  print_test('Teste 3.b', 'Volume da superfície descrita por z=exp(y/x)', test_3b)
+  print_test('Teste 4.a', 'Volume da calota esférica', test_4a)
+  print_test('Teste 4.b', 'Volume do sólido de revolução', test_4b)
+  print()
+  heading('Legenda')
+  print('n: quantidade de nós e pesos usados')
+  print('I: resultado da integração dupla')
 
-test(0)
-test(1)
-test(2)
-test(3)
-test(4)
+
+if __name__ == '__main__':
+  cli()
