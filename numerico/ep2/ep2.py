@@ -158,14 +158,205 @@ def double_gauss_quadrature(
   return I
 
 
+to_sp = lambda z: lambda y, x: z(x, y)
 
-def test(t):
-  z_tetrahedron = lambda x, y: 1 - x - y
-  z_cube = lambda x, y: 1
-  z_ex2 = lambda x, y: 1
-  z_ex3 = lambda x, y: np.sqrt(((-y*np.exp(y/x))/(x**2))**2 + (np.exp(y/x)/x)**2 + 1)
-  z_4 = lambda x, y: 1
-  to_sp = lambda z: lambda y, x: z(x, y)
+
+def test_1a(n: int = 6) -> float:
+  """
+  Caso de teste 1.a: Volume do cubo com arestas de comprimento 1
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 1.a
+  """
+  z = lambda x, y: 1
+  i = double_gauss_quadrature(z, 0, 1, 0, 1, n)
+  ii = dblquad(z, 0, 1, 0, 1)
+  return i, ii
+
+
+def test_1b(n: int = 6) -> float:
+  """
+  Caso de teste 1.b: Volume do tetraedro
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 1.b
+  """
+  z = lambda x, y: 1 - x - y
+  i = double_gauss_quadrature(z, 0, 1, 0, lambda x: 1-x, n)
+  ii = dblquad(to_sp(z), 0, 1, 0, lambda x: 1-x)
+  return i, ii
+
+
+def test_2a(n: int = 6) -> float:
+  """
+  Caso de teste 2.a: Área da região limitada pela curva y=1-x^2 (dydx)
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 2.a
+  """
+  z = lambda x, y: 1
+  i = double_gauss_quadrature(z, 0, 1, 0, lambda x: 1 - x**2, n)
+  ii = dblquad(to_sp(z), 0, 1, 0, lambda x: 1 - x**2)
+  return i, ii
+
+
+def test_2b(n: int = 6) -> float:
+  """
+  Caso de teste 2.b: Área da região limitada pela curva y=1-x^2 (dxdy)
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 2.b
+  """
+  z = lambda x, y: 1
+  i = double_gauss_quadrature(z, 0, 1, 0, lambda y: np.sqrt(1 - y), n)
+  ii = dblquad(to_sp(z), 0, 1, 0, lambda y: np.sqrt(1 - y))
+  return i, ii
+
+
+def test_3a(n: int = 6) -> float:
+  """
+  Caso de teste 3.a: Área da superfície descrita por z=exp(y/x)
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 3.a
+  """
+  z = lambda x, y: np.sqrt(((-y*np.exp(y/x))/(x**2))**2 + (np.exp(y/x)/x)**2 + 1)
+  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
+  return i, ii
+
+
+def test_3b(n: int = 6) -> float:
+  """
+  Caso de teste 3.b: Volume da superfície descrita por z=exp(y/x)
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 3.b
+  """
+  z = lambda x, y: np.exp(y/x)
+  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
+  return i, ii
+
+
+def test_4a(n: int = 6) -> float:
+  """
+  Caso de teste 4.a: Volume da calota esférica
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 4.a
+  """
+  z = lambda x, y: np.exp(y/x)
+  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
+  return i, ii
+
+
+def test_4b(n: int = 6) -> float:
+  """
+  Caso de teste 4.b: Volume do sólido de revolução
+
+  Parameters
+  ----------
+  n: int
+    quantidade de nós e pesos a serem usados na aproximação
+
+  Returns
+  -------
+  float
+    o valor da integral calculado para o caso de teste 4.b
+  """
+  z = lambda x, y: np.exp(y/x)
+  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
+  return i, ii
+
+
+def heading(msg: str, sep: str = '-'):
+  """
+  Função auxiliar: exibe uma mensagem no terminal com uma regua abaixo
+  do mesmo tamanho da mensagem
+
+  Parameters
+  ----------
+  msg: str
+    mensagem a ser exibida
+  sep: str
+    caractere de separação
+  """
+  print(msg)
+  print(''.join([sep]*len(msg)))
+
+
+def print_test(title: str, description: str, test_func: Callable):
+  """
+  Função auxiliar: exibe o valor da integral para diferentes valores
+  de pesos e nós
+
+  Parameters
+  ----------
+  title: str
+    título do caso de teste
+  description: str
+    descrição do caso de teste
+  test_func: Callable
+    função a ser invocada para obter o valor da integral
+  """
+  heading(title)
+  print(description)
+  for n in (6, 8, 10):
+    print('n = {}\tI = {:0.22f}\tI\' = {:0.22f}\tE = {:e}'.format(n, test_func(n)[0], test_func(n)[1][0], test_func(n)[0] - test_func(n)[1][0]))
+  print()
+
 
   if t == 0:
     i = double_gauss_quadrature(z_tetrahedron, 0, 1, 0, lambda x: 1-x, n=6)
