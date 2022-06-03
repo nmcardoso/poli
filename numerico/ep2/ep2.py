@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-EP2: Exercício Programa 02.
+Exercício Programa 02: Integração Numérica usando Quadratura Gaussiana
 
 
 Authors
@@ -78,7 +78,8 @@ os respectivos coeficientes do polinômio de Legendre.
 def get_pairs(n: int) -> Tuple[np.ndarray, np.ndarray]:
   """
   Acessa o dicionário de dados, calcula os valores negativos e retorna
-  uma quantidade n de raízes e coeficientes do polinômio de Legendre
+  uma quantidade n de pesos e nós (raízes e coeficientes do polinômio 
+  de Legendre)
 
   Parameters
   ----------
@@ -89,8 +90,7 @@ def get_pairs(n: int) -> Tuple[np.ndarray, np.ndarray]:
   Returns
   -------
   Tuple[np.ndarray, np.ndarray]
-    Uma tupla contendo um array de raízes e outro de coeficientes do
-    polinômio de Legendre, nesta ordem.
+    Uma tupla contendo um array de pesos e outro de nós, nesta ordem.
   """
   x = np.array(DATA[n]['x'])
   w = np.array(DATA[n]['w'])
