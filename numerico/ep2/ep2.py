@@ -20,7 +20,7 @@ a codificação Windows-125x.
 """
 
 
-from typing import Callable, Iterable, Tuple, Union
+from typing import Callable, Tuple, Union
 import numpy as np
 from scipy.integrate import dblquad
 
