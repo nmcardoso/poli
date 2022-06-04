@@ -20,7 +20,6 @@ pode ocorrer no Windows, já que ele usa, por padrão, a codificação Windows-1
 
 from typing import Callable, Tuple, Union
 import numpy as np
-from scipy.integrate import dblquad
 
 
 DATA = {
@@ -155,8 +154,6 @@ def double_gauss_quadrature(
   return I
 
 
-to_sp = lambda z: lambda y, x: z(x, y)
-
 
 def test_1a(n: int = 6) -> float:
   """
@@ -174,8 +171,7 @@ def test_1a(n: int = 6) -> float:
   """
   z = lambda x, y: 1
   i = double_gauss_quadrature(z, 0, 1, 0, 1, n)
-  ii = dblquad(z, 0, 1, 0, 1)
-  return i, ii
+  return i
 
 
 def test_1b(n: int = 6) -> float:
@@ -194,8 +190,7 @@ def test_1b(n: int = 6) -> float:
   """
   z = lambda x, y: 1 - x - y
   i = double_gauss_quadrature(z, 0, 1, 0, lambda x: 1-x, n)
-  ii = dblquad(to_sp(z), 0, 1, 0, lambda x: 1-x)
-  return i, ii
+  return i
 
 
 def test_2a(n: int = 6) -> float:
@@ -214,8 +209,7 @@ def test_2a(n: int = 6) -> float:
   """
   z = lambda x, y: 1
   i = double_gauss_quadrature(z, 0, 1, 0, lambda x: 1 - x**2, n)
-  ii = dblquad(to_sp(z), 0, 1, 0, lambda x: 1 - x**2)
-  return i, ii
+  return i
 
 
 def test_2b(n: int = 6) -> float:
@@ -234,8 +228,7 @@ def test_2b(n: int = 6) -> float:
   """
   z = lambda x, y: 1
   i = double_gauss_quadrature(z, 0, 1, 0, lambda y: np.sqrt(1 - y), n)
-  ii = dblquad(to_sp(z), 0, 1, 0, lambda y: np.sqrt(1 - y))
-  return i, ii
+  return i
 
 
 def test_3a(n: int = 6) -> float:
@@ -254,8 +247,7 @@ def test_3a(n: int = 6) -> float:
   """
   z = lambda x, y: np.sqrt(((-y*np.exp(y/x))/(x**2))**2 + (np.exp(y/x)/x)**2 + 1)
   i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
-  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
-  return i, ii
+  return i
 
 
 def test_3b(n: int = 6) -> float:
@@ -274,8 +266,7 @@ def test_3b(n: int = 6) -> float:
   """
   z = lambda x, y: np.exp(y/x)
   i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
-  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
-  return i, ii
+  return i
 
 
 def test_4a(n: int = 6) -> float:
@@ -294,8 +285,7 @@ def test_4a(n: int = 6) -> float:
   """
   z = lambda x, y: np.exp(y/x)
   i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
-  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
-  return i, ii
+  return i
 
 
 def test_4b(n: int = 6) -> float:
@@ -314,8 +304,7 @@ def test_4b(n: int = 6) -> float:
   """
   z = lambda x, y: np.exp(y/x)
   i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
-  ii = dblquad(to_sp(z), 0.1, 0.5, lambda x: x**3, lambda x: x**2)
-  return i, ii
+  return i
 
 
 def heading(msg: str, sep: str = '-'):
@@ -351,7 +340,7 @@ def print_test(title: str, description: str, test_func: Callable):
   heading(title)
   print(description)
   for n in (6, 8, 10):
-    print('n = {}\tI = {:0.22f}\tI\' = {:0.22f}\tE = {:e}'.format(n, test_func(n)[0], test_func(n)[1][0], test_func(n)[0] - test_func(n)[1][0]))
+    print('n = {}\tI = {:0.22f}'.format(n, test_func(n)))
   print()
 
 
