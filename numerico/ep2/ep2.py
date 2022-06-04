@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Exercício Programa 02: Integração Numérica usando Quadratura Gaussiana
+Exercício Programa 02: Integração Numérica com Quadratura Gaussiana
 
 
 Authors
