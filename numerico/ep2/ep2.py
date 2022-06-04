@@ -13,10 +13,8 @@ Warning
 -------
 Este arquivo está codificado em UTF-8 (codificação padrão do Linux). Caso tenha
 problemas de vizualização de alguns caracteres (especialmente acentuações),
-reabra este arquivo indicando a codificação correta ao editor. Embora alguns
-editores modernos, como VSCode, identifiquem automaticamente a codigficação do
-arquivo, este problema pode ocorrer no Windows, já que ele usa, por padrão, 
-a codificação Windows-125x.
+reabra este arquivo indicando a codificação correta ao editor. Este problema 
+pode ocorrer no Windows, já que ele usa, por padrão, a codificação Windows-125x.
 """
 
 
@@ -70,8 +68,7 @@ DATA = {
   }
 }
 """
-Dicionário de dados contendo valores positivos das raízes e 
-os respectivos coeficientes do polinômio de Legendre.
+Dicionário de dados contendo valores positivos dos nós e respectivos pesos
 """
 
 
@@ -360,7 +357,8 @@ def print_test(title: str, description: str, test_func: Callable):
 
 def main():
   """
-  Interface de Linha de Comando (CLI) do programa
+  Ponto de entrada do programa
+  Mostra o sumário de todos os testes no terminal
   """
   heading('Exercício Programa 02: Integração Numérica', '=')
   print()
