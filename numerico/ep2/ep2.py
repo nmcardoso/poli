@@ -86,7 +86,7 @@ def get_pairs(n: int) -> Tuple[np.ndarray, np.ndarray]:
   Returns
   -------
   Tuple[np.ndarray, np.ndarray]
-    Uma tupla contendo um array de pesos e outro de nós, nesta ordem.
+    uma tupla contendo um array de pesos e outro de nós, nesta ordem.
   """
   x = np.array(DATA[n]['x'])
   w = np.array(DATA[n]['w'])
@@ -283,8 +283,8 @@ def test_4a(n: int = 6) -> float:
   float
     o valor da integral calculado para o caso de teste 4.a
   """
-  z = lambda x, y: np.exp(y/x)
-  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  z = lambda x, y: 2*np.pi*y
+  i = double_gauss_quadrature(z, 0, 1/4, 0, lambda x: np.sqrt(1/4 - x**2), n)
   return i
 
 
@@ -302,8 +302,8 @@ def test_4b(n: int = 6) -> float:
   float
     o valor da integral calculado para o caso de teste 4.b
   """
-  z = lambda x, y: np.exp(y/x)
-  i = double_gauss_quadrature(z, 0.1, 0.5, lambda x: x**3, lambda x: x**2, n)
+  z = lambda x, y: 2*np.pi*x
+  i = double_gauss_quadrature(z, -1, 1, 0, lambda y: np.exp(-y**2), n)
   return i
 
 
@@ -346,8 +346,7 @@ def print_test(title: str, description: str, test_func: Callable):
 
 def main():
   """
-  Ponto de entrada do programa
-  Mostra o sumário de todos os testes no terminal
+  Ponto de entrada do programa. Mostra o sumário de todos os testes no terminal
   """
   heading('Exercício Programa 02: Integração Numérica', '=')
   print()
