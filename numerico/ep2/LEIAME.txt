@@ -1,0 +1,13 @@
+Exercício Programa 02
+=====================
+
+A implementação do EP2 encontra-se no arquivo `ep2.py`. A saída deste programa 
+é um sumário de todos os testes indicados no enunciado para todos os valores 
+de n (quantidade de nós).
+
+
+Utilização
+----------
+
+python ep2.py
+

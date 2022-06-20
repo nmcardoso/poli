@@ -8,9 +8,10 @@ importa o EP2 como um módulo do Python, insere entradas e analisa a saída.
 
 Warning
 -------
-Esta não é a implementação principal do EP2. Este programa é usado apenas 
-para testes e comparações com o Scipy. O arquivo ep2.py precisa estar na 
-mesma pasta deste arquivo.
+(1) Esta não é a implementação principal do EP2. Este programa é usado apenas 
+para testes e comparações com o Scipy. 
+(2) O arquivo ep2.py precisa estar na  mesma pasta deste arquivo para que 
+ele funcione.
 """
 
 import numpy as np
@@ -27,19 +28,20 @@ def test():
   """
 
   # Parâmetros
-  f = lambda x, y: np.exp(y/x) # função a ser integrada
-  a = 0.1 # limite inferior da integral mais externa
-  b = 0.5 # limite superior da integral mais externa
-  c = lambda x: x**3 # limite inferior da integral mais interna
-  d = lambda x: x**2 # limite superior da integral mais interna
-  n = 10 # número de nós (6, 8 ou 10)
+  f = lambda x, y: 2*np.pi*x # função a ser integrada
+  a = -1 # limite inferior da integral mais externa
+  b = 1 # limite superior da integral mais externa
+  c = lambda y: 0 # limite inferior da integral mais interna
+  d = lambda y: np.exp(-y**2) # limite superior da integral mais interna
   
-  I1 = double_gauss_quadrature(f, a, b, c, d, n)
   I2 = dblquad(to_sp(f),  a, b, c, d)[0]
-
-  print('Result. EP2:\t{:.22f}'.format(I1))
-  print('Result. Scipy:\t{:.22f}'.format(I2))
-  print('Erro:\t\t{:e}'.format(np.abs(I2-I1)))
+  for n in (6, 8, 10):
+    I1 = double_gauss_quadrature(f, a, b, c, d, n)
+    print('n: {}'.format(n))
+    print('Result. EP2:\t{:.22f}'.format(I1))
+    print('Result. Scipy:\t{:.22f}'.format(I2))
+    print('Erro:\t\t{:e}'.format(np.abs(I2-I1)))
+    print()
 
 
 if __name__ == '__main__':
