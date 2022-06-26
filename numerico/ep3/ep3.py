@@ -276,6 +276,7 @@ class RayleighRitz:
     h = L / (n + 1)
     X = np.arange(n + 2) * h
     
+    # funções-fábrica que geram as funções dos integrandos para cada i
     Q1_integrand = lambda i: lambda x: (X[i+1] - x) * (x - X[i]) * q(x)
     Q2_integrand = lambda i: lambda x: (x - X[i-1])**2 * q(x)
     Q3_integrand = lambda i: lambda x: (X[i+1] - x)**2 * q(x)
@@ -334,7 +335,7 @@ class RayleighRitz:
     Parameters
     ----------
     x: float
-      ponto onde a estimativa deve ser avaliada
+      ponto onde o modelo Rayleigh-Ritz ajustado deve ser avaliado
 
     Returns
     -------
