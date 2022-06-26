@@ -204,74 +204,6 @@ def solve_tridiagonal(
 
   return x
 
-
-
-def solve(x: float, f: Callable, p: Callable, q: Callable, n: int) -> float:
-  h = 1 / (n + 1)
-  X = np.arange(n + 2) * h
-  
-  Q1_integrand = lambda i: lambda x: (X[i+1] - x) * (x - X[i]) * q(x)
-  Q2_integrand = lambda i: lambda x: (x - X[i-1])**2 * q(x)
-  Q3_integrand = lambda i: lambda x: (X[i+1] - x)**2 * q(x)
-  Q4_integrand = lambda i: lambda x: p(x)
-  Q5_integrand = lambda i: lambda x: (x - X[i-1]) * f(x)
-  Q6_integrand = lambda i: lambda x: (X[i+1] - x) * f(x)
-
-  Q1 = np.array([
-    gauss_quad(Q1_integrand(i), X[i], X[i+1]) * h**-2 
-    for i in range(1, n)
-  ])
-  Q2 = np.array([
-    gauss_quad(Q2_integrand(i), X[i-1], X[i]) * h**-2
-    for i in range(1, n+1)
-  ])
-  Q3 = np.array([
-    gauss_quad(Q3_integrand(i), X[i], X[i+1]) * h**-2
-    for i in range(1, n+1)
-  ])
-  Q4 = np.array([
-    gauss_quad(Q4_integrand(i), X[i-1], X[i]) * h**-2
-    for i in range(1, n+2)
-  ])
-  Q5 = np.array([
-    gauss_quad(Q5_integrand(i), X[i-1], X[i]) * h**-1
-    for i in range(1, n+1)
-  ])
-  Q6 = np.array([
-    gauss_quad(Q6_integrand(i), X[i], X[i+1]) * h**-1
-    for i in range(1, n+1)
-  ])
-
-  A_diag = np.array([Q4[i] + Q4[i+1] + Q2[i] + Q3[i] for i in range(n)])
-  A_sub = np.array([0] + [Q1[i] - Q4[i+1] for i in range(n-1)])
-  A_sup = np.array([Q1[i-1] - Q4[i] for i in range(n-1)] + [0])
-  d = np.array([Q5[i] + Q6[i] for i in range(n)])
-  
-  l, u = decomp_lu(A_sub, A_diag, A_sup)
-  c = solve_tridiagonal(l, u, A_sup, d)
-
-
-  basis = np.empty((n,))
-
-  for i in range(1, n + 1):
-    if X[i-1] < x and x <= X[i]:
-      basis[i-1] = (x - X[i-1]) / h
-    elif X[i] < x and x <= X[i+1]:
-      basis[i-1] = (X[i+1] - x) / h
-    else:
-      basis[i-1] = 0.0
-
-  print('L', len(l))
-  print('U', len(u))
-  print('d', len(d))
-  print('c', len(c))
-  print('basis', len(basis))
-
-  print('c', c)
-  print('basis', basis)
-
-  return np.sum(c * basis)
-
   
 
 class RayleighRitz:
@@ -461,5 +393,3 @@ if __name__ == '__main__':
   model = RayleighRitz()
   model.fit(f, p, q, 20, 2)
   print(model.evaluate(0.8))
-
-
