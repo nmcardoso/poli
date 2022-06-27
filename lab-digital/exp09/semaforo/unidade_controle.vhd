@@ -48,11 +48,11 @@ begin
         end if;
       when E1L =>
         prox_estado <= E1C;
-        Ts <= "10";
+        Ts <= "01";
         luzes <= "010001";
         load_n <= '0';
       when E1C =>
-        Ts <= "10";
+        Ts <= "01";
         luzes <= "010001";
         load_n <= '1';
         if count = "0001" then
@@ -62,11 +62,11 @@ begin
         end if;
       when E2L =>
         prox_estado <= E2C;
-        Ts <= "00";
+        Ts <= "10";
         luzes <= "001001";
         load_n <= '0';
       when E2C =>
-        Ts <= "00";
+        Ts <= "10";
         luzes <= "001001";
         load_n <= '1';
         if count = "0001" then
@@ -76,11 +76,11 @@ begin
         end if;
       when E3L =>
         prox_estado <= E3C;
-        Ts <= "01";
+        Ts <= "00";
         luzes <= "001100";
         load_n <= '0';
       when E3C =>
-        Ts <= "01";
+        Ts <= "00";
         luzes <= "001100";
         load_n <= '1';
         if count = "0001" then
@@ -90,11 +90,11 @@ begin
         end if;
       when E4L =>
         prox_estado <= E4C;
-        Ts <= "10";
+        Ts <= "01";
         luzes <= "001010";
         load_n <= '0';
       when E4C =>
-        Ts <= "10";
+        Ts <= "01";
         luzes <= "001010";
         load_n <= '1';
         if count = "0001" then
@@ -104,11 +104,11 @@ begin
         end if;
       when E5L =>
         prox_estado <= E5C;
-        Ts <= "00";
+        Ts <= "10";
         luzes <= "001001";
         load_n <= '0';
       when E5C =>
-        Ts <= "00";
+        Ts <= "10";
         luzes <= "001001";
         load_n <= '1';
         if count = "0001" then
@@ -118,77 +118,6 @@ begin
         end if;
     end case;
   end process;
-
-  -- circ_prox_estado: process(estado_atual, count_min)
-  -- begin
-  --   case estado_atual is
-  --     when IDLE =>
-  --       prox_estado <= E0;
-  --       Ts <= "00";
-  --       luzes <= "100001";
-  --       load_n <= '0';
-  --     when E0 =>
-  --       Ts <= "01";
-  --       luzes <= "100001";
-  --       if count = "0001" then
-  --         prox_estado <= E0;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E1;
-  --         load_n <= '0';
-  --       end if;
-  --     when E1 =>
-  --       Ts <= "10";
-  --       luzes <= "010001";
-  --       if count = "0001" then
-  --         prox_estado <= E1;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E2;
-  --         load_n <= '0';
-  --       end if;
-  --     when E2 =>
-  --       Ts <= "00";
-  --       luzes <= "001001";
-  --       if count = "0001" then
-  --         prox_estado <= E2;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E3;
-  --         load_n <= '0';
-  --       end if;
-  --     when E3 =>
-  --       Ts <= "01";
-  --       luzes <= "001100";
-  --       if count = "0001" then
-  --         prox_estado <= E3;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E4;
-  --         load_n <= '0';
-  --       end if;
-  --     when E4 =>
-  --       Ts <= "10";
-  --       luzes <= "001010";
-  --       if count = "0001" then
-  --         prox_estado <= E4;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E5;
-  --         load_n <= '0';
-  --       end if;
-  --     when E5 =>
-  --       Ts <= "00";
-  --       luzes <= "001001";
-  --       if count = "0001" then
-  --         prox_estado <= E5;
-  --         load_n <= '1';
-  --       else
-  --         prox_estado <= E0;
-  --         load_n <= '0';
-  --       end if;
-  --   end case;
-  -- end process;
 
   S0_verde <= luzes(5);
   S0_amarelo <= luzes(4);
