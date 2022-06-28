@@ -7,7 +7,6 @@ entity unidade_controle is
   port (
     clk, reset_n: in std_logic;
     count: in std_logic_vector(3 downto 0);
-    -- count_min: in std_logic;
     load_n: out std_logic; -- sinal de controle do contador
     Ts: out std_logic_vector(1 downto 0); --sinal de controle do mux
     S0_verde, S0_amarelo, S0_vermelho: out std_logic;
