@@ -62,3 +62,49 @@ iB = iabc(2, 1);
 iC = iabc(3, 1);
 iNeutro = iB + iC;
 
+
+disp("\nAlternativa (c)")
+printf("Módulo da corrente da fase A: %.6f\n", abs(ia))
+printf("Módulo da corrente da fase B: %.6f\n", abs(iB))
+printf("Módulo da corrente da fase C: %.6f\n", abs(iC))
+printf("Módulo da corrente de neutro: %.6f\n", abs(iNeutro))
+
+
+
+V_th = (v1_at1 / z1_at1 + v1_at2 / z1_at2) / (1 / z1_at1 + 1 / z1_at2);
+Zeq0_th = 1 / (1 / z0_at1 + 1 / z0_at2);
+Zeq1_th = 1 / (1 / z1_at1 + 1 / z1_at2);
+Zeq2_th = 1 / (1 / z2_at1 + 1 / z2_at2);
+I0_th = V_th / (Zeq0_th + Zeq1_th + Zeq2_th);
+
+disp("\nAlternativa (d)")
+disp("Impedância de sequencia zero:"), disp(Zeq0_th)
+disp("Impedância de sequência positiva (= negativa):"), disp(Zeq1_th)
+printf("Módulo da tensão: %.6f\n", abs(V_th))
+
+iNeutro_th = 3*I0_th;
+
+
+i1 = V_th/(Zeq1_th + 1/(1/ Zeq0_th + 1/Zeq2_th));
+vx = V_th - Zeq1_th*i1;
+i2 = -vx / Zeq2_th;
+i0 = -vx / Zeq0_th;
+
+
+disp("\nAlternativa (e)")
+ia0 = V_th / (Zeq0_th + Zeq1_th + Zeq2_th);
+modulo = abs(3 * ia0);
+printf("Módulo da corrente de neutro em um curto fase-terra: %.6f\n", modulo);
+
+iabc = T*[i0; i1; i2];
+iB = iabc(2,1);
+iC = iabc(3,1);
+a = abs(iB);
+phase = angle(iB);
+iNeutro = iB + iC;
+    
+disp("\nAlternativa (f)")
+printf("Fase A: %.6f\n", 0)
+printf("Fase B: %.6f\n", abs(iB))
+printf("Fase C: %.6f\n", abs(iC))
+printf("Neutro: %.6f\n", abs(iNeutro))
