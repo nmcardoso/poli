@@ -21,9 +21,9 @@ https://fpgasoftware.intel.com/eula.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 200 256)
+	(rect 16 16 200 192)
 	(text "unidade_controle" (rect 5 0 71 12)(font "Arial" ))
-	(text "inst" (rect 8 224 20 236)(font "Arial" ))
+	(text "inst" (rect 8 160 20 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -62,30 +62,9 @@ https://fpgasoftware.intel.com/eula.
 	(port
 		(pt 0 112)
 		(input)
-		(text "Qa" (rect 0 0 11 12)(font "Arial" ))
-		(text "Qa" (rect 21 107 32 119)(font "Arial" ))
+		(text "end_n" (rect 0 0 24 12)(font "Arial" ))
+		(text "end_n" (rect 21 107 45 119)(font "Arial" ))
 		(line (pt 0 112)(pt 16 112)(line_width 1))
-	)
-	(port
-		(pt 0 128)
-		(input)
-		(text "Qb" (rect 0 0 11 12)(font "Arial" ))
-		(text "Qb" (rect 21 123 32 135)(font "Arial" ))
-		(line (pt 0 128)(pt 16 128)(line_width 1))
-	)
-	(port
-		(pt 0 144)
-		(input)
-		(text "Qc" (rect 0 0 11 12)(font "Arial" ))
-		(text "Qc" (rect 21 139 32 151)(font "Arial" ))
-		(line (pt 0 144)(pt 16 144)(line_width 1))
-	)
-	(port
-		(pt 0 160)
-		(input)
-		(text "Qd" (rect 0 0 11 12)(font "Arial" ))
-		(text "Qd" (rect 21 155 32 167)(font "Arial" ))
-		(line (pt 0 160)(pt 16 160)(line_width 1))
 	)
 	(port
 		(pt 184 32)
@@ -139,32 +118,11 @@ https://fpgasoftware.intel.com/eula.
 	(port
 		(pt 184 144)
 		(output)
-		(text "Oa" (rect 0 0 11 12)(font "Arial" ))
-		(text "Oa" (rect 152 139 163 151)(font "Arial" ))
-		(line (pt 184 144)(pt 168 144)(line_width 1))
-	)
-	(port
-		(pt 184 160)
-		(output)
-		(text "Ob" (rect 0 0 11 12)(font "Arial" ))
-		(text "Ob" (rect 152 155 163 167)(font "Arial" ))
-		(line (pt 184 160)(pt 168 160)(line_width 1))
-	)
-	(port
-		(pt 184 176)
-		(output)
-		(text "Oc" (rect 0 0 11 12)(font "Arial" ))
-		(text "Oc" (rect 152 171 163 183)(font "Arial" ))
-		(line (pt 184 176)(pt 168 176)(line_width 1))
-	)
-	(port
-		(pt 184 192)
-		(output)
-		(text "Od" (rect 0 0 11 12)(font "Arial" ))
-		(text "Od" (rect 152 187 163 199)(font "Arial" ))
-		(line (pt 184 192)(pt 168 192)(line_width 1))
+		(text "offset[3..0]" (rect 0 0 43 12)(font "Arial" ))
+		(text "offset[3..0]" (rect 120 139 163 151)(font "Arial" ))
+		(line (pt 184 144)(pt 168 144)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 168 224)(line_width 1))
+		(rectangle (rect 16 16 168 160)(line_width 1))
 	)
 )
