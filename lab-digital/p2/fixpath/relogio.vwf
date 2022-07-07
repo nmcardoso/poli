@@ -1,8 +1,8 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off relogio -c relogio --vector_source="/home/natan/repos/poli/lab-digital/p2/fixpath/relogio.vwf" --testbench_file="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/relogio.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off relogio -c relogio --vector_source="/home/natan/repos/poli/lab-digital/p2/fixpath/relogio.vwf" --testbench_file="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/relogio.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/" relogio -c relogio</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/" relogio -c relogio</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off relogio -c relogio --vector_source="\home\natan\repos\poli\lab-digital\p2\fixpath\relogio.vwf" --testbench_file="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\relogio.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off relogio -c relogio --vector_source="\home\natan\repos\poli\lab-digital\p2\fixpath\relogio.vwf" --testbench_file="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\relogio.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\" relogio -c relogio</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\" relogio -c relogio</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
 vcom -work work relogio.vho
@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 
 
 </modelsim_script>
@@ -40,6 +41,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 
 
 </modelsim_script_timing>
@@ -495,9 +497,9 @@ TRANSITION_LIST("clear")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 370.0;
-		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 610.0;
+		LEVEL 0 FOR 350.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 620.0;
 	}
 }
 
@@ -523,9 +525,9 @@ TRANSITION_LIST("grava")
 	{
 		REPEAT = 1;
 		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 220.0;
+		LEVEL 0 FOR 440.0;
 		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 730.0;
+		LEVEL 0 FOR 510.0;
 	}
 }
 
@@ -637,9 +639,9 @@ TRANSITION_LIST("programa")
 		REPEAT = 1;
 		LEVEL 0 FOR 20.0;
 		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 220.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 730.0;
+		LEVEL 0 FOR 430.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 510.0;
 	}
 }
 

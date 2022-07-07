@@ -1,8 +1,8 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off relogio -c relogio --vector_source="/home/natan/repos/poli/lab-digital/p2/fixpath/fluxo_dados.vwf" --testbench_file="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/fluxo_dados.vwf.vt"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off relogio -c relogio --vector_source="/home/natan/repos/poli/lab-digital/p2/fixpath/Waveform.vwf" --testbench_file="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/Waveform.vwf.vt"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/" relogio -c relogio</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=verilog --output_directory="/home/natan/repos/poli/lab-digital/p2/fixpath/simulation/qsim/" relogio -c relogio</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off relogio -c relogio --vector_source="\home\natan\repos\poli\lab-digital\p2\fixpath\fluxo_dados.vwf" --testbench_file="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\fluxo_dados.vwf.vt"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off relogio -c relogio --vector_source="\home\natan\repos\poli\lab-digital\p2\fixpath\Waveform.vwf" --testbench_file="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\Waveform.vwf.vt"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\" relogio -c relogio</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=verilog --output_directory="\home\natan\repos\poli\lab-digital\p2\fixpath\simulation\qsim\" relogio -c relogio</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
 vlog -work work relogio.vo
