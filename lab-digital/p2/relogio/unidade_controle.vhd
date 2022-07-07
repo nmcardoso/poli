@@ -23,51 +23,6 @@ begin
       estado_atual <= prox_estado;
     end if;
   end process;
-
-  -- circ_prox_estado: process(clk, clear, programa, grava, inibe)
-  -- begin
-  --   case estado_atual is
-  --     when PROG =>
-  --       c_inibe_n <= '0';
-  --       -- c_carrega_n <= not grava;
-        
-  --       if grava = '1' then
-  --         c_carrega_n <= '0';
-  --       else
-  --         c_carrega_n <= '1';
-  --       end if;
-
-  --       if programa = '1' then
-  --         prox_estado <= PROG;
-  --       elsif programa = '0' then
-  --         prox_estado <= OP;
-  --       end if;
-  --     when OP =>
-  --       -- c_inibe_n <= not inibe;
-  --       c_carrega_n <= '0';
-
-  --       if inibe = '1' then
-  --         c_inibe_n <= '0';
-  --       else
-  --         c_inibe_n <= '1';
-  --       end if;
-
-  --       if programa = '1' then
-  --         prox_estado <= PROG;
-  --       elsif programa = '0' then
-  --         prox_estado <= OP;
-  --       end if;
-  --     when IDLE =>
-  --       c_inibe_n <= '0';
-  --       c_carrega_n <= '1';
-  --       if programa = '1' then
-  --         prox_estado <= PROG;
-  --       else
-  --         prox_estado <= IDLE;
-  --       end if;
-  --   end case;
-  -- end process;
-
   
   prox_estado <= 
     IDLE when estado_atual = IDLE and programa = '0' else
