@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Exercício Programa 03: ...
+Exercício Programa 03: Modelo de um Sistema de Resfriamento de Chips
+
+
+Este programa consiste em 3 "solvers": TridiagonalSolver (EP1), 
+GaussQuadSolver (EP2) e RayleighRitzSolver (EP3). Este último usa os dois
+primeiros em sua implementação.
 
 
 Authors
@@ -22,34 +27,109 @@ from typing import Any, Callable, Tuple, Union
 import numpy as np
 
 
-DATA = {
-  6: {
-    'x': [
-      0.2386191860831969086305017,
-      0.6612093864662645136613996,
-      0.9324695142031520278123016
-    ],
-    'w': [
-      0.4679139345726910473898703,
-      0.3607615730481386075698335,
-      0.1713244923791703450402961
-    ]
-  },
-  8: {
-    'x': [
-      0.1834346424956498049394761,
-      0.5255324099163289858177390,
-      0.7966664774136267395915539,
-      0.9602898564975362316835609
-    ],
-    'w': [
-      0.3626837833783619829651504,
-      0.3137066458778872873379622,
-      0.2223810344533744705443560,
-      0.1012285362903762591525314
-    ]
-  },
-  10: {
+
+class TridiagonalSolver:
+  """
+  Algorítmo de solução de sistemas tridiagonais por decomposição LU. Adaptado
+  do EP1 e usado como dependência de RayleighRitzSolver (EP3)
+  """
+  def __init__(self):
+    self.l = None
+    self.u = None
+
+
+  def decomp_lu(
+    self,
+    a: np.ndarray, 
+    b: np.ndarray, 
+    c: np.ndarray
+  ):
+    """
+    Decomposição LU da matriz tridiagonal A nxn definida pelos vetores a, b e c
+
+    Parameters
+    ----------
+    a: numpy.ndarray
+      vetor de dimensão n com os elementos da subdiagonal de A
+    b: numpy.ndarray
+      vetor de dimensão n com os elementos da diagonal de A
+    c: numpy.ndarray
+      vetor de dimensão n com os elementos da supradiagonal de A
+
+    Returns
+    -------
+    Tuple[numpy.ndarray, numpy.ndarray]
+      tupla (L, U) com os vetores resultantes da decomposição LU.
+    """
+    n = len(a)
+    u = np.zeros(shape=(n,))
+    l = np.zeros(shape=(n,))
+
+    u[0] = b[0]
+    for i in range(1, n):
+      l[i] = a[i] / u[i-1]
+      u[i] = b[i] - l[i] * c[i-1]
+
+    self.l = l
+    self.u = u
+
+
+  def solve(
+    self,
+    a: np.ndarray,
+    b: np.ndarray,
+    c: np.ndarray, 
+    d: np.ndarray
+  ) -> np.ndarray:
+    """
+    Algorítmo de solução de um sistema Ax = d, onde A é uma matriz tridiagonal nxn,
+    a partir da decomposição LU de A.
+
+    Parameters
+    ----------
+    a: numpy.ndarray
+      vetor de dimensão n com os elementos da subdiagonal de A
+    b: numpy.ndarray
+      vetor de dimensão n com os elementos da diagonal de A
+    c: numpy.ndarray
+      vetor de dimensão n com os elementos da supradiagonal de A
+    d: numpy.ndarray
+      vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
+
+    Returns
+    -------
+    numpy.ndarray
+      vetor de dimensão n com os valores das incógnitas do sistema
+    """
+    if self.l is None or self.u is None:
+      self.decomp_lu(a, b, c)
+    
+    l, u = self.l, self.u
+    n = len(l)
+    y = np.zeros(shape=(n,))
+    x = np.zeros(shape=(n,))
+
+    # Ly = d
+    y[0] = d[0]
+    for i in range(1, n):
+      y[i] = d[i] - l[i]*y[i-1]
+    
+    # Ux = y
+    x[-1] = y[-1]/u[-1]
+    for i in range(n-2, -1, -1):
+      x[i] = (y[i] - c[i] * x[i+1]) / u[i]
+
+    return x
+
+
+
+class GaussQuadSolver:
+  """
+  Algorítmo de integração numérica usando quadratura gaussiana com um número
+  fixo de nós igual a 10. Adaptado do EP2 e usado como dependência de 
+  RayleighRitzSolver (EP3).
+  """
+  DATA = {
     'x': [
       0.1488743389816312108848260,
       0.4333953941292471907992659,
@@ -65,152 +145,72 @@ DATA = {
       0.0666713443086881375935688
     ]
   }
-}
-"""
-Dicionário de dados contendo valores positivos dos nós e respectivos pesos
-"""
-
-
-def get_pairs(n: int) -> Tuple[np.ndarray, np.ndarray]:
   """
-  Acessa o dicionário de dados, calcula os valores negativos e retorna
-  uma quantidade n de pesos e nós (raízes e coeficientes do polinômio 
-  de Legendre)
-
-  Parameters
-  ----------
-  n: int
-    quantidades de pares (raiz, coeficiente) do polinômio de Legendre 
-    a serem retornados
-
-  Returns
-  -------
-  Tuple[np.ndarray, np.ndarray]
-    uma tupla contendo um array de pesos e outro de nós, nesta ordem.
+  Dicionário de dados contendo valores positivos dos nós e respectivos pesos
   """
-  x = np.array(DATA[n]['x'])
-  w = np.array(DATA[n]['w'])
-  x = np.concatenate((-x[::-1], x))
-  w = np.concatenate((w[::-1], w))
-  return x, w
 
-
-def gauss_quad(f: Callable, a: float, b: float, n: int = 10) -> float:
+  _transformed_xw = None
   """
-  Calcula a aproximação da integral em um intervalo qualquer da função f, 
-  sendo a e b os limites da integral inferior e superior, respectivamente.
-  O cálculo é feito usando quadratura gaussiana com n nós.
-
-  Parameters
-  ----------
-  f: Callable
-    uma função de duas variáveis a ser integrada
-
-  a: float
-    limite inferior de integração
-
-  b: float
-    limite superior de integração
-
-  n: int
-    número de nós e pesos a serem usados (raízes e coeficinetes do
-    polinômio de Legendre)
-
-  Returns
-  -------
-  float
-    aproximação da integral da função f no intervalo [a, b] usando
-    quadratura gaussiana com n nós.
+  Cache da versão transformada das abscissas e pesos do polinômio de Legendre
   """
-  nodes, weights = get_pairs(n)
-  g1: float = (b - a) / 2
-  g2: float = (b + a) / 2
-  I = g1 * np.sum(weights * f(g1 * nodes + g2))
-  return I
 
 
+  def _get_pairs(self) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Acessa o dicionário de dados, calcula os valores negativos e retorna
+    uma quantidade n de pesos e nós (raízes e coeficientes do polinômio 
+    de Legendre)
 
-def decomp_lu(
-  a: np.ndarray, 
-  b: np.ndarray, 
-  c: np.ndarray
-) -> Tuple[np.ndarray, np.ndarray]:
-  """
-  Decomposição LU da matriz tridiagonal A nxn definida pelos vetores a, b e c
-
-  Parameters
-  ----------
-  a: numpy.ndarray
-    vetor de dimensão n com os elementos da subdiagonal de A
-  b: numpy.ndarray
-    vetor de dimensão n com os elementos da diagonal de A
-  c: numpy.ndarray
-    vetor de dimensão n com os elementos da supradiagonal de A
-
-  Returns
-  -------
-  Tuple[numpy.ndarray, numpy.ndarray]
-    tupla (L, U) com os vetores resultantes da decomposição LU.
-  """
-  n = len(a)
-  u = np.zeros(shape=(n,))
-  l = np.zeros(shape=(n,))
-
-  u[0] = b[0]
-  for i in range(1, n):
-    l[i] = a[i] / u[i-1]
-    u[i] = b[i] - l[i] * c[i-1]
-  return l, u
+    Returns
+    -------
+    Tuple[np.ndarray, np.ndarray]
+      uma tupla contendo um array de pesos e outro de nós, nesta ordem.
+    """
+    if GaussQuadSolver._transformed_xw is None:
+      x = np.array(GaussQuadSolver.DATA['x'])
+      w = np.array(GaussQuadSolver.DATA['w'])
+      x = np.concatenate((-x[::-1], x))
+      w = np.concatenate((w[::-1], w))
+      GaussQuadSolver._transformed_xw = (x, w)
+    return GaussQuadSolver._transformed_xw
 
 
-def solve_tridiagonal(
-  l: np.ndarray, 
-  u: np.ndarray, 
-  c: np.ndarray, 
-  d: np.ndarray
-) -> np.ndarray:
-  """
-  Algorítmo de solução de um sistema Ax = d, onde A é uma matriz tridiagonal nxn,
-  a partir da decomposição LU de A.
+  def solve(self, f: Callable, a: float, b: float) -> float:
+    """
+    Calcula a aproximação da integral em um intervalo qualquer da função f, 
+    sendo a e b os limites da integral inferior e superior, respectivamente.
+    O cálculo é feito usando quadratura gaussiana com n nós.
 
-  Parameters
-  ----------
-  l: numpy.ndarray
-    vetor de dimensão n com os elementos de L da decomposição LU
-  u: numpy.ndarray
-    vetor de dimensão n com os elementos de U da decomposição LU
-  c: numpy.ndarray
-    vetor de dimensão n com os elementos da supradiagonal de A
-  d: numpy.ndarray
-    vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
+    Parameters
+    ----------
+    f: Callable
+      uma função de duas variáveis a ser integrada
 
-  Returns
-  -------
-  numpy.ndarray
-    vetor de dimensão n com os valores das incógnitas do sistema
-  """
-  n = len(l)
-  y = np.zeros(shape=(n,))
-  x = np.zeros(shape=(n,))
-  # Ly = d
-  y[0] = d[0]
-  for i in range(1, n):
-    y[i] = d[i] - l[i]*y[i-1]
-  
-  # Ux = y
-  x[-1] = y[-1]/u[-1]
-  for i in range(n-2, -1, -1):
-    x[i] = (y[i] - c[i] * x[i+1]) / u[i]
+    a: float
+      limite inferior de integração
 
-  return x
+    b: float
+      limite superior de integração
+
+    Returns
+    -------
+    float
+      aproximação da integral da função f no intervalo [a, b] usando
+      quadratura gaussiana com n nós.
+    """
+    nodes, weights = self._get_pairs()
+    g1: float = (b - a) / 2
+    g2: float = (b + a) / 2
+    I = g1 * np.sum(weights * f(g1 * nodes + g2))
+    return I
 
   
 
-class RayleighRitz:
+class RayleighRitzSolver:
   """
-  Implementação do método de Rayleigh Ritz para resolução de equações
-  diferenciais para um intervalo [0, L] com condições de contorno
-  homogêneas ou não-homogêneas.
+  Algorítmo de resolução de equações diferenciais para um intervalo [0, L] 
+  com condições de contorno homogêneas ou não-homogêneas usando o método de 
+  Rayleigh-Ritz com aproximação por splines lineares.
   """
   def __init__(self):
     self.coeficients = None
@@ -235,7 +235,7 @@ class RayleighRitz:
   ):
     """
     Ajusta o modelo para da solução de equações diferenciais da forma
-      -ku'' - k'u' + qu = f    (1)
+      -ku'' - k'u' + qu = f    (eq. 1)
     no intervalo [0, L] e com condições iniciais u(0) = u0 e u(L) = uL
     
     Se os parâmetros L, u0 e uL não forem fornecidos, o modelo ajusta
@@ -284,28 +284,29 @@ class RayleighRitz:
     Q5_integrand = lambda i: lambda x: (x - X[i-1]) * f(x)
     Q6_integrand = lambda i: lambda x: (X[i+1] - x) * f(x)
 
+    qs = GaussQuadSolver()
     Q1 = np.array([
-      gauss_quad(Q1_integrand(i), X[i], X[i+1]) * h**-2 
+      qs.solve(Q1_integrand(i), X[i], X[i+1]) * h**-2 
       for i in range(1, n)
     ])
     Q2 = np.array([
-      gauss_quad(Q2_integrand(i), X[i-1], X[i]) * h**-2
+      qs.solve(Q2_integrand(i), X[i-1], X[i]) * h**-2
       for i in range(1, n+1)
     ])
     Q3 = np.array([
-      gauss_quad(Q3_integrand(i), X[i], X[i+1]) * h**-2
+      qs.solve(Q3_integrand(i), X[i], X[i+1]) * h**-2
       for i in range(1, n+1)
     ])
     Q4 = np.array([
-      gauss_quad(Q4_integrand(i), X[i-1], X[i]) * h**-2
+      qs.solve(Q4_integrand(i), X[i-1], X[i]) * h**-2
       for i in range(1, n+2)
     ])
     Q5 = np.array([
-      gauss_quad(Q5_integrand(i), X[i-1], X[i]) * h**-1
+      qs.solve(Q5_integrand(i), X[i-1], X[i]) * h**-1
       for i in range(1, n+1)
     ])
     Q6 = np.array([
-      gauss_quad(Q6_integrand(i), X[i], X[i+1]) * h**-1
+      qs.solve(Q6_integrand(i), X[i], X[i+1]) * h**-1
       for i in range(1, n+1)
     ])
 
@@ -314,8 +315,8 @@ class RayleighRitz:
     A_sup = np.array([Q1[i-1] - Q4[i] for i in range(n-1)] + [0])
     d = np.array([Q5[i] + Q6[i] for i in range(n)])
     
-    l, u = decomp_lu(A_sub, A_diag, A_sup)
-    c = solve_tridiagonal(l, u, A_sup, d)
+    ts = TridiagonalSolver()
+    c = ts.solve(A_sub, A_diag, A_sup, d)
     
     self.coeficients = c
     self.X = X
@@ -391,6 +392,6 @@ if __name__ == '__main__':
   # y = solve(0.8, f, p, q, 9)
   # print(y)
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   model.fit(f, p, q, 20, 2)
   print(model.evaluate(0.8))
