@@ -76,6 +76,7 @@ def val_1_plot():
   
   model = RayleighRitzSolver()
   errors = []
+  h2 = []
   N = np.arange(5, 101, 5)
 
   for n in N:
@@ -86,10 +87,12 @@ def val_1_plot():
     y_exact = u(X)
     error = np.abs(y_pred - y_exact)
     errors.append(np.max(error))
+    h2.append(1/model.h**2)
 
   errors = np.array(errors)
 
   plt.plot(N, errors, 'o-', markersize=3)
+  plt.plot(N, h2, '-', markersize=3)
   plt.grid()
   plt.title('Erro em função do número de pontos')
   plt.xlabel('Número de pontos')
@@ -162,7 +165,8 @@ def val_2():
   sol = lambda x: (x-1)*(np.exp(-x)-1)
   # sol = None
 
-  for n in (7, 15, 31, 63):
+  # for n in (7, 15, 31, 63):
+  for n in (5,):
     model = RayleighRitzSolver()
     model.fit(f, k, q, n)
     pred = model.vec_evaluate(np.linspace(0, 1, n))
@@ -529,6 +533,7 @@ def test_eq_4():
 
 def test_eq_5():
   """
+  Equilíbrio com variação de material
   Aquecimento: Distribuição Gaussiana
   Resfriamento: Mais instenso nos extremos
   """
@@ -639,4 +644,4 @@ def test_3():
 
 
 if __name__ == '__main__':
-  burden()
+  test_eq_5()

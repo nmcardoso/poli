@@ -25,6 +25,7 @@ pode ocorrer no Windows, já que ele usa, por padrão, a codificação Windows-1
 
 from typing import Any, Callable, Tuple, Union
 import numpy as np
+import argparse
 
 
 
@@ -383,14 +384,260 @@ class RayleighRitzSolver:
 
 
 
+class View:
+  """
+  Interface de Usuário (UI)
+  """
+  def heading(self, msg: str, sep: str = '-'):
+    """
+    Função auxiliar: exibe uma mensagem no terminal com uma regua abaixo
+    do mesmo tamanho da mensagem
+
+    Parameters
+    ----------
+    msg: str
+      mensagem a ser exibida
+    sep: str
+      caractere de separação
+    """
+    print(msg)
+    print(sep*len(msg))
+
+
+  def print_values(self, model: RayleighRitzSolver, exact_func: Callable, points: float):
+    X = np.linspace(0, model.L, points)
+    u_pred = model.vec_evaluate(X)
+
+    if exact_func is not None:
+      u_exact = exact_func(X)
+      error = np.abs(u_pred - u_exact)
+      max_error = np.max(error)
+
+      for i in range(len(X)):
+        print(f'x={X[i]:.6f}\tup={u_pred[i]:.6f}\tu={u_exact[i]:.6f}\te={error[i]:.6f}')
+      print(f'Erro máx.: {max_error:.6f}')
+    else:
+      for i in range(len(X)):
+        print(f'x={X[i]:.6f}\tup={u_pred[i]:.6f}')
+
+
+  def model_summary(
+    self, 
+    model: RayleighRitzSolver, 
+    f_exp: str, 
+    k_exp: str, 
+    q_exp: str, 
+    u_exp: str,
+    exact_func: Callable,
+    description: str = None
+  ):
+    if description:
+      self.heading('Descrição')
+      print(description)
+      print()
+      print()
+
+    self.heading('Caso de Teste')
+    print("Solução u(x) de uma EDO no formato")
+    print("   -ku'' - k'u' + qu = f")
+    print('no intervalo [0, {}] com u(0) = {} e u({}) = {}'.format(
+        model.L, model.u0, model.L, model.uL
+      )
+    )
+    print()
+    print()
+
+    self.heading('Parâmetros')
+    print('f(x) = {}'.format(f_exp))
+    print('k(x) = {}'.format(k_exp))
+    print('q(x) = {}'.format(q_exp))
+    print('u(0) = {}'.format(model.u0))
+    print('u({}) = {}'.format(model.L, model.uL))
+    print('L = {}'.format(model.L))
+    print('n = {}'.format(model.n))
+    print()
+    print()
+
+    if exact_func is not None:
+      self.heading('Solução Exata')
+      print('u(x) = {}'.format(u_exp))
+      print()
+      print()
+
+    self.heading('Saída do Algorítmo')
+    self.print_values(model, exact_func, model.n)
+    print()
+    print()
+
+    self.heading('Legenda')
+    print('x: ponto no intervalo [0, L] onde a EDO é avaliada')
+    print('up: valor de u(x) aproximado pelo método Rayleigh-Ritz')
+    print('u: valor exato de u(x)')
+    print('e: erro |up - u|')
+    print('Erro máx: max|up - u|')
+    print('n: número de pontos')
+
+
+  def validation(self, n=15):
+    f = lambda x: 12*x*(1-x)-2
+    k = lambda x: 1
+    q = lambda x: 0
+    u = lambda x: (x**2)*(1-x)**2
+
+    model = RayleighRitzSolver()
+    model.fit(f, k, q, n)
+
+    self.heading('Validação', '~')
+    print()
+
+    self.model_summary(
+      model, 
+      f_exp='12*x*(1-x)-2',
+      k_exp='1',
+      q_exp='0',
+      u_exp='(x**2)*(1-x)**2',
+      exact_func=u,
+      description=''
+    )
+
+
+  def test_1(self, n=30):
+    L = 2.5
+    k = 4
+    Q_heat = 8000
+    Q_cool = 7000
+    Q = Q_heat - Q_cool
+    f_func = lambda x: Q
+    k_func = lambda x: k
+    q_func = lambda x: 0
+    u_func = lambda x: -125*x**2 + 312.5*x
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L)
+
+    self.heading('Teste 01', '~')
+    print()
+
+    self.model_summary(
+      model, 
+      f_exp='1000',
+      k_exp='4',
+      q_exp='0',
+      u_exp='-125*x**2 + 312.5*x',
+      exact_func=u_func
+    )
+
+
+  def cli(self):
+    """
+    Interface de linha de comando do programa
+    """
+    parser = argparse.ArgumentParser(
+      description='EP3: Modelo de um Sistema de Resfriamento de Chips'
+    )
+
+    parser.add_argument(
+      '-t', 
+      action='store', 
+      help='Executa um teste pré-definido entre 0 e 4. Exemplo: -t 3',
+      type=int,
+      default=None
+    )
+    parser.add_argument(
+      '-f', 
+      action='store', 
+      help='Expressão da função f(x). Exemplo: -f "np.exp(x**2)/np.pi"',
+      type=str,  
+      default=None
+    )
+    parser.add_argument(
+      '-k', 
+      action='store', 
+      help='Expressão da função k(x). Exemplo: -k "np.sin(1-x**2)+3"', 
+      type=str,  
+      default=None
+    )
+    parser.add_argument(
+      '-q', 
+      action='store', 
+      help='Expressão da função q(x). Exemplo: -q "0"', 
+      type=str,  
+      default=None
+    )
+    parser.add_argument(
+      '-u', 
+      action='store', 
+      help='Opicional. Expressão da solução exata u(x). Se informada, o programa exibe o valor do erro. Exemplo: -u "(1-x)*(1+x)"', 
+      type=str,
+      default=None
+    )
+    parser.add_argument(
+      '-n',
+      action='store',
+      help='Opicional. Número de pontos usado. Valor padrão: 15',
+      type=int,
+      default=15
+    )
+    parser.add_argument(
+      '-l',
+      action='store',
+      help='Opicional. Limite l do intervalo [0, l] onde a solução será calculada. Valor padrão: 1. Exemplo: -l 2.3',
+      type=float,
+      default=1
+    )
+    parser.add_argument(
+      '-a',
+      action='store',
+      help='Opicional. Valor da condição de contorno u(0) = a. Valor padrão: 0. Exemplo: -u0 5.6',
+      type=float,
+      default=0
+    )
+    parser.add_argument(
+      '-b',
+      action='store',
+      help='Opicional. Valor da condição de contorno u(l) = b. Valor padrão: 0. Exemplo: -ul 1.8',
+      type=float,
+      default=0
+    )
+
+    args = parser.parse_args()
+
+    if args.t is not None:
+      if args.t == 0:
+        self.validation(args.n)
+      elif args.t == 1:
+        self.test_1(args.n)
+    elif args.f is not None and args.k is not None and args.q is not None:
+      model = RayleighRitzSolver()
+      f_func = lambda x: eval(args.f)
+      k_func = lambda x: eval(args.k)
+      q_func = lambda x: eval(args.q)
+      u_func = (lambda x: eval(args.u)) if args.u is not None else None
+      model.fit(f_func, k_func, q_func, args.n, args.l, args.a, args.b)
+      self.model_summary(model, args.f, args.k, args.q, args.u, u_func)
+
+
+  def render(self):
+    """
+    Renderização do front-end
+    """
+    self.heading('EP3: Modelo de um Sistema de Resfriamento de Chips', '=')
+    print()
+    self.test_1()
+    
+
+
 
 if __name__ == '__main__':
-  f = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
-  p = lambda x: 1
-  q = lambda x: np.pi ** 2
-  # y = solve(0.8, f, p, q, 9)
-  # print(y)
+  view = View()
+  view.cli()
 
-  model = RayleighRitzSolver()
-  model.fit(f, p, q, 20, 2)
-  print(model.evaluate(0.8))
+  # f = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
+  # p = lambda x: 1
+  # q = lambda x: np.pi ** 2
+  # # y = solve(0.8, f, p, q, 9)
+  # # print(y)
+
+  # model = RayleighRitzSolver()
+  # model.fit(f, p, q, 20, 2)
+  # print(model.evaluate(0.8))
