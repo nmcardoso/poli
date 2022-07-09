@@ -177,13 +177,13 @@ class GaussQuadSolver:
   def solve(self, f: Callable, a: float, b: float) -> float:
     """
     Calcula a aproximação da integral em um intervalo qualquer da função f, 
-    sendo a e b os limites da integral inferior e superior, respectivamente.
-    O cálculo é feito usando quadratura gaussiana com n nós.
+    sendo a e b os limites inferior e superior da integral, respectivamente.
+    O cálculo é feito usando quadratura gaussiana com n=10 nós.
 
     Parameters
     ----------
     f: Callable
-      uma função de duas variáveis a ser integrada
+      uma função real de uma variável real que define o integrando
 
     a: float
       limite inferior de integração
@@ -195,7 +195,7 @@ class GaussQuadSolver:
     -------
     float
       aproximação da integral da função f no intervalo [a, b] usando
-      quadratura gaussiana com n nós.
+      quadratura gaussiana com n=10 nós.
     """
     nodes, weights = self._get_pairs()
     g1: float = (b - a) / 2
