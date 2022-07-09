@@ -276,43 +276,43 @@ class RayleighRitzSolver:
     X = np.arange(n + 2) * h
     
     # funções-fábrica que geram as funções dos integrandos para cada i
-    Q1_integrand = lambda i: lambda x: (X[i+1] - x) * (x - X[i]) * q(x)
-    Q2_integrand = lambda i: lambda x: (x - X[i-1])**2 * q(x)
-    Q3_integrand = lambda i: lambda x: (X[i+1] - x)**2 * q(x)
-    Q4_integrand = lambda i: lambda x: k(x)
-    Q5_integrand = lambda i: lambda x: (x - X[i-1]) * f(x)
-    Q6_integrand = lambda i: lambda x: (X[i+1] - x) * f(x)
+    I1_integrand = lambda i: lambda x: (X[i+1] - x) * (x - X[i]) * q(x)
+    I2_integrand = lambda i: lambda x: (x - X[i-1])**2 * q(x)
+    I3_integrand = lambda i: lambda x: (X[i+1] - x)**2 * q(x)
+    I4_integrand = lambda i: lambda x: k(x)
+    I5_integrand = lambda i: lambda x: (x - X[i-1]) * f(x)
+    I6_integrand = lambda i: lambda x: (X[i+1] - x) * f(x)
 
     qs = GaussQuadSolver()
-    Q1 = np.array([
-      qs.solve(Q1_integrand(i), X[i], X[i+1]) * h**-2 
+    I1 = np.array([
+      qs.solve(I1_integrand(i), X[i], X[i+1]) * h**-2 
       for i in range(1, n)
     ])
-    Q2 = np.array([
-      qs.solve(Q2_integrand(i), X[i-1], X[i]) * h**-2
+    I2 = np.array([
+      qs.solve(I2_integrand(i), X[i-1], X[i]) * h**-2
       for i in range(1, n+1)
     ])
-    Q3 = np.array([
-      qs.solve(Q3_integrand(i), X[i], X[i+1]) * h**-2
+    I3 = np.array([
+      qs.solve(I3_integrand(i), X[i], X[i+1]) * h**-2
       for i in range(1, n+1)
     ])
-    Q4 = np.array([
-      qs.solve(Q4_integrand(i), X[i-1], X[i]) * h**-2
+    I4 = np.array([
+      qs.solve(I4_integrand(i), X[i-1], X[i]) * h**-2
       for i in range(1, n+2)
     ])
-    Q5 = np.array([
-      qs.solve(Q5_integrand(i), X[i-1], X[i]) * h**-1
+    I5 = np.array([
+      qs.solve(I5_integrand(i), X[i-1], X[i]) * h**-1
       for i in range(1, n+1)
     ])
-    Q6 = np.array([
-      qs.solve(Q6_integrand(i), X[i], X[i+1]) * h**-1
+    I6 = np.array([
+      qs.solve(I6_integrand(i), X[i], X[i+1]) * h**-1
       for i in range(1, n+1)
     ])
 
-    A_diag = np.array([Q4[i] + Q4[i+1] + Q2[i] + Q3[i] for i in range(n)])
-    A_sub = np.array([0] + [Q1[i] - Q4[i+1] for i in range(n-1)])
-    A_sup = np.array([Q1[i-1] - Q4[i] for i in range(n-1)] + [0])
-    d = np.array([Q5[i] + Q6[i] for i in range(n)])
+    A_diag = np.array([I4[i] + I4[i+1] + I2[i] + I3[i] for i in range(n)])
+    A_sub = np.array([0] + [I1[i] - I4[i+1] for i in range(n-1)])
+    A_sup = np.array([I1[i-1] - I4[i] for i in range(n-1)] + [0])
+    d = np.array([I5[i] + I6[i] for i in range(n)])
     
     ts = TridiagonalSolver()
     c = ts.solve(A_sub, A_diag, A_sup, d)
