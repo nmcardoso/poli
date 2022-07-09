@@ -4,8 +4,8 @@ Exercício Programa 03: Modelo de um Sistema de Resfriamento de Chips
 
 
 Este programa consiste em 3 "solvers": TridiagonalSolver (EP1), 
-GaussQuadSolver (EP2) e RayleighRitzSolver (EP3). Este último usa os dois
-primeiros em sua implementação.
+GaussQuadSolver (EP2) e RayleighRitzSolver (EP3). Este último é a 
+implementação principal do EP3 e usa os dois primeiros como dependências.
 
 
 Authors
@@ -158,13 +158,12 @@ class GaussQuadSolver:
   def _get_pairs(self) -> Tuple[np.ndarray, np.ndarray]:
     """
     Acessa o dicionário de dados, calcula os valores negativos e retorna
-    uma quantidade n de pesos e nós (raízes e coeficientes do polinômio 
-    de Legendre)
+    uma quantidade n=10 de nós e pesos do polinômio de Legendre
 
     Returns
     -------
     Tuple[np.ndarray, np.ndarray]
-      uma tupla contendo um array de pesos e outro de nós, nesta ordem.
+      uma tupla contendo um array de nós e outro de pesos, nesta ordem.
     """
     if GaussQuadSolver._transformed_xw is None:
       x = np.array(GaussQuadSolver.DATA['x'])
@@ -364,8 +363,8 @@ class RayleighRitzSolver:
     """
     Versão vetorizada do método `evaluate` feita para avaliar o modelo em
     grande quantidade de pontos de forma eficiente. Este método vetoriza
-    o método evaluate e armazena (cache) a versão vetorizada como um objeto 
-    de primeira ordem para usos futuros. 
+    o método evaluate e armazena a versão vetorizada (cache) como um objeto 
+    de primeira ordem para usos futuros.
 
     Paramenters
     -----------
