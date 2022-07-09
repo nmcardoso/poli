@@ -6,7 +6,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy.special import erf
 
-from ep3 import RayleighRitz
+from ep3 import RayleighRitzSolver
 
 
 
@@ -16,10 +16,13 @@ w = sp.symbols('u', cls=sp.Function)
 
 
 
-def print_values(model: RayleighRitz, diff_eq: Callable, points: float):
-  sol = sp.dsolve(diff_eq, w(t), ics={w(0): model.u0, w(model.L): model.uL})
-  exact_func = sp.lambdify(t, sol.rhs, 'numpy')
-  
+def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, sol = None):
+  if not sol:
+    sol = sp.dsolve(diff_eq, w(t), ics={w(0): model.u0, w(model.L): model.uL})
+    exact_func = sp.lambdify(t, sol.rhs, 'numpy')
+  else:
+    exact_func = sol
+
   X = np.linspace(0, model.L, points)
   y_pred = np.array(model.vec_evaluate(X))
   y_exact = exact_func(X)
@@ -35,7 +38,20 @@ def print_values(model: RayleighRitz, diff_eq: Callable, points: float):
   print(f'Max Error: {max_error:.5f}')
 
 
-def val():
+def burden():
+  f = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
+  k = lambda x: 1
+  q = lambda x: np.pi ** 2
+  n = 11
+
+  diff_eq = sp.Eq(-w(t).diff(t, t) + w(t)*sp.pi**2, 2*sp.pi**2*sp.sin(sp.pi*t))
+  
+  model = RayleighRitzSolver()
+  model.fit(f, k, q, n)
+  print_values(model, diff_eq, n)
+
+
+def val_1():
   f = lambda x: 12*x*(1-x)-2
   k = lambda x: 1
   q = lambda x: 0
@@ -43,7 +59,7 @@ def val():
 
   diff_eq = sp.Eq(-w(t).diff(t, t), 12*t*(1-t)-2)
   
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
 
   for n in (7, 15, 31, 63):
     model.fit(f, k, q, n, L)
@@ -51,14 +67,14 @@ def val():
     print('\n' + ''.join(['-']*70) + '\n')
 
 
-def val_plot():
+def val_1_plot():
   f = lambda x: 12*x*(1-x)-2
   k = lambda x: 1
   q = lambda x: 0
   L = 1
   u = lambda x: x**4 - 2*x**3 + x**2
   
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   errors = []
   N = np.arange(5, 101, 5)
 
@@ -91,9 +107,154 @@ def val_plot():
     right=True, 
     grid_linestyle='--'
   )
-  plt.savefig('val_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.savefig('val_1_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
   plt.show()
 
+
+def val_1_compare_plot():
+  f = lambda x: 12*x*(1-x)-2
+  k = lambda x: 1
+  q = lambda x: 0
+  L = 1
+  u = lambda x: x**4 - 2*x**3 + x**2
+  
+  colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
+
+  for i, n in enumerate((7, 15, 31, 63)):
+    model = RayleighRitzSolver()
+    model.fit(f, k, q, n, L)
+    
+    X = np.linspace(0, model.L, n)
+    y_pred = model.vec_evaluate(X)
+    y_exact = u(X)
+    plt.plot(X, y_pred, '--', c=colors[i], label=f'n = {n}', markersize=2)
+  plt.plot(X, y_exact, '-.', c='tab:cyan', label='Exato', markersize=2)
+
+  plt.grid()
+  plt.legend()
+  plt.title('Erro em função do número de pontos')
+  plt.xlabel('Número de pontos')
+  plt.ylabel('$||u_n - u||$')
+  plt.gca().ticklabel_format(
+    axis='y', 
+    style='sci', 
+    scilimits=(-2, 2), 
+    useMathText=True
+  )
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig('val_1_plot_compare.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.show()
+
+
+def val_2():
+  f = lambda x: np.exp(x) + 1
+  k = lambda x: np.exp(x)
+  q = lambda x: 0
+  L = 1
+
+  diff_eq = sp.Eq(-sp.exp(t)*w(t).diff(t, t) - sp.exp(t)*w(t).diff(t), sp.exp(t) + 1)
+  sol = lambda x: (x-1)*(np.exp(-x)-1)
+  # sol = None
+
+  for n in (7, 15, 31, 63):
+    model = RayleighRitzSolver()
+    model.fit(f, k, q, n)
+    pred = model.vec_evaluate(np.linspace(0, 1, n))
+    true = sol(np.linspace(0, 1, n))
+    print(np.max(np.abs(pred - true)))
+    # print_values(model, diff_eq, n, sol=sol)
+    # print('\n' + ''.join(['-']*70) + '\n')
+
+
+def val_2_plot():
+  f = lambda x: np.exp(x) + 1
+  k = lambda x: np.exp(x)
+  q = lambda x: 0
+  L = 1
+  u = lambda x: (x-1)*(np.exp(-x)-1)
+  
+  errors = []
+  N = np.arange(5, 101, 5)
+
+  for n in N:
+    model = RayleighRitzSolver()
+    model.fit(f, k, q, n, L)
+    
+    X = np.linspace(0, model.L, n)
+    y_pred = model.vec_evaluate(X)
+    y_exact = u(X)
+    error = np.abs(y_pred - y_exact)
+    errors.append(np.max(error))
+
+  errors = np.array(errors)
+
+  plt.plot(N, errors, 'o-', markersize=3)
+  plt.grid()
+  plt.title('Erro em função do número de pontos')
+  plt.xlabel('Número de pontos')
+  plt.ylabel('$||u_n - u||$')
+  plt.gca().ticklabel_format(
+    axis='y', 
+    style='sci', 
+    scilimits=(-2, 2), 
+    useMathText=True
+  )
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig('val_2_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.show()
+
+
+def val_2_compare_plot():
+  f = lambda x: np.exp(x) + 1
+  k = lambda x: np.exp(x)
+  q = lambda x: 0
+  L = 1
+  u = lambda x: (x-1)*(np.exp(-x)-1)
+  
+  colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
+
+  for i, n in enumerate((7, 15, 31, 63)):
+    model = RayleighRitzSolver()
+    model.fit(f, k, q, n, L)
+    
+    X = np.linspace(0, model.L, n)
+    y_pred = model.vec_evaluate(X)
+    y_exact = u(X)
+    plt.plot(X, y_pred, '-', c=colors[i], label=f'n = {n}', markersize=3)
+  plt.plot(X, y_exact, '--', c='tab:cyan', label='Exato', markersize=3)
+
+  plt.grid()
+  plt.legend()
+  plt.title('Erro em função do número de pontos')
+  plt.xlabel('Número de pontos')
+  plt.ylabel('$||u_n - u||$')
+  plt.gca().ticklabel_format(
+    axis='y', 
+    style='sci', 
+    scilimits=(-2, 2), 
+    useMathText=True
+  )
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig('val_2_plot_compare.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.show()
 
 
 def test_eq_1():
@@ -111,7 +272,7 @@ def test_eq_1():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   diff_eq = sp.Eq(-k*w(t).diff(t, t), Q)
   sol = sp.dsolve(diff_eq, w(t), ics={w(0): 0, w(L): 0})
   sp.pprint(sol)
@@ -157,8 +318,6 @@ def test_eq_1():
   plt.show()
 
 
-
-
 def test_eq_2():
   """
   Aquecimento: Distribuição Gaussiana
@@ -176,7 +335,7 @@ def test_eq_2():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
 
   # -4*y'' = 8850*exp(-(t-2.5/2)^2 / 1.5^2) - 7000, y(0)=20, y(2.5)=0
   sol_eq = (2941.17*t-3676.46)*sp.erf(0.83333-0.6666*t) - 1242.92*sp.exp(t*(1.111-0.444*t)) + 875*t**2 - 2187.5*t + 4042.2
@@ -227,7 +386,6 @@ def test_eq_2():
   plt.show()
 
 
-
 def test_eq_3():
   """
   Aquecimento: Distribuição Gaussiana
@@ -246,7 +404,7 @@ def test_eq_3():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
 
   # -4*y'' = (8850-7000)*exp(-(t-2.5/2)^2 / 1.5^2), y(0)=20, y(2.5)=0
   sol_eq = (614.82*t - 768.525)*sp.erf(0.8333 - 0.6666*t) - 259.819*sp.exp(t*(1.111-0.444*t)) - 8*t + 864.979
@@ -298,7 +456,6 @@ def test_eq_3():
   plt.show()
 
 
-
 def test_eq_4():
   """
   Aquecimento: Distribuição Gaussiana
@@ -318,7 +475,7 @@ def test_eq_4():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
 
   # -4*y'' = 8850*exp(-(t-2.5/2)^2 / 1.5^2) - 7000 * (exp(-(t)^2 / 1.52^2) + exp(-(t-2.5)^2 / 1.52^2)), y(0)=0, y(2.5)=0
   sol_eq = (2941.17*t-3676.46)*sp.erf(0.8333-0.6666*t) + (6785.17-2714.07*t)*sp.erf(1.42857-0.571429*t) - 1242.92*sp.exp(t*(1.111-0.444*t)) + 348.152*sp.exp(t*(1.63265-0.326531*t)) + 2714.07*t*sp.erf(0.571429*t) + 2679.69*sp.exp(-0.326531*t**2) - 1.45519e-12*t - 5456.67
@@ -370,7 +527,6 @@ def test_eq_4():
   plt.show()
 
 
-
 def test_eq_5():
   """
   Aquecimento: Distribuição Gaussiana
@@ -388,7 +544,7 @@ def test_eq_5():
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
 
   x = np.linspace(0, L, n)
   y = np.arange(0, 240, 20)
@@ -423,7 +579,6 @@ def test_eq_5():
   plt.show()
 
 
-
 def test_1():
   f_func = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
   k_func = lambda x: 1
@@ -434,7 +589,7 @@ def test_1():
   u0 = np.pi
   u1 = 0
   
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   model.fit(f_func, k_func, q_func, n, L, u0, u1)
 
   diff_eq = sp.Eq(0, 0) #sp.Eq(-u(t).diff(t, t), 12*t*(1-t)-2)
@@ -454,11 +609,10 @@ def test_2():
 
   diff_eq = sp.Eq(-w(t).diff(t, t), 12*t*(1-t)-2)
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   model.fit(f_func, k_func, q_func, n, L, u0, u1)
 
   print_values(model, diff_eq, 30)
-
 
 
 def test_3():
@@ -477,7 +631,7 @@ def test_3():
   
   diff_eq = sp.Eq(-w(t).diff(t, t), 12*t*(1-t)-2)
 
-  model = RayleighRitz()
+  model = RayleighRitzSolver()
   model.fit(f_func, k_func, q_func, n, L, u0, u1)
 
   print_values(model, diff_eq, 30, u0, u1)
@@ -485,4 +639,4 @@ def test_3():
 
 
 if __name__ == '__main__':
-  test_eq_5()
+  burden()
