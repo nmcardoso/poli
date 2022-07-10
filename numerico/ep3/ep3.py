@@ -52,8 +52,10 @@ class TridiagonalSolver:
     ----------
     a: numpy.ndarray
       vetor de dimensão n com os elementos da subdiagonal de A
+
     b: numpy.ndarray
       vetor de dimensão n com os elementos da diagonal de A
+
     c: numpy.ndarray
       vetor de dimensão n com os elementos da supradiagonal de A
 
@@ -90,10 +92,13 @@ class TridiagonalSolver:
     ----------
     a: numpy.ndarray
       vetor de dimensão n com os elementos da subdiagonal de A
+
     b: numpy.ndarray
       vetor de dimensão n com os elementos da diagonal de A
+
     c: numpy.ndarray
       vetor de dimensão n com os elementos da supradiagonal de A
+
     d: numpy.ndarray
       vetor de dimensão n com os elementos da matrix coluna d (termos independentes)
 
@@ -236,10 +241,10 @@ class RayleighRitzSolver:
     """
     Ajusta o modelo para da solução de equações diferenciais da forma
       -ku'' - k'u' + qu = f    (eq. 1)
-    no intervalo [0, L] e com condições iniciais u(0) = u0 e u(L) = uL
+    no intervalo [0, L] e com condições de contorno u(0) = u0 e u(L) = uL
     
     Se os parâmetros L, u0 e uL não forem fornecidos, o modelo ajusta
-    a sulução para o intervalo [0, 1] com condições iniciais homogêneas
+    a sulução para o intervalo [0, 1] com condições de contorno homogêneas
     
     Notes
     -----
@@ -404,8 +409,29 @@ class View:
     print(sep*len(msg))
 
 
-  def print_values(self, model: RayleighRitzSolver, exact_func: Callable, points: float):
-    X = np.linspace(0, model.L, points)
+  def print_values(
+    self, 
+    model: RayleighRitzSolver, 
+    exact_func: Callable, 
+    sample_size: int
+  ):
+    """
+    Cria uma amostra de pontos definida por `sample_size` contendo pontos
+    igualmente espaçados intervalo [0, L], avalia o modelos para estes
+    pontos e exibe os valores de forma tabular
+
+    Parameters
+    ----------
+    model: RayleighRitzSolver
+      um modelo já ajustado
+
+    exact_func: Callable
+      a função u(x)
+
+    sample_size: int
+      tamanho da amostra de avaliação
+    """
+    X = np.linspace(0, model.L, sample_size)
     u_pred = model.vec_evaluate(X)
 
     if exact_func is not None:
@@ -429,8 +455,40 @@ class View:
     q_exp: str, 
     u_exp: str,
     exact_func: Callable,
+    sample_size: int = None,
     description: str = None
   ):
+    """
+    Exibe um sumário do modelo
+
+    Parameters
+    ----------
+    model: RayleighRitzSolver
+      um modelo já ajustado
+
+    f_exp: str
+      expressão de f(x)
+
+    k_exp: str
+      expressão de k(x)
+
+    q_exp: str
+      expressão de q(x)
+
+    u_exp: str
+      expressão de u(x)
+
+    exact_func: Callable
+      a função u(x)
+
+    sample_size: int
+      tamanho da amostra de avaliação
+
+    description: str
+      descrição do teste a ser exibida no inicio do sumário
+    """
+    sample_size = sample_size or model.n
+
     if description:
       self.heading('Descrição')
       print(description)
@@ -465,7 +523,7 @@ class View:
       print()
 
     self.heading('Saída do Algorítmo')
-    self.print_values(model, exact_func, model.n)
+    self.print_values(model, exact_func, sample_size)
     print()
     print()
 
@@ -478,7 +536,20 @@ class View:
     print('n: número de pontos')
 
 
-  def validation(self, n=15):
+  def validation(self, n: int = 15, s: int = None):
+    """
+    Teste 0: Seção 4.2 do enunciado.
+    Validação/Sanitização do algorítmo de solução de EDOs
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
     f = lambda x: 12*x*(1-x)-2
     k = lambda x: 1
     q = lambda x: 0
@@ -490,6 +561,7 @@ class View:
     self.heading('Validação', '~')
     print()
 
+    s = s or n
     self.model_summary(
       model, 
       f_exp='12*x*(1-x)-2',
@@ -497,11 +569,26 @@ class View:
       q_exp='0',
       u_exp='(x**2)*(1-x)**2',
       exact_func=u,
+      sample_size=s,
       description=''
     )
 
 
-  def test_1(self, n=30):
+  def test_1(self, n: int = 30, s: int = None):
+    """
+    Teste 1 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
+    Aquecimento: Constante
+    Resfriamento: Constante
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
     L = 2.5
     k = 4
     Q_heat = 8000
@@ -518,13 +605,187 @@ class View:
     self.heading('Teste 01', '~')
     print()
 
+    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
       u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func
+      exact_func=u_func,
+      sample_size=s
+    )
+
+
+  def test_2(self, n: int = 30, s: int = None):
+    """
+    Teste 2 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Constante
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
+    L = 2.5
+    k = 4
+    Q_heat = 8000
+    Q_cool = 7000
+    Q = Q_heat - Q_cool
+    f_func = lambda x: Q
+    k_func = lambda x: k
+    q_func = lambda x: 0
+    u_func = lambda x: -125*x**2 + 312.5*x
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L)
+
+    self.heading('Teste 02', '~')
+    print()
+
+    s = s or n
+    self.model_summary(
+      model, 
+      f_exp='1000',
+      k_exp='4',
+      q_exp='0',
+      u_exp='-125*x**2 + 312.5*x',
+      exact_func=u_func,
+      sample_size=s
+    )
+
+
+  def test_3(self, n: int = 30, s: int = None):
+    """
+    Teste 3 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Distribuição Gaussiana
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
+    L = 2.5
+    k = 4
+    Q_heat = 8000
+    Q_cool = 7000
+    Q = Q_heat - Q_cool
+    f_func = lambda x: Q
+    k_func = lambda x: k
+    q_func = lambda x: 0
+    u_func = lambda x: -125*x**2 + 312.5*x
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L)
+
+    self.heading('Teste 03', '~')
+    print()
+
+    s = s or n
+    self.model_summary(
+      model, 
+      f_exp='1000',
+      k_exp='4',
+      q_exp='0',
+      u_exp='-125*x**2 + 312.5*x',
+      exact_func=u_func,
+      sample_size=s
+    )
+
+  
+  def test_4(self, n: int = 30, s: int = None):
+    """
+    Teste 4 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Distribuição Gaussiana mais intensa nos extremos
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
+    L = 2.5
+    k = 4
+    Q_heat = 8000
+    Q_cool = 7000
+    Q = Q_heat - Q_cool
+    f_func = lambda x: Q
+    k_func = lambda x: k
+    q_func = lambda x: 0
+    u_func = lambda x: -125*x**2 + 312.5*x
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L)
+
+    self.heading('Teste 04', '~')
+    print()
+
+    s = s or n
+    self.model_summary(
+      model, 
+      f_exp='1000',
+      k_exp='4',
+      q_exp='0',
+      u_exp='-125*x**2 + 312.5*x',
+      exact_func=u_func,
+      sample_size=s
+    )
+
+
+  def test_5(self, n: int = 30, s: int = None):
+    """
+    Teste 5 - Seção 4.4 do enunciado: Equilíbrio com variação de material
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Distribuição Gaussiana mais intensa nos extremos
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    s: int
+      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
+      equidistantes no intervalo [0, L].
+    """
+    L = 2.5
+    k = 4
+    Q_heat = 8000
+    Q_cool = 7000
+    Q = Q_heat - Q_cool
+    f_func = lambda x: Q
+    k_func = lambda x: k
+    q_func = lambda x: 0
+    u_func = lambda x: -125*x**2 + 312.5*x
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L)
+
+    self.heading('Teste 05', '~')
+    print()
+
+    s = s or n
+    self.model_summary(
+      model, 
+      f_exp='1000',
+      k_exp='4',
+      q_exp='0',
+      u_exp='-125*x**2 + 312.5*x',
+      exact_func=u_func,
+      sample_size=s
     )
 
 
@@ -540,6 +801,20 @@ class View:
       '-t', 
       action='store', 
       help='Executa um teste pré-definido entre 0 e 4. Exemplo: -t 3',
+      type=int,
+      default=None
+    )
+    parser.add_argument(
+      '-n',
+      action='store',
+      help='Opicional. Número de pontos usado. Valor padrão: 15',
+      type=int,
+      default=15
+    )
+    parser.add_argument(
+      '-s',
+      action='store',
+      help='Opicional. Número de pontos amostrados na avaliação do modelo. Valor padrão: o mesmo valor que n',
       type=int,
       default=None
     )
@@ -572,30 +847,23 @@ class View:
       default=None
     )
     parser.add_argument(
-      '-n',
-      action='store',
-      help='Opicional. Número de pontos usado. Valor padrão: 15',
-      type=int,
-      default=15
-    )
-    parser.add_argument(
       '-l',
       action='store',
-      help='Opicional. Limite l do intervalo [0, l] onde a solução será calculada. Valor padrão: 1. Exemplo: -l 2.3',
+      help='Opicional. Limite L do intervalo [0, L] onde a solução será calculada. Valor padrão: 1. Exemplo: -l 2.3',
       type=float,
       default=1
     )
     parser.add_argument(
       '-a',
       action='store',
-      help='Opicional. Valor da condição de contorno u(0) = a. Valor padrão: 0. Exemplo: -u0 5.6',
+      help='Opicional. Valor da condição de contorno u(0) = A. Valor padrão: 0. Exemplo: -a 5.6',
       type=float,
       default=0
     )
     parser.add_argument(
       '-b',
       action='store',
-      help='Opicional. Valor da condição de contorno u(l) = b. Valor padrão: 0. Exemplo: -ul 1.8',
+      help='Opicional. Valor da condição de contorno u(l) = B. Valor padrão: 0. Exemplo: -b 1.8',
       type=float,
       default=0
     )
@@ -604,9 +872,9 @@ class View:
 
     if args.t is not None:
       if args.t == 0:
-        self.validation(args.n)
+        self.validation(args.n, args.s)
       elif args.t == 1:
-        self.test_1(args.n)
+        self.test_1(args.n, args.s)
     elif args.f is not None and args.k is not None and args.q is not None:
       model = RayleighRitzSolver()
       f_func = lambda x: eval(args.f)
@@ -614,7 +882,7 @@ class View:
       q_func = lambda x: eval(args.q)
       u_func = (lambda x: eval(args.u)) if args.u is not None else None
       model.fit(f_func, k_func, q_func, args.n, args.l, args.a, args.b)
-      self.model_summary(model, args.f, args.k, args.q, args.u, u_func)
+      self.model_summary(model, args.f, args.k, args.q, args.u, u_func, args.s)
 
 
   def render(self):
