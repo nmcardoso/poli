@@ -16,6 +16,15 @@ w = sp.symbols('u', cls=sp.Function)
 
 
 
+def K2C(K):
+  return K - 273.15
+
+
+def C2K(C):
+  return C + 273.15
+
+
+
 def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, sol = None):
   if not sol:
     sol = sp.dsolve(diff_eq, w(t), ics={w(0): model.u0, w(model.L): model.uL})
