@@ -5,6 +5,7 @@ import sympy as sp
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy.special import erf
+import sys
 
 from ep3 import RayleighRitzSolver
 
@@ -32,7 +33,8 @@ def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, so
   else:
     exact_func = sol
 
-  X = np.linspace(0, model.L, points)
+  # X = np.linspace(0, model.L, points)
+  X = model.X
   y_pred = np.array(model.vec_evaluate(X))
   y_exact = exact_func(X)
   error = np.abs(y_pred - y_exact)
@@ -42,9 +44,9 @@ def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, so
   print()
 
   for i in range(len(X)):
-    print(f'x={X[i]:.3f}\t\typ={y_pred[i]:.5f}\ty={y_exact[i]:.5f}\te={error[i]:.4f}')
+    print(f'x={X[i]:.3f}\t\typ={y_pred[i]:.5f}\ty={y_exact[i]:.5f}\te={error[i]:.4e}')
 
-  print(f'Max Error: {max_error:.5f}')
+  print(f'Max Error: {max_error:.4e}')
 
 
 def burden():
@@ -85,26 +87,25 @@ def val_1_plot():
   
   model = RayleighRitzSolver()
   errors = []
-  h2 = []
   N = np.arange(5, 101, 5)
 
   for n in N:
     model.fit(f, k, q, n, L)
     
-    X = np.linspace(0, model.L, n)
+    # X = np.linspace(0, model.L, n)
+    X = model.X
     y_pred = model.vec_evaluate(X)
     y_exact = u(X)
     error = np.abs(y_pred - y_exact)
     errors.append(np.max(error))
-    h2.append(1/model.h**2)
 
   errors = np.array(errors)
 
-  plt.plot(N, errors, 'o-', markersize=3)
-  plt.plot(N, h2, '-', markersize=3)
+  plt.plot(N, errors, 'o-', markersize=3, label='erro absoluto')
+  plt.plot(N, np.ones(N.shape) * sys.float_info.epsilon, '--', c='tab:red', label='máx. precisão')
   plt.grid()
-  plt.title('Erro em função do número de pontos')
-  plt.xlabel('Número de pontos')
+  plt.title('Erro em função do número de intervalos de $\phi$')
+  plt.xlabel('Número de intervalos de $\phi(x)$')
   plt.ylabel('$||u_n - u||$')
   plt.gca().ticklabel_format(
     axis='y', 
@@ -119,6 +120,7 @@ def val_1_plot():
     right=True, 
     grid_linestyle='--'
   )
+  plt.legend()
   plt.savefig('val_1_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
   plt.show()
 
@@ -136,7 +138,8 @@ def val_1_compare_plot():
     model = RayleighRitzSolver()
     model.fit(f, k, q, n, L)
     
-    X = np.linspace(0, model.L, n)
+    # X = np.linspace(0, model.L, n)
+    X = model.X
     y_pred = model.vec_evaluate(X)
     y_exact = u(X)
     plt.plot(X, y_pred, '--', c=colors[i], label=f'n = {n}', markersize=2)
@@ -144,9 +147,9 @@ def val_1_compare_plot():
 
   plt.grid()
   plt.legend()
-  plt.title('Erro em função do número de pontos')
-  plt.xlabel('Número de pontos')
-  plt.ylabel('$||u_n - u||$')
+  plt.title('Solução u em função de x')
+  plt.xlabel('x')
+  plt.ylabel('u(x)')
   plt.gca().ticklabel_format(
     axis='y', 
     style='sci', 
