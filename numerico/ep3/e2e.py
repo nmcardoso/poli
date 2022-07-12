@@ -273,56 +273,40 @@ def val_2_compare_plot():
   plt.show()
 
 
-def test_eq_1():
-  """
-  Aquecimento: Constante
-  Resfriamento: Constante
-  """
-  L = 2.5
-  n = 30
-  k = 4
-  Q_heat = 8000
-  Q_cool = 7000
-  Q = Q_heat - Q_cool
-  f_func = lambda x: Q
-  k_func = lambda x: k
-  q_func = lambda x: 0
+def plot_curves(f_func, k_func, q_func, L, n, filename, sol_eq=None):
+  x = (L/(n+1))*np.arange(n+2)
+  cc = np.arange(273.15, 305.15, 5)
 
-  model = RayleighRitzSolver()
-  diff_eq = sp.Eq(-k*w(t).diff(t, t), Q)
-  sol = sp.dsolve(diff_eq, w(t), ics={w(0): 0, w(L): 0})
-  sp.pprint(sol)
-
-  x = np.linspace(0, L, n)
-  y = np.arange(0, 240, 20)
-  ci = np.arange(-10, 33, 5)
-
-  X, Y = np.meshgrid(x, y)
-  U = 1
-  # V = -250*(X + L/(n+1)) + 312.5
-  V = -250*X + 312.5
-  N = np.sqrt(U**2 + V**2)
-  U /= N
-  V = V / N
-
-  norm = mpl.colors.Normalize(np.min(ci), np.max(ci))
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
   cm = plt.cm.plasma
-  colors = cm(norm(ci))
+  colors = cm(norm(cc))
+  model = RayleighRitzSolver()
 
   plt.figure(figsize=(8, 4.5))
-  for i in range(len(ci)):
-    model.fit(f_func, k_func, q_func, n, L, ci[i], ci[i])
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
     line = model.vec_evaluate(x)
     plt.plot(x, line, color=colors[i])
-
-  plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.xlabel('time')
-  plt.ylabel('y(t)')
   plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
 
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura')
-  plt.ylabel('Temperatura')
+  if sol_eq is not None:
+    diff_eq = sp.diff(sol_eq, t)
+    dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
+    y_min, y_max = plt.gca().get_ylim()
+    x1 = np.linspace(0, L, 28)
+    y1 = np.linspace(y_min, y_max, 12)
+    X, Y = np.meshgrid(x1, y1)
+    U = 1
+    V = dydx_eq(X)
+    N = np.sqrt(U**2 + V**2)
+    U /= N
+    V = V / N
+    plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
+  
+  if sol_eq is None: plt.grid()
+  plt.title('Distribuição de temperatura no chip')
+  plt.xlabel('Comprimento (mm)')
+  plt.ylabel('Temperatura (K)')
   plt.tick_params(
     axis='both', 
     direction='in', 
@@ -330,8 +314,37 @@ def test_eq_1():
     right=True, 
     grid_linestyle='--'
   )
-  plt.savefig('test_1.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
   plt.show()
+
+
+def test_eq_1():
+  """
+  Aquecimento: Constante
+  Resfriamento: Constante
+  """
+  L = 20
+  n = 30
+  k = 3.6
+  Q_heat = 60
+  Q_cool = 55
+  Q = Q_heat - Q_cool
+  f_func = lambda x: Q
+  k_func = lambda x: k
+  q_func = lambda x: 0
+
+  # -3.6y'' = 5, y(0) = 0, y(20) = 0
+  sol_eq = t*(13.8889 - 0.694444*t)
+
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_1.pdf',
+    sol_eq=sol_eq
+  )
 
 
 def test_eq_2():
@@ -351,50 +364,17 @@ def test_eq_2():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
   # -4*y'' = 8850*exp(-(t-2.5/2)^2 / 1.5^2) - 7000, y(0)=20, y(2.5)=0
   sol_eq = (2941.17*t-3676.46)*sp.erf(0.83333-0.6666*t) - 1242.92*sp.exp(t*(1.111-0.444*t)) + 875*t**2 - 2187.5*t + 4042.2
-  diff_eq = sp.diff(sol_eq, t)
-  dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
-
-  x = np.linspace(0, L, n)
-  y = np.arange(270, 460, 20)
-  cc = np.arange(C2K(0), C2K(31), 5)
-
-  X, Y = np.meshgrid(x, y)
-  U = 1
-  V = dydx_eq(X)
-  N = np.sqrt(U**2 + V**2)
-  U /= N
-  V = V / N
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-
-  plt.figure(figsize=(8, 4.5))
-  
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura')
-  plt.ylabel('Temperatura')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_2.pdf',
+    sol_eq=sol_eq
   )
-  plt.savefig('test_2.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
 
 
 def test_eq_3():
@@ -416,50 +396,18 @@ def test_eq_3():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
   # -4*y'' = (8850-7000)*exp(-(t-2.5/2)^2 / 1.5^2), y(0)=20, y(2.5)=0
   sol_eq = (614.82*t - 768.525)*sp.erf(0.8333 - 0.6666*t) - 259.819*sp.exp(t*(1.111-0.444*t)) - 8*t + 864.979
-  diff_eq = sp.diff(sol_eq, t)
-  dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
-
-  x = np.linspace(0, L, n)
-  y = np.arange(C2K(0), C2K(0)+90, 10)
-  ci = np.arange(C2K(0), C2K(31), 5)
-
-  X, Y = np.meshgrid(x, y)
-  U = 1
-  V = dydx_eq(X)
-  N = np.sqrt(U**2 + V**2)
-  U /= N
-  V = V / N
-
-  norm = mpl.colors.Normalize(np.min(ci), np.max(ci))
-  cm = plt.cm.plasma
-  colors = cm(norm(ci))
-
-  plt.figure(figsize=(8, 4.5))
   
-  for i in range(len(ci)):
-    model.fit(f_func, k_func, q_func, n, L, ci[i], ci[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura')
-  plt.ylabel('Temperatura')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_3.pdf',
+    sol_eq=sol_eq
   )
-  plt.savefig('test_3.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
 
 
 def test_eq_4():
@@ -481,51 +429,18 @@ def test_eq_4():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
   # -3.6*y'' = 50*exp(-(t-20/2)^2 / 1.3^2) - 45 * (exp(-(t)^2 / 2.2^2) + exp(-(t-20)^2 / 2.2^2)), y(0)=0, y(20)=0
   sol_eq = (16.0013*t - 160.013)*sp.erf(7.69231 - 0.769231*t) + (487.425 - 24.3712*t)*sp.erf(9.09091 - 0.454545*t) - 2.35302e-25*sp.exp(t*(11.8343 - 0.591716*t)) + 3.878e-35*sp.exp(t*(8.26446 - 0.206612*t)) + 24.3712*t*sp.erf(0.454545*t) + 30.25*sp.exp(-0.206612*t**2) + 6.19593e-13*t - 357.662
-  diff_eq = sp.diff(sol_eq, t)
-  dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
-
-  x = np.linspace(0, L, n)
-  y = np.arange(C2K(0), C2K(0)+160, 10)
-  ci = np.arange(C2K(0), C2K(31), 5)
-
-  x1 = np.linspace(0, L, 28)
-  X, Y = np.meshgrid(x1, y)
-  U = 1
-  V = dydx_eq(X)
-  N = np.sqrt(U**2 + V**2)
-  U /= N
-  V = V / N
-
-  norm = mpl.colors.Normalize(np.min(ci), np.max(ci))
-  cm = plt.cm.plasma
-  colors = cm(norm(ci))
-
-  plt.figure(figsize=(8, 4.5))
   
-  for i in range(len(ci)):
-    model.fit(f_func, k_func, q_func, n, L, ci[i], ci[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura')
-  plt.ylabel('Temperatura')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_4.pdf',
+    sol_eq=sol_eq
   )
-  plt.savefig('test_4.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
 
 
 def test_eq_5():
@@ -546,38 +461,14 @@ def test_eq_5():
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
-  x = np.linspace(0, L, n)
-  x = (L/(n+1))*np.arange(n+2)
-  y = np.arange(C2K(-10), C2K(0)+50, 5)
-  cc = np.arange(C2K(0), C2K(31), 5)
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-
-  plt.figure(figsize=(8, 4.5))
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura (mm)')
-  plt.ylabel('Temperatura (K)')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_5.pdf'
   )
-  plt.savefig('test_5.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.grid()
-  plt.show()
 
 
 def test_eq_6():
@@ -600,38 +491,14 @@ def test_eq_6():
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
-  x = np.linspace(0, L, n)
-  x = (L/(n+1))*np.arange(n+2)
-  y = np.arange(C2K(-10), C2K(0)+50, 5)
-  cc = np.arange(C2K(0), C2K(31), 5)
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-
-  plt.figure(figsize=(8, 4.5))
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura (mm)')
-  plt.ylabel('Temperatura (K)')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_6.pdf'
   )
-  plt.savefig('test_6.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.grid()
-  plt.show()
 
 
 def test_eq_7():
@@ -656,38 +523,14 @@ def test_eq_7():
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
-  # x = np.linspace(0, L, n)
-  x = (L/(n+1))*np.arange(n+2)
-  y = np.arange(C2K(-10), C2K(0)+50, 5)
-  cc = np.arange(C2K(0), C2K(31), 5)
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-
-  plt.figure(figsize=(8, 4.5))
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura (mm)')
-  plt.ylabel('Temperatura (K)')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_7.pdf'
   )
-  plt.savefig('test_7.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.grid()
-  plt.show()
 
 
 def test_eq_8():
@@ -712,40 +555,28 @@ def test_eq_8():
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
 
-  model = RayleighRitzSolver()
-
-  # x = np.linspace(0, L, n)
-  x = (L/(n+1))*np.arange(n+2)
-  y = np.arange(C2K(-10), C2K(0)+50, 5)
-  cc = np.arange(C2K(0), C2K(31), 5)
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-
-  plt.figure(figsize=(8, 4.5))
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura (mm)')
-  plt.ylabel('Temperatura (K)')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_8.pdf'
   )
-  plt.savefig('test_8.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.grid()
-  plt.show()
 
 
 
 if __name__ == '__main__':
+  # val_1()
+  # val_2_plot()
+  # val_1_compare_plot()
+
+  # test_eq_1()
+  # test_eq_1_comp()
+  # test_eq_2()
+  test_eq_3()
+  test_eq_4()
   test_eq_5()
+  test_eq_6()
+  test_eq_7()
+  test_eq_8()
