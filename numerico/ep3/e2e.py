@@ -687,26 +687,60 @@ def test_eq_7():
   plt.show()
 
 
-def test_3():
-  L = 2
-  sigma = 0.01
-  Q0_heat = 20
-  Q_heat = lambda x: Q0_heat*np.exp(-(x-L/2)**2 / sigma**2)
-  Q_cool = lambda x: 2
-  f_func = lambda x: 4
-  k_func = lambda x: 3.6
+def test_eq_8():
+  """
+  Equilíbrio com variação de material
+  Aquecimento: Distribuição Gaussiana
+  Resfriamento: Mais instenso nos extremos
+  """
+  L = 20
+  n = 50
+  ks = 3.6
+  ka = 60
+  d = 2.5
+  sigma_heat = 2
+  theta = 4
+  Q0_heat = 60
+  Q0_cool = 30
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+  Q_cool = lambda x: Q0_cool * (np.exp(-(x)**2 / theta**2) + np.exp(-(x-L)**2 / theta**2))
+  Q = lambda x: Q_heat(x) - Q_cool(x)
+  f_func = Q
+  k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
   q_func = lambda x: 0
-  L = 1
-  n = 40
-  u0 = 0
-  u1 = 0
-  
-  diff_eq = sp.Eq(-w(t).diff(t, t), 12*t*(1-t)-2)
 
   model = RayleighRitzSolver()
-  model.fit(f_func, k_func, q_func, n, L, u0, u1)
 
-  print_values(model, diff_eq, 30, u0, u1)
+  # x = np.linspace(0, L, n)
+  x = (L/(n+1))*np.arange(n+2)
+  y = np.arange(C2K(-10), C2K(0)+50, 5)
+  cc = np.arange(C2K(0), C2K(31), 5)
+
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
+  cm = plt.cm.plasma
+  colors = cm(norm(cc))
+
+  plt.figure(figsize=(8, 4.5))
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
+    line = model.vec_evaluate(x)
+    plt.plot(x, line, color=colors[i])
+
+  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
+
+  plt.title('Temperatura ao longo do chip')
+  plt.xlabel('Comprimento/Largura (mm)')
+  plt.ylabel('Temperatura (K)')
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig('test_8.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.grid()
+  plt.show()
 
 
 
