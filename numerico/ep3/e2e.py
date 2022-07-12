@@ -336,13 +336,13 @@ def test_eq_2():
   Aquecimento: Distribuição Gaussiana
   Resfriamento: Constante
   """
-  L = 2.5
+  L = 20
   n = 30
-  k = 4
-  sigma = 1.5
-  Q0_heat = 8850
-  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma**2)
-  Q0_cool = 7000
+  k = 3.6
+  sigma_heat = 5.5
+  Q0_heat = 60
+  Q0_cool = 35
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
   Q = lambda x: Q_heat(x) - Q0_cool
   f_func = Q
   k_func = lambda x: k
@@ -356,34 +356,29 @@ def test_eq_2():
   dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
 
   x = np.linspace(0, L, n)
-  y = np.arange(0, 240, 20)
-  ci = np.arange(-10, 33, 5)
+  y = np.arange(270, 460, 20)
+  cc = np.arange(C2K(0), C2K(31), 5)
 
   X, Y = np.meshgrid(x, y)
   U = 1
   V = dydx_eq(X)
-  # V = 2941.17*erf(0.83333-0.6666*X) - 1242.92*np.exp(X*(1.111-0.444*X))*(1.111-0.888*X) - 0.752178*(2941.17*X-3676.46)*np.exp(-(0.83333-0.6666*X)**2) + 1750*X - 2187.5
   N = np.sqrt(U**2 + V**2)
   U /= N
   V = V / N
 
-  norm = mpl.colors.Normalize(np.min(ci), np.max(ci))
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
   cm = plt.cm.plasma
-  colors = cm(norm(ci))
+  colors = cm(norm(cc))
 
   plt.figure(figsize=(8, 4.5))
   
-  for i in range(len(ci)):
-    model.fit(f_func, k_func, q_func, n, L, ci[i], ci[i])
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
     line = model.vec_evaluate(x)
     plt.plot(x, line, color=colors[i])
 
   plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.xlabel('time')
-  plt.ylabel('y(t)')
   plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  # plt.plot(x, (2941.17*x-3676.46)*erf(0.83333-0.6666*x) - 1242.92*np.exp(x*(1.111-0.444*x)) + 875*x**2 - 2187.5*x + 4042.2, c='red')
 
   plt.title('Temperatura ao longo do chip')
   plt.xlabel('Comprimento/Largura')
@@ -404,14 +399,15 @@ def test_eq_3():
   Aquecimento: Distribuição Gaussiana
   Resfriamento: Distribuição Gaussiana
   """
-  L = 2.5
+  L = 20
   n = 30
-  k = 4
-  sigma = 1.5
-  Q0_heat = 8850
-  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma**2)
-  Q0_cool = 7000
-  Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma**2)
+  k = 3.6
+  sigma_heat = 4
+  sigma_cool = 8
+  Q0_heat = 60
+  Q0_cool = 35
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+  Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma_cool**2)
   Q = lambda x: Q_heat(x) - Q_cool(x)
   f_func = Q
   k_func = lambda x: k
@@ -423,16 +419,14 @@ def test_eq_3():
   sol_eq = (614.82*t - 768.525)*sp.erf(0.8333 - 0.6666*t) - 259.819*sp.exp(t*(1.111-0.444*t)) - 8*t + 864.979
   diff_eq = sp.diff(sol_eq, t)
   dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
-  # y'(t) = 2941.17*erf(0.83333-0.6666*t) - 259.819*exp(t*(1.111-0.444*t))*(1.111-0.888*t) - 0.752178*(614.82*t-768.525)*exp(-(0.83333-0.6666*t)^2) - 8
 
   x = np.linspace(0, L, n)
-  y = np.arange(0, 375, 25)
-  ci = np.arange(-10, 33, 5)
+  y = np.arange(C2K(0), C2K(0)+90, 10)
+  ci = np.arange(C2K(0), C2K(31), 5)
 
   X, Y = np.meshgrid(x, y)
   U = 1
   V = dydx_eq(X)
-  # V = 2941.17*erf(0.83333-0.6666*X) - 259.819*np.exp(X*(1.111-0.444*X))*(1.111-0.888*X) - 0.752178*(614.82*X-768.525)*np.exp(-(0.83333-0.6666*X)**2) - 8
   N = np.sqrt(U**2 + V**2)
   U /= N
   V = V / N
@@ -449,11 +443,7 @@ def test_eq_3():
     plt.plot(x, line, color=colors[i])
 
   plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.xlabel('time')
-  plt.ylabel('y(t)')
   plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  # plt.plot(x, (2941.17*x-3676.46)*erf(0.83333-0.6666*x) - 1242.92*np.exp(x*(1.111-0.444*x)) + 875*x**2 - 2187.5*x + 4042.2, c='red')
 
   plt.title('Temperatura ao longo do chip')
   plt.xlabel('Comprimento/Largura')
@@ -474,14 +464,14 @@ def test_eq_4():
   Aquecimento: Distribuição Gaussiana
   Resfriamento: Mais instenso nos extremos
   """
-  L = 2.5
-  n = 30
-  k = 4
-  sigma = 1.5
-  theta = 1.52
-  Q0_heat = 8850
-  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma**2)
-  Q0_cool = 7000
+  L = 20
+  n = 80
+  k = 3.6
+  sigma_heat = 1.2
+  theta = 2.9
+  Q0_heat = 60
+  Q0_cool = 55
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
   Q_cool = lambda x: Q0_cool * (np.exp(-(x)**2 / theta**2) + np.exp(-(x-L)**2 / theta**2))
   Q = lambda x: Q_heat(x) - Q_cool(x)
   f_func = Q
@@ -490,20 +480,19 @@ def test_eq_4():
 
   model = RayleighRitzSolver()
 
-  # -4*y'' = 8850*exp(-(t-2.5/2)^2 / 1.5^2) - 7000 * (exp(-(t)^2 / 1.52^2) + exp(-(t-2.5)^2 / 1.52^2)), y(0)=0, y(2.5)=0
-  sol_eq = (2941.17*t-3676.46)*sp.erf(0.8333-0.6666*t) + (6785.17-2714.07*t)*sp.erf(1.42857-0.571429*t) - 1242.92*sp.exp(t*(1.111-0.444*t)) + 348.152*sp.exp(t*(1.63265-0.326531*t)) + 2714.07*t*sp.erf(0.571429*t) + 2679.69*sp.exp(-0.326531*t**2) - 1.45519e-12*t - 5456.67
+  # -3.6*y'' = 50*exp(-(t-20/2)^2 / 1.3^2) - 45 * (exp(-(t)^2 / 2.2^2) + exp(-(t-20)^2 / 2.2^2)), y(0)=0, y(20)=0
+  sol_eq = (16.0013*t - 160.013)*sp.erf(7.69231 - 0.769231*t) + (487.425 - 24.3712*t)*sp.erf(9.09091 - 0.454545*t) - 2.35302e-25*sp.exp(t*(11.8343 - 0.591716*t)) + 3.878e-35*sp.exp(t*(8.26446 - 0.206612*t)) + 24.3712*t*sp.erf(0.454545*t) + 30.25*sp.exp(-0.206612*t**2) + 6.19593e-13*t - 357.662
   diff_eq = sp.diff(sol_eq, t)
   dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
 
-
   x = np.linspace(0, L, n)
-  y = np.arange(-10, 160, 20)
-  ci = np.arange(-10, 33, 5)
+  y = np.arange(C2K(0), C2K(0)+160, 10)
+  ci = np.arange(C2K(0), C2K(31), 5)
 
-  X, Y = np.meshgrid(x, y)
+  x1 = np.linspace(0, L, 28)
+  X, Y = np.meshgrid(x1, y)
   U = 1
   V = dydx_eq(X)
-  # V = (2765.63-2212.5*X)/np.exp(0.444445*(1.25 - X)**2) - 117.005*np.exp((2.16413 - 0.432825*X)*X)*(-2.50001 + X) + 1104.82*np.exp((1.11111 - 0.444444*X)*X)*(-1.25 + X) + (-4375. + 1750*X)/np.exp(0.432826*(2.5 - X)**2) + 2941.17*erf(0.833333 - 0.666667*X) - 2357.36*erf(1.64474 - 0.657895*X) + np.exp(-0.432826*(X + 5.13012e-16)**2)*(2357.36*np.exp((0.657895*X + 3.37508e-16)**2)*erf(0.657895*X + 3.37508e-16) + np.exp((8.31025e-7*X + 6.513e-22)*X)*(-1750*X - 8.9777e-13) + 1750*X + 8.97774e-13)
   N = np.sqrt(U**2 + V**2)
   U /= N
   V = V / N
@@ -520,11 +509,7 @@ def test_eq_4():
     plt.plot(x, line, color=colors[i])
 
   plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  plt.xlabel('time')
-  plt.ylabel('y(t)')
   plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  # plt.plot(x, (2941.17*x-3676.46)*erf(0.8333-0.6666*x) + (5893.41-2357.36*x)*erf(1.64474-0.657895*x) - 1242.92*np.exp(x*(1.111-0.444*x)) + 135.164*np.exp(x*(2.16413-0.432825*x)) + 2357.36*x*erf(0.657895*x + 3.37508e-16) + 1.20936e-12*erf(0.657895*x+3.37508e-16) + 2021.6*np.exp((-0.432825*x-4.44089e-16)*x) - 3890, c='red')
 
   plt.title('Temperatura ao longo do chip')
   plt.xlabel('Comprimento/Largura')
@@ -543,16 +528,16 @@ def test_eq_4():
 def test_eq_5():
   """
   Equilíbrio com variação de material
-  Aquecimento: Distribuição Gaussiana
-  Resfriamento: Mais instenso nos extremos
+  Aquecimento: Constante
+  Resfriamento: Constante
   """
-  L = 20e-3
-  n = 80
+  L = 20
+  n = 200
   ks = 3.6
   ka = 60
-  d = 5e-3
-  Q_heat = 37.5e6
-  Q_cool = 5e6
+  d = 2.5
+  Q_heat = 60
+  Q_cool = 30
   Q = Q_heat - Q_cool
   f_func = lambda x: Q
   k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
@@ -561,25 +546,24 @@ def test_eq_5():
   model = RayleighRitzSolver()
 
   x = np.linspace(0, L, n)
-  y = np.arange(0, 240, 20)
-  ci = np.arange(263.15, 295.15, 5)
+  x = (L/(n+1))*np.arange(n+2)
+  y = np.arange(C2K(-10), C2K(0)+50, 5)
+  cc = np.arange(C2K(0), C2K(31), 5)
 
-  norm = mpl.colors.Normalize(np.min(ci), np.max(ci))
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
   cm = plt.cm.plasma
-  colors = cm(norm(ci))
+  colors = cm(norm(cc))
 
   plt.figure(figsize=(8, 4.5))
-  for i in range(len(ci)):
-    model.fit(f_func, k_func, q_func, n, L, ci[i], ci[i])
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
     line = model.vec_evaluate(x)
     plt.plot(x, line, color=colors[i])
 
-  plt.xlabel('time')
-  plt.ylabel('y(t)')
   plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
 
   plt.title('Temperatura ao longo do chip')
-  plt.xlabel('Comprimento/Largura (m)')
+  plt.xlabel('Comprimento/Largura (mm)')
   plt.ylabel('Temperatura (K)')
   plt.tick_params(
     axis='both', 
