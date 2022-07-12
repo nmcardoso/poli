@@ -577,22 +577,58 @@ def test_eq_5():
   plt.show()
 
 
-def test_1():
-  f_func = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
-  k_func = lambda x: 1
-  q_func = lambda x: np.pi ** 2
-  # y_func = lambda x: np.sin(np.pi * x)
-  L = 1
-  n = 30
-  u0 = np.pi
-  u1 = 0
-  
+def test_eq_6():
+  """
+  Equilíbrio com variação de material
+  Aquecimento: Distribuição gaussiana
+  Resfriamento: Constante
+  """
+  L = 20
+  n = 200
+  ks = 3.6
+  ka = 60
+  d = 2.5
+  sigma_heat = 5.5
+  Q0_heat = 60
+  Q0_cool = 35
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+  Q = lambda x: Q_heat(x) - Q0_cool
+  f_func = Q
+  k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
+  q_func = lambda x: 0
+
   model = RayleighRitzSolver()
-  model.fit(f_func, k_func, q_func, n, L, u0, u1)
 
-  diff_eq = sp.Eq(0, 0) #sp.Eq(-u(t).diff(t, t), 12*t*(1-t)-2)
+  x = np.linspace(0, L, n)
+  x = (L/(n+1))*np.arange(n+2)
+  y = np.arange(C2K(-10), C2K(0)+50, 5)
+  cc = np.arange(C2K(0), C2K(31), 5)
 
-  print_values(model, diff_eq, 30)
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
+  cm = plt.cm.plasma
+  colors = cm(norm(cc))
+
+  plt.figure(figsize=(8, 4.5))
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
+    line = model.vec_evaluate(x)
+    plt.plot(x, line, color=colors[i])
+
+  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
+
+  plt.title('Temperatura ao longo do chip')
+  plt.xlabel('Comprimento/Largura (mm)')
+  plt.ylabel('Temperatura (K)')
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig('test_6.pdf', pad_inches=0.01, bbox_inches='tight')
+  plt.grid()
+  plt.show()
 
 
 def test_2():
