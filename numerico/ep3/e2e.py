@@ -16,6 +16,8 @@ t = sp.symbols('x')
 w = sp.symbols('u', cls=sp.Function)
 
 
+SHOW = False
+
 
 def K2C(K):
   return K - 273.15
@@ -25,6 +27,136 @@ def C2K(C):
   return C + 273.15
 
 
+def plot_curves(f_func, k_func, q_func, L, n, filename, sol_eq=None):
+  x = (L/(n+1))*np.arange(n+2)
+  cc = np.arange(273.15, 305.15, 5)
+
+  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
+  cm = plt.cm.plasma
+  colors = cm(norm(cc))
+  model = RayleighRitzSolver()
+
+  plt.figure(figsize=(8, 4.5))
+  for i in range(len(cc)):
+    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
+    line = model.vec_evaluate(x)
+    plt.plot(x, line, color=colors[i])
+  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
+
+  if sol_eq is not None:
+    diff_eq = sp.diff(sol_eq, t)
+    dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
+    y_min, y_max = plt.gca().get_ylim()
+    x1 = np.linspace(0, L, 28)
+    y1 = np.linspace(y_min, y_max, 12)
+    X, Y = np.meshgrid(x1, y1)
+    U = 1
+    V = dydx_eq(X)
+    N = np.sqrt(U**2 + V**2)
+    U /= N
+    V = V / N
+    plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
+  
+  if sol_eq is None: plt.grid()
+  plt.title('Distribuição de temperatura no chip')
+  plt.xlabel('Comprimento (mm)')
+  plt.ylabel('Temperatura (K)')
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+  
+  if SHOW:
+    plt.show()
+  plt.close()
+
+
+def plot_error(f_func, k_func, q_func, L, filename, sol_eq, eps=False):
+  model = RayleighRitzSolver()
+  errors = []
+  N = np.arange(5, 101, 5)
+  u = np.vectorize(sp.lambdify(t, sol_eq, 'numpy'))
+
+  for n in N:
+    model.fit(f_func, k_func, q_func, n, L)
+    X = model.X
+    y_pred = model.vec_evaluate(X)
+    y_exact = u(X)
+    error = np.abs(y_pred - y_exact)
+    errors.append(np.max(error))
+
+  errors = np.array(errors)
+
+  plt.plot(N, errors, 'o-', markersize=3, label='erro absoluto')
+  if eps:
+    y_eps = np.ones(N.shape) * sys.float_info.epsilon
+    plt.plot(N, y_eps, '--', c='tab:red', label='máx. precisão')
+  plt.grid()
+  plt.title('Erro em função do número de intervalos de $\phi$')
+  plt.xlabel('Número de intervalos de $\phi(x)$')
+  plt.ylabel('$||u_n - u||$')
+  plt.gca().ticklabel_format(
+    axis='y', 
+    style='sci', 
+    scilimits=(-2, 2), 
+    useMathText=True
+  )
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.legend()
+  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+  
+  if SHOW:
+    plt.show()
+  plt.close()
+
+
+def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15):
+  colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
+  u = np.vectorize(sp.lambdify(t, sol_eq, 'numpy'))
+
+  for i, n in enumerate((7, 15, 31, 63)):
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L, T0, T0)
+    X = model.X
+    y_pred = model.vec_evaluate(X)
+    y_exact = u(X)
+    plt.plot(X, y_pred, '--', c=colors[i], label=f'n = {n}', markersize=2)
+  plt.plot(X, y_exact, '-.', c='tab:cyan', label='Exato', markersize=2)
+
+  plt.grid()
+  plt.legend()
+  plt.title('Solução u em função de x')
+  plt.xlabel('x')
+  plt.ylabel('u(x)')
+  plt.gca().ticklabel_format(
+    axis='y', 
+    style='sci', 
+    scilimits=(-2, 2), 
+    useMathText=True
+  )
+  plt.tick_params(
+    axis='both', 
+    direction='in', 
+    top=True, 
+    right=True, 
+    grid_linestyle='--'
+  )
+  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+
+  if SHOW:
+    plt.show()
+  plt.close()
+
 
 def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, sol = None):
   if not sol:
@@ -33,7 +165,6 @@ def print_values(model: RayleighRitzSolver, diff_eq: Callable, points: float, so
   else:
     exact_func = sol
 
-  # X = np.linspace(0, model.L, points)
   X = model.X
   y_pred = np.array(model.vec_evaluate(X))
   y_exact = exact_func(X)
@@ -79,92 +210,41 @@ def val_1():
 
 
 def val_1_plot():
-  f = lambda x: 12*x*(1-x)-2
-  k = lambda x: 1
-  q = lambda x: 0
+  f_func = lambda x: 12*x*(1-x)-2
+  k_func = lambda x: 1
+  q_func = lambda x: 0
   L = 1
-  u = lambda x: x**4 - 2*x**3 + x**2
+  sol_eq = t**4 - 2*t**3 + t**2
+
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=80,
+    filename='val_1.pdf',
+    sol_eq=sol_eq,
+  )
   
-  model = RayleighRitzSolver()
-  errors = []
-  N = np.arange(5, 101, 5)
-
-  for n in N:
-    model.fit(f, k, q, n, L)
-    
-    # X = np.linspace(0, model.L, n)
-    X = model.X
-    y_pred = model.vec_evaluate(X)
-    y_exact = u(X)
-    error = np.abs(y_pred - y_exact)
-    errors.append(np.max(error))
-
-  errors = np.array(errors)
-
-  plt.plot(N, errors, 'o-', markersize=3, label='erro absoluto')
-  plt.plot(N, np.ones(N.shape) * sys.float_info.epsilon, '--', c='tab:red', label='máx. precisão')
-  plt.grid()
-  plt.title('Erro em função do número de intervalos de $\phi$')
-  plt.xlabel('Número de intervalos de $\phi(x)$')
-  plt.ylabel('$||u_n - u||$')
-  plt.gca().ticklabel_format(
-    axis='y', 
-    style='sci', 
-    scilimits=(-2, 2), 
-    useMathText=True
+  plot_error(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    filename='val_1_err.pdf',
+    sol_eq=sol_eq,
+    eps=True
   )
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    filename='val_1_comp.pdf',
+    sol_eq=sol_eq,
+    T0=0
   )
-  plt.legend()
-  plt.savefig('val_1_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
-
-
-def val_1_compare_plot():
-  f = lambda x: 12*x*(1-x)-2
-  k = lambda x: 1
-  q = lambda x: 0
-  L = 1
-  u = lambda x: x**4 - 2*x**3 + x**2
-  
-  colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
-
-  for i, n in enumerate((7, 15, 31, 63)):
-    model = RayleighRitzSolver()
-    model.fit(f, k, q, n, L)
-    
-    # X = np.linspace(0, model.L, n)
-    X = model.X
-    y_pred = model.vec_evaluate(X)
-    y_exact = u(X)
-    plt.plot(X, y_pred, '--', c=colors[i], label=f'n = {n}', markersize=2)
-  plt.plot(X, y_exact, '-.', c='tab:cyan', label='Exato', markersize=2)
-
-  plt.grid()
-  plt.legend()
-  plt.title('Solução u em função de x')
-  plt.xlabel('x')
-  plt.ylabel('u(x)')
-  plt.gca().ticklabel_format(
-    axis='y', 
-    style='sci', 
-    scilimits=(-2, 2), 
-    useMathText=True
-  )
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
-  )
-  plt.savefig('val_1_plot_compare.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
 
 
 def val_2():
@@ -189,133 +269,29 @@ def val_2():
 
 
 def val_2_plot():
-  f = lambda x: np.exp(x) + 1
-  k = lambda x: np.exp(x)
-  q = lambda x: 0
+  f_func = lambda x: np.exp(x) + 1
+  k_func = lambda x: np.exp(x)
+  q_func = lambda x: 0
   L = 1
-  u = lambda x: (x-1)*(np.exp(-x)-1)
+  sol_eq = (t-1)*(sp.exp(-t)-1)
   
-  errors = []
-  N = np.arange(5, 101, 5)
-
-  for n in N:
-    model = RayleighRitzSolver()
-    model.fit(f, k, q, n, L)
-    
-    X = np.linspace(0, model.L, n)
-    y_pred = model.vec_evaluate(X)
-    y_exact = u(X)
-    error = np.abs(y_pred - y_exact)
-    errors.append(np.max(error))
-
-  errors = np.array(errors)
-
-  plt.plot(N, errors, 'o-', markersize=3)
-  plt.grid()
-  plt.title('Erro em função do número de pontos')
-  plt.xlabel('Número de pontos')
-  plt.ylabel('$||u_n - u||$')
-  plt.gca().ticklabel_format(
-    axis='y', 
-    style='sci', 
-    scilimits=(-2, 2), 
-    useMathText=True
+  plot_error(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    filename='val_2_err.pdf',
+    sol_eq=sol_eq
   )
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
+
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    filename='val_2_comp.pdf',
+    sol_eq=sol_eq
   )
-  plt.savefig('val_2_plot_err.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
-
-
-def val_2_compare_plot():
-  f = lambda x: np.exp(x) + 1
-  k = lambda x: np.exp(x)
-  q = lambda x: 0
-  L = 1
-  u = lambda x: (x-1)*(np.exp(-x)-1)
-  
-  colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
-
-  for i, n in enumerate((7, 15, 31, 63)):
-    model = RayleighRitzSolver()
-    model.fit(f, k, q, n, L)
-    
-    X = np.linspace(0, model.L, n)
-    y_pred = model.vec_evaluate(X)
-    y_exact = u(X)
-    plt.plot(X, y_pred, '-', c=colors[i], label=f'n = {n}', markersize=3)
-  plt.plot(X, y_exact, '--', c='tab:cyan', label='Exato', markersize=3)
-
-  plt.grid()
-  plt.legend()
-  plt.title('Erro em função do número de pontos')
-  plt.xlabel('Número de pontos')
-  plt.ylabel('$||u_n - u||$')
-  plt.gca().ticklabel_format(
-    axis='y', 
-    style='sci', 
-    scilimits=(-2, 2), 
-    useMathText=True
-  )
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
-  )
-  plt.savefig('val_2_plot_compare.pdf', pad_inches=0.01, bbox_inches='tight')
-  plt.show()
-
-
-def plot_curves(f_func, k_func, q_func, L, n, filename, sol_eq=None):
-  x = (L/(n+1))*np.arange(n+2)
-  cc = np.arange(273.15, 305.15, 5)
-
-  norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
-  cm = plt.cm.plasma
-  colors = cm(norm(cc))
-  model = RayleighRitzSolver()
-
-  plt.figure(figsize=(8, 4.5))
-  for i in range(len(cc)):
-    model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
-    line = model.vec_evaluate(x)
-    plt.plot(x, line, color=colors[i])
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
-
-  if sol_eq is not None:
-    diff_eq = sp.diff(sol_eq, t)
-    dydx_eq = np.vectorize(sp.lambdify(t, diff_eq, 'numpy'))
-    y_min, y_max = plt.gca().get_ylim()
-    x1 = np.linspace(0, L, 28)
-    y1 = np.linspace(y_min, y_max, 12)
-    X, Y = np.meshgrid(x1, y1)
-    U = 1
-    V = dydx_eq(X)
-    N = np.sqrt(U**2 + V**2)
-    U /= N
-    V = V / N
-    plt.quiver(X, Y, U, V, angles='xy', pivot='mid')
-  
-  if sol_eq is None: plt.grid()
-  plt.title('Distribuição de temperatura no chip')
-  plt.xlabel('Comprimento (mm)')
-  plt.ylabel('Temperatura (K)')
-  plt.tick_params(
-    axis='both', 
-    direction='in', 
-    top=True, 
-    right=True, 
-    grid_linestyle='--'
-  )
-  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
-  plt.show()
 
 
 def test_eq_1():
@@ -324,7 +300,7 @@ def test_eq_1():
   Resfriamento: Constante
   """
   L = 20
-  n = 30
+  n = 80
   k = 3.6
   Q_heat = 60
   Q_cool = 55
@@ -333,8 +309,8 @@ def test_eq_1():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  # -3.6y'' = 5, y(0) = 0, y(20) = 0
-  sol_eq = t*(13.8889 - 0.694444*t)
+  # -3.6y'' = 5, y(0)=293.15, y(20)=293.15
+  sol_eq = 5863/20 - (t*(25*t - 500))/36
 
   plot_curves(
     f_func=f_func,
@@ -346,6 +322,15 @@ def test_eq_1():
     sol_eq=sol_eq
   )
 
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    sol_eq=sol_eq,
+    filename='test_1_comp.pdf'
+  )
+
 
 def test_eq_2():
   """
@@ -353,7 +338,7 @@ def test_eq_2():
   Resfriamento: Constante
   """
   L = 20
-  n = 30
+  n = 80
   k = 3.6
   sigma_heat = 5.5
   Q0_heat = 60
@@ -364,8 +349,9 @@ def test_eq_2():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  # -4*y'' = 8850*exp(-(t-2.5/2)^2 / 1.5^2) - 7000, y(0)=20, y(2.5)=0
-  sol_eq = (2941.17*t-3676.46)*sp.erf(0.83333-0.6666*t) - 1242.92*sp.exp(t*(1.111-0.444*t)) + 875*t**2 - 2187.5*t + 4042.2
+  # -3.6*y'' = 60*exp(-(t-20/2)^2 / 5.5^2) - 35, y(0)=293.15, y(20)=293.15
+  sol_eq = (3025*sp.exp(-400/121))/12 - (875*t)/9 - (3025*sp.exp(-(4*(t - 10)**2)/121))/12 + (1375*sp.pi**(1/2)*sp.erf(20/11))/3 + (1375*sp.pi**(1/2)*sp.erf((2*t)/11 - 20/11))/3 + (175*t**2)/36 - (275*sp.pi**(1/2)*t*sp.erf((2*t)/11 - 20/11))/6 + 5863/20
+  
   plot_curves(
     f_func=f_func,
     k_func=k_func,
@@ -376,6 +362,15 @@ def test_eq_2():
     sol_eq=sol_eq
   )
 
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    sol_eq=sol_eq,
+    filename='test_2_comp.pdf'
+  )
+
 
 def test_eq_3():
   """
@@ -383,12 +378,12 @@ def test_eq_3():
   Resfriamento: Distribuição Gaussiana
   """
   L = 20
-  n = 30
+  n = 80
   k = 3.6
-  sigma_heat = 4
-  sigma_cool = 8
+  sigma_heat = 3
+  sigma_cool = 3
   Q0_heat = 60
-  Q0_cool = 35
+  Q0_cool = 40
   Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
   Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma_cool**2)
   Q = lambda x: Q_heat(x) - Q_cool(x)
@@ -396,8 +391,8 @@ def test_eq_3():
   k_func = lambda x: k
   q_func = lambda x: 0
 
-  # -4*y'' = (8850-7000)*exp(-(t-2.5/2)^2 / 1.5^2), y(0)=20, y(2.5)=0
-  sol_eq = (614.82*t - 768.525)*sp.erf(0.8333 - 0.6666*t) - 259.819*sp.exp(t*(1.111-0.444*t)) - 8*t + 864.979
+  # -3.6*y'' = (60-40)*exp(-(t-20/2)^2 / 4^2), y(0)=293.15, y(20)=293.15
+  sol_eq = (400*sp.exp(-25/4))/9 - (400*sp.exp(-(t - 10)**2/16))/9 + (1000*sp.pi**(1/2)*sp.erf(5/2))/9 - (400*sp.pi**(1/2)*sp.erf(t/4 - 5/2)*(t/4 - 5/2))/9 + 5863/20
   
   plot_curves(
     f_func=f_func,
@@ -406,7 +401,48 @@ def test_eq_3():
     L=L,
     n=n,
     filename='test_3.pdf',
-    sol_eq=sol_eq
+    # sol_eq=sol_eq
+  )
+
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    sol_eq=sol_eq,
+    filename='test_3_comp.pdf'
+  )
+
+
+def test_eq_3_1():
+  """
+  Aquecimento: Distribuição Gaussiana
+  Resfriamento: Distribuição Gaussiana
+  """
+  L = 20
+  n = 80
+  k = 3.6
+  sigma_heat = 3
+  sigma_cool = 4.5
+  Q0_heat = 60
+  Q0_cool = 40
+  Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+  Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma_cool**2)
+  Q = lambda x: Q_heat(x) - Q_cool(x)
+  f_func = Q
+  k_func = lambda x: k
+  q_func = lambda x: 0
+
+  # -3.6*y'' = 60*exp(-(t-20/2)^2 / 3^2) - (-40)*exp(-(t-20/2)^2 / 4.5^2), y(0)=293.15, y(20)=293.15
+  sol_eq = 75*sp.exp(-100/9) + (225*sp.exp(-400/81))/2 - 75*sp.exp(-(t - 10)**2/9) - (225*sp.exp(-(4*(t - 10)**2)/81))/2 + 250*sp.pi**(1/2)*sp.erf(10/3) + 250*sp.pi**(1/2)*sp.erf(20/9) - 75*sp.pi**(1/2)*sp.erf(t/3 - 10/3)*(t/3 - 10/3) - (225*sp.pi**(1/2)*sp.erf((2*t)/9 - 20/9)*((2*t)/9 - 20/9))/2 + 5863/20
+
+  plot_curves(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    n=n,
+    filename='test_3_1.pdf'
   )
 
 
@@ -430,7 +466,7 @@ def test_eq_4():
   q_func = lambda x: 0
 
   # -3.6*y'' = 50*exp(-(t-20/2)^2 / 1.3^2) - 45 * (exp(-(t)^2 / 2.2^2) + exp(-(t-20)^2 / 2.2^2)), y(0)=0, y(20)=0
-  sol_eq = (16.0013*t - 160.013)*sp.erf(7.69231 - 0.769231*t) + (487.425 - 24.3712*t)*sp.erf(9.09091 - 0.454545*t) - 2.35302e-25*sp.exp(t*(11.8343 - 0.591716*t)) + 3.878e-35*sp.exp(t*(8.26446 - 0.206612*t)) + 24.3712*t*sp.erf(0.454545*t) + 30.25*sp.exp(-0.206612*t**2) + 6.19593e-13*t - 357.662
+  sol_eq = (845*sp.exp(-10000/169))/72 - (121*sp.exp(-10000/121))/4 + (121*sp.exp(-(25*t**2)/121))/4 + (121*sp.exp(-(25*(t - 20)**2)/121))/4 - (845*sp.exp(-(100*(t - 10)**2)/169))/72 - 275*sp.pi**(1/2)*sp.erf(100/11) + (1625*sp.pi**(1/2)*sp.erf(100/13))/18 + (55*sp.pi**(1/2)*t*sp.erf((5*t)/11))/4 + (121*sp.pi**(1/2)*sp.erf((5*t)/11 - 100/11)*((5*t)/11 - 100/11))/4 - (845*sp.pi**(1/2)*sp.erf((10*t)/13 - 100/13)*((10*t)/13 - 100/13))/72 + 2629/10
   
   plot_curves(
     f_func=f_func,
@@ -439,7 +475,16 @@ def test_eq_4():
     L=L,
     n=n,
     filename='test_4.pdf',
-    sol_eq=sol_eq
+    # sol_eq=sol_eq
+  )
+
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    sol_eq=sol_eq,
+    filename='test_4_comp.pdf'
   )
 
 
@@ -450,7 +495,7 @@ def test_eq_5():
   Resfriamento: Constante
   """
   L = 20
-  n = 200
+  n = 80
   ks = 3.6
   ka = 60
   d = 2.5
@@ -478,7 +523,7 @@ def test_eq_6():
   Resfriamento: Constante
   """
   L = 20
-  n = 200
+  n = 80
   ks = 3.6
   ka = 60
   d = 2.5
@@ -508,7 +553,7 @@ def test_eq_7():
   Resfriamento: Distribuição Gaussiana
   """
   L = 20
-  n = 200
+  n = 80
   ks = 3.6
   ka = 60
   d = 2.5
@@ -540,7 +585,7 @@ def test_eq_8():
   Resfriamento: Mais instenso nos extremos
   """
   L = 20
-  n = 50
+  n = 80
   ks = 3.6
   ka = 60
   d = 2.5
@@ -568,15 +613,15 @@ def test_eq_8():
 
 if __name__ == '__main__':
   # val_1()
+  val_1_plot()
   # val_2_plot()
-  # val_1_compare_plot()
 
   # test_eq_1()
-  # test_eq_1_comp()
   # test_eq_2()
-  test_eq_3()
-  test_eq_4()
-  test_eq_5()
-  test_eq_6()
-  test_eq_7()
-  test_eq_8()
+  # test_eq_3()
+  # test_eq_3_1()
+  # test_eq_4()
+  # test_eq_5()
+  # test_eq_6()
+  # test_eq_7()
+  # test_eq_8()
