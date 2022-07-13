@@ -412,13 +412,10 @@ class View:
   def print_values(
     self, 
     model: RayleighRitzSolver, 
-    exact_func: Callable, 
-    sample_size: int
+    exact_func: Callable = None
   ):
     """
-    Cria uma amostra de pontos definida por `sample_size` contendo pontos
-    igualmente espaçados intervalo [0, L], avalia o modelos para estes
-    pontos e exibe os valores de forma tabular
+    Avalia o modelos para n pontos e exibe os valores de forma tabular
 
     Parameters
     ----------
@@ -427,11 +424,8 @@ class View:
 
     exact_func: Callable
       a função u(x)
-
-    sample_size: int
-      tamanho da amostra de avaliação
     """
-    X = np.linspace(0, model.L, sample_size)
+    X = model.X
     u_pred = model.vec_evaluate(X)
 
     if exact_func is not None:
@@ -440,11 +434,11 @@ class View:
       max_error = np.max(error)
 
       for i in range(len(X)):
-        print(f'x={X[i]:.6f}\tup={u_pred[i]:.6f}\tu={u_exact[i]:.6f}\te={error[i]:.6f}')
-      print(f'Erro máx.: {max_error:.6f}')
+        print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}\tu={u_exact[i]:.6f}\te={error[i]:.2e}')
+      print(f'Erro máx.: {max_error:.2e}')
     else:
       for i in range(len(X)):
-        print(f'x={X[i]:.6f}\tup={u_pred[i]:.6f}')
+        print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}')
 
 
   def model_summary(
@@ -455,7 +449,6 @@ class View:
     q_exp: str, 
     u_exp: str,
     exact_func: Callable,
-    sample_size: int = None,
     description: str = None
   ):
     """
@@ -481,14 +474,9 @@ class View:
     exact_func: Callable
       a função u(x)
 
-    sample_size: int
-      tamanho da amostra de avaliação
-
     description: str
       descrição do teste a ser exibida no inicio do sumário
     """
-    sample_size = sample_size or model.n
-
     if description:
       self.heading('Descrição')
       print(description)
@@ -522,18 +510,18 @@ class View:
       print()
       print()
 
-    self.heading('Saída do Algorítmo')
-    self.print_values(model, exact_func, sample_size)
+    self.heading('Avaliação do modelo')
+    self.print_values(model, exact_func)
     print()
     print()
 
     self.heading('Legenda')
     print('x: ponto no intervalo [0, L] onde a EDO é avaliada')
-    print('up: valor de u(x) aproximado pelo método Rayleigh-Ritz')
+    print('un: valor de u(x) aproximado pelo método Rayleigh-Ritz')
     print('u: valor exato de u(x)')
     print('e: erro |up - u|')
     print('Erro máx: max|up - u|')
-    print('n: número de pontos')
+    print('n: número de pontos usados na interpolação')
 
 
   def validation(self, n: int = 15, s: int = None):
@@ -560,21 +548,20 @@ class View:
 
     self.heading('Validação', '~')
     print()
+    print()
 
     s = s or n
     self.model_summary(
       model, 
-      f_exp='12*x*(1-x)-2',
+      f_exp='(1 - x)12x - 2',
       k_exp='1',
       q_exp='0',
-      u_exp='(x**2)*(1-x)**2',
-      exact_func=u,
-      sample_size=s,
-      description=''
+      u_exp='(x^2)(1 - x)^2',
+      exact_func=u
     )
 
 
-  def test_1(self, n: int = 30, s: int = None):
+  def test_1(self, n: int = 30):
     """
     Teste 1 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Constante
@@ -603,21 +590,22 @@ class View:
     model.fit(f_func, k_func, q_func, n, L)
 
     self.heading('Teste 01', '~')
+    print('Equilíbrio com forçantes de calor com aquecimento')
+    print('constante e resfriamento constante')
+    print()
     print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
-      u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func,
-      sample_size=s
+      u_exp='-125x^2 + 312.5x',
+      exact_func=u_func
     )
 
 
-  def test_2(self, n: int = 30, s: int = None):
+  def test_2(self, n: int = 30):
     """
     Teste 2 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -646,21 +634,22 @@ class View:
     model.fit(f_func, k_func, q_func, n, L)
 
     self.heading('Teste 02', '~')
+    print('Equilíbrio com forçantes de calor com aquecimento')
+    print('gaussiano e resfriamento constante')
+    print()
     print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
-      u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func,
-      sample_size=s
+      u_exp=None,
+      exact_func=None
     )
 
 
-  def test_3(self, n: int = 30, s: int = None):
+  def test_3(self, n: int = 30):
     """
     Teste 3 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -689,21 +678,22 @@ class View:
     model.fit(f_func, k_func, q_func, n, L)
 
     self.heading('Teste 03', '~')
+    print('Equilíbrio com forçantes de calor com aquecimento')
+    print('gaussiano e resfriamento gaussiano')
+    print()
     print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
-      u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func,
-      sample_size=s
+      u_exp='-125x^2 + 312.5x',
+      exact_func=u_func
     )
 
   
-  def test_4(self, n: int = 30, s: int = None):
+  def test_4(self, n: int = 30):
     """
     Teste 4 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -732,21 +722,22 @@ class View:
     model.fit(f_func, k_func, q_func, n, L)
 
     self.heading('Teste 04', '~')
+    print('Equilíbrio com forçantes de calor com aquecimento')
+    print('gaussiano e resfriamento mais intenso nos extremos')
+    print()
     print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
       u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func,
-      sample_size=s
+      exact_func=u_func
     )
 
 
-  def test_5(self, n: int = 30, s: int = None):
+  def test_5(self, n: int = 30):
     """
     Teste 5 - Seção 4.4 do enunciado: Equilíbrio com variação de material
     Aquecimento: Distribuição Gaussiana
@@ -775,17 +766,18 @@ class View:
     model.fit(f_func, k_func, q_func, n, L)
 
     self.heading('Teste 05', '~')
+    print('Equilíbrio com variação de material com aquecimento')
+    print('constante e resfriamento constante')
+    print()
     print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='1000',
       k_exp='4',
       q_exp='0',
       u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func,
-      sample_size=s
+      exact_func=u_func
     )
 
 
@@ -793,119 +785,52 @@ class View:
     """
     Interface de linha de comando do programa
     """
-    parser = argparse.ArgumentParser(
-      description='EP3: Modelo de um Sistema de Resfriamento de Chips'
-    )
+    parser = argparse.ArgumentParser()
 
     parser.add_argument(
       '-t', 
       action='store', 
-      help='Executa um teste pré-definido entre 0 e 4. Exemplo: -t 3',
+      help='Executa um teste pré-definido entre 0 e 4. Informações de cada teste em LEIAME.txt. Exemplo: -t 3',
       type=int,
       default=None
     )
     parser.add_argument(
       '-n',
       action='store',
-      help='Opicional. Número de pontos usado. Valor padrão: 15',
+      help='Opicional. Número de pontos usado. Valor padrão: 15. Exemplo -n 3',
       type=int,
       default=15
     )
-    parser.add_argument(
-      '-s',
-      action='store',
-      help='Opicional. Número de pontos amostrados na avaliação do modelo. Valor padrão: o mesmo valor que n',
-      type=int,
-      default=None
-    )
-    parser.add_argument(
-      '-f', 
-      action='store', 
-      help='Expressão da função f(x). Exemplo: -f "np.exp(x**2)/np.pi"',
-      type=str,  
-      default=None
-    )
-    parser.add_argument(
-      '-k', 
-      action='store', 
-      help='Expressão da função k(x). Exemplo: -k "np.sin(1-x**2)+3"', 
-      type=str,  
-      default=None
-    )
-    parser.add_argument(
-      '-q', 
-      action='store', 
-      help='Expressão da função q(x). Exemplo: -q "0"', 
-      type=str,  
-      default=None
-    )
-    parser.add_argument(
-      '-u', 
-      action='store', 
-      help='Opicional. Expressão da solução exata u(x). Se informada, o programa exibe o valor do erro. Exemplo: -u "(1-x)*(1+x)"', 
-      type=str,
-      default=None
-    )
-    parser.add_argument(
-      '-l',
-      action='store',
-      help='Opicional. Limite L do intervalo [0, L] onde a solução será calculada. Valor padrão: 1. Exemplo: -l 2.3',
-      type=float,
-      default=1
-    )
-    parser.add_argument(
-      '-a',
-      action='store',
-      help='Opicional. Valor da condição de contorno u(0) = A. Valor padrão: 0. Exemplo: -a 5.6',
-      type=float,
-      default=0
-    )
-    parser.add_argument(
-      '-b',
-      action='store',
-      help='Opicional. Valor da condição de contorno u(l) = B. Valor padrão: 0. Exemplo: -b 1.8',
-      type=float,
-      default=0
-    )
-
     args = parser.parse_args()
 
-    if args.t is not None:
-      if args.t == 0:
-        self.validation(args.n, args.s)
-      elif args.t == 1:
-        self.test_1(args.n, args.s)
-    elif args.f is not None and args.k is not None and args.q is not None:
-      model = RayleighRitzSolver()
-      f_func = lambda x: eval(args.f)
-      k_func = lambda x: eval(args.k)
-      q_func = lambda x: eval(args.q)
-      u_func = (lambda x: eval(args.u)) if args.u is not None else None
-      model.fit(f_func, k_func, q_func, args.n, args.l, args.a, args.b)
-      self.model_summary(model, args.f, args.k, args.q, args.u, u_func, args.s)
-
-
-  def render(self):
-    """
-    Renderização do front-end
-    """
-    self.heading('EP3: Modelo de um Sistema de Resfriamento de Chips', '=')
+    self.heading('Exercício Programa 3', '=')
     print()
-    self.test_1()
-    
+
+    if args.t is not None:
+      if args.n and args.n <= 2:
+        print('o parâmetro n precisa ser maior que 2')
+        return
+
+      n = args.n - 2
+      if args.t == 0:
+        self.validation(n)
+      elif args.t == 1:
+        self.test_1(n)
+      elif args.t == 2:
+        self.test_2(n)
+      elif args.t == 3:
+        self.test_3(n)
+      elif args.t == 4:
+        self.test_4(n)
+      elif args.t == 5:
+        self.test_5(n)
+      else:
+        print('Teste especificado inválido')
+    else:
+      parser.print_help()
 
 
 
 if __name__ == '__main__':
   view = View()
   view.cli()
-
-  # f = lambda x: (2*np.pi**2) * np.sin(np.pi * x)
-  # p = lambda x: 1
-  # q = lambda x: np.pi ** 2
-  # # y = solve(0.8, f, p, q, 9)
-  # # print(y)
-
-  # model = RayleighRitzSolver()
-  # model.fit(f, p, q, 20, 2)
-  # print(model.evaluate(0.8))
