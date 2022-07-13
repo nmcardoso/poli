@@ -23,6 +23,7 @@ quit -f
 
 
 
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -41,6 +42,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 
 
 
@@ -75,7 +77,7 @@ HEADER
 	VERSION = 1;
 	TIME_UNIT = ns;
 	DATA_OFFSET = 0.0;
-	DATA_DURATION = 1000.0;
+	DATA_DURATION = 500.0;
 	SIMULATION_TIME = 0.0;
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 10.0;
@@ -499,7 +501,7 @@ TRANSITION_LIST("clear")
 		REPEAT = 1;
 		LEVEL 0 FOR 350.0;
 		LEVEL 1 FOR 30.0;
-		LEVEL 0 FOR 620.0;
+		LEVEL 0 FOR 120.0;
 	}
 }
 
@@ -511,7 +513,7 @@ TRANSITION_LIST("clk")
 		LEVEL 1 FOR 5.0;
 		NODE
 		{
-			REPEAT = 99;
+			REPEAT = 49;
 			LEVEL 0 FOR 5.0;
 			LEVEL 1 FOR 5.0;
 		}
@@ -527,7 +529,7 @@ TRANSITION_LIST("grava")
 		LEVEL 1 FOR 40.0;
 		LEVEL 0 FOR 440.0;
 		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 510.0;
+		LEVEL 0 FOR 10.0;
 	}
 }
 
@@ -538,7 +540,7 @@ TRANSITION_LIST("inibe")
 		REPEAT = 1;
 		LEVEL 0 FOR 140.0;
 		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 820.0;
+		LEVEL 0 FOR 320.0;
 	}
 }
 
@@ -547,7 +549,7 @@ TRANSITION_LIST("min_d[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -556,7 +558,7 @@ TRANSITION_LIST("min_d[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -565,7 +567,7 @@ TRANSITION_LIST("min_d[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -574,7 +576,7 @@ TRANSITION_LIST("min_d_clrn")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -583,7 +585,7 @@ TRANSITION_LIST("min_u[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -592,7 +594,7 @@ TRANSITION_LIST("min_u[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -601,7 +603,7 @@ TRANSITION_LIST("min_u[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -610,7 +612,7 @@ TRANSITION_LIST("min_u[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -619,7 +621,7 @@ TRANSITION_LIST("min_u_clrn")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -628,7 +630,7 @@ TRANSITION_LIST("min_u_end")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -641,7 +643,7 @@ TRANSITION_LIST("programa")
 		LEVEL 1 FOR 20.0;
 		LEVEL 0 FOR 430.0;
 		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 510.0;
+		LEVEL 0 FOR 10.0;
 	}
 }
 
@@ -650,7 +652,7 @@ TRANSITION_LIST("seg_d[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -659,7 +661,7 @@ TRANSITION_LIST("seg_d[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -668,7 +670,7 @@ TRANSITION_LIST("seg_d[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -677,7 +679,7 @@ TRANSITION_LIST("seg_d_clrn")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -686,7 +688,7 @@ TRANSITION_LIST("seg_d_end")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -695,7 +697,7 @@ TRANSITION_LIST("seg_prog_d[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
 	}
 }
 
@@ -704,7 +706,7 @@ TRANSITION_LIST("seg_prog_d[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
 	}
 }
 
@@ -713,7 +715,7 @@ TRANSITION_LIST("seg_prog_d[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
 	}
 }
 
@@ -722,7 +724,7 @@ TRANSITION_LIST("seg_prog_u[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
 	}
 }
 
@@ -731,7 +733,7 @@ TRANSITION_LIST("seg_prog_u[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
 	}
 }
 
@@ -740,7 +742,7 @@ TRANSITION_LIST("seg_prog_u[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 500.0;
 	}
 }
 
@@ -749,7 +751,7 @@ TRANSITION_LIST("seg_prog_u[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 500.0;
 	}
 }
 
@@ -758,7 +760,7 @@ TRANSITION_LIST("seg_u[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -767,7 +769,7 @@ TRANSITION_LIST("seg_u[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -776,7 +778,7 @@ TRANSITION_LIST("seg_u[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -785,7 +787,7 @@ TRANSITION_LIST("seg_u[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -794,7 +796,7 @@ TRANSITION_LIST("seg_u_clrn")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -803,7 +805,7 @@ TRANSITION_LIST("seg_u_end")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -812,7 +814,7 @@ TRANSITION_LIST("c_carrega_n")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
@@ -821,7 +823,7 @@ TRANSITION_LIST("c_inibe_n")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 1000.0;
+		LEVEL X FOR 500.0;
 	}
 }
 
