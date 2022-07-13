@@ -29,19 +29,19 @@ def C2K(C):
 
 def plot_curves(f_func, k_func, q_func, L, n, filename, sol_eq=None):
   x = (L/(n+1))*np.arange(n+2)
-  cc = np.arange(273.15, 305.15, 5)
+  cc = np.arange(274, 305, 5)
 
   norm = mpl.colors.Normalize(np.min(cc), np.max(cc))
   cm = plt.cm.plasma
   colors = cm(norm(cc))
   model = RayleighRitzSolver()
 
-  plt.figure(figsize=(8, 4.5))
+  plt.figure(figsize=(8.8, 4))
   for i in range(len(cc)):
     model.fit(f_func, k_func, q_func, n, L, cc[i], cc[i])
     line = model.vec_evaluate(x)
     plt.plot(x, line, color=colors[i])
-  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm))
+  plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cm), ticks=cc)
 
   if sol_eq is not None:
     diff_eq = sp.diff(sol_eq, t)
@@ -68,7 +68,7 @@ def plot_curves(f_func, k_func, q_func, L, n, filename, sol_eq=None):
     right=True, 
     grid_linestyle='--'
   )
-  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+  plt.savefig('plots/' + filename, pad_inches=0.01, bbox_inches='tight')
   
   if SHOW:
     plt.show()
@@ -91,13 +91,14 @@ def plot_error(f_func, k_func, q_func, L, filename, sol_eq, eps=False):
 
   errors = np.array(errors)
 
+  plt.figure(figsize=(7.7, 4))
   plt.plot(N, errors, 'o-', markersize=3, label='erro absoluto')
   if eps:
     y_eps = np.ones(N.shape) * sys.float_info.epsilon
     plt.plot(N, y_eps, '--', c='tab:red', label='máx. precisão')
   plt.grid()
-  plt.title('Erro em função do número de intervalos de $\phi$')
-  plt.xlabel('Número de intervalos de $\phi(x)$')
+  plt.title('Erro em função do número de interpolações')
+  plt.xlabel('Número de pontos interpolados')
   plt.ylabel('$||u_n - u||$')
   plt.gca().ticklabel_format(
     axis='y', 
@@ -113,17 +114,18 @@ def plot_error(f_func, k_func, q_func, L, filename, sol_eq, eps=False):
     grid_linestyle='--'
   )
   plt.legend()
-  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+  plt.savefig('plots/' + filename, pad_inches=0.01, bbox_inches='tight')
   
   if SHOW:
     plt.show()
   plt.close()
 
 
-def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15):
+def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15, u_label='Exato'):
   colors = ['tab:orange', 'tab:red', 'tab:brown', 'tab:green']
   u = np.vectorize(sp.lambdify(t, sol_eq, 'numpy'))
 
+  plt.figure(figsize=(7.7, 4))
   for i, n in enumerate((7, 15, 31, 63)):
     model = RayleighRitzSolver()
     model.fit(f_func, k_func, q_func, n, L, T0, T0)
@@ -131,11 +133,11 @@ def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15):
     y_pred = model.vec_evaluate(X)
     y_exact = u(X)
     plt.plot(X, y_pred, '--', c=colors[i], label=f'n = {n}', markersize=2)
-  plt.plot(X, y_exact, '-.', c='tab:cyan', label='Exato', markersize=2)
+  plt.plot(X, y_exact, '-.', c='tab:cyan', label=u_label, markersize=2)
 
   plt.grid()
   plt.legend()
-  plt.title('Solução u em função de x')
+  plt.title('Comparação da solução u(x)')
   plt.xlabel('x')
   plt.ylabel('u(x)')
   plt.gca().ticklabel_format(
@@ -151,7 +153,7 @@ def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15):
     right=True, 
     grid_linestyle='--'
   )
-  plt.savefig(filename, pad_inches=0.01, bbox_inches='tight')
+  plt.savefig('plots/' + filename, pad_inches=0.01, bbox_inches='tight')
 
   if SHOW:
     plt.show()
@@ -410,7 +412,8 @@ def test_eq_3():
     q_func=q_func,
     L=L,
     sol_eq=sol_eq,
-    filename='test_3_comp.pdf'
+    filename='test_3_comp.pdf',
+    u_label='Matlab'
   )
 
 
@@ -443,6 +446,16 @@ def test_eq_3_1():
     L=L,
     n=n,
     filename='test_3_1.pdf'
+  )
+
+  plot_comparison(
+    f_func=f_func,
+    k_func=k_func,
+    q_func=q_func,
+    L=L,
+    sol_eq=sol_eq,
+    filename='test_3_1_comp.pdf',
+    u_label='Matlab'
   )
 
 
@@ -484,7 +497,8 @@ def test_eq_4():
     q_func=q_func,
     L=L,
     sol_eq=sol_eq,
-    filename='test_4_comp.pdf'
+    filename='test_4_comp.pdf',
+    u_label='Matlab'
   )
 
 
@@ -616,12 +630,12 @@ if __name__ == '__main__':
   val_1_plot()
   # val_2_plot()
 
-  # test_eq_1()
-  # test_eq_2()
-  # test_eq_3()
-  # test_eq_3_1()
-  # test_eq_4()
-  # test_eq_5()
-  # test_eq_6()
-  # test_eq_7()
-  # test_eq_8()
+  test_eq_1()
+  test_eq_2()
+  test_eq_3()
+  test_eq_3_1()
+  test_eq_4()
+  test_eq_5()
+  test_eq_6()
+  test_eq_7()
+  test_eq_8()
