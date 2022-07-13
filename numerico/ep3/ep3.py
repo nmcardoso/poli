@@ -412,7 +412,8 @@ class View:
   def print_values(
     self, 
     model: RayleighRitzSolver, 
-    exact_func: Callable = None
+    exact_func: Callable = None,
+    csv: bool = False
   ):
     """
     Avalia o modelos para n pontos e exibe os valores de forma tabular
@@ -424,6 +425,9 @@ class View:
 
     exact_func: Callable
       a função u(x)
+
+    csv: bool
+      exibe no formato csv
     """
     X = model.X
     u_pred = model.vec_evaluate(X)
@@ -433,23 +437,42 @@ class View:
       error = np.abs(u_pred - u_exact)
       max_error = np.max(error)
 
-      for i in range(len(X)):
-        print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}\tu={u_exact[i]:.6f}\te={error[i]:.2e}')
-      print(f'Erro máx.: {max_error:.2e}')
+      if csv:
+        print('x,un,u,e')
+        for i in range(len(X)):
+          print(f'{X[i]:.6f},{u_pred[i]:.6f},{u_exact[i]:.6f},{error[i]:.2e}')
+      else:
+        for i in range(len(X)):
+          print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}\tu={u_exact[i]:.6f}\te={error[i]:.2e}')
+        print(f'Erro máx.: {max_error:.2e}')
     else:
-      for i in range(len(X)):
-        print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}')
+      if csv:
+        print('x,un')
+        for i in range(len(X)):
+          print(f'{X[i]:.6f},{u_pred[i]:.6f}')
+      else:
+        for i in range(len(X)):
+          print(f'x={X[i]:.6f}\tun={u_pred[i]:.6f}')
 
 
   def model_summary(
     self, 
-    model: RayleighRitzSolver, 
-    f_exp: str, 
-    k_exp: str, 
-    q_exp: str, 
-    u_exp: str,
-    exact_func: Callable,
-    description: str = None
+    model: RayleighRitzSolver,
+    k: Any = None,
+    ka: Any = None,
+    ks: Any = None,
+    d: Any = None,
+    Q_heat: Any = None,
+    Q_cool: Any = None,
+    sigma_heat: Any = None,
+    sigma_cool: Any = None,
+    theta: Any = None,
+    f_exp: str = None,
+    k_exp: str = None,
+    q_exp: str = None,
+    u_exp: str = None,
+    exact_func: Callable = None,
+    csv: bool = False
   ):
     """
     Exibe um sumário do modelo
@@ -474,29 +497,36 @@ class View:
     exact_func: Callable
       a função u(x)
 
-    description: str
-      descrição do teste a ser exibida no inicio do sumário
+    csv: bool
+      exibe no formato csv
     """
-    if description:
-      self.heading('Descrição')
-      print(description)
-      print()
-      print()
-
-    self.heading('Caso de Teste')
-    print("Solução u(x) de uma EDO no formato")
-    print("   -ku'' - k'u' + qu = f")
-    print('no intervalo [0, {}] com u(0) = {} e u({}) = {}'.format(
-        model.L, model.u0, model.L, model.uL
-      )
-    )
-    print()
-    print()
+    if csv: return self.print_values(model, exact_func, csv)
 
     self.heading('Parâmetros')
-    print('f(x) = {}'.format(f_exp))
-    print('k(x) = {}'.format(k_exp))
-    print('q(x) = {}'.format(q_exp))
+    if f_exp:
+      print('f(x) = {}'.format(f_exp))
+    if k_exp:
+      print('k(x) = {}'.format(k_exp))
+    if q_exp:
+      print('q(x) = {}'.format(q_exp))
+    if d:
+      print('d = {}'.format(d))
+    if k:
+      print('k = {}'.format(k))
+    if ka:
+      print('ka = {}'.format(ka))
+    if ks:
+      print('ks = {}'.format(ks))
+    if Q_heat:
+      print('Q0 (aquecimento) = {}'.format(Q_heat))
+    if Q_cool:
+      print('Q0 (resfriamento) = {}'.format(Q_cool))
+    if sigma_heat:
+      print('sigma (aquecimento) = {}'.format(sigma_heat))
+    if sigma_cool:
+      print('sigma (resfriamento) = {}'.format(sigma_cool))
+    if theta:
+      print('theta = {}'.format(theta))
     print('u(0) = {}'.format(model.u0))
     print('u({}) = {}'.format(model.L, model.uL))
     print('L = {}'.format(model.L))
@@ -524,7 +554,7 @@ class View:
     print('n: número de pontos usados na interpolação')
 
 
-  def validation(self, n: int = 15, s: int = None):
+  def validation(self, n: int = 15, csv: bool = False):
     """
     Teste 0: Seção 4.2 do enunciado.
     Validação/Sanitização do algorítmo de solução de EDOs
@@ -534,9 +564,8 @@ class View:
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
     f = lambda x: 12*x*(1-x)-2
     k = lambda x: 1
@@ -546,9 +575,10 @@ class View:
     model = RayleighRitzSolver()
     model.fit(f, k, q, n)
 
-    self.heading('Validação', '~')
-    print()
-    print()
+    if not csv:
+      self.heading('Validação', '~')
+      print()
+      print()
 
     s = s or n
     self.model_summary(
@@ -557,11 +587,12 @@ class View:
       k_exp='1',
       q_exp='0',
       u_exp='(x^2)(1 - x)^2',
-      exact_func=u
+      exact_func=u,
+      csv=csv
     )
 
 
-  def test_1(self, n: int = 30):
+  def test_1(self, n: int = 30, csv: bool = False):
     """
     Teste 1 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Constante
@@ -572,40 +603,42 @@ class View:
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
-    L = 2.5
-    k = 4
-    Q_heat = 8000
-    Q_cool = 7000
+    L = 20
+    k = 3.6
+    Q_heat = 60
+    Q_cool = 55
+    T0 = 293.15
     Q = Q_heat - Q_cool
     f_func = lambda x: Q
     k_func = lambda x: k
     q_func = lambda x: 0
-    u_func = lambda x: -125*x**2 + 312.5*x
+    u_func = lambda t: 293.15 - (t*(25*t - 500))/36
     
     model = RayleighRitzSolver()
-    model.fit(f_func, k_func, q_func, n, L)
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
 
-    self.heading('Teste 01', '~')
-    print('Equilíbrio com forçantes de calor com aquecimento')
-    print('constante e resfriamento constante')
-    print()
-    print()
+    if not csv:
+      self.heading('Teste 01', '~')
+      print('Equilíbrio com forçantes de calor com aquecimento')
+      print('constante e resfriamento constante')
+      print()
+      print()
 
     self.model_summary(
       model, 
-      f_exp='1000',
-      k_exp='4',
-      q_exp='0',
-      u_exp='-125x^2 + 312.5x',
-      exact_func=u_func
+      k=k,
+      Q_heat=Q_heat,
+      Q_cool=Q_cool,
+      u_exp='293.15 - (t(25t - 500))/36',
+      exact_func=u_func,
+      csv=csv
     )
 
 
-  def test_2(self, n: int = 30):
+  def test_2(self, n: int = 30, csv: bool = False):
     """
     Teste 2 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -616,40 +649,42 @@ class View:
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
-    L = 2.5
-    k = 4
-    Q_heat = 8000
-    Q_cool = 7000
-    Q = Q_heat - Q_cool
-    f_func = lambda x: Q
+    L = 20
+    k = 3.6
+    sigma_heat = 5.5
+    Q0_heat = 60
+    Q0_cool = 35
+    T0 = 293.15
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q = lambda x: Q_heat(x) - Q0_cool
+    f_func = Q
     k_func = lambda x: k
     q_func = lambda x: 0
-    u_func = lambda x: -125*x**2 + 312.5*x
     
     model = RayleighRitzSolver()
-    model.fit(f_func, k_func, q_func, n, L)
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
 
-    self.heading('Teste 02', '~')
-    print('Equilíbrio com forçantes de calor com aquecimento')
-    print('gaussiano e resfriamento constante')
-    print()
-    print()
+    if not csv:
+      self.heading('Teste 02', '~')
+      print('Equilíbrio com forçantes de calor com aquecimento')
+      print('gaussiano e resfriamento constante')
+      print()
+      print()
 
     self.model_summary(
       model, 
-      f_exp='1000',
-      k_exp='4',
-      q_exp='0',
-      u_exp=None,
-      exact_func=None
+      k=k,
+      sigma_heat=sigma_heat,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      csv=csv
     )
 
 
-  def test_3(self, n: int = 30):
+  def test_3(self, n: int = 30, csv: bool = False):
     """
     Teste 3 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -660,40 +695,45 @@ class View:
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
-    L = 2.5
-    k = 4
-    Q_heat = 8000
-    Q_cool = 7000
-    Q = Q_heat - Q_cool
-    f_func = lambda x: Q
+    L = 20
+    k = 3.6
+    sigma_heat = 3
+    sigma_cool = 3
+    Q0_heat = 60
+    Q0_cool = 40
+    T0 = 293.15
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma_cool**2)
+    Q = lambda x: Q_heat(x) - Q_cool(x)
+    f_func = Q
     k_func = lambda x: k
     q_func = lambda x: 0
-    u_func = lambda x: -125*x**2 + 312.5*x
     
     model = RayleighRitzSolver()
-    model.fit(f_func, k_func, q_func, n, L)
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
 
-    self.heading('Teste 03', '~')
-    print('Equilíbrio com forçantes de calor com aquecimento')
-    print('gaussiano e resfriamento gaussiano')
-    print()
-    print()
+    if not csv:
+      self.heading('Teste 03', '~')
+      print('Equilíbrio com forçantes de calor com aquecimento')
+      print('gaussiano e resfriamento gaussiano')
+      print()
+      print()
 
     self.model_summary(
       model, 
-      f_exp='1000',
-      k_exp='4',
-      q_exp='0',
-      u_exp='-125x^2 + 312.5x',
-      exact_func=u_func
+      k=k,
+      sigma_heat=sigma_heat,
+      sigma_cool=sigma_cool,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      csv=csv
     )
 
   
-  def test_4(self, n: int = 30):
+  def test_4(self, n: int = 30, csv: bool = False):
     """
     Teste 4 - Seção 4.3 do enunciado: Equilíbrio com forçantes de calor
     Aquecimento: Distribuição Gaussiana
@@ -704,80 +744,244 @@ class View:
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
-    L = 2.5
-    k = 4
-    Q_heat = 8000
-    Q_cool = 7000
-    Q = Q_heat - Q_cool
-    f_func = lambda x: Q
+    L = 20
+    k = 3.6
+    sigma_heat = 1.2
+    theta = 2.9
+    Q0_heat = 60
+    Q0_cool = 55
+    T0 = 293.15
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q_cool = lambda x: Q0_cool * (np.exp(-(x)**2 / theta**2) + np.exp(-(x-L)**2 / theta**2))
+    Q = lambda x: Q_heat(x) - Q_cool(x)
+    f_func = Q
     k_func = lambda x: k
     q_func = lambda x: 0
-    u_func = lambda x: -125*x**2 + 312.5*x
     
     model = RayleighRitzSolver()
-    model.fit(f_func, k_func, q_func, n, L)
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
 
-    self.heading('Teste 04', '~')
-    print('Equilíbrio com forçantes de calor com aquecimento')
-    print('gaussiano e resfriamento mais intenso nos extremos')
-    print()
-    print()
+    if not csv:
+      self.heading('Teste 04', '~')
+      print('Equilíbrio com forçantes de calor com aquecimento')
+      print('gaussiano e resfriamento mais intenso nos extremos')
+      print()
+      print()
 
     self.model_summary(
       model, 
-      f_exp='1000',
-      k_exp='4',
-      q_exp='0',
-      u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func
+      k=k,
+      sigma_heat=sigma_heat,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      theta=theta,
+      csv=csv
     )
 
 
-  def test_5(self, n: int = 30):
+  def test_5(self, n: int = 30, csv: bool = False):
     """
     Teste 5 - Seção 4.4 do enunciado: Equilíbrio com variação de material
-    Aquecimento: Distribuição Gaussiana
-    Resfriamento: Distribuição Gaussiana mais intensa nos extremos
+    Aquecimento: constante
+    Resfriamento: constante
 
     Parameters
     ----------
     n: int
       número de pontos considerados pelo modelo na resulução da EDO
 
-    s: int
-      tamanho da amostra de avaliação. O modelo é avaliado em <s> pontos
-      equidistantes no intervalo [0, L].
+    csv: bool
+      exibe no formato csv
     """
-    L = 2.5
-    k = 4
-    Q_heat = 8000
-    Q_cool = 7000
+    L = 20
+    ks = 3.6
+    ka = 60
+    d = 2.5
+    T0 = 293.15
+    Q_heat = 60
+    Q_cool = 30
     Q = Q_heat - Q_cool
     f_func = lambda x: Q
-    k_func = lambda x: k
+    k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
     q_func = lambda x: 0
-    u_func = lambda x: -125*x**2 + 312.5*x
     
     model = RayleighRitzSolver()
-    model.fit(f_func, k_func, q_func, n, L)
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
 
-    self.heading('Teste 05', '~')
-    print('Equilíbrio com variação de material com aquecimento')
-    print('constante e resfriamento constante')
-    print()
-    print()
+    if not csv:
+      self.heading('Teste 05', '~')
+      print('Equilíbrio com variação de material com aquecimento')
+      print('constante e resfriamento constante')
+      print()
+      print()
 
     self.model_summary(
       model, 
-      f_exp='1000',
-      k_exp='4',
-      q_exp='0',
-      u_exp='-125*x**2 + 312.5*x',
-      exact_func=u_func
+      ks=ks,
+      ka=ka,
+      d=d,
+      Q_heat=Q_heat,
+      Q_cool=Q_cool,
+      csv=csv
+    )
+
+
+  def test_6(self, n: int = 30, csv: bool = False):
+    """
+    Teste 6 - Seção 4.4 do enunciado: Equilíbrio com variação de material
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: constante
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    csv: bool
+      exibe no formato csv
+    """
+    L = 20
+    ks = 3.6
+    ka = 60
+    d = 2.5
+    T0 = 293.15
+    sigma_heat = 5.5
+    Q0_heat = 60
+    Q0_cool = 35
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q = lambda x: Q_heat(x) - Q0_cool
+    f_func = Q
+    k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
+    q_func = lambda x: 0
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
+
+    if not csv:
+      self.heading('Teste 06', '~')
+      print('Equilíbrio com variação de material com aquecimento')
+      print('gaussiano e resfriamento constante')
+      print()
+      print()
+
+    self.model_summary(
+      model, 
+      ks=ks,
+      ka=ka,
+      d=d,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      sigma_heat=sigma_heat,
+      csv=csv
+    )
+
+  
+  def test_7(self, n: int = 30, csv: bool = False):
+    """
+    Teste 7 - Seção 4.4 do enunciado: Equilíbrio com variação de material
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Distribuição Gaussiana
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    csv: bool
+      exibe no formato csv
+    """
+    L = 20
+    ks = 3.6
+    ka = 60
+    d = 2.5
+    T0 = 293.15
+    sigma_heat = 2
+    sigma_cool = 8
+    Q0_heat = 60
+    Q0_cool = 30
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q_cool = lambda x: Q0_cool * np.exp(-(x - L/2)**2 / sigma_cool**2)
+    Q = lambda x: Q_heat(x) - Q_cool(x)
+    f_func = Q
+    k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
+    q_func = lambda x: 0
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
+
+    if not csv:
+      self.heading('Teste 07', '~')
+      print('Equilíbrio com variação de material com aquecimento')
+      print('gaussiano e resfriamento gaussiano')
+      print()
+      print()
+
+    self.model_summary(
+      model, 
+      ks=ks,
+      ka=ka,
+      d=d,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      sigma_heat=sigma_heat,
+      sigma_cool=sigma_cool,
+      csv=csv
+    )
+
+
+  def test_8(self, n: int = 30, csv: bool = False):
+    """
+    Teste 8 - Seção 4.4 do enunciado: Equilíbrio com variação de material
+    Aquecimento: Distribuição Gaussiana
+    Resfriamento: Mais intenso nos extremos
+
+    Parameters
+    ----------
+    n: int
+      número de pontos considerados pelo modelo na resulução da EDO
+
+    csv: bool
+      exibe no formato csv
+    """
+    L = 20
+    ks = 3.6
+    ka = 60
+    d = 2.5
+    T0 = 293.15
+    sigma_heat = 2
+    theta = 4
+    Q0_heat = 60
+    Q0_cool = 30
+    Q_heat = lambda x: Q0_heat * np.exp(-(x - L/2)**2 / sigma_heat**2)
+    Q_cool = lambda x: Q0_cool * (np.exp(-(x)**2 / theta**2) + np.exp(-(x-L)**2 / theta**2))
+    Q = lambda x: Q_heat(x) - Q_cool(x)
+    f_func = Q
+    k_func = np.vectorize(lambda x: ks if L/2 - d < x < L/2 + d else ka)
+    q_func = lambda x: 0
+    
+    model = RayleighRitzSolver()
+    model.fit(f_func, k_func, q_func, n, L, u0=T0, uL=T0)
+
+    if not csv:
+      self.heading('Teste 08', '~')
+      print('Equilíbrio com variação de material com aquecimento')
+      print('gaussiano e resfriamento mais intenso nos extremos')
+      print()
+      print()
+
+    self.model_summary(
+      model, 
+      ks=ks,
+      ka=ka,
+      d=d,
+      Q_heat=Q0_heat,
+      Q_cool=Q0_cool,
+      sigma_heat=sigma_heat,
+      theta=theta,
+      csv=csv
     )
 
 
@@ -801,10 +1005,17 @@ class View:
       type=int,
       default=15
     )
+    parser.add_argument(
+      '--csv',
+      action='store_true',
+      help='Opicional. Exibe a avaliação do modelo no formato csv (usado no desenvolvimento). Exemplo --csv',
+      default=False
+    )
     args = parser.parse_args()
 
-    self.heading('Exercício Programa 3', '=')
-    print()
+    if not args.csv:
+      self.heading('Exercício Programa 3', '=')
+      print()
 
     if args.t is not None:
       if args.n and args.n <= 2:
@@ -813,17 +1024,23 @@ class View:
 
       n = args.n - 2
       if args.t == 0:
-        self.validation(n)
+        self.validation(n, args.csv)
       elif args.t == 1:
-        self.test_1(n)
+        self.test_1(n, args.csv)
       elif args.t == 2:
-        self.test_2(n)
+        self.test_2(n, args.csv)
       elif args.t == 3:
-        self.test_3(n)
+        self.test_3(n, args.csv)
       elif args.t == 4:
-        self.test_4(n)
+        self.test_4(n, args.csv)
       elif args.t == 5:
-        self.test_5(n)
+        self.test_5(n, args.csv)
+      elif args.t == 6:
+        self.test_6(n, args.csv)
+      elif args.t == 7:
+        self.test_7(n, args.csv)
+      elif args.t == 8:
+        self.test_8(n, args.csv)
       else:
         print('Teste especificado inválido')
     else:
