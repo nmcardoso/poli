@@ -1,0 +1,15 @@
+clock,zera,vagas,conta,direcao,contagem,cheio
+$\times$,1,$\times$,$\times$,$\times$,000,0
+$\uparrow$,0,110,1,1,001,0
+$\uparrow$,0,110,1,1,010,0
+$\uparrow$,0,110,1,1,011,0
+$\uparrow$,0,110,1,1,100,0
+$\uparrow$,0,110,1,1,101,0
+$\uparrow$,0,110,1,1,110,1
+$\uparrow$,0,110,1,0,110,1
+$\uparrow$,0,110,1,0,101,0
+$\uparrow$,0,110,1,0,100,0
+$\uparrow$,0,110,1,0,011,0
+$\uparrow$,0,110,1,0,010,0
+$\uparrow$,0,110,1,0,001,0
+$\uparrow$,0,110,1,0,000,0

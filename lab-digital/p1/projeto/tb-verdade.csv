@@ -1,0 +1,15 @@
+clk,envia,reset, d_Qa,d_Qb,d_Qc,d_Qd, d_ff,d_pe,d_disable,d_preload, d_sr,Tx, Obs
+$\uparrow$,$\uparrow$,1,    0,0,0,0,    1,0,1,1,    0,1,          $^1$
+$\uparrow$,$\times$,1,      1,0,0,0,    1,1,1,1,    0,0,          $^2$
+$\uparrow$,$\times$,1,      0,1,0,0,    1,1,1,1,    $d_0$,$d_0$,  $^3$
+$\uparrow$,$\times$,1,      1,1,0,0,    1,1,1,1,    $d_1$,$d_1$,  $^4$
+$\uparrow$,$\times$,1,      0,0,1,0,    1,1,1,1,    $d_2$,$d_2$,  $^5$
+$\uparrow$,$\times$,1,      1,0,1,0,    1,1,1,1,    $d_3$,$d_3$,  $^6$
+$\uparrow$,$\times$,1,      0,1,1,0,    1,1,1,1,    $d_4$,$d_4$,  $^7$
+$\uparrow$,$\times$,1,      1,1,1,0,    1,1,1,1,    $d_5$,$d_5$,  $^8$
+$\uparrow$,$\times$,1,      0,0,0,1,    1,1,1,1,    $d_6$,$d_6$,  $^9$
+$\uparrow$,$\times$,1,      1,0,0,1,    1,1,1,1,    $p$,$p$,      $^{10}$
+$\uparrow$,$\times$,1,      0,1,0,1,    0,1,0,0,    1,1,          $^{11}$
+$\uparrow$,$\times$,1,      0,0,0,0,    0,0,1,1,    1,1,          $^{12}$
+$\uparrow$,$\times$,1,      0,0,0,0,    0,0,1,1,    1,1,          $^{13}$
+$\times$,$\times$,0,        $\times$,$\times$,$\times$,$\times$,    0,$\times$,1,0,    0,1,          $^{14}$
