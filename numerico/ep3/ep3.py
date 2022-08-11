@@ -580,7 +580,6 @@ class View:
       print()
       print()
 
-    s = s or n
     self.model_summary(
       model, 
       f_exp='(1 - x)12x - 2',
@@ -1001,14 +1000,14 @@ class View:
     parser.add_argument(
       '-n',
       action='store',
-      help='Opicional. Número de pontos usado. Valor padrão: 15. Exemplo -n 3',
+      help='Opcional. Número de pontos usado. Valor padrão: 15. Exemplo: -n 3',
       type=int,
       default=15
     )
     parser.add_argument(
       '--csv',
       action='store_true',
-      help='Opicional. Exibe a avaliação do modelo no formato csv (usado no desenvolvimento). Exemplo --csv',
+      help='Opcional. Exibe a avaliação do modelo no formato csv (usado no desenvolvimento). Exemplo: --csv',
       default=False
     )
     args = parser.parse_args()
