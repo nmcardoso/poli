@@ -3,77 +3,39 @@ Exercício Programa 03
 
 
 Este programa implementa uma inferface de linha de comando (CLI) e executa de
-modo não interativo, isso significa que o programa não pede a inserção de
-nenhuma entrada durante sua execução. Todas as entradas devem ser colocadas
-como argumentos na sua chamada.
+modo não interativo, isto é, o programa não pede a inserção de nenhuma entrada 
+durante sua execução. Todas as entradas devem ser colocadas como argumentos 
+na sua chamada.
 
 
 Modo de uso
 ===========
-Este programa possui dois modos de uso: (1) execução de testes pré-definidos
-e (2) resolução de EDO's quaisquer definidas pelo usuário.
+Os testes pré-definos pelo programa são os testes propostos pelas 
+Seções 4.2, 4.3 e 4.4 do enunciado. Cada teste tem um número e para 
+executá-lo basta informar o número do teste de acordo com a lista a seguir,
+que mostra a descrição de cada teste e a respectiva seção no relatório:
 
-
-Primeiro modo de uso: Execução de testes pré-definidos
-------------------------------------------------------
-Os testes pré-definos pelo programa referem-se aos testes propostos pelas 
-Seções 4.2, 4.3 e 4.4 do enunciado. Cada teste tem um número e para executá-lo
-basta informar o número do teste de acordo com a lista a seguir:
-
-0 - Validação (Seção 4.2)
-1 - Equilíbrio com forçantes de calor com aquecimento e resfriamento constantes (Seção 4.3)
-2 - Equilíbrio com forçantes de calor com aquecimento gaussiano e resfriamento constante (Seção 4.3)
-3 - Equilíbrio com forçantes de calor com aquecimento e resfriamento gaussiano (Seção 4.3)
-4 - Equilíbrio com forçantes de calor com aquecimento gaussino e resfriamento mais intenso nos extremos (Seção 4.3)
-5 - Equilíbrio com variação de material com aquicimento e resfriamento gaussiano (Seção 4.4)
+0 - Validação (Seção 3.2)
+1 - Equilíbrio com forçantes de calor com aquecimento e resfriamento constantes (Seção 3.3.1)
+2 - Equilíbrio com forçantes de calor com aquecimento gaussiano e resfriamento constante (Seção 3.3.2)
+3 - Equilíbrio com forçantes de calor com aquecimento e resfriamento gaussiano (Seção 3.3.3)
+4 - Equilíbrio com forçantes de calor com aquecimento gaussino e resfriamento mais intenso nos extremos (Seção 3.3.4)
+5 - Equilíbrio com variação de material com aquicimento e resfriamento gaussiano (Seção 3.4.1)
+6 - Equilíbrio com variação de material com aquecimento gaussiano e resfriamento constante (Seção 3.4.2)
+7 - Equilíbrio com variação de material com aquecimento e resfriamento gaussiano (Seção 3.4.3)
+8 - Equilíbrio com variação de material com aquecimento gaussino e resfriamento mais intenso nos extremos (Seção 3.4.4)
 
 Padrão de chamada
 ~~~~~~~~~~~~~~~~~
-python ep3.py -t <número do teste>
+python ep3.py -t <número do teste> -n <número de pontos da interpolação>
 
 Exemplos de chamada
 ~~~~~~~~~~~~~~~~~~~
 - Executar o teste 0 (validação):
     python ep3.py -t 0
 
-- Executar o teste 5:
-    python ep3.py -t 5
+- Executar o teste 0 (validação) com n=63 pontos:
+    python ep3.py -t 0 -n 63
 
-
-Segundo modo de uso: Resolução de EDO's
----------------------------------------
-Use este modo para usar o programa para resolver uma EDO qualquer.
-São resolvidas EDOs do tipo:
-    -ku'' - k'u' + qu = f
-no intervalo [0, L] e com condições de contorno u(0) = A e u(L) = B
-Se L não for especificado, a EDO é resolvida para o intervalo [0, 1]
-Se A e B não forem especificados, a EDO é resolvida para o caso homogêneo
-
-Padrão de chamada
-~~~~~~~~~~~~~~~~~
-python ep3.py -k <K> -q <Q> -f <F> [-u <U> -l <L> -a <A> -b <B> -n <N> -s <S>]
-onde parâmetros fora dos colchetes são obrigatórios e dentro são opcionais,
-não é necessário digitar os colchetes.
-
-Exemplos de chamada
-~~~~~~~~~~~~~~~~~~~
-- Executar a EDO definida por k(x) = 1, q(x) = pi^2, f(x) = (2pi^2)sin(x*pi) no
-intervalo [0, 1] e com condições de contorno homogêneas. Este é um exemplo de
-chamada que usa o mínimo de parâmetros passível (k, q, f) e usa todos os demais
-valores padrões:
-    python ep3.py -k "1" -q "np.pi**2" -f "(2*np.pi**2)*np.sin(np.pi*x)" 
-
-- Como a solução da EDO do exemplo acima é conhecida u(x) = sin(x*pi), podemos 
-incluir esta informação como parâmetro para que o programa nos forneça o erro:
-    python ep3.py -k "1" -q "np.pi**2" -f "(2*np.pi**2)*np.sin(np.pi*x)" -u "np.sin(np.pi*x)"
-
-- Agora, considerando todos os parâmetros possíveis:
-no intervalo [0, 2.5] com condições de contorno u(0) = 20 e u(2.5) = 40 usando 
-60 intervalos na spline e avaliando a solução em 10 pontos.
-    python ep3.py -k "1" -q "np.pi**2" -f "(2*np.pi**2)*np.sin(np.pi*x)" -u "" -l 2.5 -a 20 -b 40 -n 60 -s 10
-
-Descrição dos argumentos
-========================
-
--h [Opcional]: Exibe uma mensagem de ajuda com breve descrição dos argumentos do programa
-
+- Executar o teste 5 com n=31 pontos:
+    python ep3.py -t 5 -n 31
