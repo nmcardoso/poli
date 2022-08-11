@@ -138,14 +138,16 @@ def plot_comparison(f_func, k_func, q_func, L, sol_eq, filename, T0=293.15, u_la
   plt.grid()
   plt.legend()
   plt.title('Comparação da solução u(x)')
-  plt.xlabel('x')
-  plt.ylabel('u(x)')
-  plt.gca().ticklabel_format(
-    axis='y', 
-    style='sci', 
-    scilimits=(-2, 2), 
-    useMathText=True
-  )
+  plt.xlabel('Comprimento (mm)')
+  plt.ylabel('Temperatura (K)')
+  y_min, y_max = plt.gca().get_ylim()
+  if np.abs(y_min - y_max) < 1:
+    plt.gca().ticklabel_format(
+      axis='y', 
+      style='sci', 
+      scilimits=(-2, 2), 
+      useMathText=True
+    )
   plt.tick_params(
     axis='both', 
     direction='in', 
@@ -626,16 +628,16 @@ def test_eq_8():
 
 
 if __name__ == '__main__':
-  # val_1()
-  val_1_plot()
+  val_1()
+  # val_1_plot()
   # val_2_plot()
 
-  test_eq_1()
-  test_eq_2()
-  test_eq_3()
-  test_eq_3_1()
-  test_eq_4()
-  test_eq_5()
-  test_eq_6()
-  test_eq_7()
-  test_eq_8()
+  # test_eq_1()
+  # test_eq_2()
+  # test_eq_3()
+  # test_eq_3_1()
+  # test_eq_4()
+  # test_eq_5()
+  # test_eq_6()
+  # test_eq_7()
+  # test_eq_8()
