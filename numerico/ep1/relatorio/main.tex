@@ -266,7 +266,7 @@ A saída do programa é uma tabela com 6 colunas e o número de linhas definido 
     % \cmidrule(lr){1-2}\cmidrule(lr){3-6}\cmidrule(lr){7-10}
     $i$       & $a_i$     & $b_i$      & $c_i$     & $d_i$    & $x_i$      \\
     \midrule
-    \csvreader[head to column names, late after line=\\]{a_n5_d4.csv}{}%
+    \csvreader[late after line=\\]{a_n5_d4.csv}{}%
     {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi} %
     \doubleBottomRule
   \end{tabular}
@@ -283,7 +283,7 @@ A saída do programa é uma tabela com 6 colunas e o número de linhas definido 
     % \cmidrule(lr){1-2}\cmidrule(lr){3-6}\cmidrule(lr){7-10}
     $i$       & $a_i$     & $b_i$      & $c_i$     & $d_i$    & $x_i$      \\
     \midrule
-    \csvreader[head to column names, late after line=\\]{c_n250_d10_truncated.csv}{}%
+    \csvreader[late after line=\\]{c_n250_d10_truncated.csv}{}%
     {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi} %
     \doubleBottomRule
   \end{tabular}
@@ -304,7 +304,7 @@ A saída do programa é uma tabela com 6 colunas e o número de linhas definido 
     \cmidrule(lr){2-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
     $i$       & $a_i$                        & $b_i$                                  & $c_i$                              & $d_i$    & $x_i$     & $x_i$ (np) & $x_i$       & $x_i$ (np) \\
     \midrule
-    \csvreader[head to column names, late after line=\\]{big_table.csv}{}%
+    \csvreader[late after line=\\]{big_table.csv}{}%
     {\csvcoli & \csvcolii                    & \csvcoliii                             & \csvcoliv                          & \csvcolv & \csvcolvi & \csvcolvii & \csvcolviii & \csvcolix} %
     \doubleBottomRule
   \end{tabular}
