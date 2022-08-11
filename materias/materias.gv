@@ -3,31 +3,22 @@ digraph g {
   node [shape=box];
 
 
-	# 2021/02
-	PTC3313 [label="Sistemas de Controle"];
+	PTC3313 [label="Sistemas de Controle", color="blue", fontcolor="blue"];
 
-	
-	MAP3121 [label="Métodos Numéricos\n Aplicados", color="blue", fontcolor="blue"];
-	PEA3301 [label="Introdução aos\n Sistemas de Potência", color="blue", fontcolor="blue"];
+	PEA3301 [label="Introdução aos\n Sistemas de Potência"];
   PCS3412 [label="Organização e Arquitetura\n de Computadores I"];
 	PCS3216 [label="Sistemas de Programação"];
-	PCS3335 [label="Laboratório Digital A", color="blue", fontcolor="blue"];
-  PME3332 [label="Mecânica dos Flúidos"];
-	PTC3307 [label="Sistemas e Sinais", color="blue", fontcolor="blue"];
-  PME3344 [label="Termodinâmica Aplicada"];
-	PEA3306 [label="Converção Eletromecânica\n de Energia", color="blue", fontcolor="blue"];
-	PEA3311 [label="Laboratório de Converção\n Eletromecânica de Energia", color="blue", fontcolor="blue"];
+  PME3332 [label="Mecânica dos Flúidos", color="blue", fontcolor="blue"];
+	PTC3307 [label="Sistemas e Sinais"];
+  PME3344 [label="Termodinâmica Aplicada", color="blue", fontcolor="blue"];
+	PEA3306 [label="Converção Eletromecânica\n de Energia"];
 
-
-  PCS3438 [label="Inteligência Artificial"];
-	PSI3322 [label="Eletrônica II", color="blue", fontcolor="blue"];
-	PSI3323 [label="Laboratório de\n Eletrônica"];
-	PTC3314 [label="Ondas e Linhas", color="blue", fontcolor="blue"];
-	PTC3361 [label="Introdução ao Processamento\n Digital de Sinais"];
-	PTC3360 [label="Introdução a\n Redes e Comunicações"];
+  PCS3438 [label="Inteligência Artificial", color="blue", fontcolor="blue"];
+	PSI3323 [label="Laboratório de\n Eletrônica", color="blue", fontcolor="blue"];
+	PTC3361 [label="Introdução ao Processamento\n Digital de Sinais", color="blue", fontcolor="blue"];
+	PTC3360 [label="Introdução a\n Redes e Comunicações", color="blue", fontcolor="blue"];
 	PCS3422 [label="Organização e Arquitetura\n de Computadores II"];
 	PCS3446 [label="Sistemas Operacionais"];
-	
 
 	PCS3432 [label="Laboratório de\n Processadores"];
 	PCS3414 [label="Redes de Computadores I"];
@@ -38,7 +29,6 @@ digraph g {
 	#M3 [label="Módulo III"];
 	#PCS3567 [label="Estágio Supervisionado"];
 	
-	
 	PCS3424 [label="Redes Computadores II"];
 	PCS3560 [label="Projeto de\n Formatura II"];
 	#M4 [label="Módulo IV"];
@@ -48,16 +38,11 @@ digraph g {
 	
 	
 	
-	PEA3311 -> PEA3306 [style="dashed"];
-	PEA3306 -> PEA3311 [style="dashed"];
-	
-	PSI3322 -> PSI3323 [style="dashed"];
 	PTC3307 -> PTC3361;
 	PTC3307 -> PTC3360;
 	PCS3412 -> PCS3422;
 	PCS3412 -> PCS3446;
 	
-	PCS3335 -> PCS3432;
 	PCS3412 -> PCS3432 [style="dashed"];
 	PCS3414 -> PCS3434 [style="dashed"];
 	{PCS3414, PCS3412} -> PCS3550;
