@@ -17,8 +17,8 @@ nusp2list = lambda i: [float(n[i]) for n in nusp]
 
 z1 = np.mean(nusp2list(2))
 z2 = z1 + np.sum(nusp2list(3)) + 2
-z3 = z2 + np.sum(nusp2list(4))
-Hm = z3 + np.sum(nusp2list(5))
+z3 = z2 + np.sum(nusp2list(4)) + 2
+Hm = z3 + np.sum(nusp2list(5)) + 10
 
 print('z1:', z1)
 print('z2:', z2)
