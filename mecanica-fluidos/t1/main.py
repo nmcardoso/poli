@@ -66,15 +66,37 @@ class DarcyEstimator:
     return (-2*np.log10(relative_rugosity/3.7 - 
     (5.16/re)*np.log10(relative_rugosity/3.7 + 5.09/(re**0.87))))**(-2)
 
+  @staticmethod
+  def offor_alabi(relative_rugosity: float, re: float) -> float:
+    k = np.log((relative_rugosity/3.93)**1.092 + (7.627/(re + 395.9)))
+    return (-2*np.log10(relative_rugosity/3.71 - ((1.975 * k)/re)))**(-2)
+
+  @staticmethod
+  def brkic(relative_rugosity: float, re: float) -> float:
+    k = (2.51*(1.14 - 2*np.log10(relative_rugosity))) / re + relative_rugosity/3.71
+    return (-2*np.log10(k))**(-2)
+  
+  @staticmethod
+  def ghanbari(relative_rugosity: float, re: float) -> float:
+    k = (relative_rugosity/7.21)**1.042 + (2.731/re)**0.9152
+    return (-1.52*np.log10(k))**(-2.169)
+
+  @staticmethod
+  def fang(relative_rugosity: float, re: float) -> float:
+    k = 0.234*(relative_rugosity**1.1007) - 60.525/(re**1.1105) + 56.291/(re**1.0712)
+    return 1.613*((np.log(k))**(-2))
+
   @classmethod
   def get_all_methods(cls):
     methods = [
       cls.colebrook, cls.haaland, cls.barr, 
-      cls.swamee_jain, cls.churchill, cls.sousa_cunha_marques
+      cls.swamee_jain, cls.churchill, cls.sousa_cunha,
+      cls.offor_alabi, cls.brkic, cls.fang
     ]
     names = [
       'Colebrook', 'Haaland', 'Barr', 'Swamee-Jain', 
-      'Churchill', 'Sousa-Cunha-Marques'
+      'Churchill', 'Sousa-Cunha', 'Offor-Alabi',
+      'Brkic', 'Fang'
     ]
     return list(zip(methods, names))
 
