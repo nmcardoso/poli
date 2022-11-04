@@ -6,7 +6,7 @@ nusp2list = lambda i: [float(n[i]) for n in nusp]
 
 # Static Parameters
 D = 5e-2
-relative_rugosity = 0.001
+relative_roughness = 0.001
 La = 50
 Lb = 100
 Lc = 200
@@ -42,48 +42,48 @@ class DarcyEstimator:
     self.Qc = []
   
   @staticmethod
-  def colebrook(relative_rugosity: float, re2: float) -> float:
-    return (-2*np.log10(relative_rugosity/3.7 + 2.51/re2))**(-2)
+  def colebrook(relative_roughness: float, re2: float) -> float:
+    return (-2*np.log10(relative_roughness/3.7 + 2.51/re2))**(-2)
 
   @staticmethod
-  def haaland(relative_rugosity: float, re: float) -> float:
-    return (-1.8*np.log10((relative_rugosity/3.7)**1.11 + 6.9/re))**(-2)
+  def haaland(relative_roughness: float, re: float) -> float:
+    return (-1.8*np.log10((relative_roughness/3.7)**1.11 + 6.9/re))**(-2)
 
   @staticmethod
-  def barr(relative_rugosity: float, re: float) -> float:
-    return (-2*np.log10(relative_rugosity/3.7 + 5.15/(re**0.892)))**(-2)
+  def barr(relative_roughness: float, re: float) -> float:
+    return (-2*np.log10(relative_roughness/3.7 + 5.15/(re**0.892)))**(-2)
 
   @staticmethod
-  def swamee_jain(relative_rugosity: float, re: float) -> float:
-    return (-2*np.log10(relative_rugosity/3.7 + 5.74/(re**0.9)))**(-2)
+  def swamee_jain(relative_roughness: float, re: float) -> float:
+    return (-2*np.log10(relative_roughness/3.7 + 5.74/(re**0.9)))**(-2)
 
   @staticmethod
-  def churchill(relative_rugosity: float, re: float) -> float:
-    return (-2*np.log10(relative_rugosity/3.7 + (7/re)**0.9))**(-2)
+  def churchill(relative_roughness: float, re: float) -> float:
+    return (-2*np.log10(relative_roughness/3.7 + (7/re)**0.9))**(-2)
 
   @staticmethod
-  def sousa_cunha(relative_rugosity: float, re: float) -> float:
-    return (-2*np.log10(relative_rugosity/3.7 - 
-    (5.16/re)*np.log10(relative_rugosity/3.7 + 5.09/(re**0.87))))**(-2)
+  def sousa_cunha(relative_roughness: float, re: float) -> float:
+    return (-2*np.log10(relative_roughness/3.7 - 
+    (5.16/re)*np.log10(relative_roughness/3.7 + 5.09/(re**0.87))))**(-2)
 
   @staticmethod
-  def offor_alabi(relative_rugosity: float, re: float) -> float:
-    k = np.log((relative_rugosity/3.93)**1.092 + (7.627/(re + 395.9)))
-    return (-2*np.log10(relative_rugosity/3.71 - ((1.975 * k)/re)))**(-2)
+  def offor_alabi(relative_roughness: float, re: float) -> float:
+    k = np.log((relative_roughness/3.93)**1.092 + (7.627/(re + 395.9)))
+    return (-2*np.log10(relative_roughness/3.71 - ((1.975 * k)/re)))**(-2)
 
   @staticmethod
-  def brkic(relative_rugosity: float, re: float) -> float:
-    k = (2.51*(1.14 - 2*np.log10(relative_rugosity))) / re + relative_rugosity/3.71
+  def brkic(relative_roughness: float, re: float) -> float:
+    k = (2.51*(1.14 - 2*np.log10(relative_roughness))) / re + relative_roughness/3.71
     return (-2*np.log10(k))**(-2)
   
   @staticmethod
-  def ghanbari(relative_rugosity: float, re: float) -> float:
-    k = (relative_rugosity/7.21)**1.042 + (2.731/re)**0.9152
+  def ghanbari(relative_roughness: float, re: float) -> float:
+    k = (relative_roughness/7.21)**1.042 + (2.731/re)**0.9152
     return (-1.52*np.log10(k))**(-2.169)
 
   @staticmethod
-  def fang(relative_rugosity: float, re: float) -> float:
-    k = 0.234*(relative_rugosity**1.1007) - 60.525/(re**1.1105) + 56.291/(re**1.0712)
+  def fang(relative_roughness: float, re: float) -> float:
+    k = 0.234*(relative_roughness**1.1007) - 60.525/(re**1.1105) + 56.291/(re**1.0712)
     return 1.613*((np.log(k))**(-2))
 
   @classmethod
@@ -107,8 +107,8 @@ class DarcyEstimator:
     re2_c = (D/upsilon) * np.sqrt(fcVc2)
     re2_b = (D/upsilon) * np.sqrt(fbVb2)
 
-    fc = self.colebrook(relative_rugosity, re2_c)
-    fb = self.colebrook(relative_rugosity, re2_b)
+    fc = self.colebrook(relative_roughness, re2_c)
+    fb = self.colebrook(relative_roughness, re2_b)
 
     Vc = np.sqrt(fcVc2 / fc)
     Vb = np.sqrt(fbVb2 / fb)
@@ -118,9 +118,9 @@ class DarcyEstimator:
     if self.method == self.colebrook:
       faVa2 = ((Hm + z1 - Hj)*2*g*D) / La
       re2_a = (D/upsilon) * np.sqrt(faVa2)
-      fa = self.method(relative_rugosity, re2_a)
+      fa = self.method(relative_roughness, re2_a)
     else:
-      fa = self.method(relative_rugosity, re_a)
+      fa = self.method(relative_roughness, re_a)
     
     new_Hj = z1 + Hm - fa * (La / D) * ((Va**2) / (2*g))
 
