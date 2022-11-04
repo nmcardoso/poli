@@ -62,7 +62,7 @@ class DarcyEstimator:
     return (-2*np.log10(relative_rugosity/3.7 + (7/re)**0.9))**(-2)
 
   @staticmethod
-  def sousa_cunha_marques(relative_rugosity: float, re: float) -> float:
+  def sousa_cunha(relative_rugosity: float, re: float) -> float:
     return (-2*np.log10(relative_rugosity/3.7 - 
     (5.16/re)*np.log10(relative_rugosity/3.7 + 5.09/(re**0.87))))**(-2)
 
@@ -160,16 +160,19 @@ class DarcyEstimator:
       f'Qc: {self.Qc[i]:.7f}')
 
 
-def plot(curves, title, fname, show=False):
-  plt.figure(figsize=(6.5, 5.55))
+def plot(curves, title, fname, show=False, wide=False, loc='best'):
+  if wide:
+    plt.figure(figsize=(8.6, 5.55))
+  else:
+    plt.figure(figsize=(6.5, 5.55))
 
   for curve in curves:
     plt.plot(np.arange(1, len(curve[0]) + 1), curve[0], label=curve[1])
 
-  plt.title('Convergência do parâmetro ' + title)
-  plt.xlabel('iteração')
-  plt.ylabel(title)
-  plt.legend()
+  plt.title('Convergência do parâmetro ' + title, fontsize=16)
+  plt.xlabel('iteração', fontsize=13)
+  # plt.ylabel(title)
+  plt.legend(ncol=3, loc=loc)
   plt.grid()
   plt.tick_params(
     axis='both', 
