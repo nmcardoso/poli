@@ -1,5 +1,10 @@
 import numpy as np
 
+# NUSP
+nusp = ['11200608', '11391540', '11803844', '11804400']
+nusp2list = lambda i: [float(n[i]) for n in nusp]
+
+# Static Parameters
 D = 5e-2
 relative_rugosity = 0.001
 La = 50
@@ -10,9 +15,7 @@ rho = 1000
 upsilon = 1e-6
 g = 10
 
-nusp = ['11200608', '11391540', '11803844', '11804400']
-nusp2list = lambda i: [float(n[i]) for n in nusp]
-
+# Computed Parameters
 z1 = np.mean(nusp2list(2))
 z2 = z1 + np.sum(nusp2list(3)) + 2
 z3 = z2 + np.sum(nusp2list(4)) + 2
