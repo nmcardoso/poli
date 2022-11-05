@@ -51,7 +51,8 @@ class DarcyEstimator:
 
   @staticmethod
   def barr(relative_roughness: float, re: float) -> float:
-    return (-2*np.log10(relative_roughness/3.7 + 5.15/(re**0.892)))**(-2)
+    x = re * (1 + (re**0.52/29)*(relative_roughness**0.7))
+    return (-2*np.log10(relative_roughness/3.7 + 4.518*np.log10(re/7)/x))**(-2)
 
   @staticmethod
   def swamee_jain(relative_roughness: float, re: float) -> float:

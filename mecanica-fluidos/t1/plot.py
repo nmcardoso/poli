@@ -25,7 +25,7 @@ def plot(curves, title, fname, show=False, wide=False, loc='best'):
     right=True, 
     grid_linestyle='--'
   )
-  plt.savefig(fname, pad_inches=0.01, bbox_inches='tight')
+  plt.savefig(f'plots/{fname}', pad_inches=0.01, bbox_inches='tight')
   if show:
     plt.show()
 
@@ -111,7 +111,7 @@ def main():
   df['Qa_err'][get_argmin('Qa_err')] = latex_bold('Qa_err')
   df['Qb_err'][get_argmin('Qb_err')] = latex_bold('Qb_err')
   df['Qc_err'][get_argmin('Qc_err')] = latex_bold('Qc_err')
-  df.to_csv('parameters.csv', index=False)
+  df.to_csv('plots/parameters.csv', index=False)
 
   plot(hj_curves, '$H_j$', 'plot_Hj.pdf', wide=True)
   plot(fa_curves, '$f_a$', 'plot_fa.pdf')
