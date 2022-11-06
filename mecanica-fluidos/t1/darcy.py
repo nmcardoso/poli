@@ -12,7 +12,7 @@ Lb = 100
 Lc = 200
 Leq = 50
 rho = 1000
-upsilon = 1e-6
+viscosity = 1e-6
 g = 10
 
 # Computed Parameters
@@ -105,8 +105,8 @@ class DarcyEstimator:
     fcVc2 = ((Hj - z3)*2*g*D) / (Lc + Leq)
     fbVb2 = ((Hj - z2)*2*g*D) / Lb
 
-    re2_c = (D/upsilon) * np.sqrt(fcVc2)
-    re2_b = (D/upsilon) * np.sqrt(fbVb2)
+    re2_c = (D/viscosity) * np.sqrt(fcVc2)
+    re2_b = (D/viscosity) * np.sqrt(fbVb2)
 
     fc = self.colebrook(relative_roughness, re2_c)
     fb = self.colebrook(relative_roughness, re2_b)
@@ -115,10 +115,10 @@ class DarcyEstimator:
     Vb = np.sqrt(fbVb2 / fb)
 
     Va = Vc + Vb
-    re_a = Va * D / upsilon
+    re_a = Va * D / viscosity
     if self.method == self.colebrook:
       faVa2 = ((Hm + z1 - Hj)*2*g*D) / La
-      re2_a = (D/upsilon) * np.sqrt(faVa2)
+      re2_a = (D/viscosity) * np.sqrt(faVa2)
       fa = self.method(relative_roughness, re2_a)
     else:
       fa = self.method(relative_roughness, re_a)
