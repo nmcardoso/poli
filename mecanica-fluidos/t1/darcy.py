@@ -1,7 +1,7 @@
 import numpy as np
 
 # NUSP
-nusp = ['11200608', '11391540', '11803844', '11804400']
+nusp = ['11857917', '11200608', '10335465', '8914122']
 nusp2list = lambda i: [float(n[i]) for n in nusp]
 
 # Static Parameters
@@ -25,7 +25,6 @@ print('z1:', z1)
 print('z2:', z2)
 print('z3:', z3)
 print('Hm:', Hm)
-
 
 
 class DarcyEstimator:
@@ -137,7 +136,7 @@ class DarcyEstimator:
     self.Qc.append(Qc)
     self.Hj.append(new_Hj)
 
-  def solve(self, initial_Hj=40):
+  def solve(self, initial_Hj=50):
     self.initial_Hj = initial_Hj
     Hj = initial_Hj
     error = 1e10
@@ -151,7 +150,7 @@ class DarcyEstimator:
       Hj = mean_Hj
       iteration += 1
     
-  def print(self):
+  def summary(self):
     print()
     print('Hj:', self.initial_Hj)
 
@@ -161,14 +160,10 @@ class DarcyEstimator:
       f'Qc: {self.Qc[i]:.7f}')
   
 
-
-
 def main():
   estimator = DarcyEstimator(DarcyEstimator.haaland)
   estimator.solve()
-  estimator.print()
-
-
+  estimator.summary()
 
 
 if __name__ == '__main__':

@@ -113,7 +113,7 @@ def main():
   df['Qc_err'][get_argmin('Qc_err')] = latex_bold('Qc_err')
   df.to_csv('plots/parameters.csv', index=False)
 
-  plot(hj_curves, '$H_j$', 'plot_Hj.pdf', wide=True)
+  plot(hj_curves, '$H_j$', 'plot_Hj.pdf', loc='lower right', wide=True)
   plot(fa_curves, '$f_a$', 'plot_fa.pdf')
   plot(fb_curves, '$f_b$', 'plot_fb.pdf', loc='lower right')
   plot(fc_curves, '$f_c$', 'plot_fc.pdf', loc='lower right')
