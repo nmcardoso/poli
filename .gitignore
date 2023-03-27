@@ -24,3 +24,6 @@ slprj
 
 # Drawio
 *.drawio.bkp
+
+# Lab processadores
+lab-processadores/**/a.out
