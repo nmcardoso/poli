@@ -13,6 +13,6 @@ main:
     SWI 0x0             @ termina o programa
 swap:
     EOR r0, r0, r1      @ calcula r0 = r0 eor r1
-    EOR r1, r0, r1      @ calcula r0 = r1 eor r1
+    EOR r1, r0, r1      @ calcula r1 = r1 eor r1
     EOR r0, r0, r1      @ calcula r0 = r0 eor r1
     MOV pc, lr          @ retorna da função
