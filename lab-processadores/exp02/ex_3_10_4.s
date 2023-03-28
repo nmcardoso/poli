@@ -1,11 +1,14 @@
-@ex_3_10_4.s
+@ ex_3_10_4.s
+@ Exercício 3.10.4
+@ Implementação do algoritmo register-swap, que permuta os
+@ valores de dois registradores sem o uso de um registrador
+@ auxiliar
     .text
     .globl main
 main: 
     LDR r0, =0xF631024C @ carrega valor no primeiro registrador
     LDR r1, =0x17539ABD @ carrega valor no segundo registrador
     BL  swap            @ chamada da função
-    LDR r0, =0x0  
     LDR r7, =0x1        @ exit(0)
     SWI 0x0             @ termina o programa
 swap:
