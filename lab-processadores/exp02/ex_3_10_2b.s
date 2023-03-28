@@ -1,8 +1,15 @@
 @ ex_3_10_2b.s
 @ Exercício 3.10.2 - usando multiplicação longa
+@
+@ Descrição:
 @ Multiplicação entre dois números usando dois registradores
 @ para armazenar o resultado
-
+@
+@ Instrução de montagem:
+@ arm build ex3_10_2b.s
+@
+@ Instrução de depuração:
+@ arm debug
     .text
     .globl main
 main: 

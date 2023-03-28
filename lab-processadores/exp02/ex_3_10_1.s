@@ -1,7 +1,15 @@
 @ ex_3_10_1.s
 @ Exercício 3.10.1
+@
+@ Descrição:
 @ Programa para calcular a soma entre dois números atualizando
 @ as flags do registrador CPSR
+@
+@ Instrução de montagem:
+@ arm build ex3_10_1.s
+@
+@ Instrução de depuração:
+@ arm debug
     .text
     .globl main
 main: 

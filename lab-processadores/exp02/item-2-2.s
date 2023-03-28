@@ -1,7 +1,15 @@
 @ item-2-2.s
 @ Exercício 2.2 - Planejamento
+@
+@ Descrição:
 @ Adiciona dois números usando ADDS, que altera as flags
 @ do registrador CPRS
+@
+@ Instrução de montagem:
+@ arm build item-2-2.s
+@
+@ Instrução de depuração:
+@ arm debug
   .text
   .globl main
 main:

@@ -1,7 +1,15 @@
 @ ex_3_10_3.s
 @ Exercício 3.10.3
+@
+@ Descrição:
 @ Algoritmo de multiplicação eficiente utilizando deslocamento
 @ lógico para esquerda para multiplicar um número por 32
+@
+@ Instrução de montagem:
+@ arm build ex3_10_3.s
+@
+@ Instrução de depuração:
+@ arm debug
     .text
     .globl main
 main: 

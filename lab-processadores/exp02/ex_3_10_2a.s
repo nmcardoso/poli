@@ -1,7 +1,15 @@
 @ ex_3_10_2a.s
 @ Exercício 3.10.2 - usando multiplicação simples
+@
+@ Descrição:
 @ Cálculo do produto entre dois números, atualizando as
 @ flags do registrador CPSR
+@
+@ Instrução de montagem:
+@ arm build ex3_10_2a.s
+@
+@ Instrução de depuração:
+@ arm debug
     .text
     .globl main
 main: 

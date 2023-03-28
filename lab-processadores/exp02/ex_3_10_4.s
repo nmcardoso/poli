@@ -1,8 +1,16 @@
 @ ex_3_10_4.s
 @ Exercício 3.10.4
+@
+@ Descrição:
 @ Implementação do algoritmo register-swap, que permuta os
 @ valores de dois registradores sem o uso de um registrador
 @ auxiliar
+@
+@ Instrução de montagem:
+@ arm build ex3_10_4.s
+@
+@ Instrução de depuração:
+@ arm debug
     .text
     .globl main
 main: 
