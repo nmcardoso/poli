@@ -15,7 +15,7 @@
 @
 @ Instruções de uso
 @ -----------------
-@ arm build ex_3_10_7.s (montagem)
+@ arm build ex_3_10_5.s (montagem)
 @ arm debug (depuração) 
 
 .text
