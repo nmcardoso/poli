@@ -1,3 +1,7 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Item B.3 do planejamento
+@
 @ a ideia é fazer a subtração dos 32 bits mais significativos 
 @ de ambas as palavras armazenando as flags da ULA no registrador 
 @ CPRS e depois subtrair os 32 bits menos significativos somente 

@@ -1,3 +1,7 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Item B.2.b do planejamento
+@
 @ Multiplica o conteúdo de R4 por 255 e armazena em R2
 @ 255 = 2^8 - 1
 

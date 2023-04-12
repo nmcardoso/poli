@@ -1,3 +1,11 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Item B.1 do planejamento
+@ 
+@ Algorítmo para testar os valores de imediato para
+@ os comandos de processamento de dados (ex ADD)
+@ e deslocamento (LSL)
+
 .text
 .global main
 

@@ -1,3 +1,7 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Item B.2.d do planejamento
+@
 @ Multiplica o conteúdo de R4 por 16384 e armazena em R2
 @ 16384 = 2^14
 

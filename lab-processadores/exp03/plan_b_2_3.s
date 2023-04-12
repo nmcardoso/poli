@@ -1,3 +1,7 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Item B.2.c do planejamento
+@
 @ Multiplica o conteúdo de R4 por 18 e armazena em R2
 @ 18 = 2 * 9 = 2 * (2^3 + 1)
 
