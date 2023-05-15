@@ -1,7 +1,6 @@
 @ Descrição do algoritmo
 @ ----------------------
-@ Algoritmo de divisão inteira usando subtrações
-@ sucessivas
+@ Algoritmo de divisão inteira
 @
 @
 @ Descrição dos Registradores
