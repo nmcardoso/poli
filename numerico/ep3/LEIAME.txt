@@ -1,0 +1,41 @@
+Exercício Programa 03
+=====================
+
+
+Este programa implementa uma inferface de linha de comando (CLI) e executa de
+modo não interativo, isto é, o programa não pede a inserção de nenhuma entrada 
+durante sua execução. Todas as entradas devem ser colocadas como argumentos 
+na sua chamada.
+
+
+Modo de uso
+===========
+Os testes pré-definos pelo programa são os testes propostos pelas 
+Seções 4.2, 4.3 e 4.4 do enunciado. Cada teste tem um número e para 
+executá-lo basta informar o número do teste de acordo com a lista a seguir,
+que mostra a descrição de cada teste e a respectiva seção no relatório:
+
+0 - Validação (Seção 3.2)
+1 - Equilíbrio com forçantes de calor com aquecimento e resfriamento constantes (Seção 3.3.1)
+2 - Equilíbrio com forçantes de calor com aquecimento gaussiano e resfriamento constante (Seção 3.3.2)
+3 - Equilíbrio com forçantes de calor com aquecimento e resfriamento gaussiano (Seção 3.3.3)
+4 - Equilíbrio com forçantes de calor com aquecimento gaussino e resfriamento mais intenso nos extremos (Seção 3.3.4)
+5 - Equilíbrio com variação de material com aquicimento e resfriamento gaussiano (Seção 3.4.1)
+6 - Equilíbrio com variação de material com aquecimento gaussiano e resfriamento constante (Seção 3.4.2)
+7 - Equilíbrio com variação de material com aquecimento e resfriamento gaussiano (Seção 3.4.3)
+8 - Equilíbrio com variação de material com aquecimento gaussino e resfriamento mais intenso nos extremos (Seção 3.4.4)
+
+Padrão de chamada
+~~~~~~~~~~~~~~~~~
+python ep3.py -t <número do teste> -n <número de pontos da interpolação>
+
+Exemplos de chamada
+~~~~~~~~~~~~~~~~~~~
+- Executar o teste 0 (validação):
+    python ep3.py -t 0
+
+- Executar o teste 0 (validação) com n=63 pontos:
+    python ep3.py -t 0 -n 63
+
+- Executar o teste 5 com n=31 pontos:
+    python ep3.py -t 5 -n 31

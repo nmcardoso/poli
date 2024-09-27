@@ -1,0 +1,36 @@
+@ Descrição do algoritmo
+@ ----------------------
+@ Implementação da operação array[10] = array[5] + y
+@ na forma pós-indexada
+@
+@
+@ Lista de Registradores
+@ ----------------------
+@ r1 : valor y na operação acima
+@ r2 : endereço base do array
+@ r8 : valor do índice de acesso e armazenamento
+@ r7 : registrador de trabalho
+@
+@
+@ Instruções de uso
+@ -----------------
+@ arm build ex_4_5_2_pos.s (montagem)
+@ arm debug (depuração) 
+
+.text
+.globl main
+
+main:
+  LDR r1, =100              @ valor de y
+  LDR r2, =arr              @ posição base do array
+  LDR r8, =5                @ índice de load
+
+  ADD r2, r2, r8, LSL #2    @ calcula a posição de memória relativa ao índice 5 (r8) do vetor 
+  LDR r7, [r2], r8, LSL #2  @ carrega valor de arr[5] no reg. de trabalho e desloca r2 para próximo índice
+  ADD r7, r7, r1            @ adiciona o valor de y em r7
+  STR r7, [r2], #0          @ armazena o valor de r7 em arr[10]
+  SWI 0x0                   @ termina o programa
+
+
+.data
+  arr: .word 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25

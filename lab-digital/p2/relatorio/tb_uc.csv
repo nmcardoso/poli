@@ -1,0 +1,13 @@
+clk,clear,inibe,programa,grava,c_carrega_n,c_inibe_n
+$\uparrow$,0,0,0,0,1,0
+$\uparrow$,0,0,0,1,1,0
+$\uparrow$,0,0,1,1,1,0
+$\uparrow$,0,0,1,1,0,0
+$\uparrow$,0,1,1,0,1,0
+$\uparrow$,0,1,0,0,1,0
+$\uparrow$,0,0,0,0,1,1
+$\uparrow$,1,0,0,0,1,0
+$\uparrow$,0,0,1,0,1,0
+$\uparrow$,0,0,1,1,0,0
+$\uparrow$,0,0,0,0,1,0
+$\uparrow$,0,0,0,0,1,1

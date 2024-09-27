@@ -1,0 +1,423 @@
+\documentclass[a4,12pt]{horizon-theme}
+\usepackage{lipsum}
+\usepackage{fontawesome5}
+\usepackage{graphicx,url}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{enumerate}
+\usepackage{gensymb}
+\usepackage{csvsimple}
+% \usepackage{tabularray}
+\usepackage{stackengine}
+\usepackage{xcolor, colortbl}
+\usepackage{caption}
+\usepackage[round]{natbib}
+% \usepackage{longtable}
+
+
+\strutlongstacks{T}
+
+\setFiguresPath{.}
+\setTitle{Integração Numérica usando Fórmulas de Gauss}
+\setUniversity{Universidade de São Paulo}
+\setFaculty{Escola Politécnica}
+\setDepartment{MAP3121 - Métodos Numéricos e Aplicações}
+\setCoverMainLogo{minerva.pdf}
+
+\setCoverLeftBox{%
+  {\Large Exercício Programa 02}\\[2pt]
+  {Relatório Final}\\[45pt]
+  {\large Natanael Magalhães Cardoso, 8914122}\\[5pt]
+  {\large Valber Marcelino Filho, 11353165}\\[40pt]
+  {\normalsize Professora: }{\large Cláudia Peixoto}\\[5pt]
+  {\normalsize Turma: }{\large 03}
+}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setCompactAuthors{Natanael Magalhães Cardoso\footnote{nUSP: 8914122, Turma: 03}, Valber Marcelino Filho\footnote{nUSP: 11353165, Turma: 03}}
+
+
+\setHeaderRight{Escola Politécnica}
+\setHeaderLeft{MAP3121 - Métodos Numéricos e Aplicações}
+
+
+
+\begin{filecontents*}{a_n5_d4.csv}
+i,a,b,c,d,x
+1,{\bf 0.0000},2.0000,0.7500,0.9686,0.3827
+2,0.3750,2.0000,0.6250,0.5358,0.2709
+3,0.4167,2.0000,0.5833,-0.6374,-0.2392
+4,0.4375,2.0000,0.5625,-0.6374,-0.4660
+5,0.9000,2.0000,{\bf 0.0000},1.0000,0.7097
+\end{filecontents*}
+
+
+
+
+\begin{document}
+\horizonCover
+
+\horizonTitle
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\hspace{40pt}
+
+
+\section{Introdução}
+Existem muitas técnicas de integração numérica que consistem em aproximar o integrando por um polinômio em uma região e, então, integrá-lo exatamente. Porém, muitas vezes, um integrando mais complicado pode ser fatorado em uma função de peso e outra função melhor aproximada por um polinômio \citep{intro1}, como mostra a eq. \eqref{eq:intro}
+
+\begin{equation}\label{eq:intro}
+  \displaystyle\int_a^b g(x)dx = \int_a^b w(x)f(x)dx \approx \sum_{j=1}^n w_jf(x_j)
+\end{equation}
+
+A quadratura gaussiana é uma família de métodos de integração numérica baseados em uma escolha determinística de pontos ponderados (ou nós) \citep{intro2}. Uma regra de quadratura gaussiana de n-pontos é construída para produzir um resultado exato para polinômios de grau $2n-1$ ou menos por uma escolha adequada dos nós $x_j$ e pesos $w_j$.
+
+Este trabalho mostra a implementação de um algorítmo em Python \citep{python} para o cálculo de integrais duplas usando quadratura gaussina com nós e pesos (raízes e coeficientes do polinômio de Legendre) calculados no intervalo $[-1, 1]$ com a devida transformação de variáveis para obter uma integral em um domínio de integração genérico (Seção \ref{sec:metodo}). Bem como os resultados para oito casos de teste e a comparação dos resultados obtidos por esta implementação com os resultados obtidos quando a integral é calculada usando a biblioteca SciPy \citep{SciPy} (Seção \ref{sec:resultados}).
+
+\newpage
+\section{Métodos}
+\label{sec:metodo}
+
+\subsection{Quadratura Gaussiana}
+
+\subsubsection{Fórmula exata para integração de polinômios $\mathcal{P}_5$ no intervalo $[-1, 1]$}
+Queremos conhecer os valores dos pesos $w_0$, $w_1$ e $w_2$ e dos nós $x_0$, $x_1$ e $x_2$ para que a igualdade da eq. \eqref{eq:p5_1} seja válida para qualquer polinômio $f(x) \in \mathcal{P}_5$.
+
+\begin{equation}\label{eq:p5_1}
+  \int_{-1}^{1} f(x)dx = w_0f(x_0) + w_1f(x_1) + w_2f(x_2),\quad \forall f \in \mathcal{P}_5
+\end{equation}
+
+Pela propriedade da simetria da quadratura gaussiana:
+
+\begin{equation}\label{eq:simetria}
+  x_1 = 0,\quad x_0 = -x_2,\quad w_0 = w_2
+\end{equation}
+
+Aplicando \eqref{eq:simetria} em \eqref{eq:p5_1}:
+
+\begin{equation}
+  \int_{-1}^{1} f(x)dx = w_0f(x_0) + w_1f(0) + w_0f(-x_0),\quad \forall f \in \mathcal{P}_5
+\end{equation}
+
+
+
+Então, basta testar para os seguintes polinômios $f_0(x) = 1$, $f_1(x) = x$, $f_2(x) = x^2$, $f_3(x) = x^3$, $f_4(x) = x^4$ e $f_5(x) = x^5$, usando a propriedade da eq. \eqref{eq:odd-even}.
+
+\begin{equation}\label{eq:odd-even}
+  \int_{-1}^1 x^kdx =
+  \begin{cases}
+    0,                          & k \textrm{ ímpar} \\
+    \displaystyle\frac{2}{k+1}, & k \textrm{ par}
+  \end{cases}
+\end{equation}
+
+Para $f_1$, $f_3$ e $f_5$:
+
+\begin{equation}
+  \int_{-1}^{1} f(x)dx = w_0f(x_0) + 0 - w_0f(x_0) = 0
+\end{equation}
+
+Para $f_0$, $f_2$ e $f_4$, temos o seguinte sistema não-linear:
+\begin{align}
+  \label{eq:sis1-1}\displaystyle\int_{-1}^{1} f_0(x)dx & = \int_{-1}^{1} dx = w_0 + w_1 + w_0 = 2w_0 + w_1 = 2                \\
+  \label{eq:sis1-2}\displaystyle\int_{-1}^{1} f_2(x)dx & = \int_{-1}^{1} x^2dx = w_0x_0^2 + 0 + w_0(-x_0)^2 = 2w_0x_0^2 = 2/3 \\
+  \label{eq:sis1-3}\displaystyle\int_{-1}^{1} f_4(x)dx & = \int_{-1}^{1} x^4dx = w_0x_0^4 + 0 + w_0(-x_0)^4 = 2w_0x_0^4 = 2/5
+\end{align}
+
+Fazendo \eqref{eq:sis1-3} $\div$ \eqref{eq:sis1-2} para calcular $x_0$, substituindo $x_0$ de \eqref{eq:p5_sol1} em \eqref{eq:sis1-2} para calcular $w_0$, substituindo $w_0$ de \eqref{eq:p5_sol2} em \eqref{eq:sis1-1} para calcular $w_1$ e considerando as relações em \eqref{eq:simetria} para calcular $w_2$ e $x_2$, chega-se à solução do sistema:
+\begin{align}
+  \label{eq:p5_sol1}x_0^2 = \frac{3}{5}\,\,\Rightarrow\,\,x_0 = -\sqrt{\frac{3}{5}} \qquad & \textrm{e} \qquad x_2 = -x_0 = \sqrt{\frac{3}{5}} \\
+  \label{eq:p5_sol2}w_0 = w_2 = \frac{5}{9} \qquad                                         & \textrm{e} \qquad w_1 = \frac{8}{9}
+\end{align}
+
+
+Assim, substituindo os valores de \eqref{eq:p5_sol1} e \eqref{eq:p5_sol2} em \eqref{eq:p5_1} chega-se à fórmula exata da integral no intervalo $[-1, 1]$ de polinômios de grau $\le 5$ na eq. \eqref{eq:p5_final}
+
+\begin{equation}\label{eq:p5_final}
+  \displaystyle\int_{-1}^{1} f(x)dx = \frac{5}{9}f(-\sqrt{^3/_5}) + \frac{8}{9}f(0) + \frac{5}{9}f(\sqrt{^3/_5}),\quad \forall f \in \mathcal{P}_5
+\end{equation}
+
+
+
+\subsubsection{Fórmula exata para integração de polinômios $\mathcal{P}_5$ no intervalo $[a, b]$}
+Para que a eq. \eqref{eq:p5_final} seja válida em um intervalo de integração $[a, b]$, $a, b \in \mathbb{R}$,  os nós são linearmente transportados do intervalo $[-1, 1]$ para o intervalo $[a, b]$ e os pesos são multiplicados por um fator de escala.
+
+A eq. \eqref{eq:min-max} mostra a fórmula do escalamento min-max
+
+\begin{equation}\label{eq:min-max}
+  t = (b-a) \left[\frac{x - \min(x)}{\max(x) - \min(x)}\right] + a
+\end{equation}
+
+Substituindo os valores de $\min(x) = -1$ e $\max(x) = 1$, calculamos $t$ e $dt$ nas eqs. \eqref{eq:t} e \eqref{eq:dt}
+
+\begin{equation}\label{eq:t}
+  t = \frac{(b-a)x}{2} + \frac{b+a}{2}
+\end{equation}
+
+
+\begin{equation}\label{eq:dt}
+  dt = \frac{b-a}{2}dx
+\end{equation}
+
+Aplicando a substituição da váriável em uma função $g(\cdot)$:
+
+\begin{equation}\label{eq:subst}
+  \int_a^b g(t)dt = \frac{b-a}{2}\int_{-1}^{1} g\left(\frac{b-a}{2}x + \frac{b+a}{2}\right)dx
+\end{equation}
+
+Finalmente, considerando a igualdade \eqref{eq:p5_final} dada pela quadratura gaussiana e a substituição de variável \eqref{eq:subst}, a fórmula exata para o cálculo de um polinômio de ordem $\le 5$ em um intervalo $[a, b]$ é dada pela eq. \eqref{eq:p5_ab_final}
+
+\begin{equation}\label{eq:p5_ab_final}
+  \displaystyle\int_a^b f(x)dx = \frac{5}{9}\gamma f(-\gamma\sqrt{^3/_5} + \lambda) + \frac{8}{9}\gamma f(\lambda) + \frac{5}{9}\gamma f(\gamma\sqrt{^3/_5} + \lambda),\quad \forall f \in \mathcal{P}_5
+\end{equation}
+
+com $\displaystyle\gamma = \frac{b-a}{2}$ e $\displaystyle\lambda = \frac{b+a}{2}$
+
+
+\subsubsection{Aproximação da integral dupla em uma região qualquer}
+Agora, considerando $f(x)$ uma função qualquer (não necessariamente pertencente à $\mathcal{P}_{2n-1}$), o valor da integral no intervalo $[-1, 1]$ pode ser aproximado como mostra a eq. \eqref{eq:ab_approx}
+
+\begin{equation}\label{eq:ab_approx}
+  \displaystyle \int_{-1}^{1} f(x)dx \approx \sum_{j=0}^n w_j f(x_j)
+\end{equation}
+
+Aplicando a substituição de variável \eqref{eq:subst} em \eqref{eq:ab_approx}:
+
+\begin{equation}
+  \displaystyle \int_a^b f(x)dx \approx \sum_{j=0}^n \frac{b-a}{2} w_j f\left(\frac{b-a}{2} x_j + \frac{b+a}{2}\right)
+\end{equation}
+
+Para uma função de duas variáveis $G(x,y)$, sua integral dupla em uma região $R = \{(x, y)\,|\,a \le x \le b,\,c(x) \le y \le d(x)\}$ ou $R = \{(x, y)\,|\,a \le y \le b,\,c(y) \le x \le d(y)\}$ é aproximada da seguinte forma:
+
+\begin{equation}
+  \displaystyle I = \int_a^b\int_{c(x)}^{d(x)} g(x, y)dydx \approx \int_a^b G_i(x)dx
+\end{equation}
+
+onde
+
+\begin{equation}
+  G_i(x) = \sum_{j=0}^n \frac{d(x_{ij})-c(x_{ij})}{2} u_{ij} g\left(x_i, \frac{d(x_{ij})-c(x_{ij})}{2} y_{ij} + \frac{d(x_{ij})+c(x_{ij})}{2}\right)
+\end{equation}
+
+Assim, a fórmula da integral aproximada de uma função $G(x,y)$ em uma região $R$ é dada pela eq. \eqref{eq:dupla}
+
+\begin{equation}\label{eq:dupla}
+  \displaystyle I \approx \frac{b-a}{2} \sum_{i=0}^n v_i \sum_{j=0}^n \frac{d(x_{ij})-c(x_{ij})}{2} u_{ij} g\left(\frac{b-a}{2} x_i + \frac{b+a}{2}, \frac{d(x_{ij})-c(x_{ij})}{2} y_{ij} + \frac{d(x_{ij})+c(x_{ij})}{2}\right)
+\end{equation}
+
+
+\subsection{Implementação}
+
+A implementação do software para o cálculo de integrais duplas em regiões quaisquer usando quadratura gaussiana é baseada no cálculo de $I$ da eq. \eqref{eq:dupla}. A Tabela \eqref{tab:func} mostra uma breve descrição das funções implementadas no programa.
+
+\begin{table}[!ht]
+  \renewcommand\arraystretch{1.45}
+  \centering
+  \caption{Descrição das funções}
+  \label{tab:func}
+  \doubleRuleSep
+  \begin{tabular}{rp{0.66\textwidth}}
+    \doubleTopRule
+    Função                             & Descrição                                                                                                                                                                                                                                                                                          \\
+    \midrule
+    \texttt{get\_pairs}                & Recebe o parâmetro $n$, acessa o dicionário de dados, calcula os valores negativos e retorna uma quantidade $n$ de pesos e nós (raízes e coeficientes do polinômio de Legendre).                                                                                                                   \\
+    \texttt{double\_gauss\_quadrature} & Recebe os parâmetros $f$, $a$, $b$, $c$, $d$ e $n$ e calcula a aproximação da integral dupla em uma região qualquer da função $f$, sendo $a$ e $b$ os limites da integral mais externa e $c$ e $d$ os limites da integral mais interna. O cálculo é feito usando quadratura gaussiana com $n$ nós. \\
+    \doubleBottomRule
+  \end{tabular}
+\end{table}
+
+
+\newpage
+\section{Resultados e Discussão}
+\label{sec:resultados}
+\subsection{Máxima precisão dos testes}
+
+A Tabela \ref{tab:precisao} foi obtida a partir do atributo \texttt{float\_info} do módulo \texttt{sys} do Python \citep{kong, doc-01}, que mostra informações sobre cálculos com pontos flutuantes na máquina. Dois parâmetros importantes são o número máximo de dígitos decimais que podem ser representados fielmente em um ponto flutuante e o erro epsilon, que é a diferença entre 1.0 e o menor valor maior que 1.0 que é representável como um ponto flutuante.
+
+\begin{table}[!ht]
+  \renewcommand\arraystretch{1.45}
+  \centering
+  \caption{Informações sobre a precisão do sistema com cálculo usando pontos flutuantes}
+  \label{tab:precisao}
+  \doubleRuleSep
+  \begin{tabular}{cc}
+    \doubleTopRule
+    Parâmetro                & Valor                             \\
+    \midrule
+    Número máximo de dígitos & 15                                \\
+    Epsilon                  & $2.220446049250313\cdot 10^{-16}$ \\
+    \doubleBottomRule
+  \end{tabular}
+\end{table}
+
+
+
+\subsection{Casos de Teste}
+O programa foi avaliado a partir de oito casos de teste listados a seguir
+
+
+  {\bf Caso de Teste 1.a:} Cálculo do volume de um cubo cujas arestas tem comprimento 1.
+
+\begin{equation}
+  \int_0^1\int_0^1 1dxdy
+\end{equation}
+
+\newpage
+{\bf Caso de Teste 1.b:} Cálculo do volume de um tetraedro com vértices (0, 0, 0), (1, 0, 0), (0, 1, 0) e (0, 0, 1).
+
+\begin{equation}
+  \int_0^1 \int_0^{1-x} (1-x-y)dydx
+\end{equation}
+
+% \begin{figure}[!ht]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{exemplo_1.jpg}
+%     \caption{Representação 3D do tetraedro}
+%     \label{fig:1b}
+% \end{figure}
+
+
+{\bf Caso de Teste 2.a:} Cálculo da área da região no primeiro quadrante limitada pelos eixos e pela curva $y = 1 - x^2$ (sequência de integração: dydx).
+
+\begin{equation}
+  \int_0^1 \left[ \int_0^{1-x^2} dy \right] dx
+\end{equation}
+
+
+{\bf Caso de Teste 2.b:} Cálculo da área da região no primeiro quadrante limitada pelos eixos e pela curva $y = 1 - x^2$ (sequência de integração: dxdy).
+
+% \begin{figure}[!ht]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{exemplo_2.png}
+%     \caption{Representação 2D da função do Teste 2}
+%     \label{fig:1b}
+% \end{figure}
+
+\begin{equation}
+  \int_0^1 \left[ \int_0^{\sqrt{1-y}} dx \right] dy
+\end{equation}
+
+
+
+{\bf Caso de Teste 3.a:} Cálculo da área da superfície descrita por $z = e^{\frac{y}{x}}$, $0.1 \le x \le 0.5$, $x^3 \le y \le x^2$.
+
+\begin{equation}
+  \displaystyle\int _{0.1}^{0.5}\int _{x^3}^{x^2}\sqrt{\left(-\frac{e^{\frac{y}{x}}y}{x^2}\right)^2+\left(\frac{e^{\frac{y}{x}}}{x}\right)^2+1}dydx
+\end{equation}
+
+% \begin{equation}
+% \iint_R \sqrt{f_x\left(x,y\right)^2+f_y\left(x,y\right)^2+1}dydx = \int_{0.1}^{0.5} \int_{x^3}^{x^2} \sqrt{\left(\frac{\partial }{\partial x}\left(e^{\frac{y}{x}}\right)\right)^2+\left(\frac{\partial }{\partial y}\left(e^{\frac{y}{x}}\right)\right)^2+1}dydx = 
+% \end{equation}  
+
+% \begin{equation*}
+%     \int _{0.1}^{0.5}\int _{x^3}^{x^2}\sqrt{\left(-\frac{e^{\frac{y}{x}}y}{x^2}\right)^2+\left(\frac{e^{\frac{y}{x}}}{x}\right)^2+1}dydx = \int _{0.1}^{0.5}\int _{x^3}^{x^2}\frac{\sqrt{e^{\frac{2y}{x}}y^2+e^{\frac{2y}{x}}x^2+x^4}}{x^2}dydx = -0.105498
+% \end{equation*}
+
+
+{\bf Caso de Teste 3.b:} Cálculo do volume abaixo da superfície descrita por $z = e^{\frac{y}{x}}$, $0.1 \le x \le 0.5$, $x^3 \le y \le x^2$.
+
+\begin{equation}
+  \int_{0.1}^{0.5} \int_{x^3}^{x^2} e^{\frac{y}{x}}dydx
+\end{equation}
+
+
+{\bf Caso de Teste 4.a:} Cálculo do volume da calota esférica de altura $\frac{1}{4}$ da esfera de raio 1.
+
+% \begin{equation*}
+%     x = f(y); y \in \left[\frac{3}{4},1\right]
+% \end{equation*}
+
+% \begin{equation}
+%     V=\pi \int _{r-h}^r\left(\sqrt{r^2-y^2}\right)^2 dy = \pi \int _{\frac{3}{4}}^1\left(\sqrt{1^2-y^2}\right)^2 dy = 0.17998...
+% \end{equation}
+
+\begin{equation}
+  \int_0^{\frac{1}{4}}\int_0^{\sqrt{\frac{1}{4} - x^2}} 2\pi y dydx
+\end{equation}
+
+
+{\bf Caso de Teste 4.b:} Cálculo do volume do sólido de revolução obtido da rotação da região $R$, em torno do eixo y, delimitada por $x = 0$, $x = e^{-y^2}$, $y = -1$ e $y = 1$.
+
+% \begin{equation*}
+%     x = g(y); y \in \left[-1, 1\right]
+% \end{equation*}
+
+% \begin{equation}
+%     V=\pi \int _{r-h}^r ({g(y)})^2 dy = \pi \int _{r-h}^r ({e^{-y^2}})^2 dy = 0.17345...
+% \end{equation}
+
+\begin{equation}
+  \int_{-1}^1 \int_0^{-y^2} 2\pi x dxdy
+\end{equation}
+
+\newpage
+\subsection{Validação dos Resultados}
+
+\begin{table}[!ht]
+  \renewcommand\arraystretch{1.45}
+  \centering
+  \caption{Comparação dos resultados obtidos pelo algorítmo de quadratura gaussiana (QG) implementado neste trabalho com os resultados obtidos pelo uso da biblioteca Scipy com 22 casas decimais.}
+  \label{tab:resultados}
+  \doubleRuleSep
+  \begin{tabular}{ccccc}
+    \doubleTopRule
+    Teste                & \# Nós & Resultado (QG)           & Resultado (Scipy)        & Erro                     \\
+    \midrule
+    \multirow{3}{*}{1.a} & 6      & 1.0                      & {}                       & 0.0                      \\
+    {}                   & 8      & 1.0                      & 1.0                      & 0.0                      \\
+    {}                   & 10     & 1.0                      & {}                       & 0.0                      \\\midrule
+    \multirow{3}{*}{1.b} & 6      & 0.1666666666666666296592 & {}                       & $5.551115\cdot 10^{-17}$ \\
+    {}                   & 8      & 0.1666666666666666574148 & 0.1666666666666666851704 & $2.775558\cdot 10^{-17}$ \\
+    {}                   & 10     & 0.1666666666666666851704 & {}                       & 0.0                      \\\midrule
+    \multirow{3}{*}{2.a} & 6      & 0.6666666666666667406815 & {}                       & $1.110223\cdot 10^{-16}$ \\
+    {}                   & 8      & 0.6666666666666666296592 & 0.6666666666666666296592 & 0.0                      \\
+    {}                   & 10     & 0.6666666666666667406815 & {}                       & $1.110223\cdot 10^{-16}$ \\\midrule
+    \multirow{3}{*}{2.b} & 6      & 0.6670464379156135770188 & {}                       & $3.797712\cdot 10^{-4}$  \\
+    {}                   & 8      & 0.6668355801001766280933 & 0.6666666666666668517038 & $1.689134\cdot 10^{-4}$  \\
+    {}                   & 10     & 0.6667560429365088081610 & {}                       & $8.937627\cdot 10^{-5}$  \\\midrule
+    \multirow{3}{*}{3.a} & 6      & 0.1054978824004978721351 & {}                       & $2.206568\cdot 10^{-14}$ \\
+    {}                   & 8      & 0.1054978824005199378178 & 0.1054978824005199378178 & 0.0                      \\
+    {}                   & 10     & 0.1054978824005199378178 & {}                       & 0.0                      \\\midrule
+    \multirow{3}{*}{3.b} & 6      & 0.0333055661162371882678 & {}                       & $5.107026\cdot 10^{-15}$ \\
+    {}                   & 8      & 0.0333055661162320743029 & 0.0333055661162320812418 & $6.938894\cdot 10^{-18}$ \\
+    {}                   & 10     & 0.0333055661162320743029 & {}                       & $6.938894\cdot 10^{-18}$ \\\midrule
+    \multirow{3}{*}{4.a} & 6      & 0.1799870791119152213522 & {}                       & $2.775558\cdot 10^{-17}$ \\
+    {}                   & 8      & 0.1799870791119152491078 & 0.1799870791119152491078 & 0.0                      \\
+    {}                   & 10     & 0.1799870791119152491078 & {}                       & 0.0                      \\\midrule
+    \multirow{3}{*}{4.b} & 6      & 0.0000000000000002220446 & {}                       & $2.220446\cdot 10^{-16}$ \\
+    {}                   & 8      & 0.0000000000000000555112 & 0.0                      & $5.551115\cdot 10^{-17}$ \\
+    {}                   & 10     & 0.0000000000000001110223 & {}                       & $1.110223\cdot 10^{-16}$ \\
+    \doubleBottomRule
+  \end{tabular}
+\end{table}
+
+\newpage
+Para validação, comparamos os valores das integrais calculadas pelo programa implementado com os valores das integrais calculadas pela biblioteca SciPy do Python. Estes resultados estão dispostos na Tabela \ref{tab:resultados}, que sumariza todos os casos de testes calculados de ambas as formas para diferentes valores de nós.
+
+É notado que praticamente todos os erros são da ordem do máximo número de casas decimais fielmente representaveis por um ponto flutuante na máquina onde se ocorreu o teste (como visto na Tabela \ref{tab:precisao}). Com excessão do Caso de Teste 2.b que apresenta um erro da ordem de $10^{-4}$.
+
+A discrepância de erros entre os Casos de Teste 2.a e 2.b mostra o efeito da propagação de erros de arredondamentos causados em operação com pontos flutuantes. Isto é, o limite superior de integração do Caso de Teste 2.b causa maior erro por conta da raiz quadrada.
+
+
+\section{Conclusão}
+Foi possível implementar um algorítmo para o cálculo de integrais duplas numericamente usando quadratura gaussiana em uma região de integração qualquer a partir da transformação do intevalo $[-1, 1]$, onde as raízes e coeficientes do polinômio de Legendre foram calculadas, em um intervalo $[a, b]$ com erros comparáveis aos resultados obtidos pela biblioteca SciPy.
+
+
+% \vspace{10mm}
+
+% \section*{Apêndice}
+% \appendix
+
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\horizonBackCover
+\end{document}
