@@ -1,0 +1,708 @@
+%!TeX root=../tese.tex
+%("dica" para o editor de texto: este arquivo é parte de um documento maior)
+% para saber mais: https://tex.stackexchange.com/q/78101
+
+% Vamos definir alguns comandos auxiliares para facilitar.
+
+% "textbackslash" é muito comprido.
+\newcommand{\sla}{\textbackslash}
+
+% Vamos escrever comandos (como "make" ou "itemize") com formatação especial.
+\newcommand{\cmd}[1]{\textsf{#1}}
+
+% Idem para packages; aqui estamos usando a mesma formatação de \cmd,
+% mas poderíamos escolher outra.
+\newcommand{\pkg}[1]{\textsf{#1}}
+
+% A maioria dos comandos LaTeX começa com "\"; vamos criar um
+% comando que já coloca essa barra e formata com "\cmd".
+\newcommand{\ltxcmd}[1]{\cmd{\sla{}#1}}
+
+\chapter{Do zero ao mínimo com \LaTeX{}}
+\label{chap:tutorial}
+
+Neste capítulo, apresentamos uma visão geral sobre \LaTeX{} para quem
+nunca trabalhou com ele antes. Se você já tem conhecimento básico ou
+intermediário sobre o sistema, sinta-se à vontade para ir diretamente ao
+Capítulo~\ref{chap:exemplos}, que inclui diversos exemplos e dicas úteis.
+A intenção deste capítulo não é propriamente ensinar a usar \LaTeX{},
+mas sim expor seus princípios de funcionamento e principais recursos,
+de maneira que o leitor esteja melhor capacitado a compreender outros
+documentos e exemplos.
+
+\enlargethispage{-.5\baselineskip}
+
+\section{Por que \LaTeX{}?}
+
+Preparar um texto para impressão envolve duas coisas:
+
+\begin{description}
+\item[Escrever:] digitar, recortar/colar trechos, revisar etc.
+\item[Formatar:] definir o tamanho da fonte, o
+espaçamento entre parágrafos etc.
+\end{description}
+
+Hoje é comum fazer essas duas coisas ao mesmo tempo, graças à visualização
+imediata que o computador oferece. No entanto, imagine como era o processo de
+produção de um livro nos anos 1970: o autor escrevia seu texto em uma máquina
+de escrever e enviava esse material para o editor, que era responsável pela
+tarefa de formatá-lo para impressão. O autor muitas vezes inseria anotações
+para o editor explicando coisas como ``este parágrafo é uma citação'', e o
+editor criava algum mecanismo visual para representar isso.
+
+Não é de se surpreender que, com o surgimento do microcomputador, os primeiros
+programas para criação de textos seguissem um funcionamento similar: o autor
+digitava e editava seu texto sem formatá-lo visualmente, apenas inserindo
+alguns comandos correspondentes a aspectos da formatação que ele depois
+revisava na versão impressa. \LaTeX{} é uma ferramenta baseada nesse processo:
+você prepara seu texto no editor de sua preferência, insere comandos no texto
+que indicam a estrutura do documento e o processa com o \LaTeX{}, que gera um
+arquivo \textsc{pdf} formatado. Embora seja um estilo ``antigo'' de trabalhar,
+ele é muito eficiente em vários casos. Ou seja, dependendo da situação, pode
+ser mais adequado trabalhar fazendo tudo ao mesmo tempo ou dividindo o trabalho
+nessas duas fases. De maneira geral:
+
+\begin{itemize}
+\item Se você precisa criar páginas diferentes entre si com \emph{layout}
+definido manualmente, é melhor usar uma ferramenta que permita trabalhar
+visualmente, como LibreOffice Writer, MS-Word, Google Docs etc.;
+
+\item Se você precisa fazer um documento relativamente longo com estrutura
+regular (capítulos, seções etc.), é melhor usar ferramentas que formalizam
+essa estrutura (como \LaTeX{}) ao invés de ferramentas visuais;
+
+\item Se você precisa fazer um documento envolvendo referências cruzadas,
+bibliografia relativamente extensa ou fórmulas matemáticas, é difícil
+encontrar outra ferramenta tão eficiente quanto \LaTeX{};
+
+\item Se você precisa criar um documento simples, ambas as abordagens
+funcionam bem; cada um escolhe esta ou aquela em função da familiaridade
+com as ferramentas;
+
+\item Se você quer que a qualidade tipográfica do resultado seja realmente
+excelente, é necessário usar uma ferramenta profissional, como \LaTeX{},
+Scribus, Adobe InDesign ou outras; processadores de texto convencionais não
+oferecem o mesmo nível de qualidade dessas ferramentas\footnote{A maior
+diferença (mas não a única) é o algoritmo que divide cada parágrafo em uma
+série de linhas: \TeX{} (desde 1982) e Adobe InDesign (desde 1999) analisam
+cada parágrafo como um todo, ao invés de uma linha por vez, para obter
+espaçamentos mais homogêneos e menos palavras hifenizadas.}.
+\end{itemize}
+
+\section{Visão geral}
+
+\enlargethispage{.5\baselineskip}
+
+Com \LaTeX{}, você prepara o texto (incluindo as indicações de estrutura) em
+um editor de textos qualquer, salva como arquivo de texto puro (``.txt'',
+mas é comum usar a extensão ``.tex'' ao invés de ``.txt'') e processa esse
+arquivo com o comando ``latexmk'' (``compila'' o documento) para obter o
+\textsc{pdf} correspondente. Qualquer editor capaz de salvar arquivos em formato
+texto puro, como o bloco de notas do windows, vim, emacs etc. pode ser usado.
+Programas como LibreOffice Writer, MS-Word etc. também funcionam, mas
+possivelmente vão gerar dores de cabeça porque vão tentar formatar algumas
+coisas automaticamente (e de maneira incompatível com \LaTeX{}).
+
+Em geral, é recomendável usar editores projetados especificamente para
+trabalhar com \LaTeX{}; eles utilizam cores para distinguir o texto dos
+comandos de formatação, automatizam o processo de compilação do documento
+(veja a Seção~\ref{sec:make}) e oferecem outras comodidades. O mais usado
+atualmente é o \TeX{}studio, que é software livre e funciona em Windows,
+macOS e Linux. O editor Visual Studio Code (\url{code.visualstudio.com})
+é voltado para programadores e tem uma interface às vezes peculiar para
+outros usuários, mas em conjunto com a \emph{package} \pkg{LaTeX Workshop}
+(do editor, não do \LaTeX), é uma boa opção. O mesmo vale para o editor
+emacs (\url{www.gnu.org/software/emacs}) e sua package \pkg{AUC\TeX{}}.
+Ainda outra possibilidade são os editores \emph{online}; dentre eles, o
+overleaf (\url{www.overleaf.com}) é o mais usado.\looseness=-1
+
+Um documento \LaTeX{} é dividido em duas partes: o \emph{preâmbulo}, onde
+você coloca comandos de configuração para o documento, e o \emph{corpo}
+do documento em si, que contém o texto propriamente dito. O preâmbulo é
+onde você define as características do resultado tipográfico esperado
+para o documento como um todo: tipo e tamanho da fonte a usar, posição
+dos títulos e subtítulos na página etc. O corpo, por sua vez, consiste no
+texto e em alguns comandos indicativos da estrutura.
+
+Dado que configurar o preâmbulo é um tanto complexo e que mesmo no corpo
+do texto às vezes há comandos especiais (para a geração da bibliografia
+ou tabelas, por exemplo), usar algum documento existente como base para
+criar seu texto em geral é uma boa ideia. O IME/USP oferece um conjunto
+de modelos adequados para teses/dissertações, artigos, apresentações e
+pôsteres (\url{gitlab.com/ccsl-usp/modelo-latex}) que pode ser adaptado
+para outros usos e outras instituições. Há também uma família de modelos
+(\url{www.abntex.net.br}) que procura seguir as normas da ABNT para
+diversos tipos de documentos científicos, e algumas publicações científicas
+fornecem modelos de acordo com suas diretrizes.
+
+\section{Estrutura de um documento \LaTeX{}}
+\label{sec:basico}
+
+\enlargethispage{.5\baselineskip}
+
+O preâmbulo \LaTeX{} começa com a definição da \emph{classe} a ser utilizada,
+que determina boa parte da configuração do documento. As principais classes
+são \pkg{book}, \pkg{article} e \pkg{beamer} (para apresentações); você pode
+saber mais sobre elas (e outras) em qualquer texto introdutório sobre \LaTeX{}
+na Internet (veja a Seção~\ref{sec:docs})\footnote{Algumas revistas acadêmicas
+têm suas próprias classes; por exemplo, a AMS (American Mathematical Society)
+disponibiliza as classes \pkg{amsart}, \pkg{amsbook} e \pkg{amsproc}; você
+pode usá-las para seus trabalhos mesmo que não pretenda publicar com a AMS,
+veja \cmd{texdoc Author\_Handbook\_Journals}.}. A seguir, são carregadas
+várias \emph{packages} (``\emph{plugins}'') que acrescentam funcionalidades ou
+modificam as classes padrão; qualquer documento \LaTeX{} utiliza várias delas.
+A classe é definida com o comando \ltxcmd{documentclass\{nome-da-classe\}};
+packages são carregadas com o comando \ltxcmd{usepackage\{nome-da-package\}}.
+Classes e packages podem receber opções adicionais entre colchetes
+(\ltxcmd{usepackage[opção1,opção2...]\{nome-da-package\}}); a documentação
+de cada package e classe (veja a Seção~\ref{sec:docs}) detalha as opções
+disponíveis.
+
+\LaTeX{} ignora quebras de linha e trata sequências de vários espaços como
+se fossem apenas um. Isso significa que você pode usar quebras de linha e
+espaços no texto que está digitando como ``dicas visuais'' da estrutura do
+texto durante a edição. É muito comum fazer isso com listas de itens, por
+exemplo (veja a Seção~\ref{sec:estrutura}). Uma ou mais linhas em branco
+sinalizam o fim de um parágrafo e o início de outro. O caractere ``\%''
+indica que o restante da linha é um comentário, ou seja, um trecho de texto
+que não tem nenhum efeito sobre o resultado final do documento. Comentários
+podem ser usados como lembretes sobre alguma decisão, para indicar um
+parágrafo que ainda precisa de revisão etc. Por conta desse significado
+especial, para inserir um caractere \% ``normal'' no texto é preciso digitar
+``\ltxcmd{\%}''.\looseness=-1
+
+Como mencionado anteriormente, \LaTeX{} divide o trabalho de produção
+de um texto entre a preparação do conteúdo e a definição da forma de
+apresentação. Assim, os comandos usados durante a produção do conteúdo
+procuram expressar o \emph{significado} de cada elemento, e não sua
+aparência. Por exemplo, para realçar uma palavra é comum usar texto
+\textit{em itálico}; embora exista um comando especificamente para gerar
+textos em itálico em \LaTeX{}, o recomendado é que se utilize o comando
+\ltxcmd{emph} (``enfatizado''), pois em alguns casos pode ser melhor
+utilizar \textbf{negrito}, \textsc{Versalete} ou outro mecanismo para
+dar ênfase a uma palavra. Essa é uma orientação geral para a escrita de
+textos com \LaTeX{}: procure definir a estrutura, não a aparência.
+
+Um exemplo de documento \LaTeX{} simples (lembre-se, ``\%'' indica um
+comentário):
+
+\begin{verbatim}
+        % O documento começa com o preâmbulo
+        % Vamos usar a classe "book" com fonte no tamanho 11pt
+        \documentclass[11pt]{book}
+        % Vamos escrever em português do Brasil
+        \usepackage[brazilian]{babel}
+        % Finaliza o preâmbulo e inicia o conteúdo:
+        \begin{document}
+        % Estas linhas não imprimem nada, apenas definem as
+        % informações que serão usadas por "\maketitle" a seguir
+        \author{Fulano de Tal}
+        \title{Começando a usar o \LaTeX{}}
+        % Cria um bloco ou página de título com os dados acima
+        \maketitle
+        % Capítulos, seções etc. são numerados automaticamente
+        \chapter{Cheguei!}
+        Oi, Galera!
+        % É preciso sinalizar o final do documento
+        \end{document}
+\end{verbatim}
+
+Esse exemplo mostra como definir o nome de um capítulo. Existem também os
+comandos \ltxcmd{section}, \ltxcmd{subsection}, \ltxcmd{subsubsection} e
+\ltxcmd{paragraph} (a classe \pkg{book} inclui também \ltxcmd{part}, um nível
+acima de \ltxcmd{chapter}). Usar o nome do comando seguido de um asterisco
+(\ltxcmd{chapter*} etc.) faz o capítulo/seção não ser numerado (nem
+considerado na contagem de capítulos, seções etc.) nem incluído no
+sumário. Este modelo ainda define \ltxcmd{chapter**}, \ltxcmd{section**},
+\ltxcmd{subsection**} e \ltxcmd{subsubsection**}, que eliminam a
+numeração mas incluem o capítulo ou seção no sumário (úteis para a
+introdução, por exemplo).
+
+\section{Executando \LaTeX{} e comandos auxiliares}
+\label{sec:make}
+
+\enlargethispage{.5\baselineskip}
+
+Depois de escrever o arquivo \cmd{.tex}, é preciso \emph{compilá-lo}, ou
+seja, processá-lo para gerar o \textsc{pdf} desejado. Isso envolve executar,
+além do próprio \LaTeX{} (veja a Seção~\ref{sec:versions}), alguns
+programas auxiliares (em geral, \cmd{biber} ou \cmd{bibtex} e
+\cmd{makeindex}). Nesse processo, \LaTeX{} quase sempre precisa ser
+executado três ou mais vezes antes de gerar o \textsc{pdf} final\footnote{A
+cada vez, ele gera uma nova versão intermediária do arquivo \textsc{pdf},
+mas essas versões têm defeitos, como citações e referências cruzadas
+incorretas ou sumário inexistente.}. Por conta dessa complexidade, é comum
+utilizar alguma ferramenta para automatizar o processamento. Existem diversas
+opções, mas a mais comum é o \cmd{latexmk}, que é capaz de identificar
+automaticamente os passos necessários para a geração do documento,
+executando os programas na ordem correta quantas vezes forem
+necessárias\footnote{É possível personalizar o comportamento de \cmd{latexmk}
+com o arquivo de configuração \cmd{latexmkrc}.}. Assim, embora seja possível
+gerar o \textsc{pdf} executando apenas \cmd{pdflatex nome-do-arquivo.tex},
+acostume-se a compilar o documento sempre com \cmd{latexmk -pdf nome-do-arquivo.tex}.
+Note que editores especializados em \LaTeX{} costumam ter uma opção de menu
+para a compilação do documento; dentre as configurações possíveis do editor,
+prefira sempre a que simplesmente aciona \cmd{latexmk}.
+
+\section{Mais sobre estrutura}
+\label{sec:estrutura}
+
+Para criar listas de itens, você pode fazer\footnote{Observe o uso de
+espaços no início das linhas com \ltxcmd{item} para deixar a
+estrutura visualmente mais clara durante a edição.}:
+
+\begin{verbatim}
+        \begin{itemize}
+            \item Pedra
+            \item Papel
+            \item Tesoura
+        \end{itemize}
+\end{verbatim}
+
+Além de ``itemize'', há também ``enumerate'' (auto-explicativo) e ``description'':
+
+\begin{verbatim}
+        \begin{description}
+            \item[Pedra:] perde para papel;
+            \item[Papel:] perde para tesoura;
+            \item[Tesoura:] perde para pedra.
+        \end{description}
+\end{verbatim}
+
+Citações curtas normalmente são incluídas no fluxo normal do texto e colocadas
+entre aspas; para citações mais longas, use \ltxcmd{begin\{quote\}} ou
+\ltxcmd{begin\{quotation\}} (este último é mais adequado para citações com
+vários parágrafos). A package \pkg{csquotes} acrescenta recursos sofisticados
+para citações.
+
+Para poesia, use \ltxcmd{begin\{verse\}} (a package \pkg{verse} acrescenta
+vários recursos ao comando \cmd{verse}). Estrofes são separadas por uma linha
+em branco e versos são separados por \cmd{\sla\sla{}*}. O asterisco é opcional;
+ele instrui \LaTeX{} a manter as linhas na mesma página.
+
+Para inserir uma nota de rodapé, use o comando \ltxcmd{footnote\{texto da
+nota\}}\index{Notas de rodapé}.
+
+\section{Figuras e tabelas (\emph{floats})}
+\label{sec:floats}
+
+\enlargethispage{.5\baselineskip}
+
+É possível utilizar \ltxcmd{includegraphics} para acrescentar figuras
+ao texto (nos formatos \textsc{pdf}, \textsc{png} e \textsc{jpeg}),
+mas normalmente elas não são inseridas diretamente. A razão é que, se
+você simplesmente inserir uma figura em qualquer lugar, ela pode
+ser grande demais para o espaço disponível na página, o que forçará
+\LaTeX{} a deixar um espaço em branco e colocá-la na página seguinte.
+O mesmo vale para tabelas (criadas com \ltxcmd{begin\{tabular\}}).
+Para contornar esse problema, \LaTeX{} possui \emph{floats}, que
+são blocos com algum conteúdo cuja localização é flexível: \LaTeX{}
+procura colocar um \emph{float} ``perto'' de onde ele foi definido,
+mas não necessariamente no lugar exato.
+
+Ao invés de um único comando como ``\ltxcmd{begin\{float\}}'' a
+ser usado tanto para figuras quanto para tabelas, \LaTeX{} define
+\ltxcmd{begin\{figure\}} e \ltxcmd{begin\{table\}}. Ele faz isso
+porque, assim como com capítulos e seções, \LaTeX{} também numera
+figuras e tabelas --- mas, para isso, ele precisa saber qual é o tipo de
+cada \emph{float}\footnote{É possível criar outros tipos de \emph{float}
+também: como pode ser visto no Captítulo~\ref{chap:exemplos}, este
+modelo define o tipo \cmd{program}.}. À parte isso, o conteúdo de
+um \emph{float} pode ser qualquer coisa mas, em geral, é
+\ltxcmd{includegraphics} ou \ltxcmd{begin\{tabular\}} respectivamente.
+
+Uma consequência importante (e proposital) dos tipos diferentes de
+\emph{floats} é que \LaTeX{}\index{Floats!ordem} garante que a sequência
+das figuras e a sequência das tabelas sejam respeitadas (a Figura~6 nunca
+aparece depois da Figura~7). No entanto, isso \emph{não} se aplica a
+\emph{floats} de tipos diferentes, ou seja, se você definiu a Figura~5,
+a Tabela~3 e a Figura~6, elas podem aparecer no documento na ordem
+``Figura~5, Tabela~3, Figura~6'', ``Figura~5, Figura~6, Tabela~3'' ou
+``Tabela~3, Figura~5, Figura~6''.
+
+\section{Referências cruzadas}
+\label{sec:refs}
+
+É comum que um trecho do texto faça referência a outro trecho (``como
+discutimos no Capítulo~X\ldots''). Isso pode ser feito diretamente, mas
+se você reorganizar o documento ou acrescentar seções, a numeração pode
+mudar. Para evitar esse problema, você pode gerar essas referências
+automaticamente com o par de comandos \ltxcmd{label\{nome-sugestivo\}} e
+\ltxcmd{ref\{nome-sugestivo\}} (para o número da seção/capítulo) ou
+\ltxcmd{pageref\{nome-sugestivo\}} (para o número da página).
+
+Esse mecanismo também é muito útil para figuras e tabelas. Dentro do
+\emph{float}, além da figura em si, em geral é uma boa ideia acrescentar
+uma legenda com \ltxcmd{caption}\index{Legendas}. Além disso, é possível
+inserir um \ltxcmd{label} dentro da legenda para que se possa fazer
+referência à figura/tabela no texto (com os comandos \ltxcmd{ref} e
+\ltxcmd{pageref}).
+
+\section{Referências bibliográficas e bibliografia}
+
+A geração de bibliografias no \LaTeX{} é feita através da package
+\pkg{biblatex}\index{biblatex} e do programa auxiliar
+\cmd{biber}\index{biber}\footnote{Antigamente, usava-se a package
+\pkg{natbib}\index{natbib} e o comando auxiliar \cmd{bibtex}\index{bibtex}.
+O funcionamento geral dos dois mecanismos é similar e o formato do banco
+de dados de ambos é o mesmo.} e envolve três passos:
+
+\begin{enumerate}
+\item A criação de um banco de dados, no formato ``.bib'', das obras de
+interesse. Esse banco de dados pode incluir obras que não vão ser de fato
+referenciadas no documento final. Isso significa que você pode criar um
+único banco de dados e utilizá-lo em todos seus documentos\footnote{É
+comum criar bancos de dados desse tipo separados por assunto, mas isso
+não é necessário.}.
+
+\item A inserção de referências às obras ao longo do texto, usando
+diferentes comandos dependendo do caso: \ltxcmd{cite}, \ltxcmd{citet},
+\ltxcmd{citep} etc. Como já mencionado, esses comandos estão descritos
+na documentação da package \pkg{natbib}\index{natbib} \citep{natbib}.
+
+\item A escolha do estilo bibliográfico (usando as opções da package
+\pkg{biblatex}) que formata as citações ao longo do texto e gera a bibliografia
+automaticamente através do comando \ltxcmd{printbibliography}. Normalmente,
+apenas as obras efetivamente citadas são incluídas na lista de referências,
+mas é possível forçar a inclusão de uma obra sem citá-la explicitamente com
+o comando \ltxcmd{nocite}.
+\end{enumerate}
+
+O banco de dados é um arquivo de texto contendo uma \emph{entrada} para cada
+item da bibliografia e, em cada entrada, uma série de \emph{campos} com os
+dados (título, autor etc.). A entrada inclui também uma \emph{chave}, que é
+usada para inserir as citações no texto. Há vários tipos de entrada (para
+artigos, livros, sítios web etc.) e, para cada tipo, uma lista de campos
+possíveis (considere que periódicos normalmente incluem o número do volume,
+mas teses não). O exemplo abaixo é um livro cuja chave é ``dissertjourney'';
+ele pode ser citado com o comando \ltxcmd{cite\{dissertjourney\}}:
+
+\begin{verbatim}
+        @book{dissertjourney,
+            author    = {Carol M. Roberts},
+            title     = {The Dissertation Journey},
+            publisher = {Corwin},
+            year      = 2010,
+            edition   = 2,
+            location  = {Thousand Oaks, CA},
+        }
+
+\end{verbatim}
+
+Em alguns casos, \LaTeX{} troca as letras maiúsculas definidas em
+\ltxcmd{title} para minúsculas. Para evitar que isso afete siglas
+ou nomes próprios, basta colocá-los entre chaves (``Automated
+Application-Level Checkpointing of \{MPI\} Programs'').
+
+% Esta informação é muito pouco relevante...
+%Observe que existem dois formatos comumente usados para escrever títulos
+%de artigos, livros etc:
+%
+%\begin{description}
+%  \item[Title case:] Substantivos, adjetivos e verbos (além de nomes
+%  próprios e siglas) são escritos com a primeira letra maiúscula (``Um
+%  Exemplo de Título no Estilo Title Case''). Em geral, a regra não se
+%  aplica ao título de artigos ou capítulos de livro, apenas aos livros
+%  dos quais eles fazem parte;
+%
+%  \item[Sentence case:] O título é escrito como qualquer outra frase
+%  (``Um título só tem maiúsculas em abreviaturas, como ABNT, ou nomes
+%  próprios'').
+%\end{description}
+%
+%Cada estilo de bibliografia utiliza um desses formatos e, portanto, é
+%desejável que o banco de dados funcione corretamente com ambos. No
+%entanto, nem sempre é claro quais palavras devem ser iniciadas com letra
+%maiúscula ao usar \emph{title case} e, por conta disso, não há um sistema
+%automático em \LaTeX{} para adaptar títulos a ele. Sendo assim, como fazer
+%um banco de dados bibliográfico capaz de funcionar com os dois formatos?
+%A solução é sempre inserir os títulos dos itens no banco de dados seguindo
+%o formato \emph{title case}. Se o estilo utiliza esse formato, o título
+%é reproduzido na bibliografia como digitado no banco de dados. Se o estilo
+%usa \emph{sentence case}, o texto (exceto a primeira letra) é convertido
+%para letras minúsculas. Para evitar que isso afete siglas e nomes próprios,
+%basta colocá-los entre chaves (``Automated Application-Level Checkpointing
+%of \{MPI\} Programs'').
+
+Os campos \textsf{author} e \textsf{publisher} podem incluir uma lista
+de nomes separados por \textsf{and}; biblatex reconhece que cada nome é
+composto por nome e sobrenome, às vezes com partículas como ``de'', ``dos''
+ou ``von'' e, dependendo do estilo bibliográfico, pode abreviar nomes, mudar
+sobrenomes para caixa alta etc. Isso evidentemente não funciona quando o autor
+é, na verdade, uma instituição; nesses casos, basta colocar o nome inteiro da
+instituição entre chaves (``\{Universidade de São Paulo --- Sistema Integrado
+de Bibliotecas\}'') para que biblatex não faça alterações desse tipo. Se o
+nome é longo, pode ser interessante definir o campo \textsf{shortauthor}.
+
+A fonte mais detalhada de informações sobre o banco de dados é a documentação
+da package \pkg{biblatex} \citep[em especial as seções 2.1.1 e 2.2.2]{biblatex},
+mas o material ali é um tanto denso.
+Há muito material introdutório ao formato ``.bib'' e ao bibtex disponível
+\emph{online}, e você pode se inspirar em exemplos para criar seu banco de
+dados bibliográfico. Além disso, ferramentas como Zotero\index{Zotero} ou
+Mendeley\index{Mendeley} (o uso de uma delas é altamente recomendado!)
+podem exportar para o formato .bib. Observe que \pkg{biblatex}
+\index{biblatex} oferece recursos bastante sofisticados para o tratamento de
+referências e bibliografias. Se você precisar de alguma funcionalidade
+especial, consulte a documentação do pacote ou a Internet; é quase certeza
+que \pkg{biblatex} oferece uma solução.
+
+
+\section{Fórmulas matemáticas}
+
+A diagramação de fórmulas matemáticas tem regras específicas: letras são
+interpretadas como variáveis e espaços em branco são ignorados (\LaTeX{}
+usa o contexto da fórmula para definir o espaçamento). Assim, para criar
+fórmulas em \LaTeX{}, é preciso usar um comando para iniciar o modo
+matemático. Isso pode ser feito de duas formas:
+
+\begin{itemize}
+  \item Pequenas fórmulas no meio do texto ($e^{i\pi}+1=0$) são inseridas
+  com \cmd{\$\emph{fórmula}\$} (e, portanto, para inserir um caractere \$
+  normal no texto, é preciso usar \cmd{\sla{}\$}).
+
+  \item Fórmulas mais longas ou que devem aparecer em um parágrafo
+  separado são inseridas com \cmd{\sla{}[\emph{fórmula}\sla{}]} (ou
+  \ltxcmd{begin\{displaymath\}}).
+\end{itemize}
+
+\LaTeX{} é capaz de oferecer uma boa solução para praticamente qualquer
+problema de diagramação para matemática; basta ler a documentação.
+
+\section{Formatação manual}
+
+Às vezes é preciso inserir formatação de forma manual; os comandos mais
+importantes são:
+\ltxcmd{emph} (texto \emph{enfatizado}, em geral itálico),
+\ltxcmd{texttt} (texto \texttt{teletype}, imitando um
+                terminal de texto ou uma impressora),
+\ltxcmd{textit} (\textit{itálico}),
+\ltxcmd{textbf} (\textbf{negrito}),
+\ltxcmd{textsf} (fonte \textsf{sem serifa}),
+\ltxcmd{textsc} (texto \textsc{Versalete} --- nem todas
+                as fontes oferecem essa possibilidade),
+\ltxcmd{normalsize} (tamanho normal),
+\ltxcmd{small} (tamanho reduzido),
+\ltxcmd{footnotesize} (ainda menor),
+\ltxcmd{scriptsize} (ainda menor),
+\ltxcmd{tiny} (ainda menor),
+\ltxcmd{large} (tamanho aumentado),
+\ltxcmd{Large} (ainda maior),
+\ltxcmd{LARGE} (ainda maior),
+\ltxcmd{Huge} (ainda maior),
+\ltxcmd{vspace\{\sla{}baselineskip\}} (deixa uma linha em branco),
+\ltxcmd{begin\{center\}} (centraliza parágrafos),
+\ltxcmd{begin\{flushleft\}} (alinha parágrafos à esquerda),
+\ltxcmd{begin\{flushright\}} (alinha parágrafos à direita)\footnote{É
+                             altamente recomendável carregar a package
+                             \pkg{ragged2e} (já incluída neste modelo)
+                             e utilizar \cmd{Center}, \cmd{FlushLeft} e
+                             \cmd{FlushRight} ao invés de \cmd{center},
+                             \cmd{flushleft} e \cmd{flushright}.},
+\ltxcmd{-} (sugere um possível local para hifenização localizada),
+\ltxcmd{linebreak}[0--4] (sugere um possível local para mudar de linha;
+                         o número indica quão forte é a sugestão, ou
+                         seja, 4 faz a mudança obrigatória. Por ser uma
+                         mudança de linha ``normal'', se o parágrafo é
+                         justificado, a linha é justificada normalmente),
+\ltxcmd{newline} ou \cmd{\sla\sla} (força uma quebra de linha; por ser
+                                   uma quebra forçada, a linha \emph{não}
+                                   é justificada nesse caso),
+\ltxcmd{pagebreak}[0--4] (sugere um possível local para mudar de página;
+                         como \ltxcmd{linebreak}, o número indica quão
+                         forte é a sugestão. Por ser uma mudança de página
+                         ``normal'', o texto da página é espalhado
+                         verticalmente de maneira a fazer a última linha
+                         alinhada com o final das demais páginas) e
+\ltxcmd{newpage} (força uma quebra de página; por ser uma quebra forçada,
+                 o final da página \emph{não} é alinhado com o final das
+                 demais páginas nesse caso).
+
+Mas, como discutido na Seção~\ref{sec:basico}, não é recomendável
+usar esses comandos ao longo do texto: o ideal em \LaTeX{} é expressar
+o significado de cada elemento, não a sua forma de apresentação,
+pois isso permite que você faça alterações na formatação com mais
+facilidade. Assim, quando os recursos pré-definidos do \LaTeX{}
+(\ltxcmd{itemize}, \ltxcmd{chapter} etc.) não forem suficientes,
+o mais adequado é definir comandos novos, em geral usando os comandos
+de formatação mencionados acima. Esse é um tópico avançado, mas você
+pode consultar o início do arquivo \LaTeX{} deste capítulo para alguns
+exemplos simples.
+
+% Esta informação é muito pouco relevante...
+%\section{Detalhes da linguagem}
+%
+%Há quatro estilos típicos de comandos \LaTeX{}:
+%
+%\begin{itemize}
+%\item Comandos que se referem a um parâmetro; por exemplo,
+%\ltxcmd{emph\{um texto\}} significa ``escreva a frase
+%`um texto' com ênfase'' (em geral, itálico). As chaves delimitam o início
+%e o final do escopo sobre o qual o comando tem efeito. Aqui entram também
+%comandos como \ltxcmd{title} e \ltxcmd{author},
+%que não escrevem nada diretamente mas definem o título e autoria do documento
+%(essa informação é usada, por exemplo, por \ltxcmd{maketitle}).
+%
+%\item Comandos que se referem a um parâmetro que é um bloco grande de
+%texto, possivelmente vários parágrafos; por exemplo, \ltxcmd{begin\{center\}}
+%um texto \ltxcmd{end\{center\}} faz ``um texto'' (que podem ser vários
+%parágrafos) ser centralizado.
+%
+%\item Comandos que ativam alguma opção; por exemplo, \ltxcmd{itshape}
+%significa ``ative o modo itálico''. Nesse caso, o texto vai ser impresso
+%em itálico até outro comando selecionar outro estilo de fonte. Se o comando
+%for inserido dentro de um bloco delimitado por chaves, ele ``perde o
+%efeito'' após o caractere de fecha-chaves (exemplo: ``\{\ltxcmd{itshape\{\}}
+%Fulano de Tal\} é meu nome'' será impresso como ``\textit{Fulano de Tal} é
+%meu nome''). Você normalmente não vai utilizar esse estilo de comando, mas
+%ele é útil em alguns casos.
+%
+%\item Comandos que fazem o programa escrever algo específico; por exemplo,
+%em várias classes padrão o comando \ltxcmd{maketitle} gera
+%uma página de título com o nome do trabalho, autor etc.
+%\end{itemize}
+%
+%Nos dois últimos, não é preciso usar chaves após o comando. Ainda assim, as
+%chaves podem ser colocadas e muitas vezes isso é bom: sem elas, \LaTeX{}
+%entende que o caractere espaço que se segue a esses comandos serve apenas
+%como separador em relação ao que vem a seguir. Por conta disso, ele ignora
+%esse espaço. Quando isso não é o que se deseja, a solução é usar as chaves:
+%\ltxcmd{itshape\{\}}.
+%Vale observar que alguns comandos aceitam mais de um parâmetro, às vezes
+%entre chaves, às vezes entre colchetes. Você pode descobrir a sintaxe
+%correta para cada caso lendo a documentação de cada comando.
+
+\section{Versões do \LaTeX{}}
+\label{sec:versions}
+
+Assim como há packages para o \LaTeX{}, o próprio \LaTeX{} é, na verdade, um
+conjunto de extensões para o programa \TeX{}. Assim, se você encontrar
+referências a ``\TeX{}'' ou a ``plain \TeX{}'', basta saber que esse é o
+sistema que funciona ``por baixo'' do \LaTeX{}.
+
+\LaTeX{} é um sistema em evolução (desde os anos 80!). Uma das consequências
+disso é que há, na verdade, quatro versões diferentes dele:
+
+\begin{enumerate}
+\item \LaTeX{} ``tradicional'', que gera arquivos em formato \textsc{dvi}
+que, por sua vez, precisam ser convertidos para o formato \textsc{pdf}.
+Essa versão não é capaz de usar as fontes instaladas no sistema; ela só
+pode usar fontes adaptadas para uso com o \LaTeX{}. Hoje em dia não há
+boas razões para usar essa versão.
+
+\item pdf\LaTeX{}, que gera arquivos \textsc{pdf} e dá suporte a alguns
+recursos avançados de tipografia adicionais. É a versão mais usada hoje
+em dia, embora também só possa usar as fontes adaptadas para uso com o
+\LaTeX{}.
+
+\item \XeLaTeX{} que, além dos recursos do pdf\LaTeX{}, opera internamente
+em UTF-8 (ou seja, funciona melhor com múltiplas línguas) e pode funcionar
+não só com as fontes adaptadas para o \LaTeX{} como também com as fontes
+instaladas no sistema. \XeLaTeX{} foi muito importante ao ser lançado,
+mas atualmente a comunidade está mais empenhada em evoluir o sistema com
+Lua\LaTeX{}.
+
+\item Lua\LaTeX{}, que oferece os mesmos recursos que o \XeLaTeX{} e
+também pode ser estendido internamente com mais facilidade (através da
+linguagem de programação Lua).
+\end{enumerate}
+
+Todas essas versões são instaladas quando você instala \LaTeX{} na
+sua máquina. Em geral, se você pretende escrever apenas com línguas no
+alfabeto latino e não pretende usar fontes diferentes das disponíveis
+por padrão, qualquer das três versões modernas (pdf\LaTeX{},
+\XeLaTeX{} e Lua\LaTeX{}) é adequada; pdf\LaTeX{} é um pouco mais
+rápido, mas Lua\LaTeX{} gera arquivos \textsc{pdf} um pouco menores.
+Se você pretende usar outros alfabetos, gostaria de escolher
+fontes diferentes ou precisa de recursos tipográficos específicos
+(\cmd{texdoc fontspec}, \cmd{texdoc unicode-math}), use Lua\LaTeX{}.
+
+\section{Limitações do \LaTeX{}}
+\label{sec:limitations}
+
+Como qualquer ferramenta, \LaTeX{} tem limitações e características
+indesejáveis:
+
+\begin{itemize}
+    % \linebreak[0]{} -> sugestão (não-obrigatória) de quebra de linha
+    \item A linguagem é muito prolixa: é bastante tedioso escrever
+    coisas como ``\ltxcmd{begin\linebreak[0]{}\{itemize\}}'' etc.
+    Linguagens como asciidoc (\url{asciidoctor.org}), markdown
+    (\url{commonmark.org}), bookdown (\url{bookdown.org}) e reStructuredText
+    (\url{sphinx-doc.org}) operam de maneira similar a \LaTeX{}, mas sua
+    sintaxe é bem mais enxuta. Elas funcionam muito bem para a geração de
+    páginas web, mas \LaTeX{} oferece mais recursos e geralmente produz
+    resultados impressos melhores.
+
+    \item \LaTeX{} gera muitas mensagens pouco importantes durante
+    o processamento do documento, o que dificulta a identificação
+    de problemas (o programa auxiliar \cmd{texlogsieve}, incluído
+    com versões recentes de \LaTeX{}, pode minimizar esse incômodo).
+    Além disso, quando ocorrem erros durante esse processamento, as
+    mensagens explicativas muitas vezes são confusas ou, pior, não
+    indicam o problema real que causou a falha.
+
+    \item \LaTeX{} procura ser uma linguagem \emph{declarativa}, ou seja,
+    os comandos buscam expressar o que se deseja e não como fazer algo
+    (``este texto é um título'' e não ``pule duas linhas, selecione uma
+    fonte maior, escreva este texto, pule mais duas linhas e selecione a
+    fonte de tamanho padrão''). No entanto, ela é insuficiente em algumas
+    situações, obrigando o usuário a utilizar vários comandos, às vezes
+    obscuros, para obter resultados relativamente simples.
+
+    \item Há diversas packages para personalizar os aspectos básicos
+    da formatação final do documento, como o tipo de fonte, tamanho dos
+    títulos das seções, espaçamento etc. No entanto, quando se quer
+    fazer modificações maiores, é preciso lidar com partes complexas da
+    linguagem e diversos comportamentos surpreendentes.
+
+    \item Às vezes há incompatibilidades entre packages; em alguns casos,
+    isso pode ser contornado mudando a ordem em que elas são carregadas,
+    mas em outros pode simplesmente não ser possível combiná-las.
+
+    \item A colocação automática dos \emph{floats} e o algoritmo
+    que encontra as quebras de página em geral funcionam bem, mas às
+    vezes é possível obter resultados melhores manualmente (veja as
+    Seções~\ref{sec:exemplos-graficos} e \ref{sec:quebras}).
+
+    % LaTeX atualmente usa utf-8 por padrão; esta informação já
+    % era pouco útil antes, agora é quase totalmente irrelevante
+    %\item Como muitos outros sistemas de texto, \LaTeX{} pode usar mais de
+    %um padrão para a codificação de caracteres acentuados (através da
+    %configuração da package \pkg{inputenc}). Alguns anos atrás,
+    %o mais comum era o ISO-8859-1, também conhecido como latin1 (esse é o
+    %nome usado no \LaTeX) ou Windows-1252; atualmente, o mais comum é o
+    %UTF-8 (default em versões recentes de \LaTeX). De maneira geral, é
+    %simples reconhecer e resolver os problemas
+    %causados por inconsistências na codificação (seja trocando a opção
+    %de \pkg{inputenc}, seja recodificando o arquivo), mas arquivos ``.bib''
+    %são um caso especial: biblatex (usado neste modelo) funciona normalmente
+    %com caracteres acentuados, mas bibtex oficialmente não tem suporte a eles
+    %(embora em geral funcione corretamente). Além disso, é bastante comum que
+    %arquivos desse tipo sejam compartilhados por várias pessoas, com diferentes
+    %configurações. Para evitar problemas com os acentos
+    %nesse caso, uma possibilidade é representar os caracteres acentuados
+    %usando comandos \LaTeX{}: \cmd{\sla\textquotesingle{}a} para á,
+    %\cmd{\sla{}c\{c\}} para cedilha etc., independentemente da
+    %codificação usada no texto\footnote{Você pode consultar os comandos
+    %desse tipo mais comuns em
+    % \url{en.wikibooks.org/wiki/LaTeX/Special_Characters}.
+    %Observe que a dica sobre o pingo do i \emph{não} é mais
+    %válida atualmente; basta usar \cmd{\sla\textquotesingle{}i}.}.
+
+    \item As classes padrão (\pkg{book}, \pkg{article} etc.) não foram criadas
+    para serem facilmente modificadas, o que deu origem a inúmeras packages
+    voltadas para possibilitar a personalização de diversos aspectos da
+    apresentação final do documento. Esse mecanismo não é ideal, por diversas
+    razões. Por conta disso, existe um conjunto de versões alternativas dessas
+    classes (\pkg{scrbook} no lugar de \pkg{book}, \pkg{scrartcl} no lugar de
+    \pkg{article} etc.) chamado \pkg{KOMA-Script}, com mais recursos e mais
+    possibilidades de customização. A classe \pkg{memoir} tem o mesmo objetivo,
+    mas procura dar suporte a livros e artigos com uma única classe. Ambas
+    abordagens são muito boas, mas a maioria dos modelos usados por revistas e
+    outras publicações é baseada nas classes padrão. A versão 3 de \LaTeX{}
+    está em desenvolvimento com vistas a resolver boa parte dos problemas
+    atuais do sistema, mas ainda deve demorar muitos anos para ficar pronta.
+    Con\TeX{}t é um ``irmão mais novo'' de \LaTeX{} com diversas
+    vantagens, mas com sintaxe diferente e que ainda não é tão popular.
+\end{itemize}

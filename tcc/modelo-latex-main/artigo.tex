@@ -1,0 +1,152 @@
+% Arquivo LaTeX de exemplo de artigo
+%
+% Criação: Jesús P. Mena-Chalco
+% Revisão: Fabio Kon e Paulo Feofiloff
+% Adaptação para UTF8, biblatex e outras melhorias: Nelson Lago
+%
+% Except where otherwise indicated, these files are distributed under
+% the MIT Licence. The example text, which includes the tutorial and
+% examples as well as the explanatory comments in the source, are
+% available under the Creative Commons Attribution International
+% Licence, v4.0 (CC-BY 4.0) - https://creativecommons.org/licenses/by/4.0/
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREÂMBULO LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Se você está escrevendo um artigo para algum periódico que fornece um
+% modelo LaTeX, é melhor usá-lo (e, se necessário, você pode copiar coisas
+% úteis deste modelo). Se não houver um modelo preexistente, você pode tentar
+% adaptar este para o formato esperado, mas essa não é uma tarefa trivial.
+%
+% A opção twoside (frente-e-verso) significa que a aparência das páginas pares
+% e ímpares pode ser diferente. Por exemplo, as margens podem ser diferentes ou
+% os números de página podem aparecer à direita ou à esquerda alternadamente.
+% Mas nada impede que você crie um documento "só frente" e, ao imprimir, faça
+% a impressão frente-e-verso.
+%
+% Aqui também definimos a língua padrão do documento
+% (a última da lista) e línguas adicionais.
+%\documentclass[a4paper,12pt,twoside,brazilian,english]{article}
+\documentclass[a4paper,12pt,twoside,english,brazilian]{article}
+
+% O preâmbulo de um documento LaTeX pode ser razoavelmente longo. Neste
+% modelo, optamos por reduzi-lo, colocando praticamente tudo do preâmbulo
+% nas packages "imegoodies" e "imelooks".
+%
+% imegoodies carrega diversas packages muito úteis e populares (algumas
+% são praticamente obrigatórias, como amsmath, babel, array etc.). É
+% uma boa ideia usá-la com outros documentos também. Ela inclui vários
+% comentários explicativos e dicas de uso; não tenha medo de alterá-la
+% conforme a necessidade.
+%
+% imelooks carrega algumas packages e configurações que definem a
+% aparência do documento; você também pode querer usá-la (ou partes
+% dela) com outros documentos para obter as mesmas fontes, margens
+% etc. Tal como "imegoodies", pode valer a pena ler os comentários
+% e fazer modificações nessa package. Com a opção "thesis", imelooks
+% também define os comandos para capa, folha de rosto etc. Para uso
+% com a package beamer, a opção "beamer" define o estilo de pôsteres
+% e apresentações.
+\usepackage{imegoodies}
+\usepackage{imelooks}
+
+%\nocolorlinks % para impressão em P&B
+
+% Diretórios onde estão as figuras; com isso, não é necessário (mas
+% é permitido) colocar o caminho completo em \includegraphics. Note
+% que a extensão nunca é necessária (mas é permitida), ou seja, o
+% resultado é o mesmo com "\includegraphics{figuras/foto.jpeg}",
+% "\includegraphics{foto.jpeg}", "\includegraphics{figuras/foto}"
+% ou "\includegraphics{foto}".
+\graphicspath{{figuras/},{fig/},{logos/},{img/},{images/},{imagens/}}
+
+% Comandos rápidos para mudar de língua:
+% \en -> muda para o inglês
+% \br -> muda para o português
+% \texten{blah} -> o texto "blah" é em inglês
+% \textbr{blah} -> o texto "blah" é em português
+\babeltags{br = brazilian, en = english}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METADADOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% O arquivo com os dados bibliográficos para biblatex; você pode usar
+% este comando mais de uma vez para acrescentar múltiplos arquivos
+\addbibresource{bibliografia.bib}
+
+% Este comando permite acrescentar itens à lista de referências sem incluir
+% uma referência de fato no texto (pode ser usado em qualquer lugar do texto)
+%\nocite{bronevetsky02,schmidt03:MSc, FSF:GNU-GPL, CORBA:spec, MenaChalco08}
+% Com este comando, todos os itens do arquivo .bib são incluídos na lista
+% de referências
+%\nocite{*}
+
+% É possível definir como determinadas palavras podem (ou não) ser
+% hifenizadas; no entanto, a hifenização automática geralmente funciona bem
+\babelhyphenation{documentclass latexmk soft-ware clsguide} % todas as línguas
+\babelhyphenation[brazilian]{Fu-la-no}
+\babelhyphenation[english]{what-ever}
+
+% Estes comandos definem o título e autoria do trabalho e devem sempre ser
+% definidos, pois além de serem utilizados para criar a capa (com o comando
+% \maketitle), também são armazenados nos metadados do PDF. O estilo padrão
+% de diversos periódicos exige também outros dados, como email, filiação etc.
+\title{Título do artigo}
+\author{
+  Primeiro Autor\thanks{Filiação do primeiro autor},
+  Segundo Autor\thanks{Filiação do segundo autor}
+}
+
+% O pacote hyperref armazena alguns metadados no PDF gerado (em particular,
+% o conteúdo de "\title" e "\author"). Também é possível armazenar outros
+% dados, como uma lista de palavras-chave ou o resumo.
+\hypersetup{
+  pdfkeywords={LaTeX, artigo},
+  pdfsubject={Uma variante do arquivo tese.tex usando a classe article.},
+}
+
+% Por padrão, article inclui a data atual; com este comando, você pode
+% definir uma data específica, inserir algum outro texto ou, deixando o
+% conteúdo em branco, removê-la.
+\date{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INÍCIO DO ARTIGO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% Gera a "capa" do artigo (geralmente, título, autor etc. sem que haja uma
+% quebra de página para o restante do conteúdo)
+\maketitle
+\thispagestyle{empty} % não inclui o número da página na primeira página
+
+\begin{abstract}
+  Uma variante do arquivo \texttt{tese.tex} usando a classe \textsf{article}.
+\end{abstract}
+
+\section{Introdução}
+
+Se você precisa criar um texto relativamente curto, como um artigo ou
+um trabalho de disciplina, este modelo pode servir como base. Observe,
+no entanto, que periódicos em geral nas áreas de matemática e computação
+costumam ter seus próprios modelos \LaTeX{} (como é o caso da
+SBC\footnote{Sociedade Brasileira de Computação}\nocite{sbctemplate});
+nesses casos, é melhor utilizá-los e apenas consultar este modelo para
+verificar como usar algum recurso específico. Fique atento: alguns modelos
+antigos ou de periódicos internacionais podem usar \textsf{latin1} ao
+invés de \textsf{utf8} ou mesmo não ter configuração pré-definida para
+caracteres acentuados. Além disso, eles muito frequentemente utilizam
+bibtex ao invés de biblatex para a geração automática da bibliografia.
+
+\printbibliography[
+  title=\refname\label{sec:bib}, % "Referências", recomendado pela ABNT
+  %title=\bibname\label{sec:bib}, % "Bibliografia"
+]
+
+\end{document}

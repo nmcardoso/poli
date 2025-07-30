@@ -1,0 +1,328 @@
+% Author: Nelson Lago
+%
+% This file is distributed under the MIT Licence. The textual content
+% is available under the Creative Commons Attribution International
+% Licence, v4.0 (CC-BY 4.0) - https://creativecommons.org/licenses/by/4.0/
+
+\documentclass[10pt,twoside,english,brazilian]{article}
+
+\usepackage{imegoodies}
+\usepackage{imelooks}
+
+\geometry{
+  a4paper,
+  landscape,
+  textheight=192mm,
+  textwidth=277mm,
+  vmarginratio=1:1,
+  hmarginratio=1:1,
+}
+
+\singlespacing
+\pagestyle{empty}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+
+\setlist[description]{itemsep=0pt,parsep=1pt,leftmargin=0pt}
+
+\titleformat{\section}[hang]
+  {\scshape\bfseries}
+  {\thesection}
+  {0.7em}
+  {}
+
+\titlespacing{\section}
+  {0pt}
+  {1.5\baselineskip plus 1.5\baselineskip minus 1\baselineskip}
+  {.5\baselineskip plus .5\baselineskip minus .2\baselineskip}
+
+
+\begin{document}
+
+{
+  \centering
+  \Large\bfseries
+
+  \rule[.6ex]{.2\textwidth}{1pt}
+  \quad\space Colinha essencial de \LaTeX \quad\space
+  \rule[.6ex]{.2\textwidth}{1pt}\par
+}
+
+\setlength{\columnsep}{20pt}
+\setlength{\columnseprule}{.2pt}
+\begin{multicols}{3}
+
+\section*{Capa/título}
+
+\textbackslash{}title\{O título\}
+
+\textbackslash{}author\{O autor\}
+
+\textbackslash{}maketitle\quad (gera a página de título)
+
+
+\section*{Divisões}
+
+\textbackslash{}part\{nome\}
+
+\textbackslash{}chapter\{nome\}
+
+\textbackslash{}section\{nome\}
+
+\textbackslash{}subsection\{nome\}
+
+\textbackslash{}subsubsection\{nome\}
+
+\textbackslash{}paragraph\{nome\}
+
+\textbackslash{}subparagraph\{nome\}
+
+\textbackslash{}section*\{\},
+\textbackslash{}chapter*\{\} etc.\quad
+(elimina numeração)
+
+
+\vspace{\baselineskip}
+
+
+\textbackslash{}footnote\{texto da nota\}
+
+
+\section*{Modo matemático}
+
+(veja também \textsf{texdoc undergradmath})
+
+
+\vspace{\baselineskip}
+
+
+\begin{description}
+  \item[na mesma linha:] \$ E=mc\^{}2 \$
+  \item[como parágrafo:] \textbackslash[ E=mc\^{}2 \textbackslash]
+\end{description}
+
+
+\vspace{\baselineskip}
+
+
+\$ \textbackslash{}mathbb\{R\} \$\enspace $\rightarrow \mathbb{R}$
+
+\$ \textbackslash{}text\{texto normal\} \$\enspace $\rightarrow \text{texto normal}$
+
+\$ \textbackslash{}mathit\{nomes\_longos\} \$\enspace $\rightarrow \mathit{nomes\_longos}$
+
+
+\section*{Floats}
+
+\textbackslash{}begin\{figure\}
+
+\quad\textbackslash{}centering
+
+\quad\textbackslash{}includegraphics[width=0.8\textbackslash{}textwidth]\{arquivo\}
+
+\quad\textbackslash{}caption\{Legenda\textbackslash{}label\{nomesimpatico\}\}
+
+\textbackslash{}end\{figure\}
+
+
+\vspace{\baselineskip}
+
+\textbackslash{}begin\{table\}\quad \mbox{(veja
+                                          \url{tablesgenerator.com}
+                                          e \textsf{texdoc booktabs})}
+
+\quad\textbackslash{}centering
+
+\quad\textbackslash{}begin\{tabular\}
+
+\quad\quad\dots
+
+\quad\textbackslash{}end\{tabular\}
+
+\quad\textbackslash{}caption\{Legenda\textbackslash{}label\{nomesimpatico\}\}
+
+\textbackslash{}end\{table\}
+
+\columnbreak
+
+
+\section*{Estrutura}
+
+\textbackslash{}begin\{itemize\}\quad (\,ou \textbackslash{}begin\{enumerate\}\,)
+
+\quad\textbackslash{}item Algum texto\dots
+
+\textbackslash{}end\{itemize\}\quad (\,ou \textbackslash{}end\{enumerate\}\,)
+
+
+\vspace{\baselineskip}
+
+
+\textbackslash{}begin\{description\}
+
+\quad\textbackslash{}item[termo] descrição ou discussão
+
+\textbackslash{}end\{description\}
+
+
+\vspace{\baselineskip}
+
+
+\textbackslash{}begin\{verse\}\quad (veja também a \textit{package} \textsf{verse})
+
+\quad verso\dots\ \textbackslash\textbackslash
+
+\quad verso\dots\ \textbackslash\textbackslash
+
+\textbackslash{}end\{verse\}
+
+
+\vspace{\baselineskip}
+
+
+\textbackslash{}begin\{quotation\}
+
+\quad citação\dots
+
+\textbackslash{}end\{quotation\}
+
+
+\vspace{\baselineskip}
+
+
+\begin{description}
+    \item[\textsc{url}s:] \textbackslash{}url\{endereço\},
+        \textbackslash{}href\{endereço\}\{nome curto\}
+\end{description}
+
+\section*{Refs cruzadas/citações}
+
+\textbackslash{}label\{nomesimpatico\}
+
+\textbackslash{}ref\{nomesimpatico\},
+\textbackslash{}pageref\{nomesimpatico\}
+
+
+\vspace{\baselineskip}
+
+
+\begin{description}
+\item[citação simples:]~\vspace{2pt}\newline
+    \null\quad\textbackslash{}cite[p.~25]\{fulano\} $\Rightarrow$ Fulano de Tal, 1987, p.~25\vspace{6pt}
+
+  \item[citação no texto:]~\vspace{2pt}\newline
+    \null\quad\textbackslash{}cite\textbf{t}[p.~25]\{fulano\} $\Rightarrow$ Fulano de Tal (1987, p.~25)\vspace{6pt}
+
+  \item[citação entre parênteses:]~\vspace{2pt}\newline
+    \null\quad\textbackslash{}cite\textbf{p}[p.~25]\{fulano\} $\Rightarrow$ (Fulano de Tal, 1987, p.~25)
+\end{description}
+
+\section*{Colunas}
+
+\textbackslash{}begin\{multicols\}\{2\}\quad (\textit{package} \textsf{multicols})
+
+\quad texto em colunas\dots
+
+\textbackslash{}end\{multicols\}
+
+\columnbreak
+
+\section*{Línguas}
+
+\textbackslash{}br, \textbackslash{}en
+
+\textbackslash{}textbr\{texto\}, \textbackslash{}texten\{texto\}
+
+(define línguas em \textsf{\textbackslash{}documentclass} e \textsf{\textbackslash{}babeltags})
+
+\section*{Caracteres especiais}
+
+\begin{description}
+  \item[elipse:] \textbackslash{}dots\{\}
+  \item[espaço não-separável \textmd{(não quebra a linha)}:] \textasciitilde{}
+  \item[espaço aumentado:] \textbackslash{}enspace\{\} ou \textbackslash{}quad\{\}
+  % \strut -> https://github.com/schlcht/microtype/issues/10
+  \item[aspas tipográficas:] \strut\`\space\,\`\space\;\!texto\;\!\textquotesingle\:\textquotesingle,
+                \`\space\;\!texto\;\!\textquotesingle
+  \item[hífen, traço, travessão:] -\quad -\hspace{.7pt}-\quad -\hspace{.7pt}-\hspace{.7pt}-
+  \item[feminino, grau, ordinal:]
+                Prof.\textsuperscript{a} (\textbackslash textsuperscript\{a\}),\\
+                1\textordfeminine\ (\textbackslash textordfeminine),
+                90\textdegree\ (\textbackslash textdegree),
+                2\textordmasculine\ (\textbackslash textordmasculine)
+\end{description}
+
+\vspace{\baselineskip}
+
+\begin{description}
+  \item[não podem ser digitados diretamente:]~\vspace{5pt}\newline
+    \textbackslash\#
+    \quad\textbackslash\$
+    \quad\textbackslash\%
+    \quad\textbackslash\&
+    \quad\textbackslash\_
+    \quad\textbackslash\{
+    \quad\textbackslash\}
+    \vspace{3pt}\newline
+    \textbackslash{}textbackslash\{\}:\enspace\textbackslash
+    \quad\textbackslash{}textquotesingle\{\}:\enspace\textquotesingle
+    \quad\textbackslash{}textquotedbl\{\}:\enspace\textquotedbl
+    \vspace{3pt}\newline
+    \textbackslash{}textasciicircum\{\}:\!\enspace\textasciicircum\!
+    \quad\textbackslash{}textasciigrave\{\}:\!\enspace\textasciigrave\!
+    \quad\textbackslash{}textasciiacute\{\}:\!\enspace\textasciiacute
+    \vspace{3pt}\newline
+    \textbackslash{}textasciitilde\{\} \textbf{ou}
+    \textbackslash{}texttildelow\{\} (depende da fonte):\enspace\textasciitilde
+\end{description}
+
+
+\vspace{\baselineskip}
+
+
+\begin{description}
+  \item[lista de símbolos:] \textsf{texdoc symbols-a4}
+  \item[busca símbolos:] \url{detexify.kirelabs.org/classify.html}
+\end{description}
+
+\section*{Formatação manual}
+
+\textbackslash{}emph\{\emph{enfatizado}\} (em geral, \textit{itálico})
+
+\textbackslash{}textit\{\textit{itálico}\}
+
+\textbackslash{}textbf\{\textbf{negrito}\}
+
+\textbackslash{}textsc\{\textsc{Versalete}\}
+
+\textbackslash{}textsf\{\textsf{Fonte sem serifa}\}
+
+\textbackslash{}texttt\{\texttt{Fonte terminal}\}
+
+\textbackslash{}textsuperscript\{\textsuperscript{sobrescrito}\}
+
+\textbackslash{}textsubscript\{\textsubscript{subscrito}\}
+
+\textbackslash{}- (sugere hifenização)
+
+\textbackslash{}linebreak (sugere divisão)
+
+\textbackslash{}pagebreak (sugere divisão)
+
+\textbackslash{}newline ou \textbackslash\textbackslash{} (força quebra)
+
+\textbackslash{}newpage (força quebra)
+
+\textbackslash{}noindent (inicia parágrafo sem indentação na
+                         1\textordfeminine\ linha)
+
+\textbackslash{}begin\{center|flushleft|flushright\}\quad \mbox{(veja também
+                                                    \textsf{texdoc ragged2e})}
+
+\quad texto centralizado | alinhado à esquerda | à direita
+
+\textbackslash{}end\{center|flushleft|flushright\}
+
+\end{multicols}
+
+\end{document}

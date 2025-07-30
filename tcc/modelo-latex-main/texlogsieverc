@@ -1,0 +1,33 @@
+no-summary-detail
+color
+
+add-debug-message = ////^%*%*\RequirePackage%[1%.7%]%{bxpdfver%}%\input%{.-%.tex%}
+
+# A classe book "anuncia" mudanças de capítulo no arquivo de log
+add-info-message = ////^Cap.-tulo %S%.
+add-info-message = ////^Chapter %S%.
+add-info-message = ////^Ap.-ndice %S%.
+add-info-message = ////^Appendix %S%.
+add-info-message = ////^Anexo %S%.
+add-info-message = ////^Annex %S%.
+
+# Warnings pouco relevantes
+set-to-level-info = tex again after calling `makeindex
+set-to-level-info = Using \overbracket and \underbracket from `mathtools' package
+set-to-level-info = I'm going to overwrite the following commands from the `mathtools' package:
+set-to-level-info = LuaTeX and hyperref package used: Hyperreferences in rotated content will be misplaced regardless
+set-to-level-info = The length marginparwidth is less than 2cm and will most likely
+set-to-level-info = You need to compile with XeLaTeX or LuaLaTeX to use the Fira fonts
+set-to-level-info = Option "binary-units" has been removed
+set-to-level-info = no font with id
+
+set-to-level-info = Float too large for bottom area: b changed to p
+set-to-level-info = Float too large for top area: t changed to p
+
+# Estas substituições são aceitáveis
+set-to-level-info = ////Font shape `[^']*/m/[^']*' in size %b<> not available.*Font shape `[^']*/regular/[^']*' tried instead
+set-to-level-info = ////Font shape `[^']*/b/[^']*' in size %b<> not available.*Font shape `[^']*/bold/[^']*' tried instead
+set-to-level-info = ////Font shape `[^']*/bx/[^']*' in size %b<> not available.*Font shape `[^']*/b/[^']*' tried instead
+set-to-level-info = ////Font shape `[^']*/[^']*/it' in size %b<> not available.*Font shape `[^']*/[^']*/sl' tried instead
+
+set-to-level-info = This package is obsolete, use the soul package directly.
