@@ -1,0 +1,125 @@
+\documentclass[a4,12pt]{horizon-theme}
+
+\setTitle{Sistema Inteligente para Busca de Objetos Astronômicos a partir da Similaridade Visual}
+\setUniversity{Universidade de São Paulo}
+\setFaculty{Instituto de Astronomia, Geofísica e Ciências Atmosféricas}
+\setDepartment{Departamento de Astronomia}
+\setCoverMainLogo{figures/urania_color.pdf}
+
+\setCoverLeftBox{%
+  {\Large Iniciação Científica}\\[2pt]
+  {Relatório Parcial}\\[75pt]
+  {\Large Natanael Magalhães Cardoso}\\[10pt]
+  {\normalsize Orientadora: }{\large Profa. Cláudia Mendes de Oliveira}
+}
+
+\setCompactAuthors{Natanael Magalhães Cardoso\textsuperscript{*, \faEnvelope[regular]}, Profa. Cláudia Mendes de Oliveira\textsuperscript{$\dagger$}}
+
+\setHeaderRight{N. M. Cardoso}
+\setHeaderLeft{Instituto de Astronomia, Geofísica e Ciências Atmosféricas}
+
+\setCompactInfo{\textsuperscript{*} {\small Departamento de Engenharia de Computação e Sistemas Digitais, Escola Politécnica, Universidade de São Paulo.}\\[10pt]
+\textsuperscript{$\dagger$} {\small Departamento de Astronomia, Instituto de Astronimia, Geofísica e Ciências Atmosféricas, Universidade de São Paulo.}\\[10pt]
+\textsuperscript{\faEnvelope[regular]} {\small nauxmac@gmail.com}\\[10pt]
+{\color{gray}\rule{\linewidth}{0.4pt}}\\[10pt]
+{\bf Palavras-chave:} astronomia extra-galática, visão computacional, redes neurais convolucionais, deep learning, similarity learning.}
+
+\setAbstract{O aumento exponencial na geração de dados astronômicos, impulsionado por levantamentos modernos demanda soluções computacionais eficientes. O objetivo deste trabalho é criar uma ferramenta que automatize a identificação e a análise de objetos celestes com propriedades visuais semelhantes. O sistema baseia-se em redes neurais convolucionais (CNNs) treinadas com imagens para a extração de representações visuais (também chamadas de \emph{embeddings}), que são vetores que codificam as características morfológicas e estruturais das galáxias, permitindo a busca e a recuperação de imagens semelhantes com alta precisão. A arquitetura do sistema inclui uma base de dados escalável para o armazenamento e indexação dos vetores de representação, além de uma interface web responsiva que facilita o uso por pesquisadores. %Adicionalmente, o sistema incorpora técnicas de pré-processamento, como ajuste de campo de visão angular e aumento de dados, para garantir a qualidade e a representatividade dos conjuntos de treinamento. Os resultados obtidos evidenciam a eficácia do sistema em identificar padrões visuais entre galáxias, com avaliações robustas utilizando métricas como precisão média (mAP) e matrizes de confusão. 
+Exemplos de buscas realizadas mostraram a aplicabilidade prática do sistema, que é capaz de entregar resultados relevantes mesmo em cenários complexos.} %Além disso, a interface gráfica desenvolvida provou-se intuitiva e eficiente, permitindo que usuários com diferentes níveis de expertise interajam com o sistema e explorem grandes volumes de dados de forma acessível. Por fim, o trabalho destaca também a importância da interdisciplinaridade entre ciência da computação e astronomia. A integração de técnicas de visão computacional, ciência de dados e práticas de engenharia de software resultou em uma solução que atende às demandas científicas e técnicas do domínio astronômico.}
+
+
+
+\definecolor{myred}{rgb}{0.99, 0.14, 0.12}
+\newcommand{\natanael}[3]{{\fcolorbox{myred}{myred}{\color{white}Item #1:}} {\color{myred}\sout{#2}} {\color{myred} #3}}
+
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+% \rowcolors{2}{blue!5!white}{blue!15!white}
+\newtcolorbox[blend into=tables]{htable}[4]{%
+    enhanced,
+    fonttitle=\bfseries,
+    colback=white,
+    colframe=secondaryColor!90!white,
+    colbacktitle=secondaryColor!90!white,
+    coltitle=white,
+    center title,
+    halign title=center,
+    toptitle=40pt,
+    bottomtitle=40pt,
+    boxrule=.8pt,
+    float=!htb,
+    title=\strut {#2},
+    tabularx*={\arrayrulewidth0.4mm\renewcommand{\arraystretch}{1.5}}{#1},
+    before upper app={#3\\\hline\hline},
+    label={#4},
+}
+
+
+\usepackage{translator}
+\usepackage{pgfgantt}
+\AtBeginEnvironment{ganttchart}{\deftranslation[to=Brazilian]{May}{Mai}}
+\definecolor{barblue}{RGB}{153,204,254}
+\definecolor{groupblue}{RGB}{51,102,254}
+
+\usepackage[percent]{overpic}
+\usepackage{tikz}
+\usepackage{smartdiagram}
+\usepackage{multirow}
+\usepackage{afterpage}
+\usesmartdiagramlibrary{additions}
+
+% \newcommand{\citealp}[1]{\citeauthor{#1}, \citeyear{#1}}
+\addbibresource{references.bib}
+
+\newcommand{\simpleflowdiagram}[2]{%
+  \begin{center}
+  \smartdiagramset{%
+    back arrow disabled=true,
+    text width=#1\textwidth,
+    uniform color list=white for all items,
+    uniform arrow color=true,
+    arrow color=black!70,
+    border color=black!70,
+    arrow line width=2pt,
+    additions={%
+      additional arrow color=black!70,
+      additional arrow line width=2pt%
+    }%
+  }
+  \tikzset{%
+    every shadow/.style={fill=none,shadow scale=0},
+    module/.append style={very thick}%
+  }
+  \smartdiagramadd[flow diagram]{#2}{}%
+  \end{center}
+}
+
+
+\begin{document}
+\horizonCover
+
+\horizonTitle
+
+\horizonAbstract
+
+% \newpage
+
+\tableofcontents
+
+% \newpage
+
+\onehalfspacing
+
+
+\include{sections/Cap-Intro}
+\include{sections/Cap-Conceitos}
+\include{sections/Cap-Requisitos}
+\include{sections/Cap-Desenvolvimento}
+\include{sections/Cap-Resultados}
+\include{sections/Cap-Conclusao}
+
+
+\printbibliography
+
+\horizonBackCover
+\end{document}

@@ -1,0 +1,111 @@
+\section{Especificação dos Requisitos}
+\label{cap:req}
+
+A especificação dos requisitos é uma parte fundamental da etapa de concepção do sistema inteligente desenvolvido. Aqui serão abordadas das definições dos requisitos funcionais (Seção \ref{sec:req-funcionais}) e não funcionais (Seção \ref{sec:req-nao-funcionais}).
+
+
+
+
+
+\subsection{Requisitos Funcionais}
+\label{sec:req-funcionais}
+
+A especificação dos requisitos funcionais de um sistema inteligente para busca de objetos astronômicos por similaridade visual envolve uma série de funcionalidades essenciais que visam a eficiência, precisão e usabilidade do sistema. Esse sistema é composto por um modelo de aprendizagem profunda baseado em redes neurais convolucionais (CNNs) para extração de características visuais (\emph{embeddings}; Seção \ref{sec:cbir}) de objetos astronômicos, um banco de dados otimizado para armazenar e buscar \emph{embeddings} de milhões de objetos, e uma interface gráfica acessível via webapp, que permite ao usuário realizar consultas por similaridade visual. A seguir, são descritos os principais requisitos funcionais do sistema.
+
+
+
+
+
+
+\subsubsection{Extração de Características Visuais}
+\label{sec:req-embeddings}
+
+Um requisito funcional primário do sistema é a capacidade de extrair características visuais dos objetos astronômicos com precisão e eficiência, por meio de um modelo de aprendizagem profunda baseado em CNNs. Esse modelo deve ser capaz de processar as imagens de entrada, normalmente provenientes de grandes levantamentos astronômicos, e gerar um vetor de características (\emph{embedding}) que capture as propriedades morfológicas e fotométricas essenciais do objeto. Esse processo de extração deve ser automatizado e otimizado para processar grandes volumes de dados, permitindo o cálculo e atualização de \emph{embeddings} de novos objetos astronômicos conforme necessário.
+
+
+
+
+
+
+\subsubsection{Base de Dados para Armazenamento e Consulta de Representações Visuais}
+\label{sec:req-db}
+
+O sistema requer uma base de dados especializada para o armazenamento eficiente de milhões de \emph{embeddings}, permitindo o armazenamento de vetores de características em uma estrutura que suporte operações rápidas de consulta e comparação. Esta base de dados deve ser otimizada para consultas de similaridade, utilizando técnicas de indexação espacial, como árvores KD ou técnicas de hashing para vetores de alta dimensão, visando minimizar o tempo de resposta em consultas complexas. Um requisito funcional essencial é a capacidade de realizar buscas por similaridade no banco de dados, retornando os \emph{embeddings} mais próximos de um vetor de consulta fornecido pelo usuário. Adicionalmente, o banco de dados deve permitir atualizações contínuas, com a inserção de novos \emph{embeddings} e a remoção de registros desatualizados, garantindo que o sistema mantenha uma representação atualizada do universo observado.
+
+
+
+
+
+
+\subsubsection{Interface de Consulta para o Usuário}
+\label{sec:req-webapp}
+
+O sistema deve incluir uma interface gráfica de usuário acessível por uma aplicação web, composto por uma camada de back-end e uma de front-end, que permite a realização de consultas de forma interativa e intuitiva. No front-end, o usuário deve poder fazer  selecionar um objeto astronômico de referência a partir do nome ou coordenada para iniciar a busca por similaridade. Além disso, deve haver a possibilidade de ajustar parâmetros de consulta, como a sensibilidade ou alcance da similaridade, para refinar os resultados. Os resultados devem ser exibidos em uma lista ou galeria de imagens similares, com informações detalhadas sobre cada objeto encontrado, incluindo coordenadas, magnitude e outras propriedades físicas relevantes.
+
+No back-end, os requisitos incluem a implementação de uma API que gerencie as solicitações de busca, comunique-se com o banco de dados para realizar a consulta dos \emph{embeddings} e retorne os resultados ao front-end. A API deve também realizar a pré-processamento de imagens enviadas pelo usuário, preparando-as para serem passadas pelo modelo de CNN para extração do embedding. Este processo inclui etapas como normalização de brilho e ajuste de escala, garantindo que as imagens de entrada estejam padronizadas.
+
+
+
+
+
+
+\subsection{Requisitos Não Funcionais}
+\label{sec:req-nao-funcionais}
+
+Os requisitos não funcionais de um sistema inteligente para busca de objetos astronômicos por similaridade visual são fundamentais para garantir a qualidade, desempenho e usabilidade do sistema, complementando os requisitos funcionais ao definir critérios para atributos como escalabilidade, desempenho, usabilidade, segurança e interoperabilidade. Este sistema é composto por um modelo de aprendizagem profunda, uma base de dados para armazenar \emph{embeddings} de milhões de objetos e uma interface gráfica acessível por um webapp, que permite ao usuário realizar consultas de busca de forma interativa.
+
+
+
+
+
+\subsubsection{Desempenho}
+\label{sec:req-desempenho}
+
+O sistema deve ser projetado para oferecer alta performance tanto na extração quanto na consulta dos \emph{embeddings}. Dado o grande volume de dados astronômicos, o tempo de resposta para uma consulta por similaridade visual precisa ser minimizado, idealmente abaixo de um segundo por consulta para garantir a fluidez do sistema. Este requisito implica otimizações na base de dados, como o uso de indexação especializada para busca de similaridade em alta dimensão (por exemplo, KD-trees ou hashing vetorial). O tempo de processamento do modelo de CNN para extração de \emph{embeddings} também deve ser otimizado, garantindo que as inferências sejam feitas em tempo hábil, permitindo a inclusão de novos objetos em uma janela de tempo viável para atualizações.
+
+% Escalabilidade
+
+% Considerando que o sistema é projetado para lidar com milhões de objetos astronômicos, a escalabilidade é um requisito crítico. A arquitetura deve suportar a expansão de dados e consultas simultâneas, com a capacidade de integrar novos objetos de maneira contínua e eficiente. No back-end, o sistema deve permitir a distribuição de carga em múltiplos servidores ou clusters, assegurando que o aumento no volume de dados ou no número de usuários não impacte negativamente a performance. Em relação à base de dados, o sistema deve ser capaz de escalonar horizontalmente, adicionando novas instâncias de servidores de banco de dados conforme o crescimento da coleção de embeddings.
+
+
+
+
+
+\subsubsection{Usabilidade e Experiência do Usuário}
+\label{sec:req-ux}
+
+A interface gráfica do sistema deve ser intuitiva, responsiva e fácil de navegar. Para isso, o webapp precisa fornecer uma experiência de usuário consistente e fluida, com uma apresentação visual clara dos resultados de busca e opções de filtro de consulta. Além disso, o sistema deve incluir uma documentação clara e completa, auxiliando o usuário a entender como fazer consultas, interpretar resultados e utilizar todas as funcionalidades oferecidas. Elementos como feedback em tempo real, indicadores de carregamento e mensagens de erro claras são essenciais para melhorar a experiência do usuário e aumentar a usabilidade.
+
+% 4. Segurança e Controle de Acesso
+
+% Dada a natureza potencialmente sensível dos dados e a necessidade de controle no acesso ao sistema, é essencial que o sistema implemente segurança robusta para proteger as informações e garantir que apenas usuários autorizados possam realizar consultas e acessar funcionalidades específicas. O sistema deve implementar autenticação e autorização, garantindo que o acesso seja restrito a usuários cadastrados, com privilégios diferenciados conforme o nível de acesso. Adicionalmente, o sistema deve proteger as informações de usuário e as consultas realizadas, adotando criptografia em trânsito e em repouso, conforme necessário.
+
+
+
+
+\subsubsection{Interoperabilidade}
+\label{sec:req-inter}
+
+Como o sistema lida com dados astronômicos que podem vir de várias fontes e bancos de dados, a interoperabilidade é um requisito essencial para a integração e o processamento desses dados. O sistema deve ser compatível com padrões internacionais de dados astronômicos, como os protocolos do IVOA (Seção \ref{sec:protocolos}), que garantem consistência e integração com outros sistemas e bases de dados astronômicas. A interoperabilidade facilita a incorporação de dados externos e amplia as possibilidades de uso e aplicação do sistema, permitindo que os usuários explorem uma maior variedade de informações de forma integrada.
+
+% 6. Confiabilidade e Disponibilidade
+
+% A confiabilidade do sistema é crucial, especialmente para um sistema que pode ser utilizado em pesquisas científicas e acadêmicas de longo prazo. O sistema deve garantir alta disponibilidade, com tempo de inatividade mínimo, sendo projetado para funcionar de forma contínua, com um plano de recuperação em caso de falhas. Mecanismos de tolerância a falhas, como redundância em servidores e backups frequentes da base de dados, são fundamentais para assegurar que o sistema continue a operar mesmo em situações de erro. Além disso, o sistema deve garantir a integridade dos dados, protegendo-os contra corrupção e perda.
+
+% 7. Manutenibilidade e Evolutividade
+
+% O sistema deve ser projetado para facilitar a manutenção e atualização ao longo do tempo. Para isso, a arquitetura do software deve ser modular e documentada, permitindo que novas funcionalidades sejam adicionadas ou que componentes específicos sejam modificados sem comprometer a integridade do sistema como um todo. A separação entre back-end e front-end, bem como o uso de APIs para comunicação, facilita a atualização de cada módulo e a incorporação de novas tecnologias e funcionalidades, promovendo a longevidade e relevância do sistema.
+
+
+
+\subsubsection{Eficiência e Otimização de Recursos}
+\label{sec:req-eficiencia}
+
+Dada a intensidade computacional envolvida na extração de \emph{embeddings} e na execução de consultas de similaridade, o sistema deve ser eficiente no uso de recursos, tanto em termos de processamento quanto de armazenamento. O uso de técnicas de compressão para \emph{embeddings} e otimizações no armazenamento de dados, como a escolha de formatos compactos e estruturas de dados adequadas, são essenciais para reduzir o consumo de armazenamento. No processamento, a implementação de técnicas de paralelização e uso de GPUs pode reduzir o tempo de inferência do modelo e melhorar a eficiência em consultas em grande escala.
+
+
+
+\subsubsection{Precisão e Consistência dos Resultados}
+\label{sec:req-precisao}
+
+O sistema deve fornecer resultados de busca por similaridade visual com alta precisão e consistência. Para isso, o modelo de CNN utilizado para extração de características deve ser rigorosamente treinado e validado, com controle de qualidade nas inferências geradas. A precisão é especialmente importante em astronomia, onde os pesquisadores dependem de comparações visuais precisas para análise morfológica e classificações. Assim, é essencial que o sistema mantenha a consistência dos resultados de consultas realizadas em diferentes momentos, evitando variações significativas nos \emph{embeddings} gerados para o mesmo objeto.

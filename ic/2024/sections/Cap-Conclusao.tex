@@ -1,0 +1,61 @@
+\section{Conclusão}
+\label{cap:conclusao}
+
+
+\subsection{Sumário}
+Este trabalho enfatiza a importância e as contribuições do desenvolvimento de um sistema inteligente para busca de objetos astronômicos por similaridade visual, que tem como objetivo principal facilitar e ampliar a análise e o estudo de dados astronômicos. Todos os procedimentos aqui documentados foram desenvolvidos neste projeto de formatura, desde a concepção (Cap. \ref{cap:req}) até a especificação de detalhes técnicos de desenvolvimento fundamentais para garantir o funcionamento do sistema da maneira esperada, como a forma de cortar as figuras (Seção \ref{sec:aquisicao-fov}), os hiperparâmetros do modelo de aprendizagem profunda (Seção \ref{sec:modelo-hp}) e o tipo de indexação das colunas do banco de dados (Seção \ref{sec:si-tecnologias}).
+
+A implementação de um modelo de aprendizagem profunda, baseado em redes neurais convolucionais, permitiu a extração eficiente de características visuais (embeddings) dos objetos, possibilitando uma busca rápida e precisa de galáxias e outros corpos celestes que compartilham características semelhantes. Esse sistema não apenas facilita o processo de classificação e descoberta de novos padrões morfológicos no universo, mas também representa um avanço no campo da astronomia ao permitir análises detalhadas e o cruzamento de dados observacionais com maior precisão.
+
+A validação do sistema evidenciou sua robustez e aplicabilidade prática. Testes realizados  mostraram que o modelo é capaz de identificar objetos visualmente semelhantes com alta acurácia, mesmo em cenários desafiadores, como classes desbalanceadas e padrões visuais complexos. A interface gráfica desenvolvida não apenas assegurou a usabilidade, mas também ampliou o potencial de aplicação do sistema, permitindo que pesquisadores de diferentes níveis de especialização utilizem a ferramenta para explorar grandes volumes de dados de maneira intuitiva.
+
+Além disso, foi reforçada a eficácia das redes neurais convolucionais em capturar padrões visuais complexos, mas também emergiu a necessidade de um design cuidadoso de arquiteturas e ajustes de hiperparâmetros. Modelos como EfficientNet mostraram-se adequados para tarefas que demandam alta eficiência e precisão. Além disso, a transferência de aprendizado, com redes previamente treinadas em datasets como ImageNet, foi uma estratégia crucial para reduzir o custo computacional e melhorar a generalização do modelo em um domínio especializado como a astronomia.
+
+Por fim, o sistema desenvolvido não apenas atende às demandas crescentes da astronomia moderna, mas também abre caminho para novas aplicações em outros domínios científicos que enfrentam desafios semelhantes relacionados ao big data e à análise visual automatizada. Este trabalho representa uma contribuição relevante para a ciência computacional e astronômica, fornecendo uma base sólida para futuras inovações e pesquisas no campo de mineração de dados multimídia.
+
+
+
+
+\subsection{Lições Aprendidas}
+Na manipulação de grandes volumes de dados astronômicos, uma das principais lições foi a  integração de técnicas avançadas de processamento paralelo e indexação vetorial, como KD-trees, foi essencial para lidar com o volume de imagens e embeddings gerados. Esse aprendizado destacou a importância da eficiência na manipulação dos dados, desde o pré-processamento das imagens até a estruturação dos conjuntos de treinamento, validação e teste.
+
+Além disso, a implementação de uma função de custo baseada na distribuição dos votos do GalaxyZoo representou um avanço significativo. Foi necessário projetar uma função que equilibrasse a variabilidade dos rótulos com a necessidade de estabilidade nos gradientes, resultando em um modelo que capturasse melhor as incertezas e distribuições observadas nos dados reais. Esse processo evidenciou a importância de alinhar os objetivos da modelagem com as especificidades do problema.
+
+Por fim, a colaboração entre ciência da computação e astronomia não apenas impulsionou o desenvolvimento de soluções tecnológicas, mas também possibilitou a validação contínua dos resultados no contexto científico.
+
+
+
+\subsection{Contribuição Científica}
+Atualmente, os dados gerados por este sistema são usados em diversas pesquisas do Instituto de Astronomia Geofísica e Ciências Atmosféricas (IAG-USP), incluindo um projeto de iniciação científica, um projeto de mestrado e dois projetos de pós-doutorado.
+
+Em agosto deste ano, este projeto foi apresentado na \emph{19$^a$ International Meeting of the Southern Photometric Local Universe Survey (S-PLUS) Collaboration} e, entre 7 e 10 de abril de 2025, será apresentada, na Argentina, uma palestra e dois hands-on na \emph{XI La Plata International School} (\url{https://congresos.unlp.edu.ar/xilapis}) sobre as técnicas de aprendizado profundo e lições aprendidas no decorrer deste projeto.
+
+
+
+
+\subsection{Trabalhos Futuros}
+Dando continuidade ao desenvolvimento deste projeto, previsto para ser aprofundado em nível de mestrado, os trabalhos futuros buscarão explorar melhorias na eficiência e na precisão do sistema proposto. Desta forma, pretende-se investigar o uso de modelos de aprendizado profundo baseados em arquiteturas de transformadores, que têm mostrado significativo em tarefas de visão computacional.  Além disso, as redes neurais baseadas em grafos, têm mostrado eficácia na tareda de recuperação de conteúdo. Pois, ao representar os objetos astronômicos como nós em um grafo, com arestas refletindo as similaridades, é possível capturar interações de alto nível que as redes convolucionais tradicionais não conseguem representar. Por fim, está planejada a publicação de um artigo sobre este projeto desenvolvido.
+%Outra direção de pesquisa incluirá a implementação de técnicas de aprendizado auto-supervisionado para reduzir a dependência de rótulos manuais, ampliando a aplicabilidade do sistema a domínios de dados pouco anotados. Por fim, o sistema será estendido para realizar análises multiespectrais, incorporando dados de diferentes bandas do espectro eletromagnético, com o objetivo de melhorar a caracterização morfológica e estrutural dos objetos astronômicos, contribuindo para avanços significativos na pesquisa em astrofísica e ciência computacional.
+
+% Este trabalho de conclusão de curso de graduação será continuado como projeto de mestrado, onde serão feitas novas análises e a publicação de um artigo.
+
+
+
+% \section{Conclusões do Projeto de Formatura}
+% Apresentar o balanço do trabalho: resultados atingidos e não atingidos, com justificativas.
+
+% \section{Contribuições}
+% Apresentar as contribuições do trabalho, ressaltando o que foi efetivamente da autoria da equipe.
+
+% \section{Perspectivas de Continuidade}
+% Descrever os trabalhos que podem ser realizados como continuação do projeto de formatura.
+
+
+
+% A base de dados utilizada pelo sistema, que armazena milhões de embeddings de objetos astronômicos, é uma peça fundamental para sua eficiência e capacidade de escalabilidade. A organização e o armazenamento otimizado desses embeddings facilitam consultas complexas e suportam o processamento rápido de grandes volumes de dados, que são comuns em levantamentos astronômicos. Esse aspecto é de extrema importância, dado o aumento contínuo na quantidade de dados capturados por telescópios de última geração. O uso de uma arquitetura robusta de banco de dados para gerenciar esses embeddings garante que o sistema seja capaz de atender à demanda de forma eficaz, viabilizando a pesquisa em astronomia mesmo frente à imensa quantidade de dados obtidos diariamente.
+
+% Além disso, o desenvolvimento de uma interface gráfica, acessível via webapp, possibilita que pesquisadores e usuários não especialistas acessem o sistema de forma intuitiva, conduzindo consultas de similaridade visual diretamente a partir de suas próprias máquinas. A integração entre o back-end e o front-end do sistema, com funcionalidades bem definidas e de fácil uso, proporciona um ambiente de pesquisa acessível e dinâmico. A interface permite ao usuário visualizar e explorar objetos astronômicos similares, promovendo descobertas científicas colaborativas e apoiando projetos de pesquisa com ferramentas mais interativas e informativas. A inclusão dessa interface gráfica amplia o alcance do sistema, tornando-o uma ferramenta valiosa tanto para cientistas experientes quanto para novos pesquisadores e amadores interessados na exploração do universo.
+
+% Em termos de impacto científico, o sistema proposto tem o potencial de acelerar significativamente a análise de grandes conjuntos de dados astronômicos, permitindo aos pesquisadores identificar padrões e similaridades que seriam difíceis de detectar por métodos tradicionais. Ao oferecer um mecanismo de busca por similaridade visual, o sistema complementa técnicas de análise convencionais e amplia as possibilidades de novas descobertas em áreas como a morfologia galáctica, formação estelar e classificação de estruturas cosmológicas. Este sistema representa, portanto, uma contribuição importante para a pesquisa em astronomia, fornecendo uma abordagem prática e escalável para enfrentar os desafios de grandes volumes de dados, característicos dessa área científica.
+
+% Por fim, o presente trabalho destacou os desafios e as soluções propostas no desenvolvimento de sistemas de busca visual baseados em inteligência artificial aplicados à astronomia. Como desdobramentos futuros, sugere-se a expansão do sistema para incorporar dados de outros levantamentos astronômicos, o aprimoramento da interface de usuário e a implementação de métodos avançados de otimização e paralelização para aumentar a velocidade de consulta. Este projeto, portanto, reforça o papel das tecnologias de inteligência artificial e do aprendizado profundo na exploração científica, demonstrando seu valor no avanço da pesquisa astronômica e abrindo novas oportunidades para estudos e descobertas no campo.
