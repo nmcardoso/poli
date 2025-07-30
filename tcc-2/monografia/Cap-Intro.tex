@@ -1,0 +1,123 @@
+\chapter{Introdução}
+\label{cap:introducao}
+
+\section{Objetivo}
+\label{sec:objetivo}
+
+O objetivo deste projeto é desenvolver um sistema inteligente de busca por similaridade visual que permita a pesquisadores realizar consultas visuais rápidas e precisas em grandes bancos de dados astronômicos, utilizando uma forma automática de inspeção visual. Esse sistema deve ser capaz de identificar objetos morfologicamente semelhantes com base em suas propriedades visuais, promovendo uma análise detalhada e comparativa dos dados astronômicos
+% representações baseadas em embeddings visuais gerados por redes neurais convolucionais (CNNs). , o que contribui para o avanço do conhecimento científico sobre a estrutura e evolução do universo.
+
+Entre os objetivos específicos do projeto, destacam-se o desenvolvimento e o treinamento de um modelo de rede neural convolucional (CNN) otimizado para a extração de representações  visuais de objetos astronômicos, também chamadas de \emph{embeddings}. Essas representações são vetores que codificam as aspectos visuais da imagem. Sendo assim, o modelo deve ser capaz de capturar as características morfológicas e estruturais dos objetos celestes presentes em imagens, criando representações vetoriais compactas e discriminativas que facilitem a comparação entre diferentes objetos. Para isso, é fundamental treinar a CNN com um conjunto amplo e diversificado de imagens astronômicas, de forma a garantir que os vetores de representação gerados preservem informações relevantes e representem com fidelidade a variabilidade visual observada nos dados astronômicos.
+
+Outro objetivo específico é a implementação de uma base de dados otimizada para o armazenamento e a indexação de milhões de \emph{embeddings}, que permita a realização de buscas eficientes e rápidas por similaridade visual. Essa base de dados deve ser capaz de lidar com o alto volume de dados e garantir que as consultas sejam realizadas em tempo real, suportando o uso intensivo e simultâneo do sistema. A arquitetura da base de dados deve ser projetada para permitir a expansão conforme o número de vetores de representações visuais aumenta, mantendo a integridade e a eficiência das operações de consulta.
+
+Além disso, o projeto visa ao desenvolvimento de uma interface gráfica de usuário (GUI) acessível via applicação web, composta por um back-end e um front-end integrados. O back-end deve gerenciar a comunicação com a base de dados, realizar as consultas de similaridade e processar as requisições do usuário de maneira eficiente e escalável. O front-end deve oferecer uma experiência de usuário intuitiva e responsiva, permitindo que pesquisadores realizem buscas inserindo imagens de referência ou selecionando parâmetros específicos para comparação. A interface gráfica deve apresentar os resultados de maneira clara e organizada, possibilitando a análise visual detalhada dos objetos retornados.
+
+Por fim, um objetivo importante do projeto é validar o sistema em cenários reais de uso astronômico, avaliando a precisão e o desempenho das buscas por similaridade visual e sua utilidade para a pesquisa científica. Para isso, serão realizados testes em amostras de dados de levantamentos astronômicos, avaliando a capacidade do sistema de identificar padrões visuais entre objetos e a eficácia do modelo em retornar resultados consistentes e relevantes para o usuário. Essa validação é fundamental para assegurar que o sistema atende às necessidades do campo da astronomia, fornecendo uma ferramenta robusta e eficaz para a exploração visual de grandes catálogos de dados.
+
+
+\section{Justificativa}
+\label{sec:justificativa}
+
+Com o avanço das tecnologias de captura e armazenamento de imagens em larga escala, levantamentos astronômicos modernos, como o Sloan Digital Sky Survey (SDSS; Seção \ref{sec:sdss}) e o DESI Legacy Survey (Seção \ref{sec:legacy}), têm produzido catálogos de imagens da ordem de dezenas de bilhões de objetos celestes. Logo, torna-se crescente a demanda por ferramentas eficientes e precisas para a análise de grandes volumes de dados astronômicos de forma automatizada.
+
+Além disso, para a próxima década, está previsto o início da operação de novos telescópios projetados para ter uma capacidade de geração de dados jamais vista na astronomia, como o Giant Magellan Telescope (GMT; \citealp{gmt}) e o Vera Rubin Observatory -- Legacy Survey of Space and Time (LSST; \citealp{lsst}). Esse aumento exponencial na quantidade de dados causarão novos desafios à pesquisa em astronomia, uma vez que a análise manual tornar-se-á inviável e métodos convencionais de classificação e busca não conseguem lidar com a complexidade e a diversidade das características visuais dos objetos celestes.
+
+Por isso, o desenvolvimento de um sistema de busca baseado em similaridade visual é fundamental para identificar e classificar objetos com propriedades morfológicas e estruturais semelhantes, como galáxias espirais, elípticas e irregulares, que possuem características específicas associadas a sua formação e evolução. Esses aspectos são fundamentais para entender a estrutura do universo e os processos físicos que governam a formação das galáxias. O sistema de busca por similaridade visual, desenvolvido neste trabalho, permite que os astrônomos realizem comparações entre objetos visualmente similares de forma automática, facilitando o estudo de fenômenos astronômicos complexos e a identificação de padrões em grandes amostras de dados. Essa capacidade de análise comparativa é particularmente valiosa para estudos de lentes gravitacionais, interações galácticas e evolução cósmica.
+
+
+
+\section{Metodologia}
+\label{sec:metodologia}
+
+A metodologia adotada neste trabalho foi estruturada em etapas sequenciais, contemplando desde a concepção do projeto (Cap. \ref{cap:req}) até o desenvolvimento e validação do sistema inteligente proposto (Caps. \ref{cap:desenvolvimento} e \ref{cap:resultados}). Essas etapas foram delineadas para garantir que o projeto atendesse aos requisitos específicos do domínio astronômico, integrando conceitos de aprendizado profundo e engenharia de sistemas de informação.
+
+Inicialmente, na etapa de concepção, realizou-se uma investigação das principais características necessárias para que o sistema tivesse o impacto científico almejado com a especição dos requisitos funcionais (Seção \ref{sec:req-funcionais}) e não funcionais (Seção \ref{sec:req-nao-funcionais}).
+
+Em seguida, na etapa de desenvolvimento, realizou-se uma análise dos levantamentos astronômicos disponíveis para selecionar os dados mais relevantes para o treinamento e avaliação do sistema (Seção \ref{sec:aquisicao}). Esses levantamentos foram escolhidos devido à sua abrangência, qualidade e disponibilidade pública. Em seguida, as imagens foram baixadas (Seção \ref{sec:aquisicao-stamps}) com o devido ajuste do campo de visão angular (Seção \ref{sec:aquisicao-fov}). O conjuto de dados foi segmentado por características físicas, assegurando que as amostras de treinamento, validação e teste fossem representativas e com menos viés possível (Seção \ref{sec:aquisicao-descricao}).
+
+Posteriormente, foi implementado o modelo de aprendizado profundo, desenvolvido com arquiteturas modernas (Seção \ref{sec:arch}). O treinamento do modelo foi otimizado por meio de técnicas como aumento de dados (Seção \ref{sec:modelo-dataaug}) e ajuste automático de hiperparâmetros (Seção \ref{sec:modelo-treinamento}). Além disso, uma função de custo customizada (Seção \ref{sec:modelo-loss}) foi projetada para atendender aos requisitos específicos dos dados de treinamento utilizado.
+
+Desta forma, foi feita a integração do modelo desenvolvido com um sistema de informação escalável. Para isso, foi desenvolvido um backend, responsável pelo gerenciamento das consultas de similaridade visual (Seção \ref{sec:si-backend}) e pela indexação eficiente dos embeddings gerados pelo modelo e de dados georreferenciados (Seção \ref{sec:si-tecnologias}). O frontend, desenvolvido com uma framework de programação reativa e com gerenciamento de estados declarativo, foi projetado com foco na usabilidade, oferecendo uma interface intuitiva (Seção \ref{sec:si-frontend}). A arquitetura do sistema foi complementada pelo uso de bancos de dados relacionais otimizados e pipelines de DevOps (Seção \ref{sec:si-devops}) para implantação e manutenção contínuas.
+
+Por fim, o sistema foi validado por meio de experimentos quantitativos e qualitativos, utilizando métricas de avaliação de modelos (Seção \ref{sec:res-teste}) e de sistemas de recuperação de imagens (Seção \ref{sec:res-ret}). Além disso, testes em cenários reais foram conduzidos para demonstrar a aplicabilidade prática do sistema, incluindo buscas por objetos celestes específicos em grandes volumes de dados (Seção \ref{sec:res-ret}).
+
+% A adoção de um modelo de aprendizagem profunda baseado em redes neurais convolucionais (CNN) para extração das representações visuais de objetos astronômicos oferece uma abordagem robusta para capturar as características mais relevantes desses objetos. 
+%Dessa forma, o sistema proposto facilita a busca e a recuperação de imagens similares com alta precisão, otimizando o tempo e o esforço dos pesquisadores.
+
+
+
+\section{Organização do Trabalho}
+\label{sec:organizacao}
+Este trabalho está organizado em seis capítulos, cada um abordando aspectos específicos do desenvolvimento do sistema inteligente para busca de objetos astronômicos por similaridade visual. A estrutura foi projetada para guiar o leitor de forma progressiva, desde os fundamentos conceituais até a apresentação dos resultados e considerações finais.
+
+O Capítulo \ref{cap:conceitos}, Aspectos Conceituais, aborda os fundamentos necessários para o entendimento do trabalho. São apresentados conceitos de astronomia, como sistemas de coordenadas, morfologia galáctica e padrões de interoperabilidade. Também são discutidas técnicas de aprendizado profundo, com ênfase em redes neurais convolucionais, e a tarefa de recuperação de imagens baseada em conteúdo. Por fim, introduz-se a infraestrutura tecnológica, incluindo bancos de dados relacionais e APIs RESTful, essenciais para a implementação do sistema.
+
+O Capítulo \ref{cap:req}, Especificação dos Requisitos, descreve os requisitos funcionais e não funcionais do sistema. São detalhadas as funcionalidades necessárias, como a extração de características visuais e a realização de buscas eficientes por similaridade. Os requisitos de desempenho, escalabilidade, usabilidade e precisão são discutidos, estabelecendo os critérios técnicos e operacionais que orientam o desenvolvimento do projeto.
+
+O Capítulo \ref{cap:desenvolvimento}, Desenvolvimento, detalha as etapas de desenvolvimento do sistema. Primeiramente, descreve-se a preparação dos conjuntos de dados, incluindo o ajuste do campo de visão e a estruturação dos conjuntos de treinamento, validação e teste. Em seguida, aborda-se o treinamento do modelo de aprendizado profundo, discutindo escolhas arquiteturais, ajustes de hiperparâmetros e funções de custo customizadas. Por fim, detalha-se a infraestrutura do sistema de informação, incluindo a integração entre backend, frontend e banco de dados.
+
+O Capítulo \ref{cap:resultados}, Resultados, analisa o desempenho do sistema com base em métricas quantitativas e qualitativas. Os resultados da avaliação do modelo destacam a precisão na tarefa de classificação e recuperação de imagens, enquanto a análise do sistema de informação ressalta a eficiência em consultas de grande escala e a usabilidade da interface gráfica. Exemplos práticos de busca visual são apresentados para ilustrar a aplicabilidade do sistema.
+
+Por fim, o Capítulo \ref{cap:conclusao}, Conclusão, conclui o trabalho com uma análise crítica dos resultados alcançados, destacando as contribuições para a ciência da computação e astronomia. São discutidas as lições aprendidas, o impacto do sistema desenvolvido no apoio a pesquisas científicas e as direções futuras.
+
+% Classificação morfológica é a categorização das galáxias conforme sua forma. Quando esta classificação é baseada na inspeção visual das imagens, elementos subjetivos são agregados. Em 1926, o astrônomo Edwin Hubble, na tentativa de relacionar as formas das galáxias com sua origem e evolução, criou um método hoje conhecido como \emph{Hubble Sequence} ou \emph{Tunning Fork} \cite{hubble1926, fortson2012}, que é uma tentativa de atribuir classes discretas às galáxias, de acordo com suas formas. Esta classificação, com algumas pequenas modificações e adições, ainda é usada até hoje.  No \emph{Tunning Fork}, as galáxias são classificadas como elípticas, espirais ou lenticulares, mas as formas predominantes de grandes galáxias na natureza são elípticas e espirais \cite{fortson2012}, pois acredita-se que a classe das lenticulares seja uma classe de transição. Lenticulares são muitas vezes classificadas como galáxias elípticas (mais comumente) ou espirais (menos comum). Com isto, foram criadas as classes ``early-type'', contendo as elípticas e lenticulares e ``late-type'', contendo as espirais e outras galáxias de tipo mais tardio ainda, chamadas de irregulares, que só foram incluídas no sistema de classificação muitos anos mais tarde.
+
+% O final do século 20 conheceu uma revolução na maneira de se estudar galáxias na Astronomia quando os primeiros mapeamentos de grandes áreas do céu começaram a ser feitos. O mapeamento que mais impactou a Astronomia nas últimas décadas foi o chamado SDSS\footnote{SDSS: Sloan Digital Sky Survey -- \url{https://www.sdss.org}.}.
+
+% Um programa que envolveu o SDSS e milhões de cidadãos comuns (chamado, em inglês, de projeto \emph{citizen science}) foi o chamado GalaxyZoo\footnote{\url{https://galaxyzoo.org}}, um projeto realizado em sua maioria por cidadãos sem vínculo acadêmico, que contribuíram com suas observações para a classificação de um grande número de galáxias do SDSS. A segunda liberação de dados do GalaxyZoo possui um catálogo com classificações morfológicas de trezentas mil galáxias, revisadas segundo o método de Hart et al. \cite{hart2016}. Uma subamostra destes dados, que coincide com o chamado \emph{Stripe-82}\footnote{Este é um campo equatorial do céu de 336 graus$^{2}$, que cobre a região com ascensão reta das 20:00h às 4:00h e declinação de -1,26$^{\circ}$ a +1,26$^{\circ}$}, foi utilizada neste trabalho como \emph{true table} na classificação de galáxias elípticas e espirais.
+
+% Com o avanço dos levantamentos (\emph{surveys}) digitais e conseguente aumento da quantidade de dados coletados, se torna crucial o desenvolvimento de métodos rápidos e automatizados para a classificação morfológica de galáxias sem a perda da acurácia da tradicional classificação visual \cite{yamauchi2005}. O uso de aprendizado de máquina e, mais recentemente \emph{Deep Learning} tem mostrado resultados relevantes para problemas de classificação em diversos problemas nas áreas de visão computacional e astronomia, dentre outras.
+
+% O \emph{Deep Learning} \cite{Goodfellow2016} é uma segmento específico dentro da área de aprendizado de máquina e, por conseguinte, da área de Inteligência Artificial. Consiste no desenvolvimento de redes neurais artificiais que são combinadas em um número significativamente maior do que as redes neurais tradicionais. Este tipo de técnica se transformou no estado-da-arte do reconhecimento de padrões em imagens devido a um tipo específico de rede neural conhecida como convolucional.
+% As redes neurais convolucionais ou CNNs da sigla em inglês \textit{Convolutional Neural Networks} \cite{lecun2015deep}, são inspiradas e propostas com certa analogia ao processamento das imagens realizadas no córtex visual de mamíferos. O processo começa quando um estímulo visual alcança a retina e equivale a um sinal que atravessa regiões específicas do cérebro. Essas regiões são responsáveis pelo reconhecimento de cada uma dessas características correspondentes \cite{karpathy2016convolutional}.
+% Os neurônios biológicos das primeiras regiões respondem pela identificação de formatos geométricos primários, enquanto neurônios das camadas finais têm a função de detectar características mais complexas, formadas pelas formas simples anteriormente reconhecidas \cite{karpathy2016convolutional,vedaldi2015matconvnet}. Características com padrões muito específicos do objeto são estabelecidas depois que o procedimento se repete.
+% De forma análoga, a CNN decompõe a tarefa de reconhecimento de um objeto em subtarefas. Para isso, durante a aprendizagem, a CNN divide a tarefa em subníveis de representação das características, posteriormente aprendendo a reconhecer novas amostras da mesma classe  \cite{lecun2015deep,vedaldi2015matconvnet}.
+% Desta forma, as CNNs são capazes de predizer características complexas sem a necessidade de um pré processamento e são invariantes â escala e à rotação dos dados, o que torna essencial a classificação em imagens.
+
+% Este trabalho utilizou dados do S-PLUS para classificar imagens. O S-PLUS \cite{splus} é um levantamento de galáxias do Universo Local, liderado por brasileiros, feito com um telescópio de 0.8m e com uma câmera de grande campo, localizado no Chile. A parte do mapeamento que cobre a região do chamado \emph{Stripe-82} é uma área de grande interesse dado que é coberta por diversos projetos, permitindo assim comparações e análises complementares. O S-PLUS cobriu a região com medidas de fluxo (magnitudes) em 12 bandas para três milhões de fontes (liberadas para a comunidade internacional no DR1, \cite{splus}).
+
+
+
+
+
+
+% Este documento é baseado no exemplo de referência de uso da classe
+% \textsf{abntex2} e do pacote \textsf{abntex2cite}.
+% Este documento é uma referência e os manuais do \abnTeX\ \cite{abntex2classe,abntex2cite,abntex2cite-alf} e da classe \textsf{memoir} \cite{memoir} possuem informações completas.
+
+% (Observe no parágrafo anterior como são feitas as citações! As referências estão no arquivo abntex2-modelo-references.bib, seguindo um formato específico para as informações necessárias. Ah, se você quiser fazer uma citção com o nome do autor no meio do texto, por exemplo dizendo que o \citeonline{abntex2classe} fez um trabalho importante, você usa o citeonline).
+
+% Os capítulo, seções e conteúdos aqui propostos são baseados no documento \textit{Sumário para Monografia de Projeto de Formatura}.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Motivação}
+% \begin{itemize}
+%   \item Apresentar o estado de arte resumido do assunto que será o tema do desenvolvimento do trabalho, elaborado com base nos trabalhos consultados.
+%   \item Citar os trabalhos consultados no texto.
+%   \item Contexto em que o trabalho será desenvolvido.
+% \end{itemize}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Objetivos}
+% \begin{itemize}
+%   \item Apresentar o objetivo do trabalho de forma precisa e concisa.
+%   \item O que é o trabalho?
+% \end{itemize}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Justificativa}
+% \begin{itemize}
+%   \item Apresentar porque o trabalho desenvolvido é importante (importância e necessidade para a sociedade, comparação com trabalhos relevantes consultados etc.).
+%   \item Citar os trabalhos consultados no texto.
+%   \item Por que o trabalho é importante?
+% \end{itemize}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Organização do Trabalho}
+% Descrever sucintamente os capítulos e as demais partes do trabalho.
+
+% Lembre-se de colocar rótulos nos capítulos e seções (com label{} ) e depois utilizar o ref{}
+% Por exemplo, o Capítulo \ref{cap:conceitos} apresenta conceitos....
+
+\chaptersep

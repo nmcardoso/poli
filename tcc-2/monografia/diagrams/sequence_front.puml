@@ -1,0 +1,62 @@
+@startuml sequence_front
+!theme reddress-lightblue
+skinparam defaultFontName Times New Roman
+skinparam defaultFontSize 19
+
+actor "Usuario" as User
+boundary "UI" as System
+participant "Rotina de Tratamento\n(Async)" as EH
+participant "Contexto" as Context
+participant "Redutor" as Reducer
+participant "Servidor API" as API
+
+
+activate System
+
+User -> System: Pesquisa
+
+System -> EH: SubmitEvent()
+
+activate EH
+
+EH -> Context: dispatch(carregando)
+activate Context
+Context -> Reducer: carregando
+activate Reducer
+Context <- Reducer: novo estado
+deactivate Reducer
+System <-- Context: Atualização da UI
+deactivate Context
+
+EH -> API: HTTP Request
+activate API
+alt Requisição bem sucedida
+  EH <- API: Resposta
+  EH -> EH: callback()
+  activate EH
+  EH -> Context: dispatch(resultado)
+  activate Context
+  Context -> Reducer: resultado
+  activate Reducer
+  Context <- Reducer: novo estado
+  deactivate Reducer
+  System <-- Context: Atualização da UI
+  deactivate Context
+else Erro na Requisição
+  EH <- API: Erro
+  deactivate API
+  EH -> Context: dispatch(erro)
+  activate Context
+  Context -> Reducer: erro
+  activate Reducer
+  Context <- Reducer: novo estado
+  deactivate Reducer
+  System <-- Context: Atualização da UI
+  deactivate Context
+  deactivate EH
+end
+
+deactivate EH
+
+deactivate System
+@enduml

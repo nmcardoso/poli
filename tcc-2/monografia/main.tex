@@ -1,0 +1,712 @@
+%% abtex2-modelo-trabalho-academico.tex, v-1.9.7 laurocesar
+%% Copyright 2012-2018 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-trabalho-academico.tex,
+%% abntex2-modelo-include-comandos and abntex2-modelo-references.bib
+%%
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Trabalho Academico (tese de doutorado, dissertacao de
+% mestrado e trabalhos monograficos em geral) em conformidade com 
+% ABNT NBR 14724:2011: Informacao e documentacao - Trabalhos academicos -
+% Apresentacao
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+%%
+%% Documento ajustado para PCS-EPUSP em 15/mar/2023 por Cintia Borges Margi
+% ------------------------------------------------------------------------
+%%
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	twoside,			% para impressão em recto e verso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+  sumario=tradicional,
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% Pacotes básicos 
+% ---
+% \usepackage{lmodern}			% Usa a fonte Latin Modern
+% \usepackage[mono=false]{libertinus}
+% \usepackage[scale=1]{libertinust1math}
+% \usepackage{librecaslon}
+% \usepackage{tgpagella}
+\usepackage{mathpazo}
+\usepackage[scale=0.9]{sourcecodepro}
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{lipsum}
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+\usepackage[final]{pdfpages}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[hyperref,svgnames,x11names,table,dvipsnames]{xcolor}
+\usepackage{scrbase}
+\usepackage{listings}
+\usepackage[percent]{overpic}
+\usepackage{tikz}
+\usepackage{smartdiagram}
+\usepackage{multirow}
+\usepackage{afterpage}
+\usesmartdiagramlibrary{additions}
+\newcaptionname{brazil}{\lstlistingname}{Listagem}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.5,0.1,0.82}
+\definecolor{codeblue}{rgb}{0.1,0.1,0.86}
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\ttfamily\color{codegray},
+    stringstyle=\color{BrickRed},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=t,                    
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+}
+\lstset{style=mystyle}
+
+% \smartdiagramset{back arrow disabled=true,
+  %   text width=.3\textwidth,
+  %   uniform color list=white for all items,
+  %   uniform arrow color=true,
+  %   arrow color=black!70,
+  %   border color=black!70,
+  %   arrow line width=2pt,
+  %   additions={additional arrow color=black!70,
+  %       additional arrow line width=2pt}}
+  % \tikzset{every shadow/.style={fill=none,shadow scale=0},
+  %   module/.append style={very thick}}
+  % {\color{lightgray}\framebox[.6\textwidth]{
+  %     \smartdiagramadd[flow diagram]{%
+  %       General framework (Section \ref{sec:magnitude}),
+  %       Literature study,
+  %       Data-analysis,
+  %       Model set-up\\ (SB \& NH),
+  %       Simulations,
+  %       Sensitivity analysis,
+  %       Model update,
+  %       Conclusions and recommendations}{}
+  %     \begin{tikzpicture}[remember picture, overlay]
+  %       \draw[additional item arrow type] (module7) -- ([xshift=25pt]module7.east) |- (module6);
+  %       \draw[additional item arrow type] (module7) -- ([xshift=-25pt]module7.west) |- (module5);
+  %     \end{tikzpicture}}}
+\newcommand{\simpleflowdiagram}[2]{%
+  \begin{center}
+  \smartdiagramset{%
+    back arrow disabled=true,
+    text width=#1\textwidth,
+    uniform color list=white for all items,
+    uniform arrow color=true,
+    arrow color=black!70,
+    border color=black!70,
+    arrow line width=2pt,
+    additions={%
+      additional arrow color=black!70,
+      additional arrow line width=2pt%
+    }%
+  }
+  \tikzset{%
+    every shadow/.style={fill=none,shadow scale=0},
+    module/.append style={very thick}%
+  }
+  \smartdiagramadd[flow diagram]{#2}{}%
+  \end{center}
+}
+
+
+
+\newcommand{\chaptersep}{~}
+
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+\DeclareSIUnit\angstrom{\text {Å}}
+\newcommand{\citealp}[1]{\citeauthor{#1}, \citeyear{#1}}
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Sistema Inteligente para Busca de Objetos Astronômicos por Similaridade Visual usando Aprendizagem Profunda}
+\autor{Natanael Magalhães Cardoso}
+\local{São Paulo, SP}
+\data{2024}
+\orientador{Prof. Dr. António Mauro Saraiva}
+\coorientador{Profa. Dra. Cláudia Mendes de Oliveira}
+\instituicao{%
+  Universidade de São Paulo -- USP
+  \par
+  Escola Politécnica
+  \par
+  Departamento de Engenharia de Computação e Sistemas Digitais (PCS)}
+\tipotrabalho{Monografia de Conclusão de curso (Graduação)}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Trabalho de conclusão de curso apresentado ao Departamento de Engenharia de Computação e Sistemas Digitais da Escola Politécnica da Universidade de São Paulo para obtenção do Título de Engenheiro.}
+% ---
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+% \definecolor{blue}{RGB}{41,5,195}
+\definecolor{blue}{HTML}{1A3280}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=BrickRed!92!black,          	% color of internal links
+    	citecolor=BrickRed!92!black,        		% color of links to bibliography
+		  urlcolor=BrickRed!92!black,
+    	filecolor=magenta,      		% color of file links
+      allbordercolors=white,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+
+
+
+
+
+
+
+
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir a ficha bibliografica
+% ---
+
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência. 
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+%% TODO: utilizar a ficha catalográfica gerada em https://www.poli.usp.br/bibliotecas/servicos/catalogacao-na-publicacao
+\begin{fichacatalografica}
+  \includepdf{ficha_catalografica.pdf}
+\end{fichacatalografica}
+
+% \begin{fichacatalografica}
+% 	\sffamily
+% 	\vspace*{\fill}					% Posição vertical
+% 	\begin{center}					% Minipage Centralizado
+% 	\fbox{\begin{minipage}[c][8cm]{13.5cm}		% Largura
+% 	\small
+% 	\imprimirautor
+% 	%Sobrenome, Nome do autor
+
+% 	\hspace{0.5cm} \imprimirtitulo  / \imprimirautor. --
+% 	\imprimirlocal, \imprimirdata-
+
+% 	\hspace{0.5cm} \thelastpage p. : il. (algumas color.) ; 30 cm.\\
+
+% 	\hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador\\
+
+% 	\hspace{0.5cm}
+% 	\parbox[t]{\textwidth}{\imprimirtipotrabalho~--~\imprimirinstituicao,
+% 	\imprimirdata.}\\
+
+% 	\hspace{0.5cm}
+% 		1. Palavra-chave1.
+% 		2. Palavra-chave2.
+% 		3. Palavra-chave3.
+% 		I. Orientador.
+% 		II. Universidade xxx.
+% 		III. Faculdade de xxx.
+% 		IV. Título 			
+% 	\end{minipage}}
+% 	\end{center}
+% \end{fichacatalografica}
+% ---
+
+% ---
+% Inserir errata
+% ---
+% \begin{errata}
+% Elemento opcional da \citeonline[4.2.1.2]{NBR14724:2011}. Exemplo:
+
+% \vspace{\onelineskip}
+
+% FERRIGNO, C. R. A. \textbf{Tratamento de neoplasias ósseas apendiculares com
+% reimplantação de enxerto ósseo autólogo autoclavado associado ao plasma
+% rico em plaquetas}: estudo crítico na cirurgia de preservação de membro em
+% cães. 2011. 128 f. Tese (Livre-Docência) - Faculdade de Medicina Veterinária e
+% Zootecnia, Universidade de São Paulo, São Paulo, 2011.
+
+% \begin{table}[htb]
+% \center
+% \footnotesize
+% \begin{tabular}{|p{1.4cm}|p{1cm}|p{3cm}|p{3cm}|}
+%   \hline
+%    \textbf{Folha} & \textbf{Linha}  & \textbf{Onde se lê}  & \textbf{Leia-se}  \\
+%     \hline
+%     1 & 10 & auto-conclavo & autoconclavo\\
+%    \hline
+% \end{tabular}
+% \end{table}
+
+% \end{errata}
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \begin{folhadeaprovacao}
+% \includepdf{folhadeaprovacao_final.pdf}
+% \end{folhadeaprovacao}
+%
+% \begin{folhadeaprovacao}
+
+%   \begin{center}
+%     {\ABNTEXchapterfont\large\imprimirautor}
+
+%     \vspace*{\fill}\vspace*{\fill}
+%     \begin{center}
+%       \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+%     \end{center}
+%     \vspace*{\fill}
+
+%     \hspace{.45\textwidth}
+%     \begin{minipage}{.5\textwidth}
+%         \imprimirpreambulo
+%     \end{minipage}%
+%     \vspace*{\fill}
+%    \end{center}
+
+%    Trabalho aprovado. \imprimirlocal, 24 de novembro de 2012:
+
+%    \assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+%    \assinatura{\textbf{Professor} \\ Convidado 1}
+%    \assinatura{\textbf{Professor} \\ Convidado 2}
+%    %\assinatura{\textbf{Professor} \\ Convidado 3}
+%    %\assinatura{\textbf{Professor} \\ Convidado 4}
+
+%    \begin{center}
+%     \vspace*{0.5cm}
+%     {\large\imprimirlocal}
+%     \par
+%     {\large\imprimirdata}
+%     \vspace*{1cm}
+%   \end{center}
+
+% \end{folhadeaprovacao}
+% ---
+
+% ---
+% Dedicatória
+% ---
+\begin{dedicatoria}
+  \vspace*{\fill}
+  \centering
+  \noindent
+  \textit{Este trabalho é dedicado às crianças adultas que,\\
+    quando pequenas, sonharam em se tornar cientistas.} \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+  Este trabalho foi possível graças à participação de centenas de milhares de voluntários em seis campanhas no projeto de ciência cidadã Galaxy Zoo.
+
+  % As sugestões e diálogos com a Profa. Dra. Claudia Mendes de Oliveira do Departamento de Astronomia do IAG-USP foram fundamentais para o desenvolvimento deste projeto.
+
+  Os modelos de aprendizagem profunda foram treinados utilizando recursos computacionais do Centro Brasileiro de Pesquisas Físicas (CBPF) e do Instituto de Astronomia, Geofísica e Ciências Atmosféricas da Universidade de São Paulo (IAG-USP).
+
+  Os Legacy Surveys consistem em três projetos individuais e complementares: o Dark Energy Camera Legacy Survey (DECaLS; ID da proposta n$^o$ 2014B-0404; PIs: David Schlegel e Arjun Dey), o Beijing-Arizona Sky Survey (BASS; ID da prop. NOAO n$^o$ 2015A-0801; PIs: Zhou Xu e Xiaohui Fan) e o Mayall z-band Legacy Survey (MzLS; ID da prop. n$^o$ 2016A-0453; PI: Arjun Dey). DECaLS, BASS e MzLS juntos incluem dados obtidos, respectivamente, no telescópio Blanco, Observatório Interamericano Cerro Tololo, NOIRLab da NSF; o telescópio Bok, Observatório Steward, Universidade do Arizona; e o telescópio Mayall, Observatório Nacional Kitt Peak, NOIRLab. O processamento do pipeline e as análises dos dados foram apoiados pelo NOIRLab e pelo Laboratório Nacional Lawrence Berkeley (LBNL).
+
+  Este projeto foi financiado com uma bolsa CAPES/CNPq.
+\end{agradecimentos}
+% ---
+
+% ---
+% Epígrafe
+% ---
+% \begin{epigrafe}
+%     \vspace*{\fill}
+% 	\begin{flushright}
+% 		\textit{...}
+% 	\end{flushright}
+% \end{epigrafe}
+% ---
+
+% ---
+% RESUMOS
+% ---
+
+% resumo em português
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+  Com o aumento exponencial na geração de dados astronômicos, impulsionado por levantamentos astronômicos modernos, a análise manual tornou-se inviável, demandando soluções computacionais eficientes. O objetivo principal foi criar uma ferramenta que automatizasse a identificação e a análise de objetos celestes com propriedades visuais semelhantes, promovendo avanços na pesquisa astronômica. O sistema proposto baseia-se em redes neurais convolucionais (CNNs) treinadas com imagens astronômicas, utilizando a transferência de aprendizado para otimizar a extração de representações visuais (também chamadas de \emph{embeddings}). Essas representações são vetores que codificam as características morfológicas e estruturais das galáxias, permitindo a busca e a recuperação de imagens semelhantes com alta precisão. A arquitetura do sistema inclui uma base de dados escalável para o armazenamento e indexação dos vetores de representação, além de uma interface web responsiva que facilita o uso por pesquisadores. Adicionalmente, o sistema incorpora técnicas de pré-processamento, como ajuste de campo de visão angular e aumento de dados, para garantir a qualidade e a representatividade dos conjuntos de treinamento. Os resultados obtidos evidenciam a eficácia do sistema em identificar padrões visuais entre galáxias, com avaliações robustas utilizando métricas como precisão média (mAP) e matrizes de confusão. Exemplos de buscas realizadas mostraram a aplicabilidade prática do sistema, que é capaz de entregar resultados relevantes mesmo em cenários desafiadores. Além disso, a interface gráfica desenvolvida provou-se intuitiva e eficiente, permitindo que usuários com diferentes níveis de expertise interajam com o sistema e explorem grandes volumes de dados de forma acessível. Por fim, o trabalho destaca também a importância da interdisciplinaridade entre ciência da computação e astronomia. A integração de técnicas de visão computacional, ciência de dados e práticas de engenharia de software resultou em uma solução que atende às demandas científicas e técnicas do domínio astronômico.
+
+  \textbf{Palavras-chave}: aprendizagem profunda. visão computacional. astronomia.
+\end{resumo}
+
+% resumo em inglês
+\begin{resumo}[Abstract]
+  \begin{otherlanguage*}{english}
+    With the exponential increase in astronomical data generation, driven by modern astronomical surveys, manual analysis has become unfeasible, demanding efficient computational solutions. The main objective was to create a tool that would automate the identification and analysis of celestial objects with similar visual properties, promoting advances in astronomical research. The proposed system is based on convolutional neural networks (CNNs) trained with astronomical images, using transfer learning to optimize the extraction of visual representations (also called embeddings). These representations are vectors that encode the morphological and structural characteristics of galaxies, allowing the search and retrieval of similar images with high precision. The system architecture includes a scalable database for storing and indexing representation vectors, as well as a responsive web interface that facilitates use by researchers. Additionally, the system incorporates preprocessing techniques, such as angular field of view adjustment and data augmentation, to ensure the quality and representativeness of the training sets. The results obtained demonstrate the effectiveness of the system in identifying visual patterns between galaxies, with robust evaluations using metrics such as mean precision (mAP) and confusion matrices. Examples of searches carried out showed the practical applicability of the system, which is capable of delivering relevant results even in challenging scenarios. In addition, the developed graphical interface proved to be intuitive and efficient, allowing users with different levels of expertise to interact with the system and explore large volumes of data in an accessible way. Finally, the work also highlights the importance of interdisciplinarity between computer science and astronomy. The integration of computer vision techniques, data science, and software engineering practices resulted in a solution that meets the scientific and technical demands of the astronomical domain.
+
+    \vspace{\onelineskip}
+
+    \noindent
+    \textbf{Keywords}: deep learning. computer vision. astronomy.
+  \end{otherlanguage*}
+\end{resumo}
+
+% % resumo em francês 
+% \begin{resumo}[Résumé]
+%  \begin{otherlanguage*}{french}
+%     Il s'agit d'un résumé en français.
+
+%    \textbf{Mots-clés}: latex. abntex. publication de textes.
+%  \end{otherlanguage*}
+% \end{resumo}
+
+% % resumo em espanhol
+% \begin{resumo}[Resumen]
+%  \begin{otherlanguage*}{spanish}
+%    Este es el resumen en español.
+
+%    \textbf{Palabras clave}: latex. abntex. publicación de textos.
+%  \end{otherlanguage*}
+% \end{resumo}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de quadros
+% ---
+% \pdfbookmark[0]{\listofquadrosname}{loq}
+% \listofquadros*
+% \cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\begin{siglas}
+  \item[ADQL] Astronomical Data Query Language (Linguagem de Consulta de Dados Astronômicos)
+  \item[API] Application Programming Interface (Interface de Programação de Aplicativos)
+  \item[CBIR] Content-Based Image Retrieval (Recuperação de Imagem Baseada em Conteúdo)
+  \item[CNN] Convolutional Neural Network (Rede Neural Convolucional)
+  \item[CS] Citizen Science (Ciência Cidadã)
+  \item[CV] Computer Vision (Visão Computacional)
+  \item[Dec] Declination (Declinação, latitude)
+  \item[DL] Deep Learning (Aprendizagem Profunda)
+  \item[DR] Data Release (Liberação dos Dados)
+  \item[FITS] Flexible Image Transport System (Sistema de Transporte de Imagem Flexível)
+  \item[FLOPS] Floating-point Operations Per Second (Operações de Ponto flutuante Por Segundo)
+  \item[FOV] Field of View (Campo de Visão)
+  \item[GUI] Graphical User Interface (Interface Gráfica de Usuário)
+  \item[IVOA] International Virtual Observatory Alliance (Aliança Internacional de Observatórios Virtuais)
+  \item[LSST] Legacy Survey of Space and Time (Levantamento Legado do Espaço e do Tempo)
+  \item[ML] Machine Learning (Aprendizagem de Máquina)
+  \item[RA] Right Ascencion (Ascenção Reta, longitude)
+  \item[SDSS] Sloan Digital Sky Survey
+  \item[S-PLUS] Southern Photometric Local Universe Survey (Levantamento Fotométrico do Universo Local do Sul)
+  \item[SQL] Structured Query Language (Linguagem de Consulta Estruturada)
+  \item[VO] Virtual Observatory (Observatório Virtual)
+\end{siglas}
+% ---
+
+% ---
+% inserir lista de símbolos
+% ---
+\begin{simbolos}
+  \item[$ \alpha $] Ascenção Reta (longitude)
+  \item[$ \delta $] Declinação (latitude)
+  \item[$R_e$] Raio efetivo da galáxia
+  \item[$r_{\mathrm{mag}}$] Magnitude na banda r
+\end{simbolos}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+
+\include{Cap-Intro}
+\include{Cap-Conceitos}
+\include{Cap-Requisitos}
+\include{Cap-Desenvolvimento}
+\include{Cap-Resultados}
+
+% Conteúdos específicos do modelo de trabalho acadêmico
+% \include{quadros}
+
+% ----------------------------------------------------------
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ----------------------------------------------------------
+\phantompart
+
+\include{Cap-Conclusao}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+% \glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+% \begin{apendicesenv}
+
+% % Imprime uma página indicando o início dos apêndices
+% \partapendices
+
+% % ----------------------------------------------------------
+% \chapter{Quisque libero justo}
+% % ----------------------------------------------------------
+
+% \lipsum[50]
+
+% % ----------------------------------------------------------
+% \chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
+% ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+% % ----------------------------------------------------------
+% \lipsum[55-57]
+
+% \end{apendicesenv}
+% % ---
+
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+% \begin{anexosenv}
+
+% % Imprime uma página indicando o início dos anexos
+% \partanexos
+
+% % ---
+% \chapter{Morbi ultrices rutrum lorem.}
+% % ---
+% \lipsum[30]
+
+% % ---
+% \chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
+% parturient montes nascetur ridiculus mus}
+% % ---
+
+% \lipsum[31]
+
+% % ---
+% \chapter{Fusce facilisis lacinia dui}
+% % ---
+
+% \lipsum[32]
+
+% \end{anexosenv}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+\end{document}

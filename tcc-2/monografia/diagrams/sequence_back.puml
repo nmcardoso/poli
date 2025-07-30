@@ -1,0 +1,63 @@
+@startuml sequence_back
+!theme reddress-lightblue
+skinparam defaultFontName Times New Roman
+skinparam defaultFontSize 19
+
+boundary "UI" as UI
+boundary "API Entrypoint" as API
+participant "Name\nResolver" as NameResolver
+participant "Sesame\nServer" as Sesame
+participant "Position\nSearch" as PositionSearch
+participant "Similarity\nSearch" as SimilaritySearch
+database "Base de Dados" as DB
+
+activate UI
+
+UI -> API: /?q=objeto
+activate API
+
+
+
+API -> NameResolver: resolve(objeto)
+activate NameResolver
+alt Regex
+  NameResolver -> NameResolver: regex(objeto)
+else 
+  NameResolver -> Sesame: request(objeto)
+  activate Sesame
+  NameResolver <- Sesame: coordenadas
+  deactivate Sesame
+end
+API <- NameResolver: coordenadas
+deactivate NameResolver
+
+
+
+
+API -> PositionSearch: search(coordendadas)
+activate PositionSearch
+PositionSearch -> DB: (ra, dec)
+activate DB
+PositionSearch <- DB: representações
+deactivate DB
+API <- PositionSearch: representações
+deactivate PositionSearch
+
+
+
+
+API -> SimilaritySearch: search(representações)
+activate SimilaritySearch
+SimilaritySearch -> DB: vetor
+activate DB
+SimilaritySearch <- DB: objetos\nsimilares
+deactivate DB
+API <- SimilaritySearch: objetos similares
+deactivate SimilaritySearch
+
+API -> API: preparação\nda resposta
+UI <- API: objetos\nsimilares
+
+deactivate API
+deactivate UI
+@enduml
