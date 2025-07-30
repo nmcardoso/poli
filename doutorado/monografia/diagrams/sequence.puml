@@ -1,0 +1,56 @@
+@startuml sequence
+!theme reddress-lightblue
+skinparam defaultFontName Times New Roman
+skinparam defaultFontSize 19
+
+participant "Rotina\nPrincipal" as System
+participant "TableParser" as Parser
+participant "StampDownloader\n(Produtor)" as Producer
+participant "Fila" as Queue
+participant "VOClient\n(Consumidor)" as Consumer
+participant "FileSystem" as Cache
+participant "VOService" as Service
+
+
+
+activate System
+
+System -> Parser: load_table()
+activate Parser
+System <-- Parser: table
+deactivate Parser
+
+System -> Producer: parallel_download(table)
+activate Producer
+loop para cada objeto
+  Producer -> Queue: enqueue()
+end
+System <-- Producer
+deactivate Producer
+
+System -> Consumer
+activate Consumer
+loop enquanto houver objetos
+  Consumer -> Queue: dequeue()
+  Consumer -> Cache: fetch(ra, dec, ...)
+  activate Cache
+  alt cache hit
+    Consumer <-- Cache: data
+    deactivate Cache
+  else cache not hit
+    Consumer -> Service: http_request()
+    activate Service
+    Consumer <-- Service: data
+    deactivate Service
+    
+    Consumer -> Cache: save(data)
+    activate Cache
+    Consumer <-- Cache
+    deactivate Cache
+  end
+end
+System <-- Consumer
+deactivate Consumer
+
+deactivate System
+@enduml

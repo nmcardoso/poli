@@ -1,0 +1,11 @@
+@startuml reference_dataset
+!theme reddress-lightblue
+skinparam defaultFontName Times New Roman
+skinparam defaultFontSize 19
+
+partition "GalaxyZoo" {
+  :op_fetch_gz1;
+  :op_fetch_gz2;
+}
+
+@enduml
