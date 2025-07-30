@@ -1,0 +1,98 @@
+$date
+  Wed Apr  5 18:10:40 2023
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module mdc2tb $end
+$var reg 1 ! ready $end
+$var reg 8 " mdc[7:0] $end
+$var reg 1 # clock $end
+$var reg 1 $ reset $end
+$var reg 1 % start $end
+$var reg 8 & a[7:0] $end
+$var reg 8 ' b[7:0] $end
+$var reg 1 ( done $end
+$scope module gate0 $end
+$var reg 8 ) a[7:0] $end
+$var reg 8 * b[7:0] $end
+$var reg 8 + mdc[7:0] $end
+$var reg 1 , start $end
+$var reg 1 - reset $end
+$var reg 1 . clock $end
+$var reg 1 / ready $end
+$var reg 8 0 a_next[7:0] $end
+$var reg 8 1 b_next[7:0] $end
+$comment state_reg is not handled $end
+$comment state_next is not handled $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+0!
+bUUUUUUUU "
+0#
+1$
+1%
+b00010010 &
+b00001100 '
+0(
+b00010010 )
+b00001100 *
+bUUUUUUUU +
+1,
+1-
+0.
+0/
+b00010010 0
+b00001100 1
+#10000000
+1#
+0$
+0-
+1.
+#20000000
+0#
+0.
+#30000000
+1#
+1.
+b00000110 0
+#40000000
+0#
+0.
+#50000000
+1#
+1.
+b00001100 0
+b00000110 1
+#60000000
+0#
+0.
+#70000000
+1#
+1.
+b00000110 0
+#80000000
+0#
+0.
+#90000000
+1!
+b00000110 "
+1#
+0%
+1(
+b00000110 +
+0,
+1.
+1/
+#100000000
