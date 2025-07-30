@@ -1,0 +1,5 @@
+@startuml action_release_mem
+start
+  :Libera o espaço da memória alocado para o Job;
+stop
+@enduml

@@ -1,0 +1,8 @@
+@startuml action_ingress
+start
+  :Empilha um evento de **Requisição de Memória**
+  com prioridade __alta__;
+  :Empilha um evento de **Requisição de Processamento**
+  com prioridade __alta__;
+stop
+@enduml

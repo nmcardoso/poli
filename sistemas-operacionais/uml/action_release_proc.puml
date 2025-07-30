@@ -1,0 +1,6 @@
+@startuml action_release_proc
+start
+  :Modifica estado do Job para o estado 5;
+  :Remove o Job da fila de processamento;
+stop
+@enduml

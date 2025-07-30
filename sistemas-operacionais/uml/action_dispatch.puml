@@ -1,0 +1,7 @@
+@startuml action_dispatch
+start
+  :Muda o estado do Job para o estado 1;
+  :Empinha um novo evento de **Ingresso**
+  com prioridade __alta__;
+stop
+@enduml

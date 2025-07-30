@@ -1,0 +1,7 @@
+@startuml class_job_manager
+!include project.puml
+remove .*
+restore JobManager
+restore Job
+restore PriorityQueue
+@enduml

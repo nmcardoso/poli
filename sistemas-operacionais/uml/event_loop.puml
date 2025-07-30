@@ -1,0 +1,15 @@
+@startuml event_loop
+start
+while (Há eventos na fila?) is (sim)
+  :Extrai o próximo evento da fila;
+  if (instante do evento > instante da simulação?) then (sim)
+    :Atualiza o instante da simulação
+    para o instante do evento atual;
+  else (não)
+  endif;
+  :Aciona a rotina de tratamento adequada
+  para o tipo de evento extraido;
+endwhile (não)
+:Salva os relatórios de simulação;
+stop
+@enduml

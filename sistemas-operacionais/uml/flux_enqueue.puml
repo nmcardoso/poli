@@ -1,0 +1,17 @@
+@startuml flux_enqueue
+start
+if (Há eventos na fila de alta priorirdade?) then (sim)
+  :Retira e retorna o evento 
+  mais antigo da lista ligada 
+  de alta prioridade (FIFO);
+else (não)
+  if (Há eventos na fila regular?) then (sim)
+    :Retira e retorna o evento
+    mais antigo da lista ligada
+    regular (FIFO);
+  else (não)
+    :Retorna nulo;
+  endif
+endif
+stop
+@enduml

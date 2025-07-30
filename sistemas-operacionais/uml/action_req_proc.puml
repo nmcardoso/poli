@@ -1,0 +1,9 @@
+@startuml action_req_proc
+start
+  :Modifica estado do Job para o estado 4;
+  :Adiciona o Job na fila de execução;
+  :Calcula o tempo final de execução;
+  :Empilha um evento de **Fim do Processamento**
+  com prioridade __regular__;
+stop
+@enduml

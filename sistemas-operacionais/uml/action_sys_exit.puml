@@ -1,0 +1,6 @@
+@startuml action_sys_exit
+start
+  :Salva os tempos de simulação e recursos 
+  alocados no monitor do sistema;
+stop
+@enduml

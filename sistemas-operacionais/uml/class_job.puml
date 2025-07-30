@@ -1,0 +1,5 @@
+@startuml class_job
+!include project.puml
+remove .*
+restore Job
+@enduml

@@ -1,0 +1,10 @@
+@startuml action_end_proc
+start
+  :Empilha um evento de **Liberação do Processamento**
+  com prioridade __alta__;
+  :Empilha um evento de **Liberação da Memória**
+  com prioridade __alta__;
+  :Empilha um evento de **Saída do Sistema**
+  com prioridade __alta__;
+stop
+@enduml

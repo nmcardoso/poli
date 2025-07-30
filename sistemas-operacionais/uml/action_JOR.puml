@@ -1,0 +1,6 @@
+@startuml action_JOR
+start
+  :Aciona o gerenciador de tarefas (JobManager)
+  para iniciar a execução do motor de eventos;
+stop
+@enduml

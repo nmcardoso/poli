@@ -1,0 +1,15 @@
+@startuml action_JOA
+start
+  :Lê o parâmetro P1
+  Lê o parâmetro P2;
+  note right
+    P1: Nome do arquivo
+    P2: Quantidade de memória 
+    a ser alocada
+  end note
+  :Cria um novo Job do programa **P1** com
+  alocação de **P2** bytes memória;
+  :Adiciona o Job criado à fila de tarefas
+  do gerenciador de tarefas (JobManager);
+stop
+@enduml

@@ -1,0 +1,56 @@
+@startuml project
+!include classes.iuml
+
+InstructionSet .> CPU 
+Assembler <. InstructionSet
+Keyboard .|> Device
+Device <|. Screen
+Device <|.. CharScreen
+Device <|.. HardDrive
+CPU --* VonNeumannMachine : " cpu"
+Device -o DeviceBus : devices
+DeviceBus --o CPUState : devices
+Word --o CPUState : acc
+Word --o CPUState : pc
+Memory <. Word
+Memory --o CPUState : memory
+CPUState --o CPU : " state"
+Lock -* CPUState : " pc_lock"
+
+
+VonNeumannMachine <- Bootloader
+CPU --* Bootloader : " cpu"
+
+
+PseudoInstructionSet ..> Assembler
+Assembler <.. LineTokens
+Assembler *-- AssemblerState : " state"
+Assembler --> VonNeumannMachine
+' VonNeumannMachine <.up. Assembler
+Relocator ---> VonNeumannMachine
+Linker -> VonNeumannMachine
+VonNeumannMachine --* Terminal : " vnm"
+User -* Terminal : user
+FileSystem ---* User
+
+Job -> JobManager
+Terminal <- Job
+VonNeumannMachine *-- JobManager : job_manager
+JobManager *- PriorityQueue : " jobs"
+' JobManager o-- Event
+JobManager o- Event
+
+
+CPUState -[hidden]> Relocator
+VonNeumannMachine --[hidden]> PriorityQueue
+Device --[hidden]> PseudoInstructionSet
+DeviceBus -[hidden]> Memory
+' Event -[hidden]> Linker
+' AssemblerState -[hidden]> Event
+' PseudoInstructionSet -[hidden]> CharScreen
+' PseudoInstructionSet -[hidden]> CPUState
+' Word --[hidden]> CPU
+' Memory -[hidden]> Keyboard
+' VonNeumannMachine --[hidden]> FileSystem
+' JobManager -[hidden]> Terminal
+@enduml

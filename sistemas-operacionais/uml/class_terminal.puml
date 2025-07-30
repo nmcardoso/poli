@@ -1,0 +1,8 @@
+@startuml class_terminal
+!include project.puml
+remove .*
+restore JobManager
+restore Job
+restore PriorityQueue
+restore Terminal
+@enduml

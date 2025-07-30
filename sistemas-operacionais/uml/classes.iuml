@@ -1,0 +1,361 @@
+@startuml classes
+set namespaceSeparator none
+
+''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: CLI ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''
+
+class "Terminal" <<Class>> {
+  -user : User
+  -vnm : VonNeumannMachine
+  -env : Dict[str, str]
+  -action_LIN(args: str[])
+  -action_SDR(args: str[])
+  -action_UDR(args: str[])
+  -action_CRF(args: str[])
+  -action_DLF(args: str[])
+  -action_APA(args: str[])
+  -action_APH(args: str[])
+  -action_LOD(args: str[])
+  -action_EXC(args: str[])
+  -action_RUN(args: str[])
+  -action_DMP(args: str[])
+  -action_ASM(args: str[])
+  -action_LRL(args: str[])
+  -action_SIO(args: str[])
+  -action_SET(args: str[])
+  -action_MEM(args: str[])
+  -action_REG(args: str[])
+  -action_END(args: str[])
+  -action_JOA(args: str[])
+  -action_JOR(args: str[])
+  -tokenize(input: str)
+  +event_loop()
+}
+
+
+class "User" <<Class>> {
+  -{static}current_user: str
+  -filesystem: FileSystem
+  +{static}get_current_user() : User
+  +get_fs(): FileSystem
+}
+
+
+class "FileSystem" <<Class>> {
+  -home_dir : str
+  -sys_dir : str
+  +FileSystem(username: str)
+  +create(data: str)
+  +delete(file: str)
+  +read(file: str) : str
+  +write(file: str, data: str)
+  +append(file: str, data: str)
+  +list_user()
+  +list_sys()
+}
+
+class "Linker" <<Class>> {
+  -object_files: List[string]
+  -linked_code: str
+  -symbols_table: Table
+  +link(object_files: List[string]) : str
+}
+
+class "Relocator" <<Class>> {
+  -relocated_code : str
+  -relocation_table: Table
+  +relocate(linked_code: str) : str
+}
+
+
+''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: CONTROL ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''
+
+class "CPU" <<Class>> {
+  -callback : CPUCallback
+  +state : CPUState
+  -action_AD(operand: int)
+  -action_DV(operand: int)
+  -action_GD(operand: int)
+  -action_HJ(operand: int)
+  -action_JN(operand: int)
+  -action_JP(operand: int)
+  -action_JZ(operand: int)
+  -action_LD(operand: int)
+  -action_ML(operand: int)
+  -action_OS(operand: int)
+  -action_PD(operand: int)
+  -action_RS(operand: int)
+  -action_SB(operand: int)
+  -action_SC(operand: int)
+  -action_ST(operand: int)
+  -increment_pc()
+  +event_loop()
+  +set_callback(callback: CPUCallback)
+}
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: ASSEMBLER ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''
+
+entity "AssemblerState" <<Entity>> {
+  +line_index : int
+  +address : int
+  +addr_type : int
+  +step : int
+  +assemble_mode : int
+}
+
+class "Assembler" <<Class>> {
+  -symbols_table : Table
+  -equivalence_table : Table
+  -state : AssemblerState
+  -action_ORG(tokens: LineTokens)
+  -action_DATA(tokens: LineTokens)
+  -action_AREA(tokens: LineTokens)
+  -action_ENTRY(tokens: LineTokens)
+  -action_EXTERNAL(tokens: LineTokens)
+  -action_NAME(tokens: LineTokens)
+  -action_EQU(tokens: LineTokens)
+  -action_DB(tokens: LineTokens)
+  -action_DW(tokens: LineTokens)
+  -action_DA(tokens: LineTokens)
+  -action_END(tokens: LineTokens)
+  -tokenize_line(line: str) : LineTokens
+  -compute_checksum(program: str) : Byte
+  -check_labels()
+  -check_mnemonics()
+  -check_operands()
+  +event_loop(program: str) : str
+}
+
+entity "LineTokens" <<Entity>> {
+  +label : str
+  +mnemonic : str
+  +operand : str
+}
+
+enum "PseudoInstructionSet" <<Enum>> {
+  +{static}ORG : str
+  +{static}AREA : str
+  +{static}ENTRY : str
+  +{static}EXTERNAL : str
+  +{static}NAME : str
+  +{static}EQU : str
+  +{static}DB : str
+  +{static}DW : str
+  +{static}DA : str
+  +{static}DATA : str
+  +{static}END : str
+}
+
+
+'''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: DEVICE ''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''
+
+interface "Device" <<Interface>> {
+  +read() : Word
+  +write(data: Word)
+}
+
+class "Keyboard" <<Class>> {
+  +read() : Word
+}
+
+class "Screen" <<Class>> {
+  +write(data: Word)
+}
+
+class "CharScreen" <<Class>> {
+  -buffer : str
+  +write(data: Word)
+}
+
+class "HardDrive" <<Class>> {
+  -input_file : str
+  -output_file : str
+  +read(data: Word)
+  +write(data: Word)
+  +set_input_file(path: str)
+  +set_output_file(path: str)
+}
+
+class "DeviceBus" <<Class>> {
+  -devices : Dict[int, Device]
+  +add(code: int, device: Device)
+  +get(code: int) : Device 
+  +remove(code: int)
+}
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: BOOTLOADER ''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''
+
+class "Bootloader" <<Class>> {
+  -cpu: CPU
+  +load(program_obj: str) : int
+}
+
+
+''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: ISA ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''
+
+class "Word" <<Class>> {
+  -value : int
+  +{static}size : int
+  +bin : str
+  +hex : str
+  +uint : int
+  +int : int
+  +{static}convert_to_int(value) : int
+  +get_value() : int
+  +set_value(word: Word)
+  +is_empty() : bool
+}
+
+' class "Instruction" <<Class>> {
+'   -opcode : int
+'   -operand : int
+'   +get_opcode() : int
+'   +get_operand() : int
+'   ' +{static}build(opcode: int, operand: int) : Instruction
+' }
+
+enum "InstructionSet" <<Enum>> {
+  +{static}AD : int
+  +{static}DV : int
+  +{static}GD : int
+  +{static}HJ : int
+  +{static}JN : int
+  +{static}JP : int
+  +{static}JZ : int
+  +{static}LD : int
+  +{static}ML : int
+  +{static}OS : int
+  +{static}PD : int
+  +{static}RS : int
+  +{static}SB : int
+  +{static}SC : int
+  +{static}ST : int
+  +{static}get_name(opcode: int) : str
+  +{static}get_opcode(name: str) : int
+}
+
+
+'''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: UTILS '''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''
+
+class "Lock" <<Class>> {
+  -locked : bool
+  +aquire()
+  +is_locked() : bool
+  +release()
+}
+
+
+''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: STATE ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''
+
+entity "CPUState" <<Entity>> {
+  +acc : Word
+  +pc : Word
+  +pc_lock : Lock
+  +memory : Memory
+  +devices : DeviceBus
+}
+
+
+'''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: MEMORY ''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''
+
+class "Memory" <<Class>> {
+  #data : List[List[int]]
+  #size : int
+  -check_valid_adress(adress: int)
+  +get_size() : int
+  +read(address: int) : Word
+  +write(address: int, data: Word)
+  +hexdump()
+}
+
+
+''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''' PACKAGE: VNM ''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''
+
+class "VonNeumannMachine" <<Class>> {
+  +cpu : CPU
+  -loader_addr : int
+  -dumper_addr : int
+  -job_manager : JobManager
+  +assemble(program: str) : str
+  +link(object_files: List[str]) : str
+  +relocate(linked_program : str) : str
+  +load(bytecode: str)
+  +dump(init_pos: int, end_pos: int) : str
+  +execute_program(init_pos: int)
+  +enqueue_job(job: Job)
+  +run_jobs()
+}
+
+
+
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''' JOB MIX '''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''
+
+class "PriorityQueue" <<Class>> {
+  -high_priority: LinkedList<Event>
+  -regular_priority: LinkedList<Event>
+  +enqueue(job: Event, priority: string)
+  +dequeue() : Event
+  +order()
+}
+
+entity "Job" <<Entity>> {
+  +start_time: int
+  +end_time: int
+  +cpu_duration: int
+  +memory: int
+  +name: string
+  +status: string
+}
+
+entity "Event" <<Entity>> {
+  +time: int
+  +type: str
+  +job: Job
+}
+
+class "JobManager" <<Class>> {
+  -jobs : PriorityQueue<Event>
+  -current_job: Job
+  -current_event: Event
+  -current_time: int
+  -action_dispatch()
+  -action_ingress()
+  -action_req_memory()
+  -action_req_processing()
+  -action_release_memory()
+  -action_release_processing()
+  -action_system_exit()
+  -action_finish_job()
+  -enqueue_job(job: Job)
+  -dequeue_job() : Job
+  -order_jobs()
+  +event_loop()
+  +plot_memory() : Figure
+  +plot_timming() : Figure
+}
+@enduml

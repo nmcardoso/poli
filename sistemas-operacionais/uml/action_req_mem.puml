@@ -1,0 +1,11 @@
+@startuml action_req_mem
+start
+  :Modifica estado do Job para o estado 2;
+  if (Há memória suficiente) then (sim)
+    :Aloca memória necessária para executar o Job;
+    :Aciona o Loader para carregar o programa na memória;
+    :Modifica estado do Job para o estado 3;
+  else (não)
+  endif
+stop
+@enduml
