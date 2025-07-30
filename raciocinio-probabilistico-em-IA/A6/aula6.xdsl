@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Network2" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Anosmia">
+			<state id="Sim" />
+			<state id="Nao" />
+			<probabilities>0.14 0.86</probabilities>
+		</cpt>
+		<cpt id="Febre">
+			<state id="Sim" />
+			<state id="Nao" />
+			<probabilities>0.31 0.6899999999999999</probabilities>
+		</cpt>
+		<cpt id="Coriza">
+			<state id="Sim" />
+			<state id="Nao" />
+			<probabilities>0.16 0.84</probabilities>
+		</cpt>
+		<cpt id="Dor_nas_Juntas">
+			<state id="Sim" />
+			<state id="Nao" />
+			<probabilities>0.06 0.9399999999999999</probabilities>
+		</cpt>
+		<cpt id="Erupção_Cutanea">
+			<state id="Sim" />
+			<state id="Nao" />
+			<probabilities>0.02 0.98</probabilities>
+		</cpt>
+		<cpt id="Resfriando">
+			<state id="Sim" />
+			<state id="Nao" />
+			<parents>Anosmia Febre Coriza Dor_nas_Juntas Erupção_Cutanea</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Dengue">
+			<state id="Sim" />
+			<state id="Nao" />
+			<parents>Anosmia Febre Coriza Dor_nas_Juntas Erupção_Cutanea</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Zika">
+			<state id="Sim" />
+			<state id="Nao" />
+			<parents>Anosmia Febre Coriza Dor_nas_Juntas Erupção_Cutanea</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Covid">
+			<state id="Sim" />
+			<state id="Nao" />
+			<parents>Anosmia Febre Coriza Dor_nas_Juntas Erupção_Cutanea</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Gripe">
+			<state id="Sim" />
+			<state id="Nao" />
+			<parents>Anosmia Febre Coriza Dor_nas_Juntas Erupção_Cutanea</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 4.1.3724.0 ACADEMIC" name="Exercicio 2">
+			<node id="Anosmia">
+				<name>Anosmia</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>114 281 163 311</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Coriza">
+				<name>Coriza</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>466 286 515 316</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Dor_nas_Juntas">
+				<name>Dor nas Juntas</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>650 286 699 316</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Erupção_Cutanea">
+				<name>Erupção Cutanea</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>832 288 881 318</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Febre">
+				<name>Febre</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>294 282 343 312</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Resfriando">
+				<name>Resfriando</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>114 58 163 88</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Dengue">
+				<name>Dengue</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>466 62 515 92</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Zika">
+				<name>Zika</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>650 62 699 92</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Covid">
+				<name>Covid</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>832 64 881 94</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Gripe">
+				<name>Gripe</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>294 58 343 88</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

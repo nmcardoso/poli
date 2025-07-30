@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Network1" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Inflação">
+			<state id="Menor_3" />
+			<state id="Entre_3_e_5" />
+			<state id="Maior_5" />
+			<probabilities>0.005 0.845 0.15</probabilities>
+		</cpt>
+		<cpt id="Dolar_Comercial">
+			<state id="Menor_4p50" />
+			<state id="Entre_4p50_5p10" />
+			<state id="Maior_5p10" />
+			<probabilities>0.03 0.575 0.395</probabilities>
+		</cpt>
+		<cpt id="Taxa_Básica_de_Juros">
+			<state id="Ate_10" />
+			<state id="Acima_10" />
+			<probabilities>0.38 0.62</probabilities>
+		</cpt>
+		<cpt id="Situação_Fiscal_do_País">
+			<state id="Otima_Boa" />
+			<state id="Regular" />
+			<state id="Ruim_Pessima" />
+			<probabilities>0.095 0.475 0.43</probabilities>
+		</cpt>
+		<cpt id="Nível_de_Confiança_Política_Econômica_do_País">
+			<state id="Otimo_Bom" />
+			<state id="Regular" />
+			<state id="Ruim_Pessimo" />
+			<parents>Inflação Dolar_Comercial Taxa_Básica_de_Juros Situação_Fiscal_do_País</parents>
+			<probabilities>0.93 0.06 0.009999999999999953 0.52 0.43 0.04999999999999999 0.33 0.52 0.1499999999999999 0.68 0.24 0.07999999999999996 0.27 0.62 0.11 0.08 0.63 0.29 0.82 0.13 0.05000000000000004 0.35 0.5600000000000001 0.08999999999999997 0.18 0.6 0.2200000000000001 0.63 0.31 0.06 0.18 0.61 0.2100000000000001 0.03 0.63 0.34 0.59 0.28 0.13 0.25 0.5600000000000001 0.1899999999999999 0.12 0.65 0.23 0.57 0.3 0.13 0.1 0.6 0.3 0.03 0.58 0.39 0.83 0.13 0.04 0.42 0.5 0.08 0.23 0.6 0.17 0.65 0.23 0.12 0.18 0.68 0.14 0.03 0.64 0.33 0.75 0.18 0.07000000000000001 0.29 0.58 0.13 0.15 0.63 0.22 0.6 0.29 0.11 0.12 0.67 0.21 0.02 0.6 0.38 0.47 0.33 0.2 0.12 0.63 0.25 0.07000000000000001 0.59 0.34 0.44 0.36 0.2 0.05 0.63 0.32 0.01 0.49 0.5 0.51 0.38 0.11 0.24 0.5600000000000001 0.2 0.11 0.52 0.37 0.41 0.42 0.17 0.17 0.57 0.26 0.01 0.54 0.45 0.47 0.41 0.12 0.2 0.54 0.26 0.05 0.49 0.46 0.36 0.43 0.21 0.12 0.54 0.34 0.005 0.33 0.665 0.34 0.43 0.23 0.11 0.46 0.43 0.03 0.405 0.5649999999999999 0.28 0.46 0.26 0.035 0.505 0.46 0.001 0.093 0.906</probabilities>
+		</cpt>
+		<cpt id="Percepção_de_Confiança_no_Governo_pela_População">
+			<state id="Otima_Boa" />
+			<state id="Regular" />
+			<state id="Ruim_Pessima" />
+			<probabilities>0.25 0.41 0.34</probabilities>
+		</cpt>
+		<cpt id="Desemprego">
+			<state id="Menor_6p5" />
+			<state id="Entre_6p5_e_9" />
+			<state id="Maior_9" />
+			<probabilities>0.02 0.93 0.04999999999999993</probabilities>
+		</cpt>
+		<cpt id="PIB">
+			<state id="Acima_2" />
+			<state id="Entre_0_e_2" />
+			<state id="Entre_neg2_e_0" />
+			<state id="Abaixo_neg2" />
+			<parents>Nível_de_Confiança_Política_Econômica_do_País Percepção_de_Confiança_no_Governo_pela_População Desemprego</parents>
+			<probabilities>0.777 0.22 0.002 0.001 0.49 0.45 0.05 0.01 0.14 0.6 0.21 0.05 0.73 0.255 0.01 0.005 0.34 0.59 0.06 0.01 0.095 0.5 0.335 0.07000000000000001 0.6 0.335 0.045 0.02 0.3 0.49 0.16 0.05 0.075 0.47 0.345 0.11 0.66 0.295 0.035 0.01 0.235 0.625 0.095 0.045 0.015 0.6899999999999999 0.225 0.07000000000000001 0.4 0.45 0.1 0.05 0.21 0.48 0.205 0.105 0.075 0.45 0.335 0.14 0.33 0.405 0.16 0.105 0.17 0.47 0.24 0.12 0.03 0.37 0.405 0.195 0.08500000000000001 0.395 0.445 0.075 0.045 0.2 0.61 0.145 0.01 0.105 0.6 0.285 0.05 0.39 0.47 0.09 0.015 0.185 0.625 0.175 0.003 0.036 0.64 0.321 0.035 0.36 0.475 0.13 0.005 0.09 0.7 0.205 0.0005 0.005 0.479 0.5155</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 4.1.3724.0 ACADEMIC" name="Network1">
+			<node id="PIB">
+				<name>PIB</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>362 65 400 88</position>
+				<barchart active="true" width="280" height="90" />
+			</node>
+			<node id="Inflação">
+				<name>Inflação</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>681 302 735 335</position>
+				<barchart active="true" width="173" height="72" />
+			</node>
+			<node id="Dolar_Comercial">
+				<name>Dolar Comercial</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>274 291 363 346</position>
+				<barchart active="true" width="200" height="72" />
+			</node>
+			<node id="Taxa_Básica_de_Juros">
+				<name>Taxa Básica de Juros</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>83 285 176 343</position>
+				<barchart active="true" width="170" height="64" />
+			</node>
+			<node id="Situação_Fiscal_do_País">
+				<name>Situação Fiscal do País</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>475 291 566 347</position>
+				<barchart active="true" width="197" height="72" />
+			</node>
+			<node id="Desemprego">
+				<name>Desemprego</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>107 169 182 215</position>
+				<barchart active="true" width="206" height="72" />
+			</node>
+			<node id="Nível_de_Confiança_Política_Econômica_do_País">
+				<name>Nível de Confiança Política Econômica do País</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>324 160 429 225</position>
+				<barchart active="true" width="249" height="72" />
+			</node>
+			<node id="Percepção_de_Confiança_no_Governo_pela_População">
+				<name>Percepção de Confiança no Governo pela População</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>590 153 713 229</position>
+				<barchart active="true" width="288" height="72" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
