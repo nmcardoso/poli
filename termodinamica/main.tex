@@ -1,0 +1,119 @@
+\documentclass[answers]{exam}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[paperwidth=210mm,paperheight=297mm,right=0.5cm,left=0.5cm,top=0.5cm,bottom=0.5cm,headsep=10pt,headheight=25pt]{geometry}
+\usepackage{lipsum}
+\usepackage{fontawesome5}
+\usepackage{graphicx,url}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{enumerate}
+\usepackage{gensymb}
+\usepackage{csvsimple}
+\usepackage{xcolor, colortbl}
+\usepackage{multicol}
+\usepackage{amssymb}
+\setlength{\columnseprule}{1pt}
+\checkboxchar{$\Box$}
+\checkedchar{$\blacksquare$}
+
+\begin{document}
+\begin{multicols}{2}
+  \begin{questions}
+    \question Considere um motor térmico que recebe uma quantidade de calor $Q_H$ a $T_H$. Se ele opera respectivamente de maneira reversível ou irreversível pode-se dizer em relação a $Q_L$ e $T_L$ que:
+    \begin{checkboxes}
+      \choice $(Q_H / T_H) > (Q_L / T_L)$ e $(Q_H / T_H) = (Q_L / T_L)$
+      \choice $(Q_H / T_H) > (Q_L / T_L)$ e $(Q_H / T_H) < (Q_L / T_L)$
+      \choice $(Q_H / T_H) = (Q_L / T_L)$ e $(Q_H / T_H) > (Q_L / T_L)$
+      \CorrectChoice $(Q_H / T_H) = (Q_L / T_L)$ e $(Q_H / T_H) < (Q_L / T_L)$
+      \choice $(Q_H / T_H) < (Q_L / T_L)$ e $(Q_H / T_H) = (Q_L / T_L)$
+    \end{checkboxes}
+
+
+    \question Uma quantidade de massa no interior de um sistema adiabático sofre um processo em que sua entropia aumenta ao longo do tempo. Nas hipóteses do processo ser:
+
+    1. reversível\\
+    2. irreversível
+
+    as taxas de geração de entropia $\dot S_{ger}$ serão respectivamente:
+    \begin{checkboxes}
+      \choice $\dot S_{ger, 1} > 0$ e $\dot S_{ger, 2} < 0$
+      \choice $\dot S_{ger, 1} > 0$\ e\ $\dot S_{ger, 2} = 0$
+      \choice $\dot S_{ger, 1} = 0$\ e\ $\dot S_{ger, 2} < 0$
+      \CorrectChoice $\dot S_{ger, 1} = 0$ e $\dot S_{ger, 2} > 0$
+      \choice $\dot S_{ger, 1} < 0$ e $\dot S_{ger, 2} > 0$
+    \end{checkboxes}
+
+
+    \question A expressão da segunda lei para volume de controle a seguir pode ser utilizada:
+
+    $\frac{\Delta S_{vc}}{dt} = \sum \dot m_e s_e - \sum \dot m_s s_s + \sum \frac{\dot Q_{vc}}{T}$
+    \begin{checkboxes}
+      \choice apenas para líquidos
+      \choice só quando o processo é em regime permanente
+      \choice só quando o processo é isotérmico
+      \CorrectChoice só quando o processo é reversível
+      \choice em qualquer tipo de processo
+    \end{checkboxes}
+
+
+
+    \question Considere um ciclo um ciclo de Rankine ideal apenas com superaquecimento e com pressões fixas na caldeira e no condensador. Se o ciclo for modificado com reaquecimento,
+    \begin{checkboxes}
+      \choice o calor fornecido ao ciclo diminuirá.
+      \choice o calor rejeitado diminuirá.
+      \choice o trabalho realizado pela turbina diminuirá.
+      \CorrectChoice o teor de umidade na saída da turbina diminuirá.
+      \choice o trabalho realizado sobre a bomba diminuirá.
+    \end{checkboxes}
+
+
+
+    \question Considere uma bomba de calor utilizado para aquecimento de piscina em dias frios de inverno. Qual das alternativas é verdadeira?
+    \begin{checkboxes}
+      \choice Dias muito úmidos podem provocar condensação da umidade do ar no condensador.
+      \choice Do ponto de vista da eficiência energética, é melhor utilizar um aquecedor elétrico para aquecer diretamente a água da piscina.
+      \choice Quanto menor a temperatura do ar externo, maior deve ser a pressão do fluido refrigerante no evaporador.
+      \choice A temperatura do fluido refrigerante no condensador deve ser menor do que a temperatura do ar externo.
+      \CorrectChoice Quanto maior a temperatura da piscina, maior deve ser a pressão do fluido refrigerante no condensador.
+    \end{checkboxes}
+
+
+
+    \question Em regime permanente, um misturador realiza trabalho a uma taxa de $25\ kW$ sobre uma pasta contida em um tanque fechado e rígido. A temperatura da superfície externa do tanque é de $150\degree C$. O ambiente em torno do tanque está a $27\degree C$. Determine a taxa de produção de entropia em kW/K associada à transferência de calor para o ambiente.
+    \begin{multicols}{2}
+      $$\frac{dE}{dt} = \dot Q - \dot W = 0$$
+      $$\dot Q = \dot W = -25 kW$$
+      $$\frac{dS}{dt} = \frac{\dot Q}{T_b} + \dot\sigma = 0$$
+      $$\dot\sigma = -\frac{\dot Q}{T_b} = \frac{25 kW}{300 K}$$
+      $$\dot\sigma = 0,0833\ \frac{kW}{K}$$
+    \end{multicols}
+
+
+
+    \question Ar é comprimido por um compressor operando em regime permanente da pressão de 100 kPa para 210 kPa. A temperatura de entrada do ar ambiente é de $27\degree C$. O trabalho fornecido para o compressor é de 94,6 kJ/kg de ar e calor é transferido em uma taxa de 33,6 kJ/kg de ar na superfície do compressor a uma temperatura de $T = 40\degree C$. Desprezando as variações de energia cinética e potencial e assumindo o ar como gás perfeito (C=1,004 kJ/kg.K, R=0,287 kJ/kg.K), a temperatura do ar na saída do compressor em $\degree C$ e a taxa de geração de entropia em kJ/kg.K de ar são:
+
+
+
+    \question Fluido refrigerante 134a é usado como fluido de trabalho em um ciclo Rankine ideal como mostra a figura. Vapor saturado a $55\degree C$ entra na turbina e o condensador opera a uma pressão de 600 kPa. A taxa de energia fornecida pela radiação solar é de $0,4\ kW/m^2$ e deseja-se gerar um trabalho líquido na turbina de 1 kW. Nestas condições, a área mínima do coletor solar é:
+
+
+
+    \question Um ciclo de turbina a gás opera com uma relação de pressão de 12. A temperatura do ar na entrada do compressor é de $20\degree C$ e na entrada da turbina é $1200\degree C$. A eficiência isentrópica do compressor é de 84\% e da turbina é de 88\%. Sabendo-se que a potência líquida do ciclo de turbina a gás é de 25 MW, determine a vazão do ar (em kg/s). Pode-se considerar propriedades do ar constantes avaliadas em 298 K.
+
+
+
+    \question Um ciclo de Refrigeração opera com R-134a. Líquido saturado sai do condensador à temperatura de $52,42\degree C$, correspondente à pressão de saturação 1400 kPa e é estrangulado até a temperatura do evaporador de $-40\degree C$. O vapor saturado que sai do evaporador é comprimido até a pressão do condensador. Considerando-se que a eficiência isentrópica do compressor é de 83\%, determine o coeficiente de eficácia do ciclo
+  \end{questions}
+\end{multicols}
+\end{document}
