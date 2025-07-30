@@ -1,0 +1,724 @@
+$date
+  Wed Apr  5 20:04:47 2023
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module mdc3tb $end
+$var reg 1 ! set $end
+$var reg 1 " reset $end
+$var reg 1 # clock $end
+$var reg 1 $ start $end
+$var reg 1 % ready $end
+$var reg 1 & cear $end
+$var reg 1 ' cebr $end
+$var reg 1 ( compara $end
+$var reg 1 ) igual $end
+$var reg 1 * menor $end
+$var reg 1 + selb $end
+$var reg 2 , sela[1:0] $end
+$var reg 8 - a[7:0] $end
+$var reg 8 . b[7:0] $end
+$var reg 8 / mdc[7:0] $end
+$var reg 1 0 done $end
+$scope module gatefd $end
+$var reg 1 1 cear $end
+$var reg 1 2 cebr $end
+$var reg 1 3 clock $end
+$var reg 1 4 reset $end
+$var reg 1 5 selb $end
+$var reg 1 6 set $end
+$var reg 1 7 compara $end
+$var reg 8 8 a[7:0] $end
+$var reg 8 9 b[7:0] $end
+$var reg 2 : sela[1:0] $end
+$var reg 1 ; igual $end
+$var reg 1 < menor $end
+$var reg 8 = mdc[7:0] $end
+$var reg 8 > ad[7:0] $end
+$var reg 8 ? bd[7:0] $end
+$var reg 8 @ sub_s[7:0] $end
+$var reg 8 A bq[7:0] $end
+$var reg 8 B aq[7:0] $end
+$scope module gate1 $end
+$var reg 1 C c $end
+$var reg 1 D ce $end
+$var reg 8 E d[7:0] $end
+$var reg 1 F r $end
+$var reg 1 G s $end
+$var reg 8 H q[7:0] $end
+$upscope $end
+$scope module gate2 $end
+$var reg 1 I c $end
+$var reg 1 J ce $end
+$var reg 8 K d[7:0] $end
+$var reg 1 L r $end
+$var reg 1 M s $end
+$var reg 8 N q[7:0] $end
+$upscope $end
+$scope module gate3 $end
+$var reg 8 O i0[7:0] $end
+$var reg 8 P i1[7:0] $end
+$var reg 1 Q s $end
+$var reg 8 R o[7:0] $end
+$upscope $end
+$scope module gate5 $end
+$var reg 8 S in1[7:0] $end
+$var reg 8 T in2[7:0] $end
+$var reg 8 U out1[7:0] $end
+$upscope $end
+$scope module gate6 $end
+$var reg 8 V aq[7:0] $end
+$var reg 8 W bq[7:0] $end
+$var reg 1 X compara $end
+$var reg 1 Y igual $end
+$var reg 1 Z menor $end
+$upscope $end
+$scope module gate7 $end
+$var reg 8 [ a[7:0] $end
+$var reg 8 \ i3[7:0] $end
+$var reg 2 ] sela[1:0] $end
+$var reg 8 ^ bq[7:0] $end
+$var reg 8 _ sub_s[7:0] $end
+$var reg 8 ` ad[7:0] $end
+$upscope $end
+$upscope $end
+$scope module gateuc $end
+$var reg 1 a reset $end
+$var reg 1 b clock $end
+$var reg 1 c start $end
+$var reg 1 d igual $end
+$var reg 1 e menor $end
+$var reg 1 f ready $end
+$var reg 2 g sela[1:0] $end
+$var reg 1 h selb $end
+$var reg 1 i cear $end
+$var reg 1 j cebr $end
+$var reg 1 k compara $end
+$comment state_reg is not handled $end
+$comment state_next is not handled $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+0!
+1"
+0#
+1$
+0%
+1&
+1'
+0(
+1)
+0*
+0+
+b01 ,
+b00001010 -
+b00011010 .
+b00000000 /
+00
+11
+12
+03
+14
+05
+06
+07
+b00001010 8
+b00011010 9
+b01 :
+1;
+0<
+b00000000 =
+b00001010 >
+b00011010 ?
+b00000000 @
+b00000000 A
+b00000000 B
+0C
+1D
+b00011010 E
+1F
+0G
+b00000000 H
+0I
+1J
+b00001010 K
+1L
+0M
+b00000000 N
+b00011010 O
+b00000000 P
+0Q
+b00011010 R
+b00000000 S
+b00000000 T
+b00000000 U
+b00000000 V
+b00000000 W
+0X
+1Y
+0Z
+b00001010 [
+b00000000 \
+b01 ]
+b00000000 ^
+b00000000 _
+b00001010 `
+1a
+0b
+1c
+1d
+0e
+0f
+b01 g
+0h
+1i
+1j
+0k
+#10000000
+0"
+1#
+0)
+1*
+b00001010 /
+13
+04
+0;
+1<
+b00001010 =
+b11110000 @
+b00011010 A
+b00001010 B
+1C
+0F
+b00011010 H
+1I
+0L
+b00001010 N
+b00001010 P
+b00001010 S
+b00011010 T
+b11110000 U
+b00001010 V
+b00011010 W
+0Y
+1Z
+b00011010 ^
+b11110000 _
+0a
+1b
+0d
+1e
+#20000000
+0#
+1(
+1+
+b10 ,
+03
+15
+17
+b10 :
+b00011010 >
+b00001010 ?
+0C
+b00001010 E
+0I
+b00011010 K
+1Q
+b00001010 R
+1X
+b10 ]
+b00011010 `
+0b
+b10 g
+1h
+1i
+1j
+1k
+#30000000
+1#
+0*
+b00011010 /
+13
+0<
+b00011010 =
+b00001010 >
+b00010000 @
+b00001010 A
+b00011010 B
+1C
+b00001010 H
+1I
+b00001010 K
+b00011010 N
+b00011010 P
+b00011010 S
+b00001010 T
+b00010000 U
+b00011010 V
+b00001010 W
+0Z
+b00001010 ^
+b00010000 _
+b00001010 `
+1b
+0e
+#40000000
+0#
+0'
+0(
+0+
+b00 ,
+02
+03
+05
+07
+b00 :
+b00010000 >
+b00011010 ?
+0C
+0D
+b00011010 E
+0I
+b00010000 K
+0Q
+b00011010 R
+0X
+b00 ]
+b00010000 `
+0b
+b00 g
+0h
+1i
+0j
+0k
+#50000000
+1#
+b00010000 /
+13
+b00010000 =
+b00000110 >
+b00000110 @
+b00010000 B
+1C
+1I
+b00000110 K
+b00010000 N
+b00010000 P
+b00010000 S
+b00000110 U
+b00010000 V
+b00000110 _
+b00000110 `
+1b
+#60000000
+0#
+0&
+1(
+01
+03
+17
+0C
+0I
+0J
+1X
+0b
+0i
+1k
+#70000000
+1#
+13
+1C
+1I
+1b
+#80000000
+0#
+1&
+0(
+11
+03
+07
+0C
+0I
+1J
+0X
+0b
+1i
+0k
+#90000000
+1#
+1*
+b00000110 /
+13
+1<
+b00000110 =
+b11111100 >
+b11111100 @
+b00000110 B
+1C
+1I
+b11111100 K
+b00000110 N
+b00000110 P
+b00000110 S
+b11111100 U
+b00000110 V
+1Z
+b11111100 _
+b11111100 `
+1b
+1e
+#100000000
+0#
+1'
+1(
+1+
+b10 ,
+12
+03
+15
+17
+b10 :
+b00001010 >
+b00000110 ?
+0C
+1D
+b00000110 E
+0I
+b00001010 K
+1Q
+b00000110 R
+1X
+b10 ]
+b00001010 `
+0b
+b10 g
+1h
+1i
+1j
+1k
+#110000000
+1#
+0*
+b00001010 /
+13
+0<
+b00001010 =
+b00000110 >
+b00000100 @
+b00000110 A
+b00001010 B
+1C
+b00000110 H
+1I
+b00000110 K
+b00001010 N
+b00001010 P
+b00001010 S
+b00000110 T
+b00000100 U
+b00001010 V
+b00000110 W
+0Z
+b00000110 ^
+b00000100 _
+b00000110 `
+1b
+0e
+#120000000
+0#
+0'
+0(
+0+
+b00 ,
+02
+03
+05
+07
+b00 :
+b00000100 >
+b00011010 ?
+0C
+0D
+b00011010 E
+0I
+b00000100 K
+0Q
+b00011010 R
+0X
+b00 ]
+b00000100 `
+0b
+b00 g
+0h
+1i
+0j
+0k
+#130000000
+1#
+1*
+b00000100 /
+13
+1<
+b00000100 =
+b11111110 >
+b11111110 @
+b00000100 B
+1C
+1I
+b11111110 K
+b00000100 N
+b00000100 P
+b00000100 S
+b11111110 U
+b00000100 V
+1Z
+b11111110 _
+b11111110 `
+1b
+1e
+#140000000
+0#
+1'
+1(
+1+
+b10 ,
+12
+03
+15
+17
+b10 :
+b00000110 >
+b00000100 ?
+0C
+1D
+b00000100 E
+0I
+b00000110 K
+1Q
+b00000100 R
+1X
+b10 ]
+b00000110 `
+0b
+b10 g
+1h
+1i
+1j
+1k
+#150000000
+1#
+0*
+b00000110 /
+13
+0<
+b00000110 =
+b00000100 >
+b00000010 @
+b00000100 A
+b00000110 B
+1C
+b00000100 H
+1I
+b00000100 K
+b00000110 N
+b00000110 P
+b00000110 S
+b00000100 T
+b00000010 U
+b00000110 V
+b00000100 W
+0Z
+b00000100 ^
+b00000010 _
+b00000100 `
+1b
+0e
+#160000000
+0#
+0'
+0(
+0+
+b00 ,
+02
+03
+05
+07
+b00 :
+b00000010 >
+b00011010 ?
+0C
+0D
+b00011010 E
+0I
+b00000010 K
+0Q
+b00011010 R
+0X
+b00 ]
+b00000010 `
+0b
+b00 g
+0h
+1i
+0j
+0k
+#170000000
+1#
+1*
+b00000010 /
+13
+1<
+b00000010 =
+b11111110 >
+b11111110 @
+b00000010 B
+1C
+1I
+b11111110 K
+b00000010 N
+b00000010 P
+b00000010 S
+b11111110 U
+b00000010 V
+1Z
+b11111110 _
+b11111110 `
+1b
+1e
+#180000000
+0#
+1'
+1(
+1+
+b10 ,
+12
+03
+15
+17
+b10 :
+b00000100 >
+b00000010 ?
+0C
+1D
+b00000010 E
+0I
+b00000100 K
+1Q
+b00000010 R
+1X
+b10 ]
+b00000100 `
+0b
+b10 g
+1h
+1i
+1j
+1k
+#190000000
+1#
+0*
+b00000100 /
+13
+0<
+b00000100 =
+b00000010 >
+b00000010 @
+b00000010 A
+b00000100 B
+1C
+b00000010 H
+1I
+b00000010 K
+b00000100 N
+b00000100 P
+b00000100 S
+b00000010 T
+b00000010 U
+b00000100 V
+b00000010 W
+0Z
+b00000010 ^
+b00000010 _
+b00000010 `
+1b
+0e
+#200000000
+0#
+0'
+0(
+0+
+b00 ,
+02
+03
+05
+07
+b00 :
+b00011010 ?
+0C
+0D
+b00011010 E
+0I
+0Q
+b00011010 R
+0X
+b00 ]
+0b
+b00 g
+0h
+1i
+0j
+0k
+#210000000
+1#
+1)
+b00000010 /
+13
+1;
+b00000010 =
+b00000000 >
+b00000000 @
+b00000010 B
+1C
+1I
+b00000000 K
+b00000010 N
+b00000010 P
+b00000010 S
+b00000000 U
+b00000010 V
+1Y
+b00000000 _
+b00000000 `
+1b
+1d
+#220000000
+0#
+0$
+1%
+0&
+1(
+10
+01
+03
+17
+0C
+0I
+0J
+1X
+0b
+0c
+1f
+0i
+1k
+#230000000
