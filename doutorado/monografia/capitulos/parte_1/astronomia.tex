@@ -84,20 +84,24 @@ O grande volume de dados gerado por esses levantamentos astronômicos representa
 A existência de múltiplos levantamentos astronômicos fotométricos se justifica pela necessidade de observar o universo em diferentes comprimentos de onda, uma vez que cada faixa do espectro revela características específicas dos objetos astronômicos. Por exemplo, a radiação ultravioleta é útil para identificar regiões de formação estelar intensa, enquanto o infravermelho é empregado na observação de regiões obscurecidas por poeira interestelar \cite[p. 28-31]{extragalactic-astronomy-book}. Assim, levantamentos em faixas distintas do espectro eletromagnético fornecem dados complementares que permitem uma visão mais completa dos processos físicos no cosmos. A variabilidade na profundidade (capacidade de observar objetos mais distantes e fracos) e na resolução espacial também diversifica os objetivos dos levantamentos. Nas próximas subseções, serão apresentadas breves descrições dos levantamentos utilizados no desenvolvimento deste projeto.
 
 
-\subsection{Sloan Digital Sky Survey}
-\label{sec:sdss}
+
+
+
+
+
+\subsection{Galaxy Evolution Explorer}
+\label{sec:galex}
+
+O Galaxy Evolution Explorer (GALEX) foi um telescópio espacial da NASA dedicado a levantamentos astronômicos no ultravioleta (UV), operando entre 2003 e 2013. Como observatório orbital, evitou a absorção atmosférica terrestre, permitindo imageamento e espectroscopia de alta sensibilidade em duas bandas: FUV (1350--1780 \AA) e NUV (1770--2830 \AA). Sua cobertura espacial alcançou $\approx$26.000 graus quadrados ($\approx$63\% do céu), incluindo áreas profundas (múltiplas exposições) e extensas (varreduras rasas), com resolução angular de 1.2--1.5 arcsec.
 
 \begin{figure}[!ht]
-  \caption{Área de cobertura do levantamento SDSS}
-  \label{fig:coverage-sdss}
-  \includegraphics[width=\linewidth]{notebooks/plots/sdss_footprint.pdf}
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento Galex}
+  \label{fig:galex}
+  \includegraphics[width=0.61\linewidth]{figures/footprint_galex.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_galex.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos dois filtros NUV e FUV em função do comprimento de onda.}
 \end{figure}
-
-O Sloan Digital Sky Survey\footnote{\url{https://sdss.org}} (SDSS; \citealp{sdss}) é um dos levantamentos astronômicos mais influentes e abrangentes, sendo pioneiro no uso de técnicas digitais para mapear o céu noturno. Iniciado em 2000, o SDSS empregou um telescópio dedicado de 2,5 metros \cite{sdss-telescope} equipado com uma poderosa câmera de dispositivo de carga acoplada (CCD;  \citealp{sdss-camera}) para mapear o céu do norte com detalhes sem precedentes, cobrindo uma área de cerca de 14.000 graus quadrados, principalmente no hemisfério celestial norte. A Fig. \ref{fig:coverage-sdss} mostra a área de cobertuda da décima oitava liberação de dados (DR18; \citealp{sdss-dr18}). Ao longo de suas diferentes fases, o levantamento produziu dados detalhados de milhões de estrelas, galáxias e quasares, contribuindo significativamente para o avanço de áreas como cosmologia, formação de galáxias e estrutura de larga escala do universo.
-
-O SDSS foi um dos primeiros levantamentos a realizar observações em múltiplas bandas fotométricas, abrangendo cinco faixas do espectro eletromagnético: u, g, r, i e z \cite{sdss-filters}, com comprimentos de onda centrados em 3543 $\si{\angstrom}$, 4770 $\si{\angstrom}$, 6231 $\si{\angstrom}$, 7625 $\si{\angstrom}$ e 9134 $\si{\angstrom}$, respectivamente. Essas bandas cobrem desde o ultravioleta próximo até o infravermelho próximo, permitindo uma caracterização abrangente das propriedades físicas e químicas dos objetos observados. Esse mapeamento multiespectral fornece dados que possibilitam a estimativa de parâmetros astrofísicos, como temperatura e metalicidade, e facilita a classificação e estudo da evolução dos objetos celestes \cite{sdss-photo}.
-
-O pioneirismo do SDSS como levantamento astronômico digital se destaca pela implementação de uma infraestrutura de dados digital chamada SkyServer\footnote{\url{https://skyserver.sdss.org}} \cite{skyserver} e de técnicas automatizadas para a aquisição e processamento das imagens \cite{sdss-photo} e dos espectros \cite{sdss-spec}. Os dados obtidos pelo SDSS foram disponibilizados ao público por meio de lançamentos periódicos, estabelecendo um novo padrão de acessibilidade e transparência na astronomia observacional. Esse levantamento digital não apenas tornou-se uma referência na organização e disseminação de dados, mas também promoveu o desenvolvimento de observatórios virtuais e inspirou a criação de novos levantamentos digitais em diferentes faixas espectrais, solidificando a transição para a era da astronomia baseada em big data \cite{sciserver}.
 
 
 
@@ -107,34 +111,131 @@ O pioneirismo do SDSS como levantamento astronômico digital se destaca pela imp
 \label{sec:splus}
 
 \begin{figure}[!ht]
-  \caption{Área de cobertura do levantamento S-PLUS}
-  \label{fig:coverage-splus}
-  \includegraphics[width=\linewidth]{notebooks/plots/splus_footprint.pdf}
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento S-PLUS}
+  \label{fig:splus}
+  \includegraphics[width=0.61\linewidth]{notebooks/plots/footprint_splus.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_splus.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos quatro filtros g, r, i e z em função do comprimento de onda.}
 \end{figure}
 
-Em contraste com o SDSS, o levantamento astronômico brasileiro Southern Photometric Local Universe Survey\footnote{\url{https://splus.iag.usp.br}} (S-PLUS; \citealp{splus}) é um mapeamento do hemisfério celestial sul utilizando uma abordagem multibanda altamente detalhada. O S-PLUS utiliza o telescópio T80-Sul, localizado no Observatório de Cerro Tololo, no Chile, para observar uma área de aproximadamente 8.000 graus quadrados, como mostra a Fig. \ref{fig:coverage-splus}. Este levantamento cobre, portanto, uma ampla região do céu meridional, permitindo um estudo profundo de diversos objetos celestes, incluindo estrelas, galáxias e aglomerados de galáxias.
+O levantamento astronômico brasileiro Southern Photometric Local Universe Survey\footnote{\url{https://splus.iag.usp.br}} (S-PLUS; \citealp{splus}) é um mapeamento do hemisfério celestial sul utilizando uma abordagem multibanda altamente detalhada. O S-PLUS utiliza o telescópio T80-Sul, localizado no Observatório de Cerro Tololo, no Chile, para observar uma área de aproximadamente 8.000 graus quadrados, como mostra a Fig. \ref{fig:splus}.
 
-Um dos principais diferenciais do S-PLUS é a sua cobertura em doze bandas fotométricas, que incluem cinco bandas similares às do levantamento SDSS (u, g, r, i, z) e sete bandas estreitas (J0378, J0395, J0410, J0430, J0515, J0660, J0861) com comprimentos de onda variando entre 3780 $\si{\angstrom}$ e 8610 $\si{\angstrom}$. Essa configuração de bandas permite uma análise espectral rica, capturando detalhes como a presença de linhas de emissão e absorção específicas, que são cruciais para a determinação precisa de parâmetros físicos e químicos dos objetos observados. Por exemplo, as bandas estreitas foram escolhidas para registrar características específicas como o traço do cálcio, magnésio e oxigênio, o que facilita a análise da composição estelar e a identificação de processos de formação estelar. Como levantamento astronômico digital, o S-PLUS disponibiliza seus dados para a comunidade científica em um formato acessível e padronizado através da plataforma S-PLUS Cloud (\url{https://splus.cloud}), promovendo a interoperabilidade com outros levantamentos e incentivando o desenvolvimento de estudos complexos em astronomia observacional e cosmologia.
+Um dos principais diferenciais do S-PLUS é a sua cobertura em doze bandas fotométricas, que incluem cinco bandas similares às do levantamento SDSS (u, g, r, i, z) e sete bandas estreitas (J0378, J0395, J0410, J0430, J0515, J0660, J0861) com comprimentos de onda variando entre 3780 \AA e 8610 \AA. Essa configuração de bandas permite uma análise espectral rica, capturando detalhes como a presença de linhas de emissão e absorção específicas, que são cruciais para a determinação precisa de parâmetros físicos e químicos dos objetos observados. Por exemplo, as bandas estreitas foram escolhidas para registrar características específicas como o traço do cálcio, magnésio e oxigênio, o que facilita a análise da composição estelar e a identificação de processos de formação estelar. Seus dados são disponibilizados pela plataforma S-PLUS Cloud (\url{https://splus.cloud}).
+
+
 
 
 
 
 \subsection{Legacy Surveys}
 \label{sec:legacy}
+
 \begin{figure}[!ht]
-  \caption{Área de cobertura do levantamento DESI Legacy Survey}
-  \label{fig:coverage-legacy}
-  \includegraphics[width=\linewidth]{notebooks/plots/legacy_footprint.pdf}
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento Legacy}
+  \label{fig:legacy}
+  \includegraphics[width=0.61\linewidth]{notebooks/plots/footprint_legacy.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_legacy.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos quatro filtros g, r, i e z em função do comprimento de onda.}
+\end{figure}
+
+Os Legacy Surveys\footnote{\url{https://legacysurvey.org}} \cite{legacy} consistem em três projetos individuais e complementares: o Dark Energy Camera Legacy Survey (DECaLS), o Beijing-Arizona Sky Survey (BASS) e o Mayall z-band Legacy Survey (MzLS). Juntos, formam um dos maiores projetos de mapeamento digital do céu, projetado para fornecer uma base fotométrica abrangente para o projeto Dark Energy Spectroscopic Instrument (DESI). O Legacy Survey cobre aproximadamente 14.000 graus quadrados do céu. Esse levantamento oferece uma cobertura profunda e em múltiplas bandas fotométricas, incluindo as bandas $g$, $r$, $i$ e $z$, com comprimentos de onda centrados em aproximadamente 4750 \AA, 6300 \AA, 7800 \AA e 9200 \AA, respectivamente. Essas bandas, juntamente com sua grande profundidade, permitem a detecção de objetos mais fracos e distantes, possibilitando estudos detalhados da distribuição de galáxias e outras estruturas em grandes escalas.
+
+A profundidade dos Legacy Surveys é um dos fatores que o diferencia de outros levantamentos. Com exposições projetadas para alcançar uma profundidade mais elevada, os Legacy Surveys são capazes de detectar objetos com brilho mais tênue, o que é fundamental para o mapeamento detalhado da estrutura de larga escala do universo.
+%Este aspecto é essencial para o projeto DESI, que utiliza os dados do Legacy Survey para selecionar alvos para espectroscopia, a fim de estudar a energia escura e a expansão cósmica. 
+
+
+
+
+
+
+
+
+
+\subsection{UKIRT Infrared Deep Sky Survey}
+\label{sec:dados-ukidss}
+
+O UKIRT Infrared Deep Sky Survey (UKIDSS) é um levantamento conduzido pelo telescópio terrestre United Kingdom Infrared Telescope (UKIRT) no Havaí, operando exclusivamente no infravermelho próximo. Sua cobertura espacial é de, aproximadamente, 7.500 graus quadrados do céu norte. As observações são feitas em cinco bandas fotométricas: Z (8800 \AA), Y (10300 \AA), J (12500 \AA), H (16300 \AA) e K (22000 \AA), com resolução angular de $\approx$0,8 arcseg (FWHM) e profundidade típica de K $\approx$ 18,2 mag.
+
+\begin{figure}[!ht]
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento UKIDSS}
+  \label{fig:footprint-ukidss}
+  \includegraphics[width=0.61\linewidth]{figures/footprint_ukidss.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_ukidss.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos cinco filtros Z, Y, J, H e K em função do comprimento de onda.}
 \end{figure}
 
 
-Os Legacy Surveys\footnote{\url{https://legacysurvey.org}} \cite{legacy} consistem em três projetos individuais e complementares: o Dark Energy Camera Legacy Survey (DECaLS), o Beijing-Arizona Sky Survey (BASS) e o Mayall z-band Legacy Survey (MzLS). Juntos, formam um dos maiores projetos de mapeamento digital do céu, projetado para fornecer uma base fotométrica abrangente para o projeto Dark Energy Spectroscopic Instrument (DESI). O Legacy Survey cobre aproximadamente 14.000 graus quadrados do céu. Esse levantamento oferece uma cobertura profunda e em múltiplas bandas fotométricas, incluindo as bandas $g$, $r$ e $z$, com comprimentos de onda centrados em aproximadamente 4750 Å, 6300 Å e 9200 Å, respectivamente. Essas bandas, juntamente com sua grande profundidade, permitem a detecção de objetos mais fracos e distantes, possibilitando estudos detalhados da distribuição de galáxias e outras estruturas em grandes escalas.
 
-A profundidade dos Legacy Surveys é um dos fatores que o diferencia de outros levantamentos, como o SDSS e o S-PLUS. Com exposições projetadas para alcançar uma profundidade mais elevada, os Legacy Surveys são capazes de detectar objetos com brilho mais tênue, o que é fundamental para o mapeamento detalhado da estrutura de larga escala do universo.
-%Este aspecto é essencial para o projeto DESI, que utiliza os dados do Legacy Survey para selecionar alvos para espectroscopia, a fim de estudar a energia escura e a expansão cósmica. 
-Em comparação, o SDSS foi um dos primeiros levantamentos digitais a mapear o céu com precisão em cinco bandas, mas com uma profundidade moderada, voltada para observações mais próximas. Já o S-PLUS, com suas doze bandas, fornece uma caracterização espectral mais detalhada de cada objeto, mas com um foco em uma área específica do céu no hemisfério celestial sul e uma profundidade relativamente menor em comparação com os Legacy Surveys.
 
-Assim, enquanto o SDSS estabeleceu o padrão para levantamentos digitais de grande escala, e o S-PLUS trouxe um detalhamento espectral fino com bandas estreitas, os Legacy Surveys combinam uma ampla cobertura com alta profundidade, posicionando-se como uma base essencial para o estudo da cosmologia e da estrutura de larga escala do universo. A integração desses levantamentos complementares permite uma análise mais completa do céu, tanto em termos de área quanto de profundidade e detalhamento espectral, promovendo avanços em diversas áreas da astronomia e da astrofísica.
+
+
+\subsection{Vista Hemisphere Survey}
+\label{sec:vista}
+
+O Vista Hemisphere Survey (VHS) é um levantamento astronômico terrestre conduzido pelo telescópio VISTA (Visible and Infrared Survey Telescope for Astronomy) no Observatório do Paranal (Chile). Opera exclusivamente no infravermelho próximo (IR), abrangendo 20.000 graus quadrados do hemisfério sul celeste (declinação $< +0.5^\circ$), incluindo regiões de alta densidade estelar como o Plano Galático. Utiliza a câmera VIRCAM com cinco bandas fotométricas: Z (8800 \AA), Y (10200 \AA), J (12500 \AA), H (16500 \AA) e Ks (21500 \AA), alcançando resolução angular de 0.34 arcsec/pixel e profundidade típica de Ks $\approx$ 18 mag.
+
+\begin{figure}[!ht]
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento VHS}
+  \label{fig:footprint-vhs}
+  \includegraphics[width=0.61\linewidth]{figures/footprint_vista.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_vista.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos cinco filtros Z, Y, J, H e Ks em função do comprimento de onda.}
+\end{figure}
+
+
+
+
+
+
+
+\subsection{Wide-field Infrared Survey Explorer}
+\label{sec:unwise}
+
+O Wide-field Infrared Survey Explorer (WISE) é um telescópio espacial da NASA que realizou um levantamento \emph{all-sky} em quatro bandas do infravermelho médio: W1 (34000 \AA), W2 (46000 \AA), W3 (120000 \AA) e W4 (220000 \AA), com resolução angular de 6.1 arcsec, 6.4 arcsec, 6.5 arcsec e 12.0 arcsec respectivamente. Cobrindo 100\% do céu com múltiplas varreduras, gerou um catálogo de mais de 750 milhões de fontes, utilizando detectores HgCdTe resfriados criogenicamente (operando a 17K) para minimizar ruído térmico. A missão primária (2010) mapeou o céu completo uma vez e meia, enquanto a extensão NEOWISE (2013-presente) continua monitoragem nas bandas W1 e W2.
+
+\begin{figure}[!ht]
+  \centering
+  \caption{Cobertura espacial e espectral do levantamento WISE}
+  \label{fig:footprint-unwise}
+  \includegraphics[width=0.61\linewidth]{figures/footprint_unwise.pdf}\hfill
+  \includegraphics[width=0.37\linewidth]{figures/transmission_unwise.pdf}
+  \legend{A área de cobertura espacial do levantamento é mostrada no painel à esquerda na região em azul. A corbertura espectral é mostrada no painel à direita com as curvas de transmissão total dos dois filtros W1 e W2 em função do comprimento de onda.}
+\end{figure}
+
+
+
+
+
+
+
+
+% \subsection{Sloan Digital Sky Survey}
+% \label{sec:sdss}
+
+% \begin{figure}[!ht]
+%   \caption{Área de cobertura do levantamento SDSS}
+%   \label{fig:coverage-sdss}
+%   \includegraphics[width=\linewidth]{notebooks/plots/sdss_footprint.pdf}
+% \end{figure}
+
+% O Sloan Digital Sky Survey\footnote{\url{https://sdss.org}} (SDSS; \citealp{sdss}) é um dos levantamentos astronômicos mais influentes e abrangentes, sendo pioneiro no uso de técnicas digitais para mapear o céu noturno. Iniciado em 2000, o SDSS empregou um telescópio dedicado de 2,5 metros \cite{sdss-telescope} equipado com uma poderosa câmera de dispositivo de carga acoplada (CCD;  \citealp{sdss-camera}) para mapear o céu do norte com detalhes sem precedentes, cobrindo uma área de cerca de 14.000 graus quadrados, principalmente no hemisfério celestial norte. A Fig. \ref{fig:coverage-sdss} mostra a área de cobertuda da décima oitava liberação de dados (DR18; \citealp{sdss-dr18}). Ao longo de suas diferentes fases, o levantamento produziu dados detalhados de milhões de estrelas, galáxias e quasares, contribuindo significativamente para o avanço de áreas como cosmologia, formação de galáxias e estrutura de larga escala do universo.
+
+% O SDSS foi um dos primeiros levantamentos a realizar observações em múltiplas bandas fotométricas, abrangendo cinco faixas do espectro eletromagnético: u, g, r, i e z \cite{sdss-filters}, com comprimentos de onda centrados em 3543 $\si{\angstrom}$, 4770 $\si{\angstrom}$, 6231 $\si{\angstrom}$, 7625 $\si{\angstrom}$ e 9134 $\si{\angstrom}$, respectivamente. Essas bandas cobrem desde o ultravioleta próximo até o infravermelho próximo, permitindo uma caracterização abrangente das propriedades físicas e químicas dos objetos observados. Esse mapeamento multiespectral fornece dados que possibilitam a estimativa de parâmetros astrofísicos, como temperatura e metalicidade, e facilita a classificação e estudo da evolução dos objetos celestes \cite{sdss-photo}.
+
+% O pioneirismo do SDSS como levantamento astronômico digital se destaca pela implementação de uma infraestrutura de dados digital chamada SkyServer\footnote{\url{https://skyserver.sdss.org}} \cite{skyserver} e de técnicas automatizadas para a aquisição e processamento das imagens \cite{sdss-photo} e dos espectros \cite{sdss-spec}. Os dados obtidos pelo SDSS foram disponibilizados ao público por meio de lançamentos periódicos, estabelecendo um novo padrão de acessibilidade e transparência na astronomia observacional. Esse levantamento digital não apenas tornou-se uma referência na organização e disseminação de dados, mas também promoveu o desenvolvimento de observatórios virtuais e inspirou a criação de novos levantamentos digitais em diferentes faixas espectrais, solidificando a transição para a era da astronomia baseada em big data \cite{sciserver}.
+
+
+
+
+
+
+
+
+
 
 
 
